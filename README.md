@@ -39,17 +39,20 @@ Look at AsyncChromeDriverExample.
 Run built Example in release tab.
 
 ## Implemented
-WebDriver part has only basic functionality. Navigation, FindElements, Mouse, Keyboard
+WebDriver part has only basic functionality. Navigation, FindElements, Mouse, Keyboard.
+
+It was ported from [ChromeDriver](https://cs.chromium.org/chromium/src/chrome/test/chromedriver/README.txt) not directly, 
+partially. 
 
 ## TODO (in WebDriver part, DevTools are good)
-* Frames and tabs
-* Exceptions
-* Timeouts
-* Tests
+* [ ] Frames and tabs
+* [ ] Exceptions
+* [ ] Timeouts
+* [ ] Tests
 
 ## Contribute!
 If you see NotImplementedException, means you need functionality, which is not implemented yet.
 
-Write issue or to gitter. I implemented what I myself use at first
+Write issue or to [![Join the chat at https://gitter.im/AsyncWebDriver/Lobby](https://badges.gitter.im/AsyncWebDriver/Lobby.svg)](https://gitter.im/AsyncWebDriver/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge). I implemented what I myself use at first
 
 Feel free to submit pull requests
