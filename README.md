@@ -49,10 +49,13 @@ partially.
 * [ ] Exceptions
 * [ ] Timeouts
 * [ ] Tests
+* [ ] Documentation
 
 ## Contribute!
 If you see NotImplementedException, means you need functionality, which is not implemented yet.
 
-Write issue or to [![Join the chat at https://gitter.im/AsyncWebDriver/Lobby](https://badges.gitter.im/AsyncWebDriver/Lobby.svg)](https://gitter.im/AsyncWebDriver/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge). I implemented what I myself use at first
+Write issue or to [![Join the chat at https://gitter.im/AsyncWebDriver/Lobby](https://badges.gitter.im/AsyncWebDriver/Lobby.svg)](https://gitter.im/AsyncWebDriver/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge). I implemented what I myself use at first.
 
-Feel free to submit pull requests
+Feel free to submit pull requests.
+
+Please star the project. More stars - more time I'll spend on it. There's so much to do here.
