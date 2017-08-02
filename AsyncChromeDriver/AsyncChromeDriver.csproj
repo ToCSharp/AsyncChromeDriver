@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B397FF4B-9290-478F-BB70-DA91D23E4B68}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AsyncChromeDriver</RootNamespace>
+    <AssemblyName>AsyncChromeDriver</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AsyncWebDriver, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AsyncWebDriver.1.1.1\lib\net452\AsyncWebDriver.dll</HintPath>
+    </Reference>
+    <Reference Include="IWebBrowserClient, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AsyncWebDriver.1.1.1\lib\net452\IWebBrowserClient.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AsyncChromeDriver.cs" />
+    <Compile Include="ChromeDevTools.cs" />
+    <Compile Include="ChromeDriverKeyboard.cs" />
+    <Compile Include="ChromeDriverMouse.cs" />
+    <Compile Include="ChromeProcessInfo.cs" />
+    <Compile Include="ChromeProfilesWorker.cs" />
+    <Compile Include="ChromeSessionInfo.cs" />
+    <Compile Include="DriverCore\atoms.cs" />
+    <Compile Include="DriverCore\ElementCommands.cs" />
+    <Compile Include="DriverCore\ElementKeys.cs" />
+    <Compile Include="DriverCore\ElementUtils.cs" />
+    <Compile Include="DriverCore\FrameInfo.cs" />
+    <Compile Include="DriverCore\FrameTracker.cs" />
+    <Compile Include="DriverCore\js\call_function.js.cs" />
+    <Compile Include="DriverCore\js\focus.js.cs" />
+    <Compile Include="DriverCore\js\get_element_region.js.cs" />
+    <Compile Include="DriverCore\js\is_option_element_toggleable.js.cs" />
+    <Compile Include="DriverCore\ResultValueConverter.cs" />
+    <Compile Include="DriverCore\Session.cs" />
+    <Compile Include="DriverCore\WebView.cs" />
+    <Compile Include="DriverCore\WindowCommands.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BaristaLabs.chrome-dev-tools-sample\BaristaLabs.ChromeDevTools.Runtime.Framework\BaristaLabs.ChromeDevTools.Runtime.Framework.csproj">
+      <Project>{6f8eb349-fd03-41a7-9434-117ce10c999e}</Project>
+      <Name>BaristaLabs.ChromeDevTools.Runtime.Framework</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
