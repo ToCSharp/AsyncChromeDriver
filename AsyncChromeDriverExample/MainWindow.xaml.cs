@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BaristaLabs.ChromeDevTools.Runtime.Network;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -27,7 +28,7 @@ namespace AsyncChromeDriverExample
     public partial class MainWindow : Window
     {
         private AsyncChromeDriver asyncChromeDriver;
-        private WebDriver asyncDriver;
+        private WebDriver webDriver;
         private ChromeRequestListener chromeRequestListener;
 
         public MainWindow()
@@ -40,7 +41,7 @@ namespace AsyncChromeDriverExample
             try
             {
                 asyncChromeDriver = new AsyncChromeDriver();
-                asyncDriver = new WebDriver(asyncChromeDriver);
+                webDriver = new WebDriver(asyncChromeDriver);
                 await asyncChromeDriver.Connect();
                 tbDevToolsRes.Text = "opened";
             }
@@ -52,7 +53,7 @@ namespace AsyncChromeDriverExample
 
         private async void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            await asyncDriver?.Close();
+            await webDriver?.Close();
             //await asyncChromeDriver?.Close();
             tbDevToolsRes.Text = "closed";
         }
@@ -116,19 +117,19 @@ namespace AsyncChromeDriverExample
 
         private async void Button_Click_3(object sender, RoutedEventArgs e)
         {
-            if (asyncDriver == null)
+            if (webDriver == null)
             {
-                asyncDriver = new WebDriver(new AsyncChromeDriver());
+                asyncChromeDriver = new AsyncChromeDriver();
+                webDriver = new WebDriver(asyncChromeDriver);
             }
-            var mouse = asyncDriver.Mouse;
             try
             {
-                var res2 = await asyncDriver.GoToUrl("https://www.google.com/");
-                var query = await asyncDriver.FindElement(By.Name("q"));
+                var res2 = await webDriver.GoToUrl("https://www.google.com/");
+                var query = await webDriver.FindElement(By.Name("q"));
                 if (query == null)
                 {
                     await Task.Delay(1000);
-                    query = await asyncDriver.FindElement(By.Name("q"));
+                    query = await webDriver.FindElement(By.Name("q"));
                 }
                 foreach (var v in "ToCSharp")
                 {
@@ -138,7 +139,7 @@ namespace AsyncChromeDriverExample
                 await Task.Delay(500);
                 await query.SendKeys(Keys.Enter);
                 await Task.Delay(2000);
-                query = await asyncDriver.FindElement(By.Name("q"));
+                query = await webDriver.FindElement(By.Name("q"));
                 await query.SendKeys(Keys.ArrowDown);
                 await Task.Delay(1000);
                 await query.SendKeys(Keys.ArrowDown);
@@ -148,9 +149,9 @@ namespace AsyncChromeDriverExample
                 await query.SendKeys(Keys.ArrowUp);
                 await Task.Delay(500);
                 await query.SendKeys(Keys.Enter);
-                var el = await asyncDriver.SwitchTo().ActiveElement();
-                await asyncDriver.Keyboard.SendKeys(Keys.PageDown);
-
+                var el = await webDriver.SwitchTo().ActiveElement();
+                await webDriver.Keyboard.SendKeys(Keys.PageDown);
+                var allCookies = await asyncChromeDriver.DevTools.Session.Network.GetAllCookies(new GetAllCookiesCommand());
             }
             catch (Exception ex)
             {
@@ -169,18 +170,18 @@ namespace AsyncChromeDriverExample
 
         private async void Button_Click_4(object sender, RoutedEventArgs e)
         {
-            if (asyncDriver != null)
+            if (webDriver != null)
             {
-                await asyncDriver.Keyboard.SendKeys(Keys.Up);
+                await webDriver.Keyboard.SendKeys(Keys.Up);
             }
 
         }
 
         private async void Button_Click_5(object sender, RoutedEventArgs e)
         {
-            if (asyncDriver != null)
+            if (webDriver != null)
             {
-                await asyncDriver.Keyboard.SendKeys(Keys.Down);
+                await webDriver.Keyboard.SendKeys(Keys.Down);
             }
 
         }
