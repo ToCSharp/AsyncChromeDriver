@@ -1,9 +1,9 @@
 # AsyncChromeDriver
 Chrome WebDriver and Chrome DevTools in one library. 
 
-It connects directly to Chrome DevTools and is async from this connection. No need in chromedriver.
+It connects directly to [Chrome DevTools](https://chromedevtools.github.io/devtools-protocol/) and is async from this connection. No need in chromedriver.
 
-AsyncChromeDriver implements IAsyncWebBrowserClient and can be used as [AsyncWebDriver](https://github.com/ToCSharp/AsyncWebDriver).
+AsyncChromeDriver implements [IAsyncWebBrowserClient](https://github.com/ToCSharp/AsyncWebDriver/blob/master/IAsyncWebBrowserClient/IAsyncWebBrowserClient.cs) and can be used as [AsyncWebDriver](https://github.com/ToCSharp/AsyncWebDriver).
 
 It also has DevTools property and you can easily use all power of Chrome DevTools from your .Net app. Thanks to [BaristaLabs/chrome-dev-tools-sample](https://github.com/BaristaLabs/chrome-dev-tools-sample)
 
