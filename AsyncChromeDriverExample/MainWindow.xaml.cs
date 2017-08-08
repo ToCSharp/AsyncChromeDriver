@@ -1,20 +1,12 @@
 ﻿using BaristaLabs.ChromeDevTools.Runtime.Network;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Windows.Threading;
 using Zu.AsyncWebDriver;
 using Zu.AsyncWebDriver.Remote;
@@ -152,6 +144,21 @@ namespace AsyncChromeDriverExample
                 var el = await webDriver.SwitchTo().ActiveElement();
                 await webDriver.Keyboard.SendKeys(Keys.PageDown);
                 var allCookies = await asyncChromeDriver.DevTools.Session.Network.GetAllCookies(new GetAllCookiesCommand());
+                var screenshot = await asyncChromeDriver.DevTools.Session.Page.CaptureScreenshot(new BaristaLabs.ChromeDevTools.Runtime.Page.CaptureScreenshotCommand());
+                if (!string.IsNullOrWhiteSpace(screenshot.Data))
+                {
+                    var dir = @"C:\temp";
+                    if (!Directory.Exists(dir)) Directory.CreateDirectory(dir);
+                    var i = 0;
+                    var path = "";
+                    do
+                    {
+                        i++;
+                        path = Path.Combine(dir, $"screenshot{i}.png");
+                    } while (File.Exists(path));
+                    File.WriteAllBytes(path, Convert.FromBase64String(screenshot.Data));
+                }
+
             }
             catch (Exception ex)
             {
@@ -184,6 +191,44 @@ namespace AsyncChromeDriverExample
                 await webDriver.Keyboard.SendKeys(Keys.Down);
             }
 
+        }
+
+        private async void Button_Click_6(object sender, RoutedEventArgs e)
+        {
+            if (webDriver == null)
+            {
+                asyncChromeDriver = new AsyncChromeDriver();
+                webDriver = new WebDriver(asyncChromeDriver);
+            }
+            try
+            {
+                await asyncChromeDriver.CheckConnected();
+                await asyncChromeDriver.DevTools.Session.Page.Enable(new BaristaLabs.ChromeDevTools.Runtime.Page.EnableCommand());
+                asyncChromeDriver.DevTools.Session.Page.SubscribeToLoadEventFiredEvent(async (e2) =>
+                {
+                    var screenshot = await asyncChromeDriver.DevTools.Session.Page.CaptureScreenshot(new BaristaLabs.ChromeDevTools.Runtime.Page.CaptureScreenshotCommand());
+                    if (!string.IsNullOrWhiteSpace(screenshot.Data))
+                    {
+                        var dir = @"C:\temp";
+                        if (!Directory.Exists(dir)) Directory.CreateDirectory(dir);
+                        var i = 0;
+                        var path = "";
+                        do
+                        {
+                            i++;
+                            path = Path.Combine(dir, $"screenshot{i}.png");
+                        } while (File.Exists(path));
+                        File.WriteAllBytes(path, Convert.FromBase64String(screenshot.Data));
+                    }
+
+                });
+                var res2 = await webDriver.GoToUrl("https://www.google.com/");
+
+            }
+            catch (Exception ex)
+            {
+                tbDevToolsRes.Text = ex.ToString();
+            }
         }
     }
 }
