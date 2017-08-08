@@ -37,6 +37,7 @@
                     <Button Content="down" HorizontalAlignment="Left" Margin="31,51,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_5"/>
                     <Button Content="go to google and CaptureScreenshot" HorizontalAlignment="Left" Margin="160,26,0,0" VerticalAlignment="Top" Width="259" Click="Button_Click_6"/>
                     <Button Content="go to google and CaptureScreenshot 2" HorizontalAlignment="Left" Margin="160,51,0,0" VerticalAlignment="Top" Width="259" Click="Button_Click_7"/>
+                    <Button Content="webDriver.GetScreenshot" HorizontalAlignment="Left" Margin="160,76,0,0" VerticalAlignment="Top" Width="259" Click="Button_Click_8"/>
                 </Grid>
             </TabItem>
         </TabControl>

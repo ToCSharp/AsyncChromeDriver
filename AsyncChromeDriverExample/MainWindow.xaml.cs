@@ -223,17 +223,23 @@ namespace AsyncChromeDriverExample
         {
             if (!string.IsNullOrWhiteSpace(base64String))
             {
-                var dir = @"C:\temp";
-                if (!Directory.Exists(dir)) Directory.CreateDirectory(dir);
-                var i = 0;
-                var path = "";
-                do
-                {
-                    i++;
-                    path = Path.Combine(dir, $"screenshot{i}.png");
-                } while (File.Exists(path));
+                string path = GetFilePathToSaveScreenshot();
                 File.WriteAllBytes(path, Convert.FromBase64String(base64String));
             }
+        }
+
+        private static string GetFilePathToSaveScreenshot()
+        {
+            var dir = @"C:\temp";
+            if (!Directory.Exists(dir)) Directory.CreateDirectory(dir);
+            var i = 0;
+            var path = "";
+            do
+            {
+                i++;
+                path = Path.Combine(dir, $"screenshot{i}.png");
+            } while (File.Exists(path));
+            return path;
         }
 
         private async void Button_Click_7(object sender, RoutedEventArgs e)
@@ -265,6 +271,26 @@ namespace AsyncChromeDriverExample
                     await webDriver.Close();
                 }
                 catch { }
+            }
+        }
+
+        private async void Button_Click_8(object sender, RoutedEventArgs e)
+        {
+            if (webDriver == null)
+            {
+                asyncChromeDriver = new AsyncChromeDriver();
+                webDriver = new WebDriver(asyncChromeDriver);
+            }
+            try
+            {
+                var res2 = await webDriver.GoToUrl("https://www.google.com/");
+                var screenshot = await webDriver.GetScreenshot();
+                string path = GetFilePathToSaveScreenshot();
+                screenshot.SaveAsFile(path, Zu.WebBrowser.BasicTypes.ScreenshotImageFormat.Png);
+            }
+            catch (Exception ex)
+            {
+                tbDevToolsRes.Text = ex.ToString();
             }
         }
     }

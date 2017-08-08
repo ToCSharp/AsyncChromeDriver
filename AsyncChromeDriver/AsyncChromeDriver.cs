@@ -465,9 +465,11 @@ namespace Zu.Chrome
             throw new NotImplementedException();
         }
 
-        public Task<Screenshot> TakeScreenshot(string elementId, string highlights, string full, string hash, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<Screenshot> TakeScreenshot(string elementId, string highlights, string full, string hash, CancellationToken cancellationToken = default(CancellationToken))
         {
-            throw new NotImplementedException();
+            if (DevTools?.Session == null) return null;
+            var screenshot = await DevTools.Session.Page.CaptureScreenshot(new BaristaLabs.ChromeDevTools.Runtime.Page.CaptureScreenshotCommand());
+            return new Screenshot(screenshot?.Data);
         }
     }
 }
