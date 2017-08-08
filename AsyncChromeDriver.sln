@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BaristaLabs.ChromeDevTools.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsyncChromeDriverExample", "AsyncChromeDriverExample\AsyncChromeDriverExample.csproj", "{17955490-8C37-4809-9529-B4269187BE46}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsyncChromeDriverNugetTest", "AsyncChromeDriverNugetTest\AsyncChromeDriverNugetTest.csproj", "{2C781DC3-70E0-4CEE-8E29-7FB3034D3972}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,10 @@ Global
 		{17955490-8C37-4809-9529-B4269187BE46}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{17955490-8C37-4809-9529-B4269187BE46}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{17955490-8C37-4809-9529-B4269187BE46}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C781DC3-70E0-4CEE-8E29-7FB3034D3972}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C781DC3-70E0-4CEE-8E29-7FB3034D3972}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C781DC3-70E0-4CEE-8E29-7FB3034D3972}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C781DC3-70E0-4CEE-8E29-7FB3034D3972}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
