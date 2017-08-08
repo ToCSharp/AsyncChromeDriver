@@ -35,6 +35,22 @@ PM> Install-Package AsyncChromeDriver
       screenshot.SaveAsFile(GetFilePathToSaveScreenshot(), Zu.WebBrowser.BasicTypes.ScreenshotImageFormat.Png);
 
 ```
+### Using DevTools
+```csharp
+    asyncChromeDriver = new AsyncChromeDriver();
+    await asyncChromeDriver.CheckConnected();
+    await asyncChromeDriver.DevTools.Session.Page.Enable(new BaristaLabs.ChromeDevTools.Runtime.Page.EnableCommand());
+    asyncChromeDriver.DevTools.Session.Page.SubscribeToDomContentEventFiredEvent(async (e2) =>
+    {
+        var screenshot = await asyncChromeDriver.DevTools.Session.Page.CaptureScreenshot(new BaristaLabs.ChromeDevTools.Runtime.Page.CaptureScreenshotCommand());
+        SaveScreenshot(screenshot.Data);
+    });
+    //await asyncChromeDriver.GoToUrl("https://www.google.com/");
+    await asyncChromeDriver.DevTools.Session.Page.Navigate(new BaristaLabs.ChromeDevTools.Runtime.Page.NavigateCommand
+    {
+        Url = "https://www.google.com/"
+    });
+```
 
 ## Examples
 Look at AsyncChromeDriverExample.
