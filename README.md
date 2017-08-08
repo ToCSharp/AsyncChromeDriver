@@ -31,6 +31,9 @@ PM> Install-Package AsyncChromeDriver
       await query.SendKeys(Keys.Enter);
       var allCookies = await asyncChromeDriver.DevTools.Session.Network.GetAllCookies(new GetAllCookiesCommand());
 
+      var screenshot = await webDriver.GetScreenshot();
+      screenshot.SaveAsFile(GetFilePathToSaveScreenshot(), Zu.WebBrowser.BasicTypes.ScreenshotImageFormat.Png);
+
 ```
 
 ## Examples
