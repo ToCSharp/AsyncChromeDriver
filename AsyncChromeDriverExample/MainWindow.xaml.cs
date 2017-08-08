@@ -204,22 +204,10 @@ namespace AsyncChromeDriverExample
             {
                 await asyncChromeDriver.CheckConnected();
                 await asyncChromeDriver.DevTools.Session.Page.Enable(new BaristaLabs.ChromeDevTools.Runtime.Page.EnableCommand());
-                asyncChromeDriver.DevTools.Session.Page.SubscribeToLoadEventFiredEvent(async (e2) =>
+                asyncChromeDriver.DevTools.Session.Page.SubscribeToDomContentEventFiredEvent(async (e2) =>
                 {
                     var screenshot = await asyncChromeDriver.DevTools.Session.Page.CaptureScreenshot(new BaristaLabs.ChromeDevTools.Runtime.Page.CaptureScreenshotCommand());
-                    if (!string.IsNullOrWhiteSpace(screenshot.Data))
-                    {
-                        var dir = @"C:\temp";
-                        if (!Directory.Exists(dir)) Directory.CreateDirectory(dir);
-                        var i = 0;
-                        var path = "";
-                        do
-                        {
-                            i++;
-                            path = Path.Combine(dir, $"screenshot{i}.png");
-                        } while (File.Exists(path));
-                        File.WriteAllBytes(path, Convert.FromBase64String(screenshot.Data));
-                    }
+                    SaveScreenshot(screenshot.Data);
 
                 });
                 var res2 = await webDriver.GoToUrl("https://www.google.com/");
@@ -228,6 +216,55 @@ namespace AsyncChromeDriverExample
             catch (Exception ex)
             {
                 tbDevToolsRes.Text = ex.ToString();
+            }
+        }
+
+        private static void SaveScreenshot(string base64String)
+        {
+            if (!string.IsNullOrWhiteSpace(base64String))
+            {
+                var dir = @"C:\temp";
+                if (!Directory.Exists(dir)) Directory.CreateDirectory(dir);
+                var i = 0;
+                var path = "";
+                do
+                {
+                    i++;
+                    path = Path.Combine(dir, $"screenshot{i}.png");
+                } while (File.Exists(path));
+                File.WriteAllBytes(path, Convert.FromBase64String(base64String));
+            }
+        }
+
+        private async void Button_Click_7(object sender, RoutedEventArgs e)
+        {
+            if (webDriver == null)
+            {
+                asyncChromeDriver = new AsyncChromeDriver();
+                webDriver = new WebDriver(asyncChromeDriver);
+            }
+            try
+            {
+                var res2 = await webDriver.GoToUrl("https://www.google.com/");
+                var screenshot = await asyncChromeDriver.DevTools.Session.Page.CaptureScreenshot(new BaristaLabs.ChromeDevTools.Runtime.Page.CaptureScreenshotCommand());
+                SaveScreenshot(screenshot.Data);
+
+            }
+            catch (Exception ex)
+            {
+                tbDevToolsRes.Text = ex.ToString();
+            }
+        }
+
+        private async void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (webDriver != null)
+            {
+                try
+                {
+                    await webDriver.Close();
+                }
+                catch { }
             }
         }
     }
