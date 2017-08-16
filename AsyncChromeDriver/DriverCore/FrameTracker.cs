@@ -20,7 +20,7 @@ namespace Zu.Chrome.DriverCore
             this.devTools = devTools;
         }
 
-        internal async Task Enable()
+        public async Task Enable()
         {
             devTools?.Session.Runtime.SubscribeToExecutionContextCreatedEvent(OnContextCreatedEvent);
             devTools?.Session.Runtime.SubscribeToExecutionContextDestroyedEvent(OnContextDestroyedEvent);

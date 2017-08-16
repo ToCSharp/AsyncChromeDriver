@@ -56,6 +56,9 @@
     <Compile Include="ChromeProcessInfo.cs" />
     <Compile Include="ChromeProfilesWorker.cs" />
     <Compile Include="ChromeSessionInfo.cs" />
+    <Compile Include="DevTools\DevToolsEventData.cs" />
+    <Compile Include="DevTools\DevToolsCommandResult.cs" />
+    <Compile Include="DevTools\DevToolsCommandData.cs" />
     <Compile Include="DriverCore\atoms.cs" />
     <Compile Include="DriverCore\ElementCommands.cs" />
     <Compile Include="DriverCore\ElementKeys.cs" />

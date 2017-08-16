@@ -9,12 +9,13 @@ using Zu.Chrome.DriverCore;
 using Zu.WebBrowser.BasicTypes;
 using Zu.WebBrowser.AsyncInteractions;
 using System.IO;
+using Zu.Chrome.DevTools;
 
 namespace Zu.Chrome
 {
     public class AsyncChromeDriver : IAsyncWebBrowserClient
     {
-        private FrameTracker frameTracker;
+        public FrameTracker FrameTracker;
         private bool isConnected = false;
 
         public ChromeDevTools DevTools { get; set; }
@@ -23,9 +24,9 @@ namespace Zu.Chrome
 
         public string FilesBasePath { get; set; } = "js\\";
         public Contexts CurrentContext { get; set; }
-        public int Port { get; private set; }
-        public IMouse Mouse { get; }
-        public IKeyboard Keyboard { get; }
+        public int Port { get; set; }
+        public IMouse Mouse { get; set; }
+        public IKeyboard Keyboard { get; set; }
         public Session Session { get; private set; }
         public ElementCommands ElementCommands { get; private set; }
         public ElementUtils ElementUtils { get; private set; }
@@ -35,7 +36,9 @@ namespace Zu.Chrome
 
         static int sessionId = 0;
         private bool isTempUserDir;
-        private ChromeProcessInfo chromeProcess;
+        public ChromeProcessInfo chromeProcess;
+        public delegate void DevToolsEventHandler(object sender, string methodName, JToken eventData);
+        public event DevToolsEventHandler DevToolsEvent;
 
         public AsyncChromeDriver(bool openInTempDir = true)
             : this(11000 + new Random().Next(2000))
@@ -52,22 +55,45 @@ namespace Zu.Chrome
             CurrentContext = Contexts.Chrome;
             Port = port;
             DevTools = new ChromeDevTools(Port);
+            CreateDriverCore();
+        }
+
+        public void CreateDriverCore()
+        {
             Session = new Session(sessionId++);
-            frameTracker = new FrameTracker(DevTools);
-            WebView = new WebView(DevTools, frameTracker, this);
+            FrameTracker = new FrameTracker(DevTools);
+            WebView = new WebView(DevTools, FrameTracker, this);
             Mouse = new ChromeDriverMouse(WebView, Session);
             Keyboard = new ChromeDriverKeyboard(WebView);
             ElementUtils = new ElementUtils(WebView, Session);
             ElementCommands = new ElementCommands(WebView, Session, ElementUtils, this);
             WindowCommands = new WindowCommands(WebView, Session, this);
         }
-        public async Task<string> Connect(CancellationToken cancellationToken = default(CancellationToken))
+
+        public virtual async Task<string> Connect(CancellationToken cancellationToken = default(CancellationToken))
         {
+            UnsubscribeDevToolsSessionEvent();
             DoConnectWhenCheckConnected = false;
             if (!string.IsNullOrWhiteSpace(UserDir)) chromeProcess = await OpenChromeProfile(UserDir);
             await DevTools.Connect();
-            await frameTracker.Enable();
+            SubscribeToDevToolsSessionEvent();
+            await FrameTracker.Enable();
             return $"Connected to Chrome port {Port}";
+        }
+
+        protected void SubscribeToDevToolsSessionEvent()
+        {
+            DevTools.Session.DevToolsEvent += DevToolsSessionEvent;
+        }
+
+        protected void UnsubscribeDevToolsSessionEvent()
+        {
+            if (DevTools.Session != null) DevTools.Session.DevToolsEvent -= DevToolsSessionEvent;
+        }
+
+        private void DevToolsSessionEvent(object sender, string methodName, JToken eventData)
+        {
+            DevToolsEvent?.Invoke(sender, methodName, eventData);
         }
 
         private async Task<ChromeProcessInfo> OpenChromeProfile(string userDir)
@@ -103,6 +129,27 @@ namespace Zu.Chrome
 
             }
             return "ok";
+        }
+
+        public async Task<DevToolsCommandResult> SendDevToolsCommand(DevToolsCommandData commandData, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            try
+            {
+                var res = await DevTools.Session?.SendCommand(commandData.CommandName, commandData.Params, cancellationToken, commandData.MillisecondsTimeout);
+                return new DevToolsCommandResult
+                {
+                    Id = commandData.Id,
+                    Result = res
+                };
+            }
+            catch (Exception ex)
+            {
+                return new DevToolsCommandResult
+                {
+                    Id = commandData.Id,
+                    Error = ex.ToString()
+                };
+            }
         }
 
         public async Task CheckConnected(CancellationToken cancellationToken = default(CancellationToken))

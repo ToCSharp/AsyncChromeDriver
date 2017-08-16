@@ -12,7 +12,7 @@ namespace Zu.Chrome
     public class ChromeDevTools
     {
         public int Port { get; private set; }
-        public ChromeSession Session { get; set; }
+        public virtual ChromeSession Session { get; set; }
 
         public ChromeDevTools(int port = 5999)
         {

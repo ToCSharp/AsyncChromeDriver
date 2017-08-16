@@ -30,6 +30,8 @@ namespace BaristaLabs.ChromeDevTools.Runtime
         private LastResponseInfo m_lastResponse;
         private long m_currentCommandId = 0;
 
+        public delegate void DevToolsEventHandler(object sender, string methodName, JToken eventData);
+        public event DevToolsEventHandler DevToolsEvent;
         /// <summary>
         /// Gets or sets the number of milliseconds to wait for a command to complete. Default is 5 seconds.
         /// </summary>
@@ -148,7 +150,7 @@ namespace BaristaLabs.ChromeDevTools.Runtime
         /// <param name="throwExceptionIfResponseNotReceived"></param>
         /// <returns></returns>
         //[DebuggerStepThrough]
-        public async Task<JToken> SendCommand(string commandName, JToken @params, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
+        public virtual async Task<JToken> SendCommand(string commandName, JToken @params, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
             var message = new
             {
@@ -197,7 +199,7 @@ namespace BaristaLabs.ChromeDevTools.Runtime
         /// </summary>
         /// <typeparam name="TEvent">Event to subscribe to</typeparam>
         /// <param name="eventCallback"></param>
-        public void Subscribe<TEvent>(Action<TEvent> eventCallback)
+        public virtual void Subscribe<TEvent>(Action<TEvent> eventCallback)
             where TEvent : IEvent
         {
             if (eventCallback == null)
@@ -235,6 +237,7 @@ namespace BaristaLabs.ChromeDevTools.Runtime
 
         private void RaiseEvent(string methodName, JToken eventData)
         {
+            DevToolsEvent?.Invoke(this, methodName, eventData);
             if (m_eventHandlers.TryGetValue(methodName, out ConcurrentBag<Action<Object>> bag))
             {
                 if (!EventTypeMap.TryGetTypeForMethodName(methodName, out Type eventType))
