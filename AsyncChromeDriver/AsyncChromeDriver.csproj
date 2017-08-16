@@ -73,6 +73,7 @@
     <Compile Include="DriverCore\Session.cs" />
     <Compile Include="DriverCore\WebView.cs" />
     <Compile Include="DriverCore\WindowCommands.cs" />
+    <Compile Include="ProcessWithJobObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

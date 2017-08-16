@@ -113,7 +113,34 @@ namespace Zu.Chrome
         public async Task<string> Close(CancellationToken cancellationToken = default(CancellationToken))
         {
             if (isConnected) await Disconnect();
-            chromeProcess?.Proc?.CloseMainWindow();
+            if (chromeProcess?.Proc != null && !chromeProcess.Proc.HasExited)
+            {
+                try
+                {
+                    chromeProcess.Proc.CloseMainWindow();
+                }
+                catch
+                {
+                    try
+                    {
+                        chromeProcess.Proc.Kill();
+                    }
+                    catch
+                    {
+
+                    }
+                }
+                while (!chromeProcess.Proc.HasExited)
+                {
+                    await Task.Delay(250);
+                }
+            }
+            chromeProcess?.Proc?.Dispose();
+            if(chromeProcess?.ProcWithJobObject != null)
+            {
+                chromeProcess.ProcWithJobObject.TerminateProc();
+            }
+            chromeProcess = null;
             await Task.Delay(1000);
             if (isTempUserDir)
             {
@@ -123,8 +150,12 @@ namespace Zu.Chrome
                 }
                 catch
                 {
-                    Thread.Sleep(5000);
-                    if (Directory.Exists(UserDir)) Directory.Delete(UserDir, true);
+                    Thread.Sleep(3000);
+                    try
+                    {
+                        if (Directory.Exists(UserDir)) Directory.Delete(UserDir, true);
+                    }
+                    catch { }
                 }
 
             }

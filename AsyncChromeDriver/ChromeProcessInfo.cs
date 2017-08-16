@@ -7,6 +7,7 @@ namespace Zu.Chrome
     public class ChromeProcessInfo
     {
         public Process Proc { get; set; }
+        public ProcessWithJobObject ProcWithJobObject { get; set; }
         public string UserDir { get; set; }
         public int Port { get; set; }
 
