@@ -36,10 +36,12 @@ namespace AsyncChromeDriverExample
                 webDriver = new WebDriver(asyncChromeDriver);
                 await asyncChromeDriver.Connect();
                 tbDevToolsRes.Text = "opened";
+                tbDevToolsRes2.Text = $"opened on port {asyncChromeDriver.Port} in dir {asyncChromeDriver.UserDir} \nWhen close, dir will be DELETED";
             }
             catch (Exception ex)
             {
                 tbDevToolsRes.Text = ex.ToString();
+                tbDevToolsRes2.Text = ex.ToString();
             }
         }
 
@@ -48,6 +50,7 @@ namespace AsyncChromeDriverExample
             await webDriver?.Close();
             //await asyncChromeDriver?.Close();
             tbDevToolsRes.Text = "closed";
+            tbDevToolsRes2.Text = "closed";
         }
 
         ObservableCollection<ResponseReceivedEventInfo> responseEvents = new ObservableCollection<ResponseReceivedEventInfo>();
@@ -293,5 +296,50 @@ namespace AsyncChromeDriverExample
                 tbDevToolsRes.Text = ex.ToString();
             }
         }
+
+        private async void Button_Click_9(object sender, RoutedEventArgs e)
+        {
+            var userDir = tbOpenProfileDir.Text;
+            try
+            {
+                asyncChromeDriver = new AsyncChromeDriver(userDir);
+                webDriver = new WebDriver(asyncChromeDriver);
+                // await asyncChromeDriver.Connect(); // browser opens here
+                await webDriver.GoToUrl("https://www.google.com/"); // browser opens here
+                var mess = $"opened on port {asyncChromeDriver.Port} in dir {asyncChromeDriver.UserDir} \nWhen close, dir will NOT be deleted";
+                tbDevToolsRes.Text = mess;
+                tbDevToolsRes2.Text = mess;
+            }
+            catch (Exception ex)
+            {
+                tbDevToolsRes.Text = ex.ToString();
+                tbDevToolsRes2.Text = ex.ToString();
+            }
+
+        }
+
+        private async void Button_Click_10(object sender, RoutedEventArgs e)
+        {
+            var userDir = tbOpenProfileDir.Text;
+            if (int.TryParse(tbOpenProfilePort.Text, out int port))
+            {
+                try
+                {
+                    asyncChromeDriver = new AsyncChromeDriver(userDir, port);
+                    webDriver = new WebDriver(asyncChromeDriver);
+                    // await asyncChromeDriver.Connect(); // browser opens here
+                    await webDriver.GoToUrl("https://www.google.com/"); // browser opens here
+                    var mess = $"opened on port {asyncChromeDriver.Port} in dir {asyncChromeDriver.UserDir} \nWhen close, dir will NOT be deleted";
+                    tbDevToolsRes.Text = mess;
+                    tbDevToolsRes2.Text = mess;
+                }
+                catch (Exception ex)
+                {
+                    tbDevToolsRes.Text = ex.ToString();
+                    tbDevToolsRes2.Text = ex.ToString();
+                }
+            }
+        }
+
     }
 }

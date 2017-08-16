@@ -18,8 +18,8 @@
                         <RowDefinition Height="84"/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
-                    <Button Content="open" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click" Height="20"/>
-                    <Button Content="close" HorizontalAlignment="Left" Margin="132,10,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_1" Height="20"/>
+                    <Button Content="open temp profile" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="117" Click="Button_Click" Height="20"/>
+                    <Button Content="close" HorizontalAlignment="Left" Margin="158,10,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_1" Height="20"/>
                     <TextBox x:Name="tbDevToolsRes" Grid.Column="1" TextWrapping="Wrap"/>
                     <Button Content="listen requests" HorizontalAlignment="Left" Margin="10,35,0,0" VerticalAlignment="Top" Width="94" Click="Button_Click_2" Height="20"/>
                     <Button Content="cookies" HorizontalAlignment="Right" Margin="0,0,84,5" VerticalAlignment="Bottom" Width="57" Click="Button_Click_26" Height="20"/>
@@ -38,6 +38,21 @@
                     <Button Content="go to google and CaptureScreenshot" HorizontalAlignment="Left" Margin="160,26,0,0" VerticalAlignment="Top" Width="259" Click="Button_Click_6"/>
                     <Button Content="go to google and CaptureScreenshot 2" HorizontalAlignment="Left" Margin="160,51,0,0" VerticalAlignment="Top" Width="259" Click="Button_Click_7"/>
                     <Button Content="webDriver.GetScreenshot" HorizontalAlignment="Left" Margin="160,76,0,0" VerticalAlignment="Top" Width="259" Click="Button_Click_8"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Open">
+                <Grid Background="#FFE5E5E5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="91*"/>
+                        <RowDefinition Height="200*"/>
+                    </Grid.RowDefinitions>
+                    <TextBox x:Name="tbOpenProfileDir" HorizontalAlignment="Left" Height="23" Margin="23,31,0,0" TextWrapping="Wrap" Text="C:\Chrome\profiles\prof1" VerticalAlignment="Top" Width="242"/>
+                    <Button Content="open profile with user dir" HorizontalAlignment="Left" Margin="278,34,0,0" VerticalAlignment="Top" Width="177" Click="Button_Click_9" Height="20"/>
+                    <TextBox x:Name="tbDevToolsRes2" Grid.Row="1" TextWrapping="Wrap" Text="TextBox"/>
+                    <Button Content="close" HorizontalAlignment="Left" Margin="210,6,0,0" VerticalAlignment="Top" Width="123" Click="Button_Click_1" Height="20"/>
+                    <TextBox x:Name="tbOpenProfilePort" HorizontalAlignment="Left" Height="23" Margin="30,59,0,0" TextWrapping="Wrap" Text="7777" VerticalAlignment="Top" Width="120"/>
+                    <Button Content="open temp profile" HorizontalAlignment="Left" Margin="30,6,0,0" VerticalAlignment="Top" Width="141" Height="20" Click="Button_Click"/>
+                    <Button Content="open profile with user dir and port" HorizontalAlignment="Left" Margin="162,59,0,0" VerticalAlignment="Top" Width="203" Click="Button_Click_10"/>
                 </Grid>
             </TabItem>
         </TabControl>
