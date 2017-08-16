@@ -35,7 +35,7 @@ namespace Zu.Chrome
         public bool DoConnectWhenCheckConnected { get; set; } = true;
 
         static int sessionId = 0;
-        private bool isTempUserDir;
+        public bool IsTempUserDir { get; set; } = false;
         public ChromeProcessInfo chromeProcess;
         public delegate void DevToolsEventHandler(object sender, string methodName, JToken eventData);
         public event DevToolsEventHandler DevToolsEvent;
@@ -45,9 +45,20 @@ namespace Zu.Chrome
         {
             if (openInTempDir)
             {
-                isTempUserDir = true;
+                IsTempUserDir = true;
                 UserDir = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
             }
+        }
+        public AsyncChromeDriver(string profileDir, int port)
+            : this(port)
+        {
+            UserDir = profileDir;
+        }
+
+        public AsyncChromeDriver(string profileDir)
+            : this(11000 + new Random().Next(2000))
+        {
+            UserDir = profileDir;
         }
 
         public AsyncChromeDriver(int port)
@@ -142,7 +153,7 @@ namespace Zu.Chrome
             }
             chromeProcess = null;
             await Task.Delay(1000);
-            if (isTempUserDir)
+            if (IsTempUserDir)
             {
                 try
                 {
