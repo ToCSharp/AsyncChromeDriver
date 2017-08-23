@@ -132,6 +132,11 @@ namespace Zu.Chrome.DriverCore
             var res = await webView.CallFunction(func, $"{{\"{GetElementKey()}\":\"{elementId}\"}}", null, true, false, cancellationToken);
             return (res?.Result?.Value as JObject)?["value"]?.ToString();
         }
+        public async Task<string> GetElementText(string elementId, CancellationToken cancellationToken = new CancellationToken())
+        {
+            var res = await webView.CallFunction(atoms.GET_TEXT, $"{{\"{GetElementKey()}\":\"{elementId}\"}}", null, true, false, cancellationToken);
+            return ResultValueConverter.AsString(res?.Result?.Value);
+        }
         public async Task<WebSize> GetElementSize(string elementId, CancellationToken cancellationToken = new CancellationToken())
         {
             var res = await webView.CallFunction(atoms.GET_SIZE, $"{{\"{GetElementKey()}\":\"{elementId}\"}}", null, true, false, cancellationToken);

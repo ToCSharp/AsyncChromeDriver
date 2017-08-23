@@ -347,9 +347,10 @@ namespace Zu.Chrome
             return res.ToString();
         }
 
-        public Task<string> GetElementText(string elementId, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<string> GetElementText(string elementId, CancellationToken cancellationToken = default(CancellationToken))
         {
-            throw new NotImplementedException();
+            var res = await ElementUtils.GetElementText(elementId);
+            return res.ToString();
         }
 
         public Task<string> GetElementValueOfCssProperty(string elementId, string propName, CancellationToken cancellationToken = default(CancellationToken))
