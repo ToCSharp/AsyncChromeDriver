@@ -32,10 +32,15 @@ namespace Zu.Chrome.DriverCore
 
         public async Task<bool> VerifyElementClickable(string elementId, WebPoint location, CancellationToken cancellationToken = new CancellationToken())
         {
-            var res = await webView.CallFunction(atoms.IS_ELEMENT_CLICKABLE, $"{{\"{GetElementKey()}\":\"{elementId}\"}}, {location.X}, {location.Y}", null, true, false, cancellationToken);
-            return ResultValueConverter.ToBool(res?.Result?.Value);
+            var res = await webView.CallFunction(atoms.IS_ELEMENT_CLICKABLE, $"{{\"{GetElementKey()}\":\"{elementId}\"}}, {WebPointToJsonString(location)}", null, true, false, cancellationToken);
+            //todo add exceptions
+            return (res?.Result?.Value as JObject)?["value"]?["clickable"]?.Value<bool>() == true; //  ResultValueConverter.ToBool(res?.Result?.Value);
         }
 
+        public string WebPointToJsonString(WebPoint point)
+        {
+            return $"{{ \"x\": {point.X}, \"y\": {point.Y} }}";
+        }
         public string WebRectToJsonString(WebRect rect)
         {
             return $"{{\"left\": {rect.X}, \"top\": {rect.Y}, \"width\": {rect.Width}, \"height\": {rect.Height} }}";

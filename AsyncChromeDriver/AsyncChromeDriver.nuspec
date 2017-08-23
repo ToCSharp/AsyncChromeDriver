@@ -6,12 +6,12 @@
     <title>$title$</title>
     <authors>$author$</authors>
     <owners>$author$</owners>
-    <licenseUrl>https://github.com/ToCSharp/AsyncChromeDriver/blob/master/LICENSE.txt</licenseUrl>
+    <licenseUrl>https://github.com/ToCSharp/AsyncChromeDriver/blob/master/LICENSE</licenseUrl>
     <projectUrl>https://github.com/ToCSharp/AsyncChromeDriver</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
     <releaseNotes>Initial release.</releaseNotes>
     <copyright>Copyright Oleg Zudov 2017</copyright>
-    <tags>Chrome AsyncChromeDriver AsyncWebDriver WebDriver</tags>
+    <tags>Chrome DevTools AsyncChromeDriver AsyncWebDriver WebDriver</tags>
   </metadata>
 </package>
