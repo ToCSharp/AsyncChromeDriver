@@ -24,19 +24,23 @@ namespace Zu.Chrome
 
         public string FilesBasePath { get; set; } = "js\\";
         public Contexts CurrentContext { get; set; }
-        public int Port { get; set; }
         public IMouse Mouse { get; set; }
         public IKeyboard Keyboard { get; set; }
         public Session Session { get; private set; }
         public ElementCommands ElementCommands { get; private set; }
         public ElementUtils ElementUtils { get; private set; }
         public WindowCommands WindowCommands { get; private set; }
-        public string UserDir { get; set; }
-        public bool DoConnectWhenCheckConnected { get; set; } = true;
 
+        public ChromeDriverConfig Config { get; set; }
+        public int Port { get => Config.Port; set => Config.Port = value; }
+        public string UserDir { get => Config.UserDir; set => Config.UserDir = value; }
+        public bool IsTempUserDir { get => Config.IsTempUserDir; set => Config.IsTempUserDir = value; }
+
+        public bool DoConnectWhenCheckConnected { get; set; } = true;
         static int sessionId = 0;
-        public bool IsTempUserDir { get; set; } = false;
+
         public ChromeProcessInfo chromeProcess;
+
         public delegate void DevToolsEventHandler(object sender, string methodName, JToken eventData);
         public event DevToolsEventHandler DevToolsEvent;
 
@@ -61,13 +65,24 @@ namespace Zu.Chrome
             UserDir = profileDir;
         }
 
+        public AsyncChromeDriver(ChromeDriverConfig config)
+        {
+            Config = config;
+            if (Config.Port == 0) Config.Port = 11000 + new Random().Next(2000);
+            CurrentContext = Contexts.Chrome;
+            DevTools = new ChromeDevTools(Port);
+            CreateDriverCore();
+        }
+
         public AsyncChromeDriver(int port)
         {
+            Config = new ChromeDriverConfig();
             CurrentContext = Contexts.Chrome;
             Port = port;
             DevTools = new ChromeDevTools(Port);
             CreateDriverCore();
         }
+
 
         public void CreateDriverCore()
         {
@@ -85,7 +100,11 @@ namespace Zu.Chrome
         {
             UnsubscribeDevToolsSessionEvent();
             DoConnectWhenCheckConnected = false;
-            if (!string.IsNullOrWhiteSpace(UserDir)) chromeProcess = await OpenChromeProfile(UserDir);
+            if (!Config.DoNotOpenChromeProfile)
+            {
+                chromeProcess = await OpenChromeProfile(Config);
+                if (Config.IsTempUserDir) await Task.Delay(Config.TempDirCreateDelay);
+            }
             await DevTools.Connect();
             SubscribeToDevToolsSessionEvent();
             await FrameTracker.Enable();
@@ -107,10 +126,10 @@ namespace Zu.Chrome
             DevToolsEvent?.Invoke(sender, methodName, eventData);
         }
 
-        private async Task<ChromeProcessInfo> OpenChromeProfile(string userDir)
+        public async Task<ChromeProcessInfo> OpenChromeProfile(ChromeDriverConfig config)
         {
             ChromeProcessInfo res = null;
-            await Task.Run(() => res = ChromeProfilesWorker.OpenChromeProfile(userDir, Port));
+            await Task.Run(() => res = ChromeProfilesWorker.OpenChromeProfile(config)); // userDir, Port, isHeadless));
             return res;
         }
 
@@ -147,7 +166,7 @@ namespace Zu.Chrome
                 }
             }
             chromeProcess?.Proc?.Dispose();
-            if(chromeProcess?.ProcWithJobObject != null)
+            if (chromeProcess?.ProcWithJobObject != null)
             {
                 chromeProcess.ProcWithJobObject.TerminateProc();
             }

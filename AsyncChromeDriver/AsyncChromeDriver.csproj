@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="AsyncChromeDriver.cs" />
     <Compile Include="ChromeDevTools.cs" />
+    <Compile Include="ChromeDriverConfig.cs" />
     <Compile Include="ChromeDriverKeyboard.cs" />
     <Compile Include="ChromeDriverMouse.cs" />
     <Compile Include="ChromeProcessInfo.cs" />

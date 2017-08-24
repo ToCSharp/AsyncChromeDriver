@@ -51,14 +51,22 @@ PM> Install-Package AsyncChromeDriver
         Url = "https://www.google.com/"
     });
 ```
+### Headless Chrome
+```csharp
+     var asyncChromeDriver = new AsyncChromeDriver(new ChromeDriverConfig().SetHeadless().SetWindowSize(width, height));
+     var webDriver = new WebDriver(asyncChromeDriver);
+     await webDriver.GoToUrl("https://www.google.com/");
+     await Task.Delay(500);
+     var screenshot = await webDriver.GetScreenshot();
+     screenshot.SaveAsFile(GetFilePathToSaveScreenshot(), Zu.WebBrowser.BasicTypes.ScreenshotImageFormat.Png);
+     await webDriver?.Close();
+```
 
 ## Examples
 Look at AsyncChromeDriverExample.
 
-Run built Example in release tab.
-
 ## Implemented
-WebDriver part has only basic functionality. Navigation, FindElements, Mouse, Keyboard.
+WebDriver part has only basic functionality. Navigation, FindElements, Mouse, Keyboard, Clicks.
 
 It was ported from [ChromeDriver](https://cs.chromium.org/chromium/src/chrome/test/chromedriver/README.txt) not directly, 
 partially. 

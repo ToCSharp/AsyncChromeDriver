@@ -19,26 +19,40 @@ namespace Zu.Chrome
 
         public static string ChromeBinaryFileName { get; set; }
 
-
-        public static ChromeProcessInfo OpenChromeProfile(string userDir, int port = 5999)
+        public static ChromeProcessInfo OpenChromeProfile(ChromeDriverConfig config)
         {
-            if (string.IsNullOrWhiteSpace(userDir)) throw new ArgumentNullException(nameof(userDir));
+            return OpenChromeProfile(config.UserDir, config.Port, config.IsHeadless, config.WindowSize);
+        }
+
+        public static ChromeProcessInfo OpenChromeProfile(string userDir, int port = 5999, bool isHeadless = false, Tuple<int, int> windowSize = null)
+        {
+            //if (string.IsNullOrWhiteSpace(userDir)) throw new ArgumentNullException(nameof(userDir));
             if (port < 1 || port > 65000) throw new ArgumentOutOfRangeException(nameof(port));
             bool firstRun = false;
-            if(!Directory.Exists(userDir))
+            if (!string.IsNullOrWhiteSpace(userDir) && !Directory.Exists(userDir))
             {
                 firstRun = true;
                 Directory.CreateDirectory(userDir);
             }
-            var process = new Process();
-            process.StartInfo.FileName = ChromeBinaryFileName; 
-            process.StartInfo.Arguments = "--remote-debugging-port=" + port + " " 
-                + "--user-data-dir=\"" + userDir + "\"" 
-                + (firstRun ? " --bwsi --no-first-run" : "");
-            process.StartInfo.UseShellExecute = false;
-            //process.StartInfo.RedirectStandardOutput = true;
+            //var process = new Process();
+            //process.StartInfo.FileName = ChromeBinaryFileName;
+            //process.StartInfo.Arguments = "--remote-debugging-port=" + port + " "
+            //    + "--user-data-dir=\"" + userDir + "\""
+            //    + (firstRun ? " --bwsi --no-first-run" : "")
+            //    + (isHeadless ? " --headless --disable-gpu" : "")
+            //    + (windowSize != null ? $" --window-size={windowSize.Item1},{windowSize.Item2}" : "");
+            var args = "--remote-debugging-port=" + port + " "
+                + (string.IsNullOrWhiteSpace(userDir) ? "" : "--user-data-dir=\"" + userDir + "\"")
+                + (firstRun ? " --bwsi --no-first-run" : "")
+                + (isHeadless ? " --headless --disable-gpu" : "")
+                + (windowSize != null ? $" --window-size={windowSize.Item1},{windowSize.Item2}" : "");
+            var process = new ProcessWithJobObject();
+            process.StartProc(ChromeBinaryFileName, args);
 
-            process.Start();
+            //process.StartInfo.UseShellExecute = false;
+            ////process.StartInfo.RedirectStandardOutput = true;
+
+            //process.Start();
 
             Thread.Sleep(1000);
 
@@ -48,7 +62,7 @@ namespace Zu.Chrome
             //    var reader = process.StandardOutput;
             //    var v = reader.ReadToEnd();
             //}
-            return new ChromeProcessInfo { Proc = process, UserDir = userDir, Port = port } ;
+            return new ChromeProcessInfo { ProcWithJobObject = process, UserDir = userDir, Port = port };
         }
 
     }

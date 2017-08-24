@@ -126,6 +126,7 @@ namespace AsyncChromeDriverExample
                     await Task.Delay(1000);
                     query = await webDriver.FindElement(By.Name("q"));
                 }
+                //await query.SendKeys("ToCSharp");
                 foreach (var v in "ToCSharp")
                 {
                     await Task.Delay(500 + new Random().Next(1000));
@@ -302,7 +303,15 @@ namespace AsyncChromeDriverExample
             var userDir = tbOpenProfileDir.Text;
             try
             {
-                asyncChromeDriver = new AsyncChromeDriver(userDir);
+                if (chbOpenProfileHeadless.IsChecked == true)
+                {
+                    var width = 1200;
+                    var height = 900;
+                    int.TryParse(tbOpenProfileHeadlessWidth.Text, out width);
+                    int.TryParse(tbOpenProfileHeadlessHeight.Text, out height);
+                    asyncChromeDriver = new AsyncChromeDriver(new ChromeDriverConfig().SetHeadless().SetWindowSize(width, height).SetUserDir(userDir));
+                }
+                else asyncChromeDriver = new AsyncChromeDriver(userDir);
                 webDriver = new WebDriver(asyncChromeDriver);
                 // await asyncChromeDriver.Connect(); // browser opens here
                 await webDriver.GoToUrl("https://www.google.com/"); // browser opens here
@@ -325,7 +334,15 @@ namespace AsyncChromeDriverExample
             {
                 try
                 {
-                    asyncChromeDriver = new AsyncChromeDriver(userDir, port);
+                    if (chbOpenProfileHeadless.IsChecked == true)
+                    {
+                        var width = 1200;
+                        var height = 900;
+                        int.TryParse(tbOpenProfileHeadlessWidth.Text, out width);
+                        int.TryParse(tbOpenProfileHeadlessHeight.Text, out height);
+                        asyncChromeDriver = new AsyncChromeDriver(new ChromeDriverConfig().SetHeadless().SetWindowSize(width, height).SetUserDir(userDir).SetPort(port));
+                    }
+                    else asyncChromeDriver = new AsyncChromeDriver(userDir, port);
                     webDriver = new WebDriver(asyncChromeDriver);
                     // await asyncChromeDriver.Connect(); // browser opens here
                     await webDriver.GoToUrl("https://www.google.com/"); // browser opens here
@@ -341,5 +358,78 @@ namespace AsyncChromeDriverExample
             }
         }
 
+        private async void Button_Click_11(object sender, RoutedEventArgs e)
+        {
+            var userDir = tbOpenProfileDir.Text;
+            try
+            {
+                if (chbOpenProfileHeadless.IsChecked == true)
+                {
+                    var width = 1200;
+                    var height = 900;
+                    int.TryParse(tbOpenProfileHeadlessWidth.Text, out width);
+                    int.TryParse(tbOpenProfileHeadlessHeight.Text, out height);
+                    asyncChromeDriver = new AsyncChromeDriver(new ChromeDriverConfig().SetHeadless().SetWindowSize(width, height).SetIsTempUserDir());
+                }
+                else asyncChromeDriver = new AsyncChromeDriver();
+                webDriver = new WebDriver(asyncChromeDriver);
+                await asyncChromeDriver.Connect(); // browser opens here
+                                                   // await webDriver.GoToUrl("https://www.google.com/"); // browser opens here
+                var mess = $"opened on port {asyncChromeDriver.Port} in dir {asyncChromeDriver.UserDir} \nWhen close, dir will NOT be deleted";
+                tbDevToolsRes.Text = mess;
+                tbDevToolsRes2.Text = mess;
+            }
+            catch (Exception ex)
+            {
+                tbDevToolsRes.Text = ex.ToString();
+                tbDevToolsRes2.Text = ex.ToString();
+            }
+        }
+
+        private async void Button_Click_12(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (chbOpenProfileHeadless.IsChecked == true)
+                {
+                    var width = 1200;
+                    var height = 900;
+                    int.TryParse(tbOpenProfileHeadlessWidth.Text, out width);
+                    int.TryParse(tbOpenProfileHeadlessHeight.Text, out height);
+                    asyncChromeDriver = new AsyncChromeDriver(new ChromeDriverConfig().SetHeadless().SetWindowSize(width, height));
+                }
+                else asyncChromeDriver = new AsyncChromeDriver(new ChromeDriverConfig());
+                webDriver = new WebDriver(asyncChromeDriver);
+                await asyncChromeDriver.Connect(); // browser opens here
+                                                   // await webDriver.GoToUrl("https://www.google.com/"); // browser opens here
+                var mess = $"opened on port {asyncChromeDriver.Port} in dir {asyncChromeDriver.UserDir} \nWhen close, dir will NOT be deleted";
+                tbDevToolsRes.Text = mess;
+                tbDevToolsRes2.Text = mess;
+            }
+            catch (Exception ex)
+            {
+                tbDevToolsRes.Text = ex.ToString();
+                tbDevToolsRes2.Text = ex.ToString();
+            }
+        }
+
+        private async void Button_Click_13(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var asyncChromeDriver = new AsyncChromeDriver(new ChromeDriverConfig().SetHeadless());
+                var webDriver = new WebDriver(asyncChromeDriver);
+                await webDriver.GoToUrl("https://www.google.com/");
+                await Task.Delay(500);
+                var screenshot = await webDriver.GetScreenshot();
+                screenshot.SaveAsFile(GetFilePathToSaveScreenshot(), Zu.WebBrowser.BasicTypes.ScreenshotImageFormat.Png);
+                await webDriver?.Close();
+            }
+            catch (Exception ex)
+            {
+                tbDevToolsRes.Text = ex.ToString();
+                tbDevToolsRes2.Text = ex.ToString();
+            }
+        }
     }
 }
