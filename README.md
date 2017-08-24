@@ -59,7 +59,7 @@ PM> Install-Package AsyncChromeDriver
      await Task.Delay(500);
      var screenshot = await webDriver.GetScreenshot();
      screenshot.SaveAsFile(GetFilePathToSaveScreenshot(), Zu.WebBrowser.BasicTypes.ScreenshotImageFormat.Png);
-     await webDriver?.Close();
+     await webDriver.Close();
 ```
 
 ## Examples
