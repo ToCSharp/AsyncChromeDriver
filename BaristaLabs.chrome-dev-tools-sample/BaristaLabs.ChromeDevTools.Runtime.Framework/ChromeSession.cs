@@ -168,6 +168,7 @@ namespace BaristaLabs.ChromeDevTools.Runtime
             
             var contents = JsonConvert.SerializeObject(message);
 
+            if (m_isDisposed) return null;
             m_responseReceived.Reset();
             m_sessionSocket.Send(contents);
 
@@ -266,7 +267,7 @@ namespace BaristaLabs.ChromeDevTools.Runtime
                         IsError = true,
                         Result = errorProperty
                     };
-                    m_responseReceived.Set();
+                    m_responseReceived?.Set();
                     return;
                 }
 
@@ -274,9 +275,9 @@ namespace BaristaLabs.ChromeDevTools.Runtime
                 {
                     Result = messageObject["result"]
                 };
-
+                
                 LogTrace("Recieved Response {id}: {message}", commandId, m_lastResponse.Result.ToString());
-                m_responseReceived.Set();
+                m_responseReceived?.Set();
                 return;
             }
 

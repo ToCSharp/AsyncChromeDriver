@@ -24,7 +24,7 @@ namespace Zu.Chrome
         public ChromeDriverConfig SetIsTempUserDir(bool isTempUserDir = true)
         {
             IsTempUserDir = isTempUserDir;
-            if(IsTempUserDir) UserDir = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
+            if(IsTempUserDir && string.IsNullOrWhiteSpace(UserDir)) UserDir = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
             return this;
         }
         public ChromeDriverConfig SetPort(int port)

@@ -266,16 +266,11 @@ namespace AsyncChromeDriverExample
             }
         }
 
-        private async void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if (webDriver != null)
-            {
-                try
-                {
-                    await webDriver.Close();
-                }
-                catch { }
-            }
+            // Must be synchronous in Window_Closing. Any await will close immediately
+            if (asyncChromeDriver != null) asyncChromeDriver.CloseSync();
+          
         }
 
         private async void Button_Click_8(object sender, RoutedEventArgs e)
@@ -375,7 +370,7 @@ namespace AsyncChromeDriverExample
                 webDriver = new WebDriver(asyncChromeDriver);
                 await asyncChromeDriver.Connect(); // browser opens here
                                                    // await webDriver.GoToUrl("https://www.google.com/"); // browser opens here
-                var mess = $"opened on port {asyncChromeDriver.Port} in dir {asyncChromeDriver.UserDir} \nWhen close, dir will NOT be deleted";
+                var mess = $"opened on port {asyncChromeDriver.Port} in dir {asyncChromeDriver.UserDir} \nWhen close, dir will be DELETED";
                 tbDevToolsRes.Text = mess;
                 tbDevToolsRes2.Text = mess;
             }

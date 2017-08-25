@@ -33,7 +33,7 @@ namespace Zu.Chrome
 
         public ChromeDriverConfig Config { get; set; }
         public int Port { get => Config.Port; set => Config.Port = value; }
-        public string UserDir { get => Config.UserDir; set => Config.UserDir = value; }
+        public string UserDir { get => Config.UserDir; set => Config.SetUserDir(value); }
         public bool IsTempUserDir { get => Config.IsTempUserDir; set => Config.IsTempUserDir = value; }
 
         public bool DoConnectWhenCheckConnected { get; set; } = true;
@@ -47,11 +47,7 @@ namespace Zu.Chrome
         public AsyncChromeDriver(bool openInTempDir = true)
             : this(11000 + new Random().Next(2000))
         {
-            if (openInTempDir)
-            {
-                IsTempUserDir = true;
-                UserDir = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
-            }
+            Config.SetIsTempUserDir(openInTempDir);
         }
         public AsyncChromeDriver(string profileDir, int port)
             : this(port)
@@ -137,8 +133,63 @@ namespace Zu.Chrome
         {
             await Task.Run(() => DevTools.Disconnect());
             isConnected = false;
-            DoConnectWhenCheckConnected = true;
+            //DoConnectWhenCheckConnected = true;
             return "ok";
+        }
+        public void CloseSync()
+        {
+            if (isConnected)
+            {
+                DevTools.Disconnect();
+                isConnected = false;
+            }
+            if (chromeProcess?.Proc != null && !chromeProcess.Proc.HasExited)
+            {
+                try
+                {
+                    chromeProcess.Proc.CloseMainWindow();
+                }
+                catch
+                {
+                    try
+                    {
+                        chromeProcess.Proc.Kill();
+                    }
+                    catch
+                    {
+
+                    }
+                }
+                while (!chromeProcess.Proc.HasExited)
+                {
+                    Thread.Sleep(250);
+                }
+            }
+            chromeProcess?.Proc?.Dispose();
+            if (chromeProcess?.ProcWithJobObject != null)
+            {
+                chromeProcess.ProcWithJobObject.TerminateProc();
+            }
+            chromeProcess = null;
+            Thread.Sleep(1000);
+            if (IsTempUserDir && !string.IsNullOrWhiteSpace(UserDir))
+            {
+                try
+                {
+                    if (Directory.Exists(UserDir)) Directory.Delete(UserDir, true);
+                }
+                catch
+                {
+                    Thread.Sleep(3000);
+                    try
+                    {
+                        if (Directory.Exists(UserDir)) Directory.Delete(UserDir, true);
+                    }
+                    catch { }
+                }
+
+            }
+
         }
         public async Task<string> Close(CancellationToken cancellationToken = default(CancellationToken))
         {
@@ -172,7 +223,7 @@ namespace Zu.Chrome
             }
             chromeProcess = null;
             await Task.Delay(1000);
-            if (IsTempUserDir)
+            if (IsTempUserDir && !string.IsNullOrWhiteSpace(UserDir))
             {
                 try
                 {
@@ -180,7 +231,7 @@ namespace Zu.Chrome
                 }
                 catch
                 {
-                    Thread.Sleep(3000);
+                    await Task.Delay(3000);
                     try
                     {
                         if (Directory.Exists(UserDir)) Directory.Delete(UserDir, true);
