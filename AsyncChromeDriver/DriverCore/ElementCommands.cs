@@ -34,7 +34,7 @@ namespace Zu.Chrome.DriverCore
 
         public async Task<string> ClickElement(string elementId)
         {
-            await asyncChromeDriver.CheckConnected();
+            if(asyncChromeDriver != null) await asyncChromeDriver.CheckConnected();
             var tag_name = await elementUtils.GetElementTagName(elementId);
             if (tag_name == "option")
             {

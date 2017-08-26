@@ -4,6 +4,7 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Threading;
+using Zu.WebBrowser.BasicTypes;
 
 namespace Zu.Chrome
 {
@@ -21,10 +22,10 @@ namespace Zu.Chrome
 
         public static ChromeProcessInfo OpenChromeProfile(ChromeDriverConfig config)
         {
-            return OpenChromeProfile(config.UserDir, config.Port, config.IsHeadless, config.WindowSize);
+            return OpenChromeProfile(config.UserDir, config.Port, config.Headless, config.WindowSize);
         }
 
-        public static ChromeProcessInfo OpenChromeProfile(string userDir, int port = 5999, bool isHeadless = false, Tuple<int, int> windowSize = null)
+        public static ChromeProcessInfo OpenChromeProfile(string userDir, int port = 5999, bool isHeadless = false, WebSize windowSize = null)
         {
             //if (string.IsNullOrWhiteSpace(userDir)) throw new ArgumentNullException(nameof(userDir));
             if (port < 1 || port > 65000) throw new ArgumentOutOfRangeException(nameof(port));
@@ -34,35 +35,32 @@ namespace Zu.Chrome
                 firstRun = true;
                 Directory.CreateDirectory(userDir);
             }
-            //var process = new Process();
-            //process.StartInfo.FileName = ChromeBinaryFileName;
-            //process.StartInfo.Arguments = "--remote-debugging-port=" + port + " "
-            //    + "--user-data-dir=\"" + userDir + "\""
-            //    + (firstRun ? " --bwsi --no-first-run" : "")
-            //    + (isHeadless ? " --headless --disable-gpu" : "")
-            //    + (windowSize != null ? $" --window-size={windowSize.Item1},{windowSize.Item2}" : "");
-            var args = "--remote-debugging-port=" + port + " "
-                + (string.IsNullOrWhiteSpace(userDir) ? "" : "--user-data-dir=\"" + userDir + "\"")
+
+            var args = "--remote-debugging-port=" + port
+                + (string.IsNullOrWhiteSpace(userDir) ? "" : " --user-data-dir=\"" + userDir + "\"")
                 + (firstRun ? " --bwsi --no-first-run" : "")
                 + (isHeadless ? " --headless --disable-gpu" : "")
-                + (windowSize != null ? $" --window-size={windowSize.Item1},{windowSize.Item2}" : "");
-            var process = new ProcessWithJobObject();
-            process.StartProc(ChromeBinaryFileName, args);
+                + (windowSize != null ? $" --window-size={windowSize.Width},{windowSize.Height}" : "");
 
-            //process.StartInfo.UseShellExecute = false;
-            ////process.StartInfo.RedirectStandardOutput = true;
 
-            //process.Start();
-
-            Thread.Sleep(1000);
-
-            //// wait for closing previos Firefox
-            //if (process.MainWindowTitle != "" && !process.MainWindowTitle.EndsWith("Google Chrome"))
-            //{
-            //    var reader = process.StandardOutput;
-            //    var v = reader.ReadToEnd();
-            //}
-            return new ChromeProcessInfo { ProcWithJobObject = process, UserDir = userDir, Port = port };
+            if (isHeadless)
+            {
+                var process = new ProcessWithJobObject();
+                process.StartProc(ChromeBinaryFileName, args);
+                Thread.Sleep(1000);
+                return new ChromeProcessInfo { ProcWithJobObject = process, UserDir = userDir, Port = port };
+            }
+            else
+            {
+                var process = new Process();
+                process.StartInfo.FileName = ChromeBinaryFileName;
+                process.StartInfo.Arguments = args;
+                process.StartInfo.UseShellExecute = false;
+                process.Start();
+                Thread.Sleep(1000);
+                return new ChromeProcessInfo { Proc = process, UserDir = userDir, Port = port };
+            }
+           
         }
 
     }

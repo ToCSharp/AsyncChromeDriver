@@ -11,6 +11,7 @@ using System.Windows.Threading;
 using Zu.AsyncWebDriver;
 using Zu.AsyncWebDriver.Remote;
 using Zu.Chrome;
+using Zu.WebBrowser.BasicTypes;
 
 namespace AsyncChromeDriverExample
 {
@@ -270,6 +271,7 @@ namespace AsyncChromeDriverExample
         {
             // Must be synchronous in Window_Closing. Any await will close immediately
             if (asyncChromeDriver != null) asyncChromeDriver.CloseSync();
+            if (webDriver != null) webDriver.CloseSync();
           
         }
 
@@ -364,7 +366,7 @@ namespace AsyncChromeDriverExample
                     var height = 900;
                     int.TryParse(tbOpenProfileHeadlessWidth.Text, out width);
                     int.TryParse(tbOpenProfileHeadlessHeight.Text, out height);
-                    asyncChromeDriver = new AsyncChromeDriver(new ChromeDriverConfig().SetHeadless().SetWindowSize(width, height).SetIsTempUserDir());
+                    asyncChromeDriver = new AsyncChromeDriver(new ChromeDriverConfig().SetHeadless().SetWindowSize(width, height).SetIsTempProfile());
                 }
                 else asyncChromeDriver = new AsyncChromeDriver();
                 webDriver = new WebDriver(asyncChromeDriver);

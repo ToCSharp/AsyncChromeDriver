@@ -34,7 +34,7 @@ namespace Zu.Chrome
         public ChromeDriverConfig Config { get; set; }
         public int Port { get => Config.Port; set => Config.Port = value; }
         public string UserDir { get => Config.UserDir; set => Config.SetUserDir(value); }
-        public bool IsTempUserDir { get => Config.IsTempUserDir; set => Config.IsTempUserDir = value; }
+        public bool IsTempProfile { get => Config.IsTempProfile; set => Config.IsTempProfile = value; }
 
         public bool DoConnectWhenCheckConnected { get; set; } = true;
         static int sessionId = 0;
@@ -47,7 +47,7 @@ namespace Zu.Chrome
         public AsyncChromeDriver(bool openInTempDir = true)
             : this(11000 + new Random().Next(2000))
         {
-            Config.SetIsTempUserDir(openInTempDir);
+            Config.SetIsTempProfile(openInTempDir);
         }
         public AsyncChromeDriver(string profileDir, int port)
             : this(port)
@@ -59,6 +59,11 @@ namespace Zu.Chrome
             : this(11000 + new Random().Next(2000))
         {
             UserDir = profileDir;
+        }
+
+        public AsyncChromeDriver(DriverConfig config)
+            :this(new ChromeDriverConfig(config))
+        {
         }
 
         public AsyncChromeDriver(ChromeDriverConfig config)
@@ -99,7 +104,7 @@ namespace Zu.Chrome
             if (!Config.DoNotOpenChromeProfile)
             {
                 chromeProcess = await OpenChromeProfile(Config);
-                if (Config.IsTempUserDir) await Task.Delay(Config.TempDirCreateDelay);
+                if (Config.IsTempProfile) await Task.Delay(Config.TempDirCreateDelay);
             }
             await DevTools.Connect();
             SubscribeToDevToolsSessionEvent();
@@ -172,7 +177,7 @@ namespace Zu.Chrome
             }
             chromeProcess = null;
             Thread.Sleep(1000);
-            if (IsTempUserDir && !string.IsNullOrWhiteSpace(UserDir))
+            if (IsTempProfile && !string.IsNullOrWhiteSpace(UserDir))
             {
                 try
                 {
@@ -223,7 +228,7 @@ namespace Zu.Chrome
             }
             chromeProcess = null;
             await Task.Delay(1000);
-            if (IsTempUserDir && !string.IsNullOrWhiteSpace(UserDir))
+            if (IsTempProfile && !string.IsNullOrWhiteSpace(UserDir))
             {
                 try
                 {

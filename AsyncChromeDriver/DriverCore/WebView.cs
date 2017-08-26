@@ -51,7 +51,7 @@ namespace Zu.Chrome.DriverCore
                                         bool returnByValue = true,
                                         CancellationToken cancellationToken = default(CancellationToken))
         {
-            await asyncChromeDriver.CheckConnected();
+            if (asyncChromeDriver != null) await asyncChromeDriver.CheckConnected();
             var contextId = string.IsNullOrWhiteSpace(frame) ? null : (long?)FrameTracker.GetContextIdForFrame(frame);
             return await DevTools?.Session.Runtime.Evaluate(new EvaluateCommand
             {
@@ -63,13 +63,13 @@ namespace Zu.Chrome.DriverCore
         }
         public async Task<string> GetUrl(CancellationToken cancellationToken = default(CancellationToken))
         {
-            await asyncChromeDriver.CheckConnected();
+            if (asyncChromeDriver != null) await asyncChromeDriver.CheckConnected();
             var res = await DevTools?.Session.Page.GetNavigationHistory(new GetNavigationHistoryCommand(), cancellationToken);
             return res.Entries?.ElementAtOrDefault((int)res.CurrentIndex)?.Url;
         }
         public async Task<NavigateCommandResponse> Load(string url, int? timeout = null, CancellationToken cancellationToken = default(CancellationToken))
         {
-            await asyncChromeDriver.CheckConnected();
+            if (asyncChromeDriver != null) await asyncChromeDriver.CheckConnected();
             var res = await DevTools?.Session.Page.Navigate(new NavigateCommand
             {
                 Url = url
@@ -78,13 +78,13 @@ namespace Zu.Chrome.DriverCore
         }
         public async Task<string> Reload(CancellationToken cancellationToken = default(CancellationToken))
         {
-            await asyncChromeDriver.CheckConnected();
+            if (asyncChromeDriver != null) await asyncChromeDriver.CheckConnected();
             var res = await DevTools?.Session.Page.Reload(new ReloadCommand(), cancellationToken);
             return res.ToString();
         }
         public async Task<NavigateToHistoryEntryCommandResponse> TraverseHistory(int delta, CancellationToken cancellationToken = default(CancellationToken))
         {
-            await asyncChromeDriver.CheckConnected();
+            if (asyncChromeDriver != null) await asyncChromeDriver.CheckConnected();
             var res = await DevTools?.Session.Page.GetNavigationHistory(new GetNavigationHistoryCommand(), cancellationToken);
             if (delta == -1)
             {
@@ -123,7 +123,7 @@ namespace Zu.Chrome.DriverCore
    
         public async Task DispatchKeyEvents(string keys, CancellationToken cancellationToken = default(CancellationToken))
         {
-            await asyncChromeDriver.CheckConnected();
+            if (asyncChromeDriver != null) await asyncChromeDriver.CheckConnected();
             foreach (var key in keys)
             {
                 //var index = (int)key - 0xE000U; > 0
