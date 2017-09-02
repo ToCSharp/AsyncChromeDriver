@@ -40,6 +40,7 @@ namespace Zu.Chrome
         static int sessionId = 0;
 
         public ChromeProcessInfo chromeProcess;
+        private bool _isClosed = false;
 
         public delegate void DevToolsEventHandler(object sender, string methodName, JToken eventData);
         public event DevToolsEventHandler DevToolsEvent;
@@ -62,7 +63,7 @@ namespace Zu.Chrome
         }
 
         public AsyncChromeDriver(DriverConfig config)
-            :this(new ChromeDriverConfig(config))
+            : this(new ChromeDriverConfig(config))
         {
         }
 
@@ -106,7 +107,29 @@ namespace Zu.Chrome
                 chromeProcess = await OpenChromeProfile(Config);
                 if (Config.IsTempProfile) await Task.Delay(Config.TempDirCreateDelay);
             }
-            await DevTools.Connect();
+            int connection_attempts = 0;
+            const int MAX_ATTEMPTS = 5;
+            while (true)
+            {
+                connection_attempts++;
+                try
+                {
+                    await DevTools.Connect();
+                    break;
+                }
+                catch (Exception ex)
+                {
+                    //LiveLogger.WriteLine("Connection attempt {0} failed with: {1}", connection_attempts, ex);
+                    if (_isClosed || connection_attempts >= MAX_ATTEMPTS)
+                    {
+                        throw;
+                    }
+                    else
+                    {
+                        await Task.Delay(200);
+                    }
+                }
+            }
             SubscribeToDevToolsSessionEvent();
             await FrameTracker.Enable();
             return $"Connected to Chrome port {Port}";

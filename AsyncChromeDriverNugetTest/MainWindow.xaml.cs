@@ -1,6 +1,8 @@
 ﻿using System;
 using System.IO;
+using System.Threading;
 using System.Windows;
+using System.Windows.Threading;
 using Zu.AsyncWebDriver.Remote;
 using Zu.Chrome;
 
@@ -52,7 +54,11 @@ namespace AsyncChromeDriverNugetTest
                 asyncChromeDriver.DevTools.Session.Page.SubscribeToDomContentEventFiredEvent(async (e2) =>
                 {
                     var screenshot = await asyncChromeDriver.DevTools.Session.Page.CaptureScreenshot(new BaristaLabs.ChromeDevTools.Runtime.Page.CaptureScreenshotCommand());
-                    SaveScreenshot(screenshot.Data);
+                    var filePath = SaveScreenshot(screenshot.Data);
+                    await Dispatcher.BeginInvoke(DispatcherPriority.Normal, (ThreadStart)delegate ()
+                    {
+                        tbRes.Text = "Screenshot saved: " + filePath;
+                    });
                 });
                 //await asyncChromeDriver.GoToUrl("https://www.google.com/");
                 await asyncChromeDriver.DevTools.Session.Page.Navigate(new BaristaLabs.ChromeDevTools.Runtime.Page.NavigateCommand
@@ -68,13 +74,15 @@ namespace AsyncChromeDriverNugetTest
 
         }
 
-        private static void SaveScreenshot(string base64String)
+        private static string SaveScreenshot(string base64String)
         {
             if (!string.IsNullOrWhiteSpace(base64String))
             {
                 string path = GetFilePathToSaveScreenshot();
                 File.WriteAllBytes(path, Convert.FromBase64String(base64String));
+                return path;
             }
+            return null;
         }
 
         private static string GetFilePathToSaveScreenshot()
@@ -96,13 +104,13 @@ namespace AsyncChromeDriverNugetTest
             CloseChrome();
         }
 
-        private async void CloseChrome()
+        private void CloseChrome()
         {
             if (asyncChromeDriver != null)
             {
                 try
                 {
-                    await asyncChromeDriver.Close();
+                    asyncChromeDriver.CloseSync();
                 }
                 catch { }
             }

@@ -34,17 +34,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AsyncChromeDriver, Version=0.1.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\AsyncChromeDriver.0.1.2\lib\net461\AsyncChromeDriver.dll</HintPath>
+    <Reference Include="AsyncChromeDriver, Version=0.1.10.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AsyncChromeDriver.0.1.10\lib\net461\AsyncChromeDriver.dll</HintPath>
     </Reference>
-    <Reference Include="AsyncWebDriver, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\AsyncWebDriver.1.1.1\lib\net452\AsyncWebDriver.dll</HintPath>
+    <Reference Include="AsyncWebDriver, Version=1.1.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AsyncWebDriver.1.1.4\lib\net452\AsyncWebDriver.dll</HintPath>
     </Reference>
     <Reference Include="BaristaLabs.ChromeDevTools.Runtime.Framework, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\AsyncChromeDriver.0.1.2\lib\net461\BaristaLabs.ChromeDevTools.Runtime.Framework.dll</HintPath>
+      <HintPath>..\packages\AsyncChromeDriver.0.1.10\lib\net461\BaristaLabs.ChromeDevTools.Runtime.Framework.dll</HintPath>
     </Reference>
-    <Reference Include="IWebBrowserClient, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\AsyncWebDriver.1.1.1\lib\net452\IWebBrowserClient.dll</HintPath>
+    <Reference Include="IWebBrowserClient, Version=1.1.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AsyncWebDriver.1.1.4\lib\net452\IWebBrowserClient.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -52,8 +52,8 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Threading.Tasks.Dataflow, Version=4.6.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Threading.Tasks.Dataflow.4.7.0\lib\portable-net45+win8+wpa81\System.Threading.Tasks.Dataflow.dll</HintPath>
+    <Reference Include="System.Threading.Tasks.Dataflow, Version=4.6.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Dataflow.4.8.0\lib\netstandard2.0\System.Threading.Tasks.Dataflow.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
