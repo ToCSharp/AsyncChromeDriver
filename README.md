@@ -29,7 +29,7 @@ PM> Install-Package AsyncChromeDriver
       }
       await Task.Delay(500);
       await query.SendKeys(Keys.Enter);
-      var allCookies = await asyncChromeDriver.DevTools.Session.Network.GetAllCookies(new GetAllCookiesCommand());
+      var allCookies = await asyncChromeDriver.DevTools.Session.Network.GetAllCookies();
 
       var screenshot = await webDriver.GetScreenshot();
       screenshot.SaveAsFile(GetFilePathToSaveScreenshot(), Zu.WebBrowser.BasicTypes.ScreenshotImageFormat.Png);
@@ -39,10 +39,10 @@ PM> Install-Package AsyncChromeDriver
 ```csharp
     asyncChromeDriver = new AsyncChromeDriver();
     await asyncChromeDriver.CheckConnected();
-    await asyncChromeDriver.DevTools.Session.Page.Enable(new BaristaLabs.ChromeDevTools.Runtime.Page.EnableCommand());
+    await asyncChromeDriver.DevTools.Session.Page.Enable();
     asyncChromeDriver.DevTools.Session.Page.SubscribeToDomContentEventFiredEvent(async (e2) =>
     {
-        var screenshot = await asyncChromeDriver.DevTools.Session.Page.CaptureScreenshot(new BaristaLabs.ChromeDevTools.Runtime.Page.CaptureScreenshotCommand());
+        var screenshot = await asyncChromeDriver.DevTools.Session.Page.CaptureScreenshot();
         SaveScreenshot(screenshot.Data);
     });
     //await asyncChromeDriver.GoToUrl("https://www.google.com/");

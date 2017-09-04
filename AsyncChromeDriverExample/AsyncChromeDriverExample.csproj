@@ -8,11 +8,12 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>AsyncChromeDriverExample</RootNamespace>
     <AssemblyName>AsyncChromeDriverExample</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -34,11 +35,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AsyncWebDriver, Version=1.1.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\AsyncWebDriver.1.1.4\lib\net452\AsyncWebDriver.dll</HintPath>
+    <Reference Include="AsyncWebDriver, Version=1.1.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AsyncWebDriver.1.1.6\lib\net452\AsyncWebDriver.dll</HintPath>
     </Reference>
     <Reference Include="IWebBrowserClient, Version=1.1.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\AsyncWebDriver.1.1.4\lib\net452\IWebBrowserClient.dll</HintPath>
+      <HintPath>..\packages\AsyncWebDriver.1.1.6\lib\net452\IWebBrowserClient.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -112,9 +113,9 @@
       <Project>{b397ff4b-9290-478f-bb70-da91d23e4b68}</Project>
       <Name>AsyncChromeDriver</Name>
     </ProjectReference>
-    <ProjectReference Include="..\BaristaLabs.chrome-dev-tools-sample\BaristaLabs.ChromeDevTools.Runtime.Framework\BaristaLabs.ChromeDevTools.Runtime.Framework.csproj">
+    <ProjectReference Include="..\BaristaLabs.chrome-dev-tools-runtime\BaristaLabs.ChromeDevTools.Runtime.NetFramework\BaristaLabs.ChromeDevTools.Runtime.NetFramework.csproj">
       <Project>{6f8eb349-fd03-41a7-9434-117ce10c999e}</Project>
-      <Name>BaristaLabs.ChromeDevTools.Runtime.Framework</Name>
+      <Name>BaristaLabs.ChromeDevTools.Runtime.NetFramework</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

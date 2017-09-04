@@ -83,7 +83,7 @@ namespace AsyncChromeDriverExample
 
         public async Task<Cookie[]> GetAllCookies()
         {
-            var res = await asyncChromeDriver.DevTools.Session.Network.GetAllCookies(new GetAllCookiesCommand());
+            var res = await asyncChromeDriver.DevTools.Session.Network.GetAllCookies();
             return res.Cookies;
         }
     }

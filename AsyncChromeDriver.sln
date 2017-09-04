@@ -1,15 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.16
+VisualStudioVersion = 15.0.26730.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsyncChromeDriver", "AsyncChromeDriver\AsyncChromeDriver.csproj", "{B397FF4B-9290-478F-BB70-DA91D23E4B68}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BaristaLabs.chrome-dev-tools-sample", "BaristaLabs.chrome-dev-tools-sample", "{B23E22FA-BEEC-44E5-ADE8-3AC9AE814F3F}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BaristaLabs.ChromeDevTools.Runtime", "BaristaLabs.chrome-dev-tools-sample\BaristaLabs.ChromeDevTools.Runtime\BaristaLabs.ChromeDevTools.Runtime.csproj", "{31E2D4A2-4546-4067-964E-044624DA1096}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BaristaLabs.ChromeDevTools.Runtime.Framework", "BaristaLabs.chrome-dev-tools-sample\BaristaLabs.ChromeDevTools.Runtime.Framework\BaristaLabs.ChromeDevTools.Runtime.Framework.csproj", "{6F8EB349-FD03-41A7-9434-117CE10C999E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsyncChromeDriverExample", "AsyncChromeDriverExample\AsyncChromeDriverExample.csproj", "{17955490-8C37-4809-9529-B4269187BE46}"
 EndProject
@@ -21,6 +15,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BaristaLabs.chrome-dev-tools-runtime", "BaristaLabs.chrome-dev-tools-runtime", "{815998B2-309E-4844-8706-D39FD1C123DE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BaristaLabs.ChromeDevTools.Runtime.NetFramework", "BaristaLabs.chrome-dev-tools-runtime\BaristaLabs.ChromeDevTools.Runtime.NetFramework\BaristaLabs.ChromeDevTools.Runtime.NetFramework.csproj", "{6F8EB349-FD03-41A7-9434-117CE10C999E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,14 +29,6 @@ Global
 		{B397FF4B-9290-478F-BB70-DA91D23E4B68}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B397FF4B-9290-478F-BB70-DA91D23E4B68}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B397FF4B-9290-478F-BB70-DA91D23E4B68}.Release|Any CPU.Build.0 = Release|Any CPU
-		{31E2D4A2-4546-4067-964E-044624DA1096}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{31E2D4A2-4546-4067-964E-044624DA1096}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{31E2D4A2-4546-4067-964E-044624DA1096}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{31E2D4A2-4546-4067-964E-044624DA1096}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6F8EB349-FD03-41A7-9434-117CE10C999E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6F8EB349-FD03-41A7-9434-117CE10C999E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6F8EB349-FD03-41A7-9434-117CE10C999E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6F8EB349-FD03-41A7-9434-117CE10C999E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{17955490-8C37-4809-9529-B4269187BE46}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{17955490-8C37-4809-9529-B4269187BE46}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{17955490-8C37-4809-9529-B4269187BE46}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -47,12 +37,18 @@ Global
 		{2C781DC3-70E0-4CEE-8E29-7FB3034D3972}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2C781DC3-70E0-4CEE-8E29-7FB3034D3972}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2C781DC3-70E0-4CEE-8E29-7FB3034D3972}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F8EB349-FD03-41A7-9434-117CE10C999E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F8EB349-FD03-41A7-9434-117CE10C999E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F8EB349-FD03-41A7-9434-117CE10C999E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F8EB349-FD03-41A7-9434-117CE10C999E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{31E2D4A2-4546-4067-964E-044624DA1096} = {B23E22FA-BEEC-44E5-ADE8-3AC9AE814F3F}
-		{6F8EB349-FD03-41A7-9434-117CE10C999E} = {B23E22FA-BEEC-44E5-ADE8-3AC9AE814F3F}
+		{6F8EB349-FD03-41A7-9434-117CE10C999E} = {815998B2-309E-4844-8706-D39FD1C123DE}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {86C79CA9-9618-4FE7-A3DA-581BAB274BBA}
 	EndGlobalSection
 EndGlobal
