@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 
 namespace Zu.Chrome
 {
-    public class ChromeDevTools
+    public class ChromeDevToolsConnection
     {
         public int Port { get; private set; }
         public virtual ChromeSession Session { get; set; }
 
-        public ChromeDevTools(int port = 5999)
+        public ChromeDevToolsConnection(int port = 5999)
         {
             Port = port;
         }

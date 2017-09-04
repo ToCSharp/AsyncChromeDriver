@@ -18,7 +18,7 @@ namespace Zu.Chrome
         public FrameTracker FrameTracker;
         private bool isConnected = false;
 
-        public ChromeDevTools DevTools { get; set; }
+        public ChromeDevToolsConnection DevTools { get; set; }
         public WebView WebView { get; set; }
 
 
@@ -72,7 +72,7 @@ namespace Zu.Chrome
             Config = config;
             if (Config.Port == 0) Config.Port = 11000 + new Random().Next(2000);
             CurrentContext = Contexts.Chrome;
-            DevTools = new ChromeDevTools(Port);
+            DevTools = new ChromeDevToolsConnection(Port);
             CreateDriverCore();
         }
 
@@ -81,7 +81,7 @@ namespace Zu.Chrome
             Config = new ChromeDriverConfig();
             CurrentContext = Contexts.Chrome;
             Port = port;
-            DevTools = new ChromeDevTools(Port);
+            DevTools = new ChromeDevToolsConnection(Port);
             CreateDriverCore();
         }
 

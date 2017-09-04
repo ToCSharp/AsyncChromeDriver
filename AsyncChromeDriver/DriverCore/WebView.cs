@@ -14,11 +14,11 @@ namespace Zu.Chrome.DriverCore
 {
     public class WebView
     {
-        public ChromeDevTools DevTools;
+        public ChromeDevToolsConnection DevTools;
         private FrameTracker FrameTracker;
         private AsyncChromeDriver asyncChromeDriver;
 
-        public WebView(ChromeDevTools devTools, FrameTracker frameTracker, AsyncChromeDriver asyncChromeDriver)
+        public WebView(ChromeDevToolsConnection devTools, FrameTracker frameTracker, AsyncChromeDriver asyncChromeDriver)
         {
             DevTools = devTools;
             FrameTracker = frameTracker;

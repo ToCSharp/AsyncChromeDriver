@@ -5,7 +5,7 @@ It connects directly to [Chrome DevTools](https://chromedevtools.github.io/devto
 
 AsyncChromeDriver implements [IAsyncWebBrowserClient](https://github.com/ToCSharp/AsyncWebDriver/blob/master/IAsyncWebBrowserClient/IAsyncWebBrowserClient.cs) and can be used as [AsyncWebDriver](https://github.com/ToCSharp/AsyncWebDriver).
 
-It also has DevTools property and you can easily use all power of Chrome DevTools from your .Net app. Thanks to [BaristaLabs/chrome-dev-tools-sample](https://github.com/BaristaLabs/chrome-dev-tools-sample)
+It also has DevTools property and you can easily use all power of Chrome DevTools from your .Net app. Thanks to [BaristaLabs/chrome-dev-tools-runtime](https://github.com/BaristaLabs/chrome-dev-tools-runtime)
 
 [![Join the chat at https://gitter.im/AsyncWebDriver/Lobby](https://badges.gitter.im/AsyncWebDriver/Lobby.svg)](https://gitter.im/AsyncWebDriver/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
@@ -21,7 +21,9 @@ PM> Install-Package AsyncChromeDriver
      var asyncChromeDriver = new AsyncChromeDriver();
      var webDriver = new WebDriver(asyncChromeDriver);
      await webDriver.GoToUrl("https://www.google.com/");
-     var query = await webDriver.FindElement(By.Name("q"));
+     var query = await webDriver.WaitForElementWithName("q");
+     
+     //await query.SendKeys("ToCSharp");
      foreach (var v in "ToCSharp".ToList())
      {
         await Task.Delay(500 + new Random().Next(500));
@@ -40,7 +42,7 @@ PM> Install-Package AsyncChromeDriver
     asyncChromeDriver = new AsyncChromeDriver();
     await asyncChromeDriver.CheckConnected();
     await asyncChromeDriver.DevTools.Session.Page.Enable();
-    asyncChromeDriver.DevTools.Session.Page.SubscribeToDomContentEventFiredEvent(async (e2) =>
+    asyncChromeDriver.DevTools.Session.Page.SubscribeToLoadEventFiredEvent(async (e2) =>
     {
         var screenshot = await asyncChromeDriver.DevTools.Session.Page.CaptureScreenshot();
         SaveScreenshot(screenshot.Data);

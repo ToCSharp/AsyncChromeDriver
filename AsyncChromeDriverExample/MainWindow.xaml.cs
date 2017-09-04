@@ -121,12 +121,8 @@ namespace AsyncChromeDriverExample
             try
             {
                 var res2 = await webDriver.GoToUrl("https://www.google.com/");
-                var query = await webDriver.FindElement(By.Name("q"));
-                if (query == null)
-                {
-                    await Task.Delay(1000);
-                    query = await webDriver.FindElement(By.Name("q"));
-                }
+                var query = await webDriver.WaitForElementWithName("q");
+
                 //await query.SendKeys("ToCSharp");
                 foreach (var v in "ToCSharp")
                 {
@@ -209,7 +205,7 @@ namespace AsyncChromeDriverExample
             {
                 await asyncChromeDriver.CheckConnected();
                 await asyncChromeDriver.DevTools.Session.Page.Enable();
-                asyncChromeDriver.DevTools.Session.Page.SubscribeToDomContentEventFiredEvent(async (e2) =>
+                asyncChromeDriver.DevTools.Session.Page.SubscribeToLoadEventFiredEvent(async (e2) =>
                 {
                     var screenshot = await asyncChromeDriver.DevTools.Session.Page.CaptureScreenshot();
                     SaveScreenshot(screenshot.Data);

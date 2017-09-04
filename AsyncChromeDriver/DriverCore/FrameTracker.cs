@@ -12,10 +12,10 @@ namespace Zu.Chrome.DriverCore
 {
     public class FrameTracker
     {
-        private ChromeDevTools devTools;
+        private ChromeDevToolsConnection devTools;
         private ConcurrentDictionary<string, long> frameToContext = new ConcurrentDictionary<string, long>();
 
-        public FrameTracker(ChromeDevTools devTools)
+        public FrameTracker(ChromeDevToolsConnection devTools)
         {
             this.devTools = devTools;
         }
