@@ -20,35 +20,36 @@ namespace Zu.Chrome
 
         public static string ChromeBinaryFileName { get; set; }
 
-        public static ChromeProcessInfo OpenChromeProfile(ChromeDriverConfig config)
-        {
-            return OpenChromeProfile(config.UserDir, config.Port, config.Headless, config.WindowSize);
-        }
-
         public static ChromeProcessInfo OpenChromeProfile(string userDir, int port = 5999, bool isHeadless = false, WebSize windowSize = null)
         {
+            return OpenChromeProfile(new ChromeDriverConfig { UserDir = userDir, Port = port, Headless = isHeadless, WindowSize = windowSize });
+        }
+
+        public static ChromeProcessInfo OpenChromeProfile(ChromeDriverConfig config)
+        {
             //if (string.IsNullOrWhiteSpace(userDir)) throw new ArgumentNullException(nameof(userDir));
-            if (port < 1 || port > 65000) throw new ArgumentOutOfRangeException(nameof(port));
+            if (config.Port < 1 || config.Port > 65000) throw new ArgumentOutOfRangeException(nameof(config.Port));
             bool firstRun = false;
-            if (!string.IsNullOrWhiteSpace(userDir) && !Directory.Exists(userDir))
+            if (!string.IsNullOrWhiteSpace(config.UserDir) && !Directory.Exists(config.UserDir))
             {
                 firstRun = true;
-                Directory.CreateDirectory(userDir);
+                Directory.CreateDirectory(config.UserDir);
             }
 
-            var args = "--remote-debugging-port=" + port
-                + (string.IsNullOrWhiteSpace(userDir) ? "" : " --user-data-dir=\"" + userDir + "\"")
+            var args = "--remote-debugging-port=" + config.Port
+                + (string.IsNullOrWhiteSpace(config.UserDir) ? "" : " --user-data-dir=\"" + config.UserDir + "\"")
                 + (firstRun ? " --bwsi --no-first-run" : "")
-                + (isHeadless ? " --headless --disable-gpu" : "")
-                + (windowSize != null ? $" --window-size={windowSize.Width},{windowSize.Height}" : "");
+                + (config.Headless ? " --headless --disable-gpu" : "")
+                + (config.WindowSize != null ? $" --window-size={config.WindowSize.Width},{config.WindowSize.Height}" : "")
+                + (string.IsNullOrWhiteSpace(config.CommandLineArgumets) ? "" : " " + config.CommandLineArgumets);
 
 
-            if (isHeadless)
+            if (config.Headless)
             {
                 var process = new ProcessWithJobObject();
                 process.StartProc(ChromeBinaryFileName, args);
                 Thread.Sleep(1000);
-                return new ChromeProcessInfo { ProcWithJobObject = process, UserDir = userDir, Port = port };
+                return new ChromeProcessInfo { ProcWithJobObject = process, UserDir = config.UserDir, Port = config.Port };
             }
             else
             {
@@ -58,7 +59,7 @@ namespace Zu.Chrome
                 process.StartInfo.UseShellExecute = false;
                 process.Start();
                 Thread.Sleep(1000);
-                return new ChromeProcessInfo { Proc = process, UserDir = userDir, Port = port };
+                return new ChromeProcessInfo { Proc = process, UserDir = config.UserDir, Port = config.Port };
             }
            
         }

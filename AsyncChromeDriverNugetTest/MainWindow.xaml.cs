@@ -50,8 +50,8 @@ namespace AsyncChromeDriverNugetTest
             try
             {
                 await asyncChromeDriver.CheckConnected();
-                await asyncChromeDriver.DevTools.Session.Page.Enable(new BaristaLabs.ChromeDevTools.Runtime.Page.EnableCommand());
-                asyncChromeDriver.DevTools.Session.Page.SubscribeToLoadEventFiredEvent(async (e2) =>
+                await asyncChromeDriver.DevTools.Session.Page.Enable();
+                asyncChromeDriver.DevTools.Session.Page.SubscribeToLoadEventFiredEvent(async (e2) => 
                 {
                     var screenshot = await asyncChromeDriver.DevTools.Session.Page.CaptureScreenshot();
                     var filePath = SaveScreenshot(screenshot.Data);
