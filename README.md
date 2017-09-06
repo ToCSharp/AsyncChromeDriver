@@ -87,4 +87,4 @@ Write issue or to [![Join the chat at https://gitter.im/AsyncWebDriver/Lobby](ht
 
 Feel free to submit pull requests.
 
-Please star the project. More stars - more time I'll spend on it. There's so much to do here.
+Please :star: star the project or [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=GNRXFA5WSNFF6) if you like the project.
