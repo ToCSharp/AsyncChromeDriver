@@ -306,8 +306,8 @@ namespace AsyncChromeDriverExample
                 }
                 else asyncChromeDriver = new AsyncChromeDriver(userDir);
                 webDriver = new WebDriver(asyncChromeDriver);
-                // await asyncChromeDriver.Connect(); // browser opens here
-                await webDriver.GoToUrl("https://www.google.com/"); // browser opens here
+                await asyncChromeDriver.Connect(); // browser opens here
+                // await webDriver.GoToUrl("https://www.google.com/"); // browser opens here
                 var mess = $"opened on port {asyncChromeDriver.Port} in dir {asyncChromeDriver.UserDir} \nWhen close, dir will NOT be deleted";
                 tbDevToolsRes.Text = mess;
                 tbDevToolsRes2.Text = mess;
