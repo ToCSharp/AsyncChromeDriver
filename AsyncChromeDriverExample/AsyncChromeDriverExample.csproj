@@ -35,9 +35,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AsyncWebDriver, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\AsyncWebDriver.1.2.1\lib\net452\AsyncWebDriver.dll</HintPath>
-    </Reference>
     <Reference Include="IAsyncWebBrowserClient, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\IAsyncWebBrowserClient.0.1.0\lib\net452\IAsyncWebBrowserClient.dll</HintPath>
     </Reference>
@@ -109,6 +106,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\AsyncWebDriver\AsyncWebDriver\AsyncWebDriver.csproj">
+      <Project>{489fd59f-d739-4144-89b8-b5a719bcb120}</Project>
+      <Name>AsyncWebDriver</Name>
+    </ProjectReference>
     <ProjectReference Include="..\AsyncChromeDriver\AsyncChromeDriver.csproj">
       <Project>{b397ff4b-9290-478f-bb70-da91d23e4b68}</Project>
       <Name>AsyncChromeDriver</Name>

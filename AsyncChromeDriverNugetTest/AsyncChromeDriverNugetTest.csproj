@@ -37,8 +37,8 @@
     <Reference Include="AsyncChromeDriver, Version=0.2.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\AsyncChromeDriver.0.2.1\lib\net461\AsyncChromeDriver.dll</HintPath>
     </Reference>
-    <Reference Include="AsyncWebDriver, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\AsyncWebDriver.1.2.1\lib\net452\AsyncWebDriver.dll</HintPath>
+    <Reference Include="AsyncWebDriver, Version=1.2.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AsyncWebDriver.1.2.3\lib\net452\AsyncWebDriver.dll</HintPath>
     </Reference>
     <Reference Include="BaristaLabs.ChromeDevTools.Runtime.Framework, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\AsyncChromeDriver.0.2.1\lib\net461\BaristaLabs.ChromeDevTools.Runtime.Framework.dll</HintPath>

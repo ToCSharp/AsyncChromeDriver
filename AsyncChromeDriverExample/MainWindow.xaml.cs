@@ -120,8 +120,9 @@ namespace AsyncChromeDriverExample
             }
             try
             {
+                var prevQuery = await webDriver.FindElement(By.Name("q"));
                 var res2 = await webDriver.GoToUrl("https://www.google.com/");
-                var query = await webDriver.WaitForElementWithName("q");
+                var query = await webDriver.WaitForElementWithName("q", prevQuery?.Id);
 
                 //await query.SendKeys("ToCSharp");
                 foreach (var v in "ToCSharp")
