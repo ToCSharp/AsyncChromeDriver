@@ -4,6 +4,8 @@
 using System.Threading.Tasks;
 using System.Threading;
 using Newtonsoft.Json.Linq;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Zu.Chrome.DriverCore
 {
@@ -67,19 +69,38 @@ namespace Zu.Chrome.DriverCore
             var res = await webView.CallFunction(func, $"{{\"{strategy}\":\"{expr}\"}}", null, true, false, cancellationToken); 
             return (res?.Result?.Value as JToken)?["value"];
         }
-        public async Task<string> GoBack(Session session = null,
-            CancellationToken cancellationToken = new CancellationToken())
+        public async Task<string> GoBack(CancellationToken cancellationToken = new CancellationToken())
         {
             var res = await webView.TraverseHistory(-1, cancellationToken);
             session?.SwitchToTopFrame();
             return "ok";
         }
-        public async Task<string> GoForward(Session session = null,
-            CancellationToken cancellationToken = new CancellationToken())
+        public async Task<string> GoForward(CancellationToken cancellationToken = new CancellationToken())
         {
             var res = await webView.TraverseHistory(1, cancellationToken);
             session?.SwitchToTopFrame();
             return "ok";
         }
+
+        public async Task<JToken> ExecuteScript(string script, List<string> args = null,
+            CancellationToken cancellationToken = new CancellationToken())
+        {
+            var frameId = session == null ? "" : session.GetCurrentFrameId();
+            var func = "function(){" + script + "}";
+            var argsStr = args?.Any() == true ? string.Join(", ", args) : "";
+            var res = await webView.CallFunction(func, argsStr, cancellationToken: cancellationToken);
+            return res?.Result?.Value as JToken;
+        }
+
+        public async Task<JToken> ExecuteAsyncScript(string script, List<string> args = null,
+            CancellationToken cancellationToken = new CancellationToken())
+        {
+            var frameId = session == null ? "" : session.GetCurrentFrameId();
+            var func = "function(){" + script + "}";
+            var argsStr = args?.Any() == true ? string.Join(", ", args) : "";
+            var res = await webView.CallUserAsyncFunction(func, argsStr, session.ScriptTimeout, cancellationToken: cancellationToken);
+            return res as JToken;
+        }
+
     }
 }

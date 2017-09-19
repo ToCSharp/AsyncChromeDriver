@@ -13,20 +13,37 @@ namespace Zu.Chrome.DriverCore
         public Stack<FrameInfo> Frames = new Stack<FrameInfo>();
 
         public int Id { get; set; }
+
+        private AsyncChromeDriver asyncChromeDriver;
         public bool w3c_compliant = false;
         public bool quit = false;
         public bool detach = false;
         public bool force_devtools_screenshot = false;
         public int sticky_modifiers = 0;
         public WebPoint mouse_position = new WebPoint(0, 0);
-        public TimeSpan page_load_timeout = TimeSpan.FromMinutes(5);
         public bool auto_reporting_enabled = false;
         //todo: implicit or await for element, element state...
-        internal TimeSpan implicitWait;
+        public TimeSpan PageLoadTimeout
+        {
+            get;//=> asyncChromeDriver.Options.Timeouts.PageLoad;
+            set;// => asyncChromeDriver.Options.Timeouts.PageLoad = value;
+        }
+        public TimeSpan ImplicitWait
+        {
+            get;// => asyncChromeDriver.Options.Timeouts.ImplicitWait;
+            set;// => asyncChromeDriver.Options.Timeouts.ImplicitWait = value;
+        }
+        public TimeSpan ScriptTimeout
+        {
+            get;// => asyncChromeDriver.Options.Timeouts.AsynchronousJavaScript;
+            set;// => asyncChromeDriver.Options.Timeouts.AsynchronousJavaScript = value;
+        }
 
-        public Session(int id)
+
+        public Session(int id, AsyncChromeDriver asyncChromeDriver)
         {
             Id = id;
+            this.asyncChromeDriver = asyncChromeDriver;
         }
 
         public void SwitchToTopFrame()

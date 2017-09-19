@@ -4,11 +4,14 @@
 using BaristaLabs.ChromeDevTools.Runtime.Runtime;
 using BaristaLabs.ChromeDevTools.Runtime.Page;
 using BaristaLabs.ChromeDevTools.Runtime.Input;
+using BaristaLabs.ChromeDevTools.Runtime.DOM;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Threading;
 using System.Globalization;
+using System.Collections.Generic;
+using Zu.WebBrowser.BasicTypes;
 
 namespace Zu.Chrome.DriverCore
 {
@@ -45,6 +48,77 @@ namespace Zu.Chrome.DriverCore
             return res;
         }
 
+        public async Task<EvaluateCommandResponse> CallFunctionInContext(
+                                         string function,
+                                         string args,
+                                         long? contextId = null,
+                                         bool returnByValue = true,
+                                         bool w3c = false,
+                                         CancellationToken cancellationToken = default(CancellationToken))
+        {
+            var json = args == null ? "" : args.ToString();
+            var expression = $"({call_function.JsSource}).apply(null, [null, {function}, [{args}], {w3c.ToString().ToLower()}])";
+            var res = await EvaluateScriptInContext(expression, contextId, returnByValue, cancellationToken);
+
+            return res;
+        }
+
+        public async Task<string> CallFunctionInContextAndGetObject(
+                                         string function,
+                                         string args,
+                                         long? contextId = null,
+                                         bool w3c = false,
+                                         CancellationToken cancellationToken = default(CancellationToken))
+        {
+            var res = await CallFunctionInContext(function, args, contextId, false, w3c, cancellationToken);
+
+            return res?.Result?.ObjectId;
+        }
+
+        public async Task<object> CallUserAsyncFunction(
+                                         string function,
+                                         /*JToken*/string/*[]*/ args,
+                                         TimeSpan? scriptTimeout,
+                                         string frame = null,
+                                         bool returnByValue = true,
+                                         bool w3c = false,
+                                         CancellationToken cancellationToken = default(CancellationToken))
+        {
+            var asyncArgsList = new List<string>
+            {
+                "return (" + function + ").apply(null, arguments);",
+                $"[{args}]",
+                "true",
+                scriptTimeout == null ? "0" : ((TimeSpan)scriptTimeout).TotalMilliseconds.ToString()
+            };
+            var asyncArgs = string.Join(", ", asyncArgsList);
+            await CallFunction(execute_async_script.JsSource, asyncArgs);
+            var kDocUnloadError = "document unloaded while waiting for result";
+            var kJavaScriptError = 17;
+            string kQueryResult = string.Format(
+      "function() {{" +
+      "  var info = document.$chrome_asyncScriptInfo;" +
+      "  if (!info)" +
+      "    return {{status: {0}, value: '{1}' }};" +
+      "  var result = info.result;" +
+      "  if (!result)" +
+      "    return {{status: 0}};" +
+      "  delete info.result;" +
+      "  return result;" +
+      "}}",
+      kJavaScriptError,
+      kDocUnloadError);
+            while(true)
+            {
+                var query_value = await CallFunction(kQueryResult, "", frame);
+                if(query_value.Result?.Value != null)
+                {
+                    return query_value.Result.Value;
+                }
+                await Task.Delay(100);
+            }
+        }
+
         public async Task<EvaluateCommandResponse> EvaluateScript(
                                         string expression,
                                         string frame = null,
@@ -61,6 +135,42 @@ namespace Zu.Chrome.DriverCore
             }, cancellationToken);
 
         }
+        public async Task<EvaluateCommandResponse> EvaluateScriptInContext(
+                                        string expression,
+                                        long? contextId = null,
+                                        bool returnByValue = true,
+                                        CancellationToken cancellationToken = default(CancellationToken))
+        {
+            if (asyncChromeDriver != null) await asyncChromeDriver.CheckConnected();
+            return await DevTools?.Session.Runtime.Evaluate(new EvaluateCommand
+            {
+                Expression = expression,
+                ContextId = contextId,
+                ReturnByValue = returnByValue
+            }, cancellationToken);
+
+        }
+
+        public async Task<string> EvaluateScriptAndGetObject(
+                                        string expression,
+                                        string frame = null,
+                                        //bool returnByValue = true,
+                                        CancellationToken cancellationToken = default(CancellationToken))
+        {
+            var res = await EvaluateScript(expression, frame, false, cancellationToken);
+            return res?.Result?.ObjectId;
+        }
+
+        public async Task<string> EvaluateScriptAndGetObjectInContext(
+                                        string expression,
+                                        long? contextId = null,
+                                        //bool returnByValue = true,
+                                        CancellationToken cancellationToken = default(CancellationToken))
+        {
+            var res = await EvaluateScriptInContext(expression, contextId, false, cancellationToken);
+            return res?.Result?.ObjectId;
+        }
+
         public async Task<string> GetUrl(CancellationToken cancellationToken = default(CancellationToken))
         {
             if (asyncChromeDriver != null) await asyncChromeDriver.CheckConnected();
@@ -90,7 +200,7 @@ namespace Zu.Chrome.DriverCore
             {
                 if (res.CurrentIndex > 0)
                 {
-                    return await DevTools?.Session.Page.NavigateToHistoryEntry(new NavigateToHistoryEntryCommand { EntryId = res.CurrentIndex + delta }, cancellationToken);
+                    return await DevTools?.Session.Page.NavigateToHistoryEntry(new NavigateToHistoryEntryCommand { EntryId = res.Entries[res.CurrentIndex + delta].Id }, cancellationToken);
                     //return await EvaluateScript("window.history.back();");
                 }
                 else { return null; }
@@ -98,7 +208,7 @@ namespace Zu.Chrome.DriverCore
             else if (delta == 1)
                 if (res.CurrentIndex + 1 < res.Entries.Count())
                 {
-                    return await DevTools?.Session.Page.NavigateToHistoryEntry(new NavigateToHistoryEntryCommand { EntryId = res.CurrentIndex + delta }, cancellationToken);
+                    return await DevTools?.Session.Page.NavigateToHistoryEntry(new NavigateToHistoryEntryCommand { EntryId = res.Entries[res.CurrentIndex + delta].Id }, cancellationToken);
                     //return await EvaluateScript("window.history.forward();");
                 }
                 else { return null; }
@@ -120,16 +230,16 @@ namespace Zu.Chrome.DriverCore
             else return null;
             //else throw new ArgumentOutOfRangeException(nameof(delta));    
         }
-   
+
         public async Task DispatchKeyEvents(string keys, CancellationToken cancellationToken = default(CancellationToken))
         {
             if (asyncChromeDriver != null) await asyncChromeDriver.CheckConnected();
             foreach (var key in keys)
             {
                 //var index = (int)key - 0xE000U; > 0
-                if (AsyncWebDriver.Keys.KeyToVirtualKeyCode.ContainsKey(key))
+                if (Keys.KeyToVirtualKeyCode.ContainsKey(key))
                 {
-                    var virtualKeyCode = AsyncWebDriver.Keys.KeyToVirtualKeyCode[key];
+                    var virtualKeyCode = Keys.KeyToVirtualKeyCode[key];
                     //if (index == 7 || index == 6)
                     //{
                     //    await DevTools?.Session.Input.DispatchKeyEvent(new DispatchKeyEventCommand
@@ -141,18 +251,18 @@ namespace Zu.Chrome.DriverCore
                     //else
                     //{
                     if (virtualKeyCode == 0) continue;
-                        var res = await DevTools?.Session.Input.DispatchKeyEvent(new DispatchKeyEventCommand
-                        {
-                            Type = "rawKeyDown",
-                            //NativeVirtualKeyCode = virtualKeyCode,
-                            WindowsVirtualKeyCode = virtualKeyCode,
-                        }, cancellationToken);
-                        await DevTools?.Session.Input.DispatchKeyEvent(new DispatchKeyEventCommand
-                        {
-                            Type = "keyUp",
-                            //NativeVirtualKeyCode = virtualKeyCode,
-                            WindowsVirtualKeyCode = virtualKeyCode,
-                        }, cancellationToken);
+                    var res = await DevTools?.Session.Input.DispatchKeyEvent(new DispatchKeyEventCommand
+                    {
+                        Type = "rawKeyDown",
+                        //NativeVirtualKeyCode = virtualKeyCode,
+                        WindowsVirtualKeyCode = virtualKeyCode,
+                    }, cancellationToken);
+                    await DevTools?.Session.Input.DispatchKeyEvent(new DispatchKeyEventCommand
+                    {
+                        Type = "keyUp",
+                        //NativeVirtualKeyCode = virtualKeyCode,
+                        WindowsVirtualKeyCode = virtualKeyCode,
+                    }, cancellationToken);
                     //}
                 }
                 else
@@ -164,6 +274,24 @@ namespace Zu.Chrome.DriverCore
                     }, cancellationToken);
                 }
             }
+        }
+
+        public async Task GetFrameByFunction(string frame, string function, List<string> args, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            long context_id = FrameTracker.GetContextIdForFrame(frame);
+            var nodeId = await GetNodeIdFromFunction(context_id, function, args, cancellationToken);
+            throw new NotImplementedException("GetFrameByFunction");
+        }
+        public async Task<int> GetNodeIdFromFunction(long context_id, string function, List<string> args, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            var argsJson = Newtonsoft.Json.JsonConvert.SerializeObject(args);
+            var w3 = asyncChromeDriver.Session.w3c_compliant ? "true" : "false";
+            var element_id = await CallFunctionInContextAndGetObject(function, argsJson, context_id, asyncChromeDriver.Session.w3c_compliant, cancellationToken);
+            var nodeResp = await DevTools.Session.DOM.RequestNode(new RequestNodeCommand { ObjectId = element_id }, cancellationToken);
+            var nodeId = nodeResp?.NodeId;
+            if (nodeId == null) throw new Exception("DOM.requestNode missing int 'nodeId'");
+            var releaseResp = await DevTools.Session.Runtime.ReleaseObject(new ReleaseObjectCommand { ObjectId = element_id });
+            return (int)nodeId;
         }
     }
 }

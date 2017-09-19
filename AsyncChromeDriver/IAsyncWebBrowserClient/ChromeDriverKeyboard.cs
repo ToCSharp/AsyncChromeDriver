@@ -7,6 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Zu.Chrome.DriverCore;
 using Zu.WebBrowser.AsyncInteractions;
+using Zu.WebBrowser.BasicTypes;
 
 namespace Zu.Chrome
 {
@@ -14,19 +15,21 @@ namespace Zu.Chrome
     {
 
         private WebView webView;
+        private IAsyncChromeDriver asyncChromeDriver;
 
-        public ChromeDriverKeyboard(WebView webView)
+        public ChromeDriverKeyboard(IAsyncChromeDriver asyncChromeDriver)
         {
-            this.webView = webView;
+            this.asyncChromeDriver = asyncChromeDriver;
+            webView = asyncChromeDriver.WebView;
         }
 
         public async Task PressKey(string keyToPress, CancellationToken cancellationToken = default(CancellationToken))
         {
             if (!(keyToPress.Length == 1)) throw new ArgumentOutOfRangeException(nameof(keyToPress));
             var key = keyToPress[0];
-            if (AsyncWebDriver.Keys.KeyToVirtualKeyCode.ContainsKey(key))
+            if (Keys.KeyToVirtualKeyCode.ContainsKey(key))
             {
-                var virtualKeyCode = AsyncWebDriver.Keys.KeyToVirtualKeyCode[key];
+                var virtualKeyCode = Keys.KeyToVirtualKeyCode[key];
                 if (virtualKeyCode == 0) return;
                 var res = await webView.DevTools?.Session.Input.DispatchKeyEvent(new DispatchKeyEventCommand
                 {
@@ -49,9 +52,9 @@ namespace Zu.Chrome
         {
             if (!(keyToRelease.Length == 1)) throw new ArgumentOutOfRangeException(nameof(keyToRelease));
             var key = keyToRelease[0];
-            if (AsyncWebDriver.Keys.KeyToVirtualKeyCode.ContainsKey(key))
+            if (Keys.KeyToVirtualKeyCode.ContainsKey(key))
             {
-                var virtualKeyCode = AsyncWebDriver.Keys.KeyToVirtualKeyCode[key];
+                var virtualKeyCode = Keys.KeyToVirtualKeyCode[key];
                 if (virtualKeyCode == 0) return;
                 await webView.DevTools?.Session.Input.DispatchKeyEvent(new DispatchKeyEventCommand
                 {
@@ -74,9 +77,9 @@ namespace Zu.Chrome
         {
             foreach (var key in keySequence)
             {
-                if (AsyncWebDriver.Keys.KeyToVirtualKeyCode.ContainsKey(key))
+                if (Keys.KeyToVirtualKeyCode.ContainsKey(key))
                 {
-                    var virtualKeyCode = AsyncWebDriver.Keys.KeyToVirtualKeyCode[key];
+                    var virtualKeyCode = Keys.KeyToVirtualKeyCode[key];
                     if (virtualKeyCode == 0) continue;
                     var res = await webView.DevTools?.Session.Input.DispatchKeyEvent(new DispatchKeyEventCommand
                     {

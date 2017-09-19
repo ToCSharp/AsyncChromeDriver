@@ -113,7 +113,7 @@ namespace Zu.Chrome.DriverCore
                 var startTime = DateTime.Now;
                 bool isDisplayed = false;
                 bool isFocused = false;
-                if (Session.implicitWait != default(TimeSpan))
+                if (Session.ImplicitWait != default(TimeSpan))
                 {
                     while (true)
                     {
@@ -121,8 +121,8 @@ namespace Zu.Chrome.DriverCore
                         if (isDisplayed) break;
                         isFocused = await elementUtils.IsElementFocused(elementId);
                         if (isFocused) break;
-                        if (Session.implicitWait == default(TimeSpan)) break;
-                        if (DateTime.Now - startTime >= Session.implicitWait)
+                        if (Session.ImplicitWait == default(TimeSpan)) break;
+                        if (DateTime.Now - startTime >= Session.ImplicitWait)
                         {
                             return null;
                         }

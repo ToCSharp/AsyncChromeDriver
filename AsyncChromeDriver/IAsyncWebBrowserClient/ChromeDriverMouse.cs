@@ -31,11 +31,13 @@ namespace Zu.Chrome
 
         private WebView webView;
         private Session session;
+        private IAsyncChromeDriver asyncChromeDriver;
 
-        public ChromeDriverMouse(WebView webView, Session session) 
+        public ChromeDriverMouse(IAsyncChromeDriver asyncChromeDriver)
         {
-            this.webView = webView;
-            this.session = session;
+            this.asyncChromeDriver = asyncChromeDriver;
+            webView = asyncChromeDriver.WebView;
+            session = asyncChromeDriver.Session;
         }
 
         public Task Click(ICoordinates where, CancellationToken cancellationToken = default(CancellationToken))

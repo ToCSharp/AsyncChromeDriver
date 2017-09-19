@@ -30,11 +30,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AsyncWebDriver, Version=1.1.7.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\AsyncWebDriver.1.1.7\lib\net452\AsyncWebDriver.dll</HintPath>
-    </Reference>
-    <Reference Include="IWebBrowserClient, Version=1.1.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\AsyncWebDriver.1.1.7\lib\net452\IWebBrowserClient.dll</HintPath>
+    <Reference Include="IAsyncWebBrowserClient, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\IAsyncWebBrowserClient.0.1.0\lib\net452\IAsyncWebBrowserClient.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -50,10 +47,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AsyncChromeDriver.cs" />
-    <Compile Include="ChromeDevTools.cs" />
+    <Compile Include="ChromeDevToolsConnection.cs" />
     <Compile Include="ChromeDriverConfig.cs" />
-    <Compile Include="ChromeDriverKeyboard.cs" />
-    <Compile Include="ChromeDriverMouse.cs" />
     <Compile Include="ChromeProcessInfo.cs" />
     <Compile Include="ChromeProfilesWorker.cs" />
     <Compile Include="ChromeSessionInfo.cs" />
@@ -66,6 +61,7 @@
     <Compile Include="DriverCore\ElementUtils.cs" />
     <Compile Include="DriverCore\FrameInfo.cs" />
     <Compile Include="DriverCore\FrameTracker.cs" />
+    <Compile Include="DriverCore\js\execute_async_script.js.cs" />
     <Compile Include="DriverCore\js\call_function.js.cs" />
     <Compile Include="DriverCore\js\focus.js.cs" />
     <Compile Include="DriverCore\js\get_element_region.js.cs" />
@@ -74,6 +70,23 @@
     <Compile Include="DriverCore\Session.cs" />
     <Compile Include="DriverCore\WebView.cs" />
     <Compile Include="DriverCore\WindowCommands.cs" />
+    <Compile Include="IAsyncChromeDriver.cs" />
+    <Compile Include="IAsyncWebBrowserClient\ChromeDriverAlert.cs" />
+    <Compile Include="IAsyncWebBrowserClient\ChromeDriverCookieJar.cs" />
+    <Compile Include="IAsyncWebBrowserClient\ChromeDriverCoordinates.cs" />
+    <Compile Include="IAsyncWebBrowserClient\ChromeDriverElements.cs" />
+    <Compile Include="IAsyncWebBrowserClient\ChromeDriverJavaScriptExecutor.cs" />
+    <Compile Include="IAsyncWebBrowserClient\ChromeDriverKeyboard.cs" />
+    <Compile Include="IAsyncWebBrowserClient\ChromeDriverLogs.cs" />
+    <Compile Include="IAsyncWebBrowserClient\ChromeDriverMouse.cs" />
+    <Compile Include="IAsyncWebBrowserClient\ChromeDriverNavigation.cs" />
+    <Compile Include="IAsyncWebBrowserClient\ChromeDriverOptions.cs" />
+    <Compile Include="IAsyncWebBrowserClient\ChromeDriverScreenshot.cs" />
+    <Compile Include="IAsyncWebBrowserClient\ChromeDriverTargetLocator.cs" />
+    <Compile Include="IAsyncWebBrowserClient\ChromeDriverTimeouts.cs" />
+    <Compile Include="IAsyncWebBrowserClient\ChromeDriverTouchScreen.cs" />
+    <Compile Include="IAsyncWebBrowserClient\ChromeDriverWebStorage.cs" />
+    <Compile Include="IAsyncWebBrowserClient\ChromeDriverWindow.cs" />
     <Compile Include="ProcessWithJobObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -81,6 +94,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\AsyncWebDriver\AsyncWebDriver\AsyncWebDriver.csproj">
+      <Project>{489fd59f-d739-4144-89b8-b5a719bcb120}</Project>
+      <Name>AsyncWebDriver</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BaristaLabs.chrome-dev-tools-runtime\BaristaLabs.ChromeDevTools.Runtime.NetFramework\BaristaLabs.ChromeDevTools.Runtime.NetFramework.csproj">
       <Project>{6f8eb349-fd03-41a7-9434-117ce10c999e}</Project>
       <Name>BaristaLabs.ChromeDevTools.Runtime.NetFramework</Name>

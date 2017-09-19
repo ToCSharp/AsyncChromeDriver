@@ -283,7 +283,12 @@ namespace AsyncChromeDriverExample
                 var res2 = await webDriver.GoToUrl("https://www.google.com/");
                 var screenshot = await webDriver.GetScreenshot();
                 string path = GetFilePathToSaveScreenshot();
-                screenshot.SaveAsFile(path, Zu.WebBrowser.BasicTypes.ScreenshotImageFormat.Png);
+                using (MemoryStream imageStream = new MemoryStream(screenshot.AsByteArray))
+                {
+                    System.Drawing.Image screenshotImage = System.Drawing.Image.FromStream(imageStream);
+                    screenshotImage.Save(path, System.Drawing.Imaging.ImageFormat.Png);
+                }
+                //screenshot.SaveAsFile(path, Zu.WebBrowser.BasicTypes.ScreenshotImageFormat.Png);
             }
             catch (Exception ex)
             {
@@ -415,7 +420,12 @@ namespace AsyncChromeDriverExample
                 await webDriver.GoToUrl("https://www.google.com/");
                 await Task.Delay(500);
                 var screenshot = await webDriver.GetScreenshot();
-                screenshot.SaveAsFile(GetFilePathToSaveScreenshot(), Zu.WebBrowser.BasicTypes.ScreenshotImageFormat.Png);
+                //screenshot.SaveAsFile(GetFilePathToSaveScreenshot(), Zu.WebBrowser.BasicTypes.ScreenshotImageFormat.Png);
+                using (MemoryStream imageStream = new MemoryStream(screenshot.AsByteArray))
+                {
+                    System.Drawing.Image screenshotImage = System.Drawing.Image.FromStream(imageStream);
+                    screenshotImage.Save(GetFilePathToSaveScreenshot(), System.Drawing.Imaging.ImageFormat.Png);
+                }
                 await webDriver.Close();
             }
             catch (Exception ex)
