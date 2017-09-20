@@ -3,7 +3,7 @@ Chrome WebDriver and Chrome DevTools in one library.
 
 It connects directly to [Chrome DevTools](https://chromedevtools.github.io/devtools-protocol/) and is async from this connection. No need in chromedriver.
 
-AsyncChromeDriver implements [IAsyncWebBrowserClient](https://github.com/ToCSharp/AsyncWebDriver/blob/master/IAsyncWebBrowserClient/IAsyncWebBrowserClient.cs) and can be used as [AsyncWebDriver](https://github.com/ToCSharp/AsyncWebDriver).
+AsyncChromeDriver implements [IAsyncWebBrowserClient](https://github.com/ToCSharp/IAsyncWebBrowserClient) and can be used as [AsyncWebDriver](https://github.com/ToCSharp/AsyncWebDriver).
 
 It also has DevTools property and you can easily use all power of Chrome DevTools from your .Net app. Thanks to [BaristaLabs/chrome-dev-tools-runtime](https://github.com/BaristaLabs/chrome-dev-tools-runtime)
 
@@ -34,7 +34,11 @@ PM> Install-Package AsyncChromeDriver
       var allCookies = await asyncChromeDriver.DevTools.Session.Network.GetAllCookies();
 
       var screenshot = await webDriver.GetScreenshot();
-      screenshot.SaveAsFile(GetFilePathToSaveScreenshot(), Zu.WebBrowser.BasicTypes.ScreenshotImageFormat.Png);
+      using (MemoryStream imageStream = new MemoryStream(screenshot.AsByteArray))
+      {
+        System.Drawing.Image screenshotImage = System.Drawing.Image.FromStream(imageStream);
+        screenshotImage.Save(GetFilePathToSaveScreenshot(), System.Drawing.Imaging.ImageFormat.Png);
+      }
 
 ```
 ### Using DevTools
@@ -60,7 +64,11 @@ PM> Install-Package AsyncChromeDriver
      await webDriver.GoToUrl("https://www.google.com/");
      await Task.Delay(500);
      var screenshot = await webDriver.GetScreenshot();
-     screenshot.SaveAsFile(GetFilePathToSaveScreenshot(), Zu.WebBrowser.BasicTypes.ScreenshotImageFormat.Png);
+     using (MemoryStream imageStream = new MemoryStream(screenshot.AsByteArray))
+     {
+        System.Drawing.Image screenshotImage = System.Drawing.Image.FromStream(imageStream);
+        screenshotImage.Save(GetFilePathToSaveScreenshot(), System.Drawing.Imaging.ImageFormat.Png);
+     }
      await webDriver.Close();
 ```
 
