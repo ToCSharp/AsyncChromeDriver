@@ -18,9 +18,12 @@ namespace Zu.Chrome
             this.asyncChromeDriver = asyncChromeDriver;
         }
 
-        public Task<ReadOnlyCollection<Cookie>> AllCookies => throw new System.NotImplementedException();
-
         public Task AddCookie(Cookie cookie, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Task<ReadOnlyCollection<Cookie>> AllCookies(CancellationToken cancellationToken = default(CancellationToken))
         {
             throw new System.NotImplementedException();
         }

@@ -18,7 +18,10 @@ namespace Zu.Chrome
             this.asyncChromeDriver = asyncChromeDriver;
         }
 
-        public Task<ReadOnlyCollection<string>> AvailableLogTypes => throw new System.NotImplementedException();
+        public Task<ReadOnlyCollection<string>> AvailableLogTypes(CancellationToken cancellationToken = default(CancellationToken))
+        {
+            throw new System.NotImplementedException();
+        }
 
         public Task<ReadOnlyCollection<LogEntry>> GetLog(string logKind, CancellationToken cancellationToken = default(CancellationToken))
         {
