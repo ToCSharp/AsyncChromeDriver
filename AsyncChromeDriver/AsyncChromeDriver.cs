@@ -40,6 +40,8 @@ namespace Zu.Chrome
 
         public IElements Elements { get { if (elements == null) elements = new ChromeDriverElements(this); return elements; } }
 
+        public IActionExecutor ActionExecutor { get { if (actionExecutor == null) actionExecutor = new ChromeDriverActionExecutor(this); return actionExecutor; } }
+
         private ChromeDriverNavigation navigation;
         private ChromeDriverTouchScreen touchScreen;
         private ChromeDriverScreenshot screenshot;
@@ -51,6 +53,7 @@ namespace Zu.Chrome
         private ChromeDriverJavaScriptExecutor javaScriptExecutor;
         private ChromeDriverTargetLocator targetLocator;
         private ChromeDriverElements elements;
+        private ChromeDriverActionExecutor actionExecutor;
         #endregion
 
 
