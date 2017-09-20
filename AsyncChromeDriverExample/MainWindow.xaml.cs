@@ -131,9 +131,9 @@ namespace AsyncChromeDriverExample
                     await query.SendKeys(v.ToString());
                 }
                 await Task.Delay(500);
+                prevQuery = await webDriver.FindElement(By.Name("q"));
                 await query.SendKeys(Keys.Enter);
-                await Task.Delay(2000);
-                query = await webDriver.FindElement(By.Name("q"));
+                query = await webDriver.WaitForElementWithName("q", prevQuery?.Id);
                 await query.SendKeys(Keys.ArrowDown);
                 await Task.Delay(1000);
                 await query.SendKeys(Keys.ArrowDown);
@@ -147,19 +147,19 @@ namespace AsyncChromeDriverExample
                 await webDriver.Keyboard.SendKeys(Keys.PageDown);
                 var allCookies = await asyncChromeDriver.DevTools.Session.Network.GetAllCookies();
                 var screenshot = await asyncChromeDriver.DevTools.Session.Page.CaptureScreenshot();
-                if (!string.IsNullOrWhiteSpace(screenshot.Data))
-                {
-                    var dir = @"C:\temp";
-                    if (!Directory.Exists(dir)) Directory.CreateDirectory(dir);
-                    var i = 0;
-                    var path = "";
-                    do
-                    {
-                        i++;
-                        path = Path.Combine(dir, $"screenshot{i}.png");
-                    } while (File.Exists(path));
-                    File.WriteAllBytes(path, Convert.FromBase64String(screenshot.Data));
-                }
+                //if (!string.IsNullOrWhiteSpace(screenshot.Data))
+                //{
+                //    var dir = @"C:\temp";
+                //    if (!Directory.Exists(dir)) Directory.CreateDirectory(dir);
+                //    var i = 0;
+                //    var path = "";
+                //    do
+                //    {
+                //        i++;
+                //        path = Path.Combine(dir, $"screenshot{i}.png");
+                //    } while (File.Exists(path));
+                //    File.WriteAllBytes(path, Convert.FromBase64String(screenshot.Data));
+                //}
 
             }
             catch (Exception ex)
