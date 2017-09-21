@@ -80,11 +80,12 @@ namespace Zu.Chrome.DriverCore
         public async Task<string> GetElementAttribute(string elementId, string attributeName, CancellationToken cancellationToken = new CancellationToken())
         {
             var res = await webView.CallFunction(atoms.GET_ATTRIBUTE, $"{{\"{GetElementKey()}\":\"{elementId}\"}}, \"{attributeName}\"", null, true, false, cancellationToken);
-            return (res?.Result?.Value as JObject)?["value"]?.ToString();
+            return ResultValueConverter.AsString(res?.Result?.Value); // (res?.Result?.Value as JObject)?["value"]?.ToString();
         }
         public async Task<WebPoint> GetElementClickableLocation(string elementId, CancellationToken cancellationToken = new CancellationToken())
         {
-            var tagName = await GetElementTagName(elementId, cancellationToken);
+            var targetElementId = elementId;
+            var tagName = await GetElementTagName(targetElementId, cancellationToken);
             if (tagName == "area")
             {
                 var func =
@@ -104,14 +105,15 @@ namespace Zu.Chrome.DriverCore
                 "  throw new Error('no img is found for the area');" +
                 "}";
                 var frameId = Session == null ? "" : Session.GetCurrentFrameId();
-                var res = await webView.CallFunction(func, $"{{\"{GetElementKey()}\":\"{elementId}\"}}", frameId, true, false);
-                return ResultValueConverter.ToWebPoint(res?.Result?.Value);
+                var res = await webView.CallFunction(func, $"{{\"{GetElementKey()}\":\"{targetElementId}\"}}", frameId, true, false);
+                targetElementId = ResultValueConverter.ToElementId(res?.Result?.Value, GetElementKey());
+                //return ResultValueConverter.ToWebPoint(res?.Result?.Value);
             }
-            var isDisplayed = await IsElementDisplayed(elementId, cancellationToken);
+            var isDisplayed = await IsElementDisplayed(targetElementId, cancellationToken);
             if (isDisplayed)
             {
-                var rect = await GetElementRegion(elementId, cancellationToken);
-                var location = await ScrollElementRegionIntoView(elementId, rect, true, elementId, cancellationToken);
+                var rect = await GetElementRegion(targetElementId, cancellationToken);
+                var location = await ScrollElementRegionIntoView(targetElementId, rect, true, elementId, cancellationToken);
                 return location.Offset(rect.Width / 2, rect.Height / 2);
             }
             return null;

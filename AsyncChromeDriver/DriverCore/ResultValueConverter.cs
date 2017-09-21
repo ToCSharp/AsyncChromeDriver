@@ -52,7 +52,7 @@ namespace Zu.Chrome.DriverCore
 
         internal static string AsString(object value)
         {
-            return (value as JObject)?["value"]?.ToString();
+            return (string)(value as JObject)?["value"];
         }
 
         internal static string ToElementId(object value, string elementKey = "ELEMENT")

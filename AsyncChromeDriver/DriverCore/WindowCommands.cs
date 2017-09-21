@@ -22,6 +22,14 @@ namespace Zu.Chrome.DriverCore
             this.asyncChromeDriver = asyncChromeDriver;
         }
 
+        public string GetElementKey()
+        {
+            if (session?.w3c_compliant == true)
+                return ElementKeys.ElementKeyW3C;
+            else
+                return ElementKeys.ElementKey;
+        }
+
         public async Task<string> GoToUrl(string url, string frame = null, CancellationToken cancellationToken = default(CancellationToken))
         {
             var res = await webView.Load(url, null, cancellationToken);
@@ -57,7 +65,9 @@ namespace Zu.Chrome.DriverCore
         {
             var func = atoms.FIND_ELEMENT;
             var frameId = session == null ? "" : session.GetCurrentFrameId();
-            var res = await webView.CallFunction(func, $"{{\"{strategy}\":\"{expr}\"}}");
+            var args = $"{{\"{strategy}\":\"{expr}\"}}";
+            if (startNode != null) args += $", {{\"{GetElementKey()}\":\"{startNode}\"}}";
+            var res = await webView.CallFunction(func, args, null, true, false, cancellationToken);
             return res?.Result?.Value as JToken;
         }
 
@@ -66,7 +76,9 @@ namespace Zu.Chrome.DriverCore
         {
             var func = atoms.FIND_ELEMENTS;
             var frameId = session == null ? "" : session.GetCurrentFrameId();
-            var res = await webView.CallFunction(func, $"{{\"{strategy}\":\"{expr}\"}}", null, true, false, cancellationToken); 
+            var args = $"{{\"{strategy}\":\"{expr}\"}}";
+            if (startNode != null) args += $", {{\"{GetElementKey()}\":\"{startNode}\"}}";
+            var res = await webView.CallFunction(func, args, null, true, false, cancellationToken); 
             return (res?.Result?.Value as JToken)?["value"];
         }
         public async Task<string> GoBack(CancellationToken cancellationToken = new CancellationToken())
