@@ -8,7 +8,7 @@ using Zu.WebBrowser.AsyncInteractions;
 
 namespace Zu.Chrome
 {
-    internal class ChromeDriverTargetLocator : ITargetLocator
+    public class ChromeDriverTargetLocator : ITargetLocator
     {
         private AsyncChromeDriver asyncChromeDriver;
 

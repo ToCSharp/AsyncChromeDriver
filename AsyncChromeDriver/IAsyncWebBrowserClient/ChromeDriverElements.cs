@@ -8,7 +8,7 @@ using Zu.WebBrowser.BasicTypes;
 
 namespace Zu.Chrome
 {
-    internal class ChromeDriverElements: IElements
+    public class ChromeDriverElements: IElements
     {
         private IAsyncChromeDriver asyncChromeDriver;
 

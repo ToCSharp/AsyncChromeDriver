@@ -9,7 +9,7 @@ using Zu.WebBrowser.AsyncInteractions;
 
 namespace Zu.Chrome
 {
-    internal class ChromeDriverMouse : IMouse
+    public class ChromeDriverMouse : IMouse
     {
         public const string MovedMouseEventType = "mouseMoved";
         public const string ReleasedMouseEventType = "mouseReleased";

@@ -8,7 +8,7 @@ using Zu.WebBrowser.BrowserOptions;
 
 namespace Zu.Chrome
 {
-    internal class ChromeDriverTimeouts: ITimeouts
+    public class ChromeDriverTimeouts: ITimeouts
     {
         private IAsyncChromeDriver asyncChromeDriver;
 
@@ -17,34 +17,41 @@ namespace Zu.Chrome
             this.asyncChromeDriver = asyncChromeDriver;
         }
 
+        public TimeSpan AsynchronousJavaScript { get; set; }
+        public TimeSpan ImplicitWait { get; set; }
+        public TimeSpan PageLoad { get; set; }
+
         public Task<TimeSpan> GetAsynchronousJavaScript(CancellationToken cancellationToken = default(CancellationToken))
         {
-            throw new NotImplementedException();
+            return Task.FromResult(AsynchronousJavaScript);
         }
 
         public Task<TimeSpan> GetImplicitWait(CancellationToken cancellationToken = default(CancellationToken))
         {
-            throw new NotImplementedException();
+            return Task.FromResult(ImplicitWait);
         }
 
         public Task<TimeSpan> GetPageLoad(CancellationToken cancellationToken = default(CancellationToken))
         {
-            throw new NotImplementedException();
+            return Task.FromResult(PageLoad);
         }
 
         public Task SetAsynchronousJavaScript(TimeSpan time, CancellationToken cancellationToken = default(CancellationToken))
         {
-            throw new NotImplementedException();
+            AsynchronousJavaScript = time;
+            return Task.CompletedTask;
         }
 
         public Task SetImplicitWait(TimeSpan implicitWait, CancellationToken cancellationToken = default(CancellationToken))
         {
-            throw new NotImplementedException();
+            ImplicitWait = implicitWait;
+            return Task.CompletedTask;
         }
 
         public Task SetPageLoad(TimeSpan time, CancellationToken cancellationToken = default(CancellationToken))
         {
-            throw new NotImplementedException();
+            PageLoad = time;
+            return Task.CompletedTask;
         }
     }
 }

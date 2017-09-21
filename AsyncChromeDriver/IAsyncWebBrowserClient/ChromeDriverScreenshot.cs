@@ -7,7 +7,7 @@ using Zu.WebBrowser.BasicTypes;
 
 namespace Zu.Chrome
 {
-    internal class ChromeDriverScreenshot: ITakesScreenshot
+    public class ChromeDriverScreenshot: ITakesScreenshot
     {
         private IAsyncChromeDriver asyncChromeDriver;
 

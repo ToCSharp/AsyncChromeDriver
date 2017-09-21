@@ -6,7 +6,7 @@ using Zu.WebBrowser.AsyncInteractions;
 
 namespace Zu.Chrome
 {
-    internal class ChromeDriverAlert: IAlert
+    public class ChromeDriverAlert: IAlert
     {
         private IAsyncChromeDriver asyncChromeDriver;
 

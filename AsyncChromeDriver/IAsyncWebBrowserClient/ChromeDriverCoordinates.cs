@@ -7,7 +7,7 @@ using Zu.WebBrowser.BasicTypes;
 
 namespace Zu.Chrome
 {
-    internal class ChromeDriverCoordinates: ICoordinates
+    public class ChromeDriverCoordinates: ICoordinates
     {
         private IAsyncChromeDriver asyncChromeDriver;
 

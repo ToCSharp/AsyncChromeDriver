@@ -104,7 +104,6 @@ function executeAsyncScript(script, args, isUserSupplied, opt_timeoutMillis) {
     }, opt_timeoutMillis);
   }
 }
-};
 return executeAsyncScript.apply(null, arguments) 
 }
 ";

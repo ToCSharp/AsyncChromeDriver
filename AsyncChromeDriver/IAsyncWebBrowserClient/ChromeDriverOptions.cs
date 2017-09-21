@@ -6,7 +6,7 @@ using Zu.WebBrowser.BrowserOptions;
 
 namespace Zu.Chrome
 {
-    internal class ChromeDriverOptions: IOptions
+    public class ChromeDriverOptions: IOptions
     {
         private IAsyncChromeDriver asyncChromeDriver;
         private ChromeDriverTimeouts timeouts;

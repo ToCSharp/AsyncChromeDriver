@@ -6,7 +6,7 @@ using Zu.WebBrowser.AsyncInteractions;
 
 namespace Zu.Chrome
 {
-    internal class ChromeDriverTouchScreen : ITouchScreen
+    public class ChromeDriverTouchScreen : ITouchScreen
     {
         private IAsyncChromeDriver asyncChromeDriver;
 

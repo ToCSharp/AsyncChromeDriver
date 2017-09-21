@@ -11,7 +11,7 @@ using Zu.WebBrowser.BasicTypes;
 
 namespace Zu.Chrome
 {
-    internal class ChromeDriverKeyboard : IKeyboard
+    public class ChromeDriverKeyboard : IKeyboard
     {
 
         private WebView webView;

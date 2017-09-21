@@ -86,13 +86,15 @@ namespace Zu.Chrome.DriverCore
         {
             var asyncArgsList = new List<string>
             {
-                "return (" + function + ").apply(null, arguments);",
+                "\"return (" + function + ").apply(null, arguments);\"",
                 $"[{args}]",
                 "true",
-                scriptTimeout == null ? "0" : ((TimeSpan)scriptTimeout).TotalMilliseconds.ToString()
+                scriptTimeout == null || scriptTimeout == default(TimeSpan) ? "0" : ((TimeSpan)scriptTimeout).TotalMilliseconds.ToString()
             };
             var asyncArgs = string.Join(", ", asyncArgsList);
-            await CallFunction(execute_async_script.JsSource, asyncArgs);
+            //var expression = $"({execute_async_script.JsSource}).apply(null, [null, {function}, [{args}], {w3c.ToString().ToLower()}])";
+            //var res = await EvaluateScript(expression, frame, returnByValue, cancellationToken);
+            var r1 = await CallFunction(execute_async_script.JsSource, asyncArgs);
             var kDocUnloadError = "document unloaded while waiting for result";
             var kJavaScriptError = 17;
             string kQueryResult = string.Format(

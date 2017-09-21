@@ -35,8 +35,8 @@ namespace Zu.Chrome.DriverCore
         }
         public TimeSpan ScriptTimeout
         {
-            get;// => asyncChromeDriver.Options.Timeouts.AsynchronousJavaScript;
-            set;// => asyncChromeDriver.Options.Timeouts.AsynchronousJavaScript = value;
+            get => ((ChromeDriverTimeouts)asyncChromeDriver.Options.Timeouts).AsynchronousJavaScript;
+            set => ((ChromeDriverTimeouts)asyncChromeDriver.Options.Timeouts).AsynchronousJavaScript = value;
         }
 
 

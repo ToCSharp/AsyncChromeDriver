@@ -8,7 +8,7 @@ using Zu.WebBrowser.BrowserOptions;
 
 namespace Zu.Chrome
 {
-    internal class ChromeDriverWindow: IWindow
+    public class ChromeDriverWindow: IWindow
     {
         private IAsyncChromeDriver asyncChromeDriver;
 

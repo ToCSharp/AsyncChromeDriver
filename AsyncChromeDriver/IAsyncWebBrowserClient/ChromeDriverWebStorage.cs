@@ -4,7 +4,7 @@ using Zu.WebBrowser.BrowserOptions;
 
 namespace Zu.Chrome
 {
-    internal class ChromeDriverWebStorage: IWebStorage
+    public class ChromeDriverWebStorage: IWebStorage
     {
         private IAsyncChromeDriver asyncChromeDriver;
 

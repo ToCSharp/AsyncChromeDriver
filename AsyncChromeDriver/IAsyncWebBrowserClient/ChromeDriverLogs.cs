@@ -9,7 +9,7 @@ using Zu.WebBrowser.BrowserOptions;
 
 namespace Zu.Chrome
 {
-    internal class ChromeDriverLogs: ILogs
+    public class ChromeDriverLogs: ILogs
     {
         private IAsyncChromeDriver asyncChromeDriver;
 

@@ -9,7 +9,7 @@ using Zu.WebBrowser.BrowserOptions;
 
 namespace Zu.Chrome
 {
-    internal class ChromeDriverCookieJar: ICookieJar
+    public class ChromeDriverCookieJar: ICookieJar
     {
         private IAsyncChromeDriver asyncChromeDriver;
 

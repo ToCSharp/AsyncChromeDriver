@@ -7,7 +7,7 @@ using Zu.WebBrowser.AsyncInteractions;
 
 namespace Zu.Chrome
 {
-    internal class ChromeDriverNavigation: INavigation
+    public class ChromeDriverNavigation: INavigation
     {
         private IAsyncChromeDriver asyncChromeDriver;
 
