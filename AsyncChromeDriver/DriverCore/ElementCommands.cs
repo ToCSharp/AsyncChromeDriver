@@ -16,20 +16,12 @@ namespace Zu.Chrome.DriverCore
 
         public Session Session { get; private set; }
 
-        public ElementCommands(WebView webView, Session session, ElementUtils elementUtils = null, AsyncChromeDriver asyncChromeDriver = null)
+        public ElementCommands(AsyncChromeDriver asyncChromeDriver)
         {
-            this.webView = webView;
-            Session = session;
-            this.elementUtils = elementUtils ?? new ElementUtils(webView, Session);
+            this.webView = asyncChromeDriver.WebView;
+            Session = asyncChromeDriver.Session;
+            this.elementUtils = asyncChromeDriver.ElementUtils;
             this.asyncChromeDriver = asyncChromeDriver;
-        }
-
-        public string GetElementKey()
-        {
-            if (Session?.w3c_compliant == true)
-                return ElementKeys.ElementKeyW3C;
-            else
-                return ElementKeys.ElementKey;
         }
 
         public async Task<string> ClickElement(string elementId)
@@ -89,13 +81,13 @@ namespace Zu.Chrome.DriverCore
         }
         public async Task<WebPoint> GetElementLocation(string elementId)
         {
-            var res = await webView.CallFunction(atoms.GET_LOCATION, $"{{\"{GetElementKey()}\":\"{elementId}\"}}");
+            var res = await webView.CallFunction(atoms.GET_LOCATION, $"{{\"{Session.GetElementKey()}\":\"{elementId}\"}}", asyncChromeDriver.Session.GetCurrentFrameId());
             return ResultValueConverter.ToWebPoint(res?.Result?.Value);
         }
 
         public async Task<EvaluateCommandResponse> FocusElement(string elementId)
         {
-            var res = await webView.CallFunction(focus_js.JsSource, $"{{\"{GetElementKey()}\":\"{elementId}\"}}");
+            var res = await webView.CallFunction(focus_js.JsSource, $"{{\"{Session.GetElementKey()}\":\"{elementId}\"}}", asyncChromeDriver.Session.GetCurrentFrameId());
             return res;
         }
 

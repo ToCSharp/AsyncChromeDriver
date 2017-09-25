@@ -15,19 +15,11 @@ namespace Zu.Chrome.DriverCore
         private Session session;
         private AsyncChromeDriver asyncChromeDriver;
 
-        public WindowCommands(WebView webView, Session session, AsyncChromeDriver asyncChromeDriver)
+        public WindowCommands(AsyncChromeDriver asyncChromeDriver)
         {
-            this.webView = webView;
-            this.session = session;
+            this.webView = asyncChromeDriver.WebView;
+            this.session = asyncChromeDriver.Session;
             this.asyncChromeDriver = asyncChromeDriver;
-        }
-
-        public string GetElementKey()
-        {
-            if (session?.w3c_compliant == true)
-                return ElementKeys.ElementKeyW3C;
-            else
-                return ElementKeys.ElementKey;
         }
 
         public async Task<string> GoToUrl(string url, string frame = null, CancellationToken cancellationToken = default(CancellationToken))
@@ -60,25 +52,25 @@ namespace Zu.Chrome.DriverCore
             return res.Result?.Value?.ToString() ?? res.ExceptionDetails?.ToString();
         }
 
-        public async Task<JToken> FindElement(string strategy, string expr, string startNode = null, Session session = null,
+        public async Task<JToken> FindElement(string strategy, string expr, string startNode = null,
             CancellationToken cancellationToken = new CancellationToken())
         {
             var func = atoms.FIND_ELEMENT;
             var frameId = session == null ? "" : session.GetCurrentFrameId();
             var args = $"{{\"{strategy}\":\"{expr}\"}}";
-            if (startNode != null) args += $", {{\"{GetElementKey()}\":\"{startNode}\"}}";
-            var res = await webView.CallFunction(func, args, null, true, false, cancellationToken);
+            if (startNode != null) args += $", {{\"{session.GetElementKey()}\":\"{startNode}\"}}";
+            var res = await webView.CallFunction(func, args, frameId, true, false, cancellationToken);
             return res?.Result?.Value as JToken;
         }
 
-        public async Task<JToken> FindElements(string strategy, string expr, string startNode = null, Session session = null,
+        public async Task<JToken> FindElements(string strategy, string expr, string startNode = null,
             CancellationToken cancellationToken = new CancellationToken())
         {
             var func = atoms.FIND_ELEMENTS;
             var frameId = session == null ? "" : session.GetCurrentFrameId();
             var args = $"{{\"{strategy}\":\"{expr}\"}}";
-            if (startNode != null) args += $", {{\"{GetElementKey()}\":\"{startNode}\"}}";
-            var res = await webView.CallFunction(func, args, null, true, false, cancellationToken); 
+            if (startNode != null) args += $", {{\"{session.GetElementKey()}\":\"{startNode}\"}}";
+            var res = await webView.CallFunction(func, args, frameId, true, false, cancellationToken); 
             return (res?.Result?.Value as JToken)?["value"];
         }
         public async Task<string> GoBack(CancellationToken cancellationToken = new CancellationToken())
@@ -100,7 +92,7 @@ namespace Zu.Chrome.DriverCore
             var frameId = session == null ? "" : session.GetCurrentFrameId();
             var func = "function(){" + script + "}";
             var argsStr = args?.Any() == true ? string.Join(", ", args) : "";
-            var res = await webView.CallFunction(func, argsStr, cancellationToken: cancellationToken);
+            var res = await webView.CallFunction(func, argsStr, frameId, cancellationToken: cancellationToken);
             return res?.Result?.Value as JToken;
         }
 

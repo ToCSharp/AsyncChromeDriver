@@ -64,6 +64,7 @@
     <Compile Include="DriverCore\ElementKeys.cs" />
     <Compile Include="DriverCore\ElementUtils.cs" />
     <Compile Include="DriverCore\FrameInfo.cs" />
+    <Compile Include="DriverCore\DomTracker.cs" />
     <Compile Include="DriverCore\FrameTracker.cs" />
     <Compile Include="DriverCore\js\execute_async_script.js.cs" />
     <Compile Include="DriverCore\js\call_function.js.cs" />
@@ -72,6 +73,7 @@
     <Compile Include="DriverCore\js\is_option_element_toggleable.js.cs" />
     <Compile Include="DriverCore\ResultValueConverter.cs" />
     <Compile Include="DriverCore\Session.cs" />
+    <Compile Include="DriverCore\Util.cs" />
     <Compile Include="DriverCore\WebView.cs" />
     <Compile Include="DriverCore\WindowCommands.cs" />
     <Compile Include="IAsyncChromeDriver.cs" />

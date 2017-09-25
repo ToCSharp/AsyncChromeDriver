@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Zu.Chrome.DriverCore;
 using Zu.WebBrowser.AsyncInteractions;
 
 namespace Zu.Chrome
@@ -42,25 +43,91 @@ namespace Zu.Chrome
             throw new NotImplementedException();
         }
 
-        public Task SwitchToFrame(int frameIndex, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task SwitchToFrame(int frameIndex, CancellationToken cancellationToken = default(CancellationToken))
         {
-            throw new NotImplementedException();
+            var script =
+       "function(xpath) {" +
+       "  return document.evaluate(xpath, document, null, " +
+       "      XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;" +
+       "}";
+            var xpath = "(/html/body//iframe|/html/frameset//frame)";
+            xpath += $"[{(frameIndex + 1).ToString()}]";
+            var args = new List<string> { xpath };  //$"\"{xpath}\"" };
+            try
+            {
+                var frame = await asyncChromeDriver.WebView.GetFrameByFunction(asyncChromeDriver.Session.GetCurrentFrameId(), script, args, cancellationToken).ConfigureAwait(false);
+                var argsJson = Newtonsoft.Json.JsonConvert.SerializeObject(args);
+                var res = await asyncChromeDriver.WebView.CallFunction(script, argsJson, asyncChromeDriver.Session.GetCurrentFrameId(), true, false, cancellationToken);
+                var elementId = ResultValueConverter.ToElementId(res?.Result?.Value, asyncChromeDriver.Session.GetElementKey());
+                var chromeDriverId = Util.GenerateId();
+                var kSetFrameIdentifier =
+          "function(frame, id) {" +
+          "  frame.setAttribute('cd_frame_id_', id);" +
+          "}";
+                argsJson = $"{asyncChromeDriver.Session.GetElementJsonString(elementId)}, \"{chromeDriverId}\"";
+                var res2 = await asyncChromeDriver.WebView.CallFunction(kSetFrameIdentifier, argsJson, asyncChromeDriver.Session.GetCurrentFrameId(), true, false, cancellationToken);
+                asyncChromeDriver.Session.SwitchToSubFrame(frame, chromeDriverId);
+            }
+            catch { throw; }
         }
 
-        public Task SwitchToFrame(string frameName, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task SwitchToFrame(string frameName, CancellationToken cancellationToken = default(CancellationToken))
         {
             if (string.IsNullOrWhiteSpace(frameName))
             {
                 asyncChromeDriver.Session?.SwitchToTopFrame();
-                return Task.CompletedTask;
+                return;
             }
-            throw new NotImplementedException("SwitchToFrame by frameName");
+            var script =
+        "function(xpath) {" +
+        "  return document.evaluate(xpath, document, null, " +
+        "      XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;" +
+        "}";
+            var xpath = "(/html/body//iframe|/html/frameset//frame)";
+            xpath += $"[@name=\"{frameName}\" or @id=\"{frameName}\"]";
+            var args = new List<string> { xpath };
+            try
+            {
+                var frame = await asyncChromeDriver.WebView.GetFrameByFunction(asyncChromeDriver.Session.GetCurrentFrameId(), script, args, cancellationToken).ConfigureAwait(false);
+                var argsJson = Newtonsoft.Json.JsonConvert.SerializeObject(args);
+                var res = await asyncChromeDriver.WebView.CallFunction(script, argsJson, asyncChromeDriver.Session.GetCurrentFrameId(), true, false, cancellationToken);
+                var elementId = ResultValueConverter.ToElementId(res?.Result?.Value, asyncChromeDriver.Session.GetElementKey());
+                var chromeDriverId = Util.GenerateId();
+                var kSetFrameIdentifier =
+          "function(frame, id) {" +
+          "  frame.setAttribute('cd_frame_id_', id);" +
+          "}";
+                argsJson = $"{asyncChromeDriver.Session.GetElementJsonString(elementId)}, \"{chromeDriverId}\"";
+                var res2 = await asyncChromeDriver.WebView.CallFunction(kSetFrameIdentifier, argsJson, asyncChromeDriver.Session.GetCurrentFrameId(), true, false, cancellationToken);
+                asyncChromeDriver.Session.SwitchToSubFrame(frame, chromeDriverId);
+            }
+            catch { throw; }
+
         }
 
-        public async Task SwitchToFrameByElement(string element, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task SwitchToFrameByElement(string elementId, CancellationToken cancellationToken = default(CancellationToken))
         {
-            var is_displayed = await asyncChromeDriver.ElementUtils.IsElementDisplayed(element, cancellationToken);
-            throw new NotImplementedException("SwitchToFrame by element");
+            var is_displayed = await asyncChromeDriver.ElementUtils.IsElementDisplayed(elementId, cancellationToken);
+            var script = "function(elem) { return elem; }";
+            var args = new List<string> { $"{{\"{asyncChromeDriver.Session.GetElementKey()}\":\"{elementId}\"}}" };
+            try
+            {
+                var frame = await asyncChromeDriver.WebView.GetFrameByFunction(asyncChromeDriver.Session.GetCurrentFrameId(), script, args, cancellationToken).ConfigureAwait(false);
+                var argsJson = Newtonsoft.Json.JsonConvert.SerializeObject(args);
+                var res = await asyncChromeDriver.WebView.CallFunction(script, argsJson, asyncChromeDriver.Session.GetCurrentFrameId(), true, false, cancellationToken);
+
+                var elementId2 = ResultValueConverter.ToElementId(res?.Result?.Value, asyncChromeDriver.Session.GetElementKey());
+                var chromeDriverId = Util.GenerateId();
+                var kSetFrameIdentifier =
+          "function(frame, id) {" +
+          "  frame.setAttribute('cd_frame_id_', id);" +
+          "}";
+                argsJson = $"{asyncChromeDriver.Session.GetElementJsonString(elementId2)}, \"{chromeDriverId}\"";
+                var res2 = await asyncChromeDriver.WebView.CallFunction(kSetFrameIdentifier, argsJson, asyncChromeDriver.Session.GetCurrentFrameId(), true, false, cancellationToken);
+                asyncChromeDriver.Session.SwitchToSubFrame(frame, chromeDriverId);
+            }
+            catch { throw; }
+
         }
 
         public Task SwitchToParentFrame(CancellationToken cancellationToken = default(CancellationToken))

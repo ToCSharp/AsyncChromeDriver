@@ -94,7 +94,7 @@ namespace Zu.Chrome.DriverCore
             var asyncArgs = string.Join(", ", asyncArgsList);
             //var expression = $"({execute_async_script.JsSource}).apply(null, [null, {function}, [{args}], {w3c.ToString().ToLower()}])";
             //var res = await EvaluateScript(expression, frame, returnByValue, cancellationToken);
-            var r1 = await CallFunction(execute_async_script.JsSource, asyncArgs);
+            var r1 = await CallFunction(execute_async_script.JsSource, asyncArgs, asyncChromeDriver.Session?.GetCurrentFrameId());
             var kDocUnloadError = "document unloaded while waiting for result";
             var kJavaScriptError = 17;
             string kQueryResult = string.Format(
@@ -110,10 +110,10 @@ namespace Zu.Chrome.DriverCore
       "}}",
       kJavaScriptError,
       kDocUnloadError);
-            while(true)
+            while (true)
             {
                 var query_value = await CallFunction(kQueryResult, "", frame);
-                if(query_value.Result?.Value != null)
+                if (query_value.Result?.Value != null)
                 {
                     return query_value.Result.Value;
                 }
@@ -278,22 +278,36 @@ namespace Zu.Chrome.DriverCore
             }
         }
 
-        public async Task GetFrameByFunction(string frame, string function, List<string> args, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<string> GetFrameByFunction(string frame, string function, List<string> args, CancellationToken cancellationToken = default(CancellationToken))
         {
-            long context_id = FrameTracker.GetContextIdForFrame(frame);
-            var nodeId = await GetNodeIdFromFunction(context_id, function, args, cancellationToken);
-            throw new NotImplementedException("GetFrameByFunction");
+            long? context_id = FrameTracker.GetContextIdForFrame(frame);
+            try
+            {
+                var nodeId = await GetNodeIdFromFunction(context_id, function, args, cancellationToken);
+                return await asyncChromeDriver.DomTracker.GetFrameIdForNode(nodeId);
+            }
+            catch { throw; }
+
         }
-        public async Task<int> GetNodeIdFromFunction(long context_id, string function, List<string> args, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<int> GetNodeIdFromFunction(long? context_id, string function, List<string> args, CancellationToken cancellationToken = default(CancellationToken))
         {
             var argsJson = Newtonsoft.Json.JsonConvert.SerializeObject(args);
             var w3 = asyncChromeDriver.Session.w3c_compliant ? "true" : "false";
-            var element_id = await CallFunctionInContextAndGetObject(function, argsJson, context_id, asyncChromeDriver.Session.w3c_compliant, cancellationToken);
-            var nodeResp = await DevTools.Session.DOM.RequestNode(new RequestNodeCommand { ObjectId = element_id }, cancellationToken);
-            var nodeId = nodeResp?.NodeId;
-            if (nodeId == null) throw new Exception("DOM.requestNode missing int 'nodeId'");
-            var releaseResp = await DevTools.Session.Runtime.ReleaseObject(new ReleaseObjectCommand { ObjectId = element_id });
-            return (int)nodeId;
+            var expression = $"({call_function.JsSource}).apply(null, [null, {function}, {argsJson}, {w3}, true])";
+            try
+            {
+                var element_id = await EvaluateScriptAndGetObjectInContext(expression, null /*context_id*/, cancellationToken);
+
+                //var element_id = await CallFunctionInContextAndGetObject(function, argsJson, context_id, asyncChromeDriver.Session.w3c_compliant, cancellationToken);
+                long? nodeId = null;
+                var nodeResp = await DevTools.Session.DOM.RequestNode(new RequestNodeCommand { ObjectId = element_id }, cancellationToken);
+                nodeId = nodeResp?.NodeId;
+
+                if (nodeId == null) throw new Exception("DOM.requestNode missing int 'nodeId'");
+                var releaseResp = await DevTools.Session.Runtime.ReleaseObject(new ReleaseObjectCommand { ObjectId = element_id });
+                return (int)nodeId;
+            }
+            catch { throw; }
         }
     }
 }

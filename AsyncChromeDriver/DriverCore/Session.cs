@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Oleg Zudov. All Rights Reserved. Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // This file is based on or incorporates material from the Chromium Projects, licensed under the BSD-style license. More info in THIRD-PARTY-NOTICES file.
 
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -71,6 +72,18 @@ namespace Zu.Chrome.DriverCore
                 return "";
             return Frames.Peek().FrameId;
         }
+
+        public string GetElementKey()
+        {
+            if (w3c_compliant == true)
+                return ElementKeys.ElementKeyW3C;
+            else
+                return ElementKeys.ElementKey;
+        }
+
+        public JProperty GetElementJson(string elementId) => new JProperty(GetElementKey(), elementId);
+
+        public string GetElementJsonString(string elementId) => $"{{\"{GetElementKey()}\":\"{elementId}\"}}";
 
     }
 }

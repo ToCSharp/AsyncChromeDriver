@@ -26,15 +26,15 @@ namespace Zu.Chrome.DriverCore
             devTools?.Session.Runtime.SubscribeToExecutionContextDestroyedEvent(OnContextDestroyedEvent);
             devTools?.Session.Runtime.SubscribeToExecutionContextsClearedEvent(OnContextsClearedEvent);
             devTools?.Session.Page.SubscribeToFrameNavigatedEvent(OnFrameNavigatedEvent);
-            await devTools?.Session.Runtime.Enable(new BaristaLabs.ChromeDevTools.Runtime.Runtime.EnableCommand());
-            await devTools?.Session.Page.Enable(new BaristaLabs.ChromeDevTools.Runtime.Page.EnableCommand());
+            await devTools?.Session.Runtime.Enable();
+            await devTools?.Session.Page.Enable();
         }
 
-        public long GetContextIdForFrame(string frame)
+        public long? GetContextIdForFrame(string frame)
         {
             if (frameToContext.TryGetValue(frame, out long res)) return res;
             //throw new KeyNotFoundException(frame);
-            return 0;
+            return null;
         }
 
         private void OnContextCreatedEvent(ExecutionContextCreatedEvent ev)
@@ -45,7 +45,7 @@ namespace Zu.Chrome.DriverCore
                 var isDefault = auxData["isDefault"]?.Value<bool>();
                 var frameId = auxData["frameId"]?.Value<string>();
                 if (isDefault == true && !string.IsNullOrWhiteSpace(frameId))
-                    frameToContext.TryAdd(frameId, ev.Context.Id);
+                    frameToContext[frameId] = ev.Context.Id;
             }
         }
 
@@ -63,7 +63,8 @@ namespace Zu.Chrome.DriverCore
 
         private void OnFrameNavigatedEvent(FrameNavigatedEvent obj)
         {
-            frameToContext.Clear();
+            if(string.IsNullOrWhiteSpace(obj.Frame.ParentId))
+                frameToContext.Clear();
         }
     }
 }

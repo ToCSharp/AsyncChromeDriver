@@ -29,12 +29,12 @@ namespace Zu.Chrome
 
         public Task<JToken> FindElement(string strategy, string expr, string startNode = null, CancellationToken cancellationToken = default(CancellationToken))
         {
-            return asyncChromeDriver.WindowCommands.FindElement(strategy, expr, startNode, null, cancellationToken);
+            return asyncChromeDriver.WindowCommands.FindElement(strategy, expr, startNode, cancellationToken);
         }
 
         public Task<JToken> FindElements(string strategy, string expr, string startNode = null, CancellationToken cancellationToken = default(CancellationToken))
         {
-            return asyncChromeDriver.WindowCommands.FindElements(strategy, expr, startNode, null, cancellationToken);
+            return asyncChromeDriver.WindowCommands.FindElements(strategy, expr, startNode, cancellationToken);
         }
 
         public Task<string> GetActiveElement(CancellationToken cancellationToken = default(CancellationToken))

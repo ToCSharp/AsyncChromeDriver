@@ -62,6 +62,7 @@ namespace Zu.Chrome
         public ChromeDevToolsConnection DevTools { get; set; }
 
         public FrameTracker FrameTracker { get; private set; }
+        public DomTracker DomTracker { get; private set; }
         public Session Session { get; private set; }
         public WebView WebView { get; private set; }
         public ElementCommands ElementCommands { get; private set; }
@@ -126,13 +127,14 @@ namespace Zu.Chrome
         {
             Session = new Session(sessionId++, this);
             FrameTracker = new FrameTracker(DevTools);
+            DomTracker = new DomTracker(DevTools);
             WebView = new WebView(DevTools, FrameTracker, this);
             //Mouse = new ChromeDriverMouse(WebView, Session);
             //Keyboard = new ChromeDriverKeyboard(WebView);
             //Options = new BrowserOptions();
             ElementUtils = new ElementUtils(WebView, Session);
-            ElementCommands = new ElementCommands(WebView, Session, ElementUtils, this);
-            WindowCommands = new WindowCommands(WebView, Session, this);
+            ElementCommands = new ElementCommands(this);
+            WindowCommands = new WindowCommands(this);
         }
 
         public virtual async Task<string> Connect(CancellationToken cancellationToken = default(CancellationToken))
@@ -169,6 +171,7 @@ namespace Zu.Chrome
             }
             SubscribeToDevToolsSessionEvent();
             await FrameTracker.Enable();
+            await DomTracker.Enable();
             return $"Connected to Chrome port {Port}";
         }
 
