@@ -39,12 +39,12 @@ namespace Zu.Chrome
 
         public Task<string> GetActiveElement(CancellationToken cancellationToken = default(CancellationToken))
         {
-            return asyncChromeDriver.ElementUtils.GetActiveElement();
+            return asyncChromeDriver.ElementUtils.GetActiveElement(cancellationToken);
         }
 
         public Task<string> GetElementAttribute(string elementId, string attrName, CancellationToken cancellationToken = default(CancellationToken))
         {
-            return asyncChromeDriver.ElementUtils.GetElementAttribute(elementId, attrName);
+            return asyncChromeDriver.ElementUtils.GetElementAttribute(elementId, attrName, cancellationToken);
         }
 
         public Task<WebPoint> GetElementLocation(string elementId, CancellationToken cancellationToken = default(CancellationToken))
@@ -59,42 +59,42 @@ namespace Zu.Chrome
 
         public Task<WebRect> GetElementRect(string elementId, CancellationToken cancellationToken = default(CancellationToken))
         {
-            return asyncChromeDriver.ElementUtils.GetElementRegion(elementId);
+            return asyncChromeDriver.ElementUtils.GetElementRegion(elementId, cancellationToken);
         }
 
         public Task<WebSize> GetElementSize(string elementId, CancellationToken cancellationToken = default(CancellationToken))
         {
-            return asyncChromeDriver.ElementUtils.GetElementSize(elementId);
+            return asyncChromeDriver.ElementUtils.GetElementSize(elementId, cancellationToken);
         }
 
         public Task<string> GetElementTagName(string elementId, CancellationToken cancellationToken = default(CancellationToken))
         {
-            return asyncChromeDriver.ElementUtils.GetElementTagName(elementId);
+            return asyncChromeDriver.ElementUtils.GetElementTagName(elementId, cancellationToken);
         }
 
         public Task<string> GetElementText(string elementId, CancellationToken cancellationToken = default(CancellationToken))
         {
-            return asyncChromeDriver.ElementUtils.GetElementText(elementId);
+            return asyncChromeDriver.ElementUtils.GetElementText(elementId, cancellationToken);
         }
 
         public Task<string> GetElementValueOfCssProperty(string elementId, string propertyName, CancellationToken cancellationToken)
         {
-            throw new System.NotImplementedException();
+            return asyncChromeDriver.ElementCommands.GetElementValueOfCssProperty(elementId, propertyName, cancellationToken);
         }
 
         public Task<bool> IsElementDisplayed(string elementId, CancellationToken cancellationToken = default(CancellationToken))
         {
-            return asyncChromeDriver.ElementUtils.IsElementDisplayed(elementId);
+            return asyncChromeDriver.ElementUtils.IsElementDisplayed(elementId, cancellationToken);
         }
 
         public Task<bool> IsElementEnabled(string elementId, CancellationToken cancellationToken = default(CancellationToken))
         {
-            return asyncChromeDriver.ElementUtils.IsElementEnabled(elementId);
+            return asyncChromeDriver.ElementUtils.IsElementEnabled(elementId, cancellationToken);
         }
 
         public Task<bool> IsElementSelected(string elementId, CancellationToken cancellationToken = default(CancellationToken))
         {
-            return asyncChromeDriver.ElementUtils.IsOptionElementSelected(elementId);
+            return asyncChromeDriver.ElementUtils.IsOptionElementSelected(elementId, cancellationToken);
         }
 
         public Task<string> SendKeysToElement(string elementId, string value, CancellationToken cancellationToken = default(CancellationToken))

@@ -14,15 +14,6 @@ namespace Zu.Chrome.DriverCore
             var bytes = new byte[16];
             rnd.NextBytes(bytes);
             return ByteArrayToString(bytes);
-            //var sb = new StringBuilder();
-            //for (int i = 0; i < 16; i++)
-            //{
-
-            //    sb.Append(rnd.Ne()
-            //}
-            //var msb = base::RandUint64();
-            //uint64_t lsb = base::RandUint64();
-            //return base::StringPrintf("%016" PRIx64 "%016" PRIx64, msb, lsb);
         }
 
         public static string ByteArrayToString(byte[] ba)

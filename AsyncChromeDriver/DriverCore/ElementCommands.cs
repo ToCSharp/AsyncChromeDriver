@@ -2,6 +2,7 @@
 // This file is based on or incorporates material from the Chromium Projects, licensed under the BSD-style license. More info in THIRD-PARTY-NOTICES file.
 
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 using BaristaLabs.ChromeDevTools.Runtime.Runtime;
 using Zu.WebBrowser.BasicTypes;
@@ -26,63 +27,67 @@ namespace Zu.Chrome.DriverCore
 
         public async Task<string> ClickElement(string elementId)
         {
-            if(asyncChromeDriver != null) await asyncChromeDriver.CheckConnected();
-            var tag_name = await elementUtils.GetElementTagName(elementId);
-            if (tag_name == "option")
-            {
-                bool is_toggleable = await elementUtils.IsOptionElementTogglable(elementId);
-
-                if (is_toggleable)
+                if (asyncChromeDriver != null) await asyncChromeDriver.CheckConnected();
+                var tag_name = await elementUtils.GetElementTagName(elementId);
+                if (tag_name == "option")
                 {
-                    await elementUtils.ToggleOptionElement(elementId);
-                    return "ToggleOptionElement";
+                    bool is_toggleable = await elementUtils.IsOptionElementTogglable(elementId);
+
+                    if (is_toggleable)
+                    {
+                        await elementUtils.ToggleOptionElement(elementId);
+                        return "ToggleOptionElement";
+                    }
+                    else
+                    {
+                        await elementUtils.SetOptionElementSelected(elementId);
+                        return "SetOptionElementSelected";
+                    }
                 }
                 else
                 {
-                    await elementUtils.SetOptionElementSelected(elementId);
-                    return "SetOptionElementSelected";
+                    WebPoint location = await elementUtils.GetElementClickableLocation(elementId);
+                    var res = await webView.DevTools.Session.Input.DispatchMouseEvent(new BaristaLabs.ChromeDevTools.Runtime.Input.DispatchMouseEventCommand
+                    {
+                        Type = ChromeDriverMouse.MovedMouseEventType,
+                        Button = ChromeDriverMouse.NoneMouseButton,
+                        X = location.X,
+                        Y = location.Y,
+                        Modifiers = Session.sticky_modifiers,
+                        ClickCount = 0
+                    });
+                    res = await webView.DevTools.Session.Input.DispatchMouseEvent(new BaristaLabs.ChromeDevTools.Runtime.Input.DispatchMouseEventCommand
+                    {
+                        Type = ChromeDriverMouse.PressedMouseEventType,
+                        Button = ChromeDriverMouse.LeftMouseButton,
+                        X = location.X,
+                        Y = location.Y,
+                        Modifiers = Session.sticky_modifiers,
+                        ClickCount = 1
+                    });
+                    res = await webView.DevTools.Session.Input.DispatchMouseEvent(new BaristaLabs.ChromeDevTools.Runtime.Input.DispatchMouseEventCommand
+                    {
+                        Type = ChromeDriverMouse.ReleasedMouseEventType,
+                        Button = ChromeDriverMouse.LeftMouseButton,
+                        X = location.X,
+                        Y = location.Y,
+                        Modifiers = Session.sticky_modifiers,
+                        ClickCount = 1
+                    });
+                    Session.mouse_position = location;
+                    //await new ChromeDriverMouse(webView).Click(location);
+                    return "Click";
                 }
-            }
-            else
-            {
-                WebPoint location = await elementUtils.GetElementClickableLocation(elementId);
-                var res = await webView.DevTools.Session.Input.DispatchMouseEvent(new BaristaLabs.ChromeDevTools.Runtime.Input.DispatchMouseEventCommand
-                {
-                    Type = ChromeDriverMouse.MovedMouseEventType,
-                    Button = ChromeDriverMouse.NoneMouseButton,
-                    X = location.X,
-                    Y = location.Y,
-                    Modifiers = Session.sticky_modifiers,
-                    ClickCount = 0
-                });
-                res = await webView.DevTools.Session.Input.DispatchMouseEvent(new BaristaLabs.ChromeDevTools.Runtime.Input.DispatchMouseEventCommand
-                {
-                    Type = ChromeDriverMouse.PressedMouseEventType,
-                    Button = ChromeDriverMouse.LeftMouseButton,
-                    X = location.X,
-                    Y = location.Y,
-                    Modifiers = Session.sticky_modifiers,
-                    ClickCount = 1
-                });
-                res = await webView.DevTools.Session.Input.DispatchMouseEvent(new BaristaLabs.ChromeDevTools.Runtime.Input.DispatchMouseEventCommand
-                {
-                    Type = ChromeDriverMouse.ReleasedMouseEventType,
-                    Button = ChromeDriverMouse.LeftMouseButton,
-                    X = location.X,
-                    Y = location.Y,
-                    Modifiers = Session.sticky_modifiers,
-                    ClickCount = 1
-                });
-                Session.mouse_position = location;
-                //await new ChromeDriverMouse(webView).Click(location);
-                return "Click";
-            }
-
         }
         public async Task<WebPoint> GetElementLocation(string elementId)
         {
             var res = await webView.CallFunction(atoms.GET_LOCATION, $"{{\"{Session.GetElementKey()}\":\"{elementId}\"}}", asyncChromeDriver.Session.GetCurrentFrameId());
             return ResultValueConverter.ToWebPoint(res?.Result?.Value);
+        }
+
+        internal Task<string> GetElementValueOfCssProperty(string elementId, string propertyName, CancellationToken cancellationToken)
+        {
+            return elementUtils.GetElementEffectiveStyle(elementId, propertyName);
         }
 
         public async Task<EvaluateCommandResponse> FocusElement(string elementId)

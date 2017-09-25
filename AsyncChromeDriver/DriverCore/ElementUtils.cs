@@ -25,7 +25,7 @@ namespace Zu.Chrome.DriverCore
         {
             var res = await webView.CallFunction(atoms.IS_ELEMENT_CLICKABLE, $"{{\"{Session.GetElementKey()}\":\"{elementId}\"}}, {WebPointToJsonString(location)}", Session?.GetCurrentFrameId(), true, false, cancellationToken);
             //todo add exceptions
-            return (res?.Result?.Value as JObject)?["value"]?["clickable"]?.Value<bool>() == true; //  ResultValueConverter.ToBool(res?.Result?.Value);
+            return (res?.Result?.Value as JObject)?["value"]?["clickable"]?.Value<bool>() == true;
         }
 
         public string WebPointToJsonString(WebPoint point)
@@ -101,6 +101,8 @@ namespace Zu.Chrome.DriverCore
             {
                 var rect = await GetElementRegion(targetElementId, cancellationToken);
                 var location = await ScrollElementRegionIntoView(targetElementId, rect, true, elementId, cancellationToken);
+                //if (location == null) return null;
+                //var res = location.Offset(rect.Width / 2, rect.Height / 2);
                 return location.Offset(rect.Width / 2, rect.Height / 2);
             }
             return null;

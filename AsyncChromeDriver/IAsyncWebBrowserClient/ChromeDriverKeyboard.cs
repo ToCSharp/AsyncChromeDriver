@@ -42,7 +42,8 @@ namespace Zu.Chrome
             {
                 await webView.DevTools?.Session.Input.DispatchKeyEvent(new DispatchKeyEventCommand
                 {
-                    Type = "char",
+                    Type = "keyDown",
+                    //Type = "char",
                     Text = Convert.ToString(key, CultureInfo.InvariantCulture)
                 }, cancellationToken);
             }
@@ -67,7 +68,8 @@ namespace Zu.Chrome
             {
                 await webView.DevTools?.Session.Input.DispatchKeyEvent(new DispatchKeyEventCommand
                 {
-                    Type = "char",
+                    Type = "keyUp",
+                    //Type = "char",
                     Text = Convert.ToString(key, CultureInfo.InvariantCulture)
                 }, cancellationToken);
             }
