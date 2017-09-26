@@ -1,0 +1,5 @@
+AsyncChromeDriver in it base was rewritten from chromedriver hosted on 
+https://cs.chromium.org/chromium/src/chrome/test/chromedriver/README.txt.
+
+
+For third-party license information see the THIRD-PARTY-NOTICES file which accompanies this NOTICE file.
