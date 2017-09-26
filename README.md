@@ -75,18 +75,23 @@ PM> Install-Package AsyncChromeDriver
 ## Examples
 Look at AsyncChromeDriverExample.
 
+## Tests
+[Unit Tests from Selenuim](https://github.com/ToCSharp/AsyncChromeDriverExamplesAndTests/tree/master/AsyncWebDriver.SeleniumAdapter.Common.Tests) run through [SeleniumAdapter](https://github.com/ToCSharp/AsyncChromeDriverExamplesAndTests/tree/master/AsyncWebDriver.SeleniumAdapter) -> [SyncWebDriver](https://github.com/ToCSharp/AsyncWebDriver/tree/master/AsyncWebDriver/SyncWrapper) -> [AsyncWebDriver](https://github.com/ToCSharp/AsyncWebDriver) -> [AsyncChromeDriver](https://github.com/ToCSharp/AsyncChromeDriver)  
+
+
 ## Implemented
-WebDriver part has only basic functionality. Navigation, FindElements, Mouse, Keyboard, Clicks.
+
+[Unit tests results for AsyncChromeDriver 0.2.6 and Chrome 61](https://github.com/ToCSharp/AsyncChromeDriverExamplesAndTests/wiki/Unit-tests-results-for-Chrome)  
+
+
+In WebDriver part mostly implemented: Navigation, WebElements, Mouse, Keyboard, Clicks, ExecutingJavascript, TakesScreenshot.  
+Medium realized: Frame switching,  
+Poorly implemented: ExecutingAsyncJavascript  
+Not implemeted: Stale elements, Cookies, WindowSwitching, storages
 
 It was ported from [ChromeDriver](https://cs.chromium.org/chromium/src/chrome/test/chromedriver/README.txt) not directly, 
 partially. 
 
-## TODO (in WebDriver part, DevTools are good)
-* [ ] Frames and tabs
-* [ ] Exceptions
-* [ ] Timeouts
-* [ ] Tests
-* [ ] Documentation
 
 ## Contribute!
 If you see NotImplementedException, means you need functionality, which is not implemented yet.
