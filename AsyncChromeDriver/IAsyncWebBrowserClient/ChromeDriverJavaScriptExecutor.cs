@@ -9,6 +9,8 @@ using Zu.WebBrowser.AsyncInteractions;
 using System;
 using System.Collections.ObjectModel;
 using System.Collections;
+using Zu.WebBrowser.BasicTypes;
+using Zu.Chrome.DriverCore;
 
 namespace Zu.Chrome
 {
@@ -24,10 +26,10 @@ namespace Zu.Chrome
         public async Task<object> ExecuteAsyncScript(string script, CancellationToken cancellationToken = default(CancellationToken), params object[] args)
         {
             var res = await asyncChromeDriver.WindowCommands.ExecuteAsyncScript(script, ArgsToStringList(args));
-            var val = ((res as JObject)?["value"] as JObject)?["value"];
-            if (val is JValue) return ((JValue)val).Value;
-            if (val is JArray) return CreateListOfObjects((JArray)val);
-            return val;
+            var value = (res as JObject)?["value"];
+            var exception = ResultValueConverter.ToWebBrowserException(value);
+            if (exception != null) throw exception;
+            return ParseExecuteScriptReturnValue((value as JObject)?["value"]); 
         }
 
         internal ReadOnlyCollection<object> CreateListOfObjects(JArray array)
@@ -45,7 +47,8 @@ namespace Zu.Chrome
         public async Task<object> ExecuteScript(string script, CancellationToken cancellationToken = default(CancellationToken), params object[] args)
         {
             var res = await asyncChromeDriver.WindowCommands.ExecuteScript(script, ArgsToStringList(args));
-            if ((res as JObject)?["status"]?.ToString() == "13") throw new InvalidOperationException(ParseExecuteScriptReturnValue((res as JObject)?["value"])?.ToString());
+            var exception = ResultValueConverter.ToWebBrowserException(res);
+            if (exception != null) throw exception;
             return ParseExecuteScriptReturnValue((res as JObject)?["value"]); // (res as JObject)?["value"] as JValue)?.Value;
         }
 

@@ -59,9 +59,9 @@ namespace Zu.Chrome.DriverCore
             return ResultValueConverter.ToElementId(res?.Result?.Value, Session.GetElementKey());
             //return res?.Result?.Value as JToken;
         }
-        public async Task<bool> IsElementFocused(string elementId)
+        public async Task<bool> IsElementFocused(string elementId, CancellationToken cancellationToken = new CancellationToken())
         {
-            var activeElement = await GetActiveElement();
+            var activeElement = await GetActiveElement(cancellationToken);
             return activeElement == elementId;
         }
         public async Task<string> GetElementAttribute(string elementId, string attributeName, CancellationToken cancellationToken = new CancellationToken())
@@ -114,6 +114,9 @@ namespace Zu.Chrome.DriverCore
             //var frameId = Session == null ? "" : Session.GetCurrentFrameId();
             //var res = await webView.EvaluateScript(expression, frameId, true, cancellationToken);
             var res = await webView.CallFunction(get_element_region.JsSource, $"{{\"{Session.GetElementKey()}\":\"{elementId}\"}}", Session?.GetCurrentFrameId(), true, false, cancellationToken);
+            var value = res?.Result?.Value as JToken;
+            var exception = ResultValueConverter.ToWebBrowserException(value);
+            if (exception != null) throw exception;
             return ResultValueConverter.ToWebRect(res?.Result?.Value);
         }
 
@@ -121,31 +124,49 @@ namespace Zu.Chrome.DriverCore
         {
             var func = "function(elem) { return elem.tagName.toLowerCase(); }";
             var res = await webView.CallFunction(func, $"{{\"{Session.GetElementKey()}\":\"{elementId}\"}}", Session?.GetCurrentFrameId(), true, false, cancellationToken);
-            return (res?.Result?.Value as JObject)?["value"]?.ToString();
+            var value = res?.Result?.Value as JToken;
+            var exception = ResultValueConverter.ToWebBrowserException(value);
+            if (exception != null) throw exception;
+            return ResultValueConverter.AsString(res?.Result?.Value);
         }
         public async Task<string> GetElementText(string elementId, CancellationToken cancellationToken = new CancellationToken())
         {
             var res = await webView.CallFunction(atoms.GET_TEXT, $"{{\"{Session.GetElementKey()}\":\"{elementId}\"}}", Session?.GetCurrentFrameId(), true, false, cancellationToken);
+            var value = res?.Result?.Value as JToken;
+            var exception = ResultValueConverter.ToWebBrowserException(value);
+            if (exception != null) throw exception;
             return ResultValueConverter.AsString(res?.Result?.Value);
         }
         public async Task<WebSize> GetElementSize(string elementId, CancellationToken cancellationToken = new CancellationToken())
         {
             var res = await webView.CallFunction(atoms.GET_SIZE, $"{{\"{Session.GetElementKey()}\":\"{elementId}\"}}", Session?.GetCurrentFrameId(), true, false, cancellationToken);
+            var value = res?.Result?.Value as JToken;
+            var exception = ResultValueConverter.ToWebBrowserException(value);
+            if (exception != null) throw exception;
             return ResultValueConverter.ToWebSize(res?.Result?.Value);
         }
         public async Task<bool> IsElementDisplayed(string elementId, CancellationToken cancellationToken = new CancellationToken())
         {
             var res = await webView.CallFunction(atoms.IS_DISPLAYED, $"{{\"{Session.GetElementKey()}\":\"{elementId}\"}}", Session?.GetCurrentFrameId(), true, false, cancellationToken);
+            var value = res?.Result?.Value as JToken;
+            var exception = ResultValueConverter.ToWebBrowserException(value);
+            if (exception != null) throw exception;
             return (res?.Result?.Value as JObject)?["value"]?.Value<bool>() == true;
         }
         public async Task<bool> IsElementEnabled(string elementId, CancellationToken cancellationToken = new CancellationToken())
         {
             var res = await webView.CallFunction(atoms.IS_ENABLED, $"{{\"{Session.GetElementKey()}\":\"{elementId}\"}}", Session?.GetCurrentFrameId(), true, false, cancellationToken);
+            var value = res?.Result?.Value as JToken;
+            var exception = ResultValueConverter.ToWebBrowserException(value);
+            if (exception != null) throw exception;
             return ResultValueConverter.ToBool(res?.Result?.Value);
         }
         public async Task<bool> IsOptionElementSelected(string elementId, CancellationToken cancellationToken = new CancellationToken())
         {
             var res = await webView.CallFunction(atoms.IS_SELECTED, $"{{\"{Session.GetElementKey()}\":\"{elementId}\"}}", Session?.GetCurrentFrameId(), true, false, cancellationToken);
+            var value = res?.Result?.Value as JToken;
+            var exception = ResultValueConverter.ToWebBrowserException(value);
+            if (exception != null) throw exception;
             return ResultValueConverter.ToBool(res?.Result?.Value);
         }
         public async Task<bool> IsOptionElementTogglable(string elementId, CancellationToken cancellationToken = new CancellationToken())
@@ -154,12 +175,18 @@ namespace Zu.Chrome.DriverCore
             //var frameId = Session == null ? "" : Session.GetCurrentFrameId();
             //var res = await webView.EvaluateScript(expression, frameId, true, cancellationToken);
             var res = await webView.CallFunction(is_option_element_toggleable.JsSource, $"{{\"{Session.GetElementKey()}\":\"{elementId}\"}}", Session?.GetCurrentFrameId(), true, false, cancellationToken);
+            var value = res?.Result?.Value as JToken;
+            var exception = ResultValueConverter.ToWebBrowserException(value);
+            if (exception != null) throw exception;
             return ResultValueConverter.ToBool(res?.Result?.Value);
         }
 
         public async Task<bool> SetOptionElementSelected(string elementId, bool selected = true, CancellationToken cancellationToken = new CancellationToken())
         {
             var res = await webView.CallFunction(atoms.CLICK, $"{{\"{Session.GetElementKey()}\":\"{elementId}\"}}, {selected.ToString().ToLower()}", Session?.GetCurrentFrameId(), true, false, cancellationToken);
+            var value = res?.Result?.Value as JToken;
+            var exception = ResultValueConverter.ToWebBrowserException(value);
+            if (exception != null) throw exception;
             return ResultValueConverter.ToBool(res?.Result?.Value);
         }
         public async Task ToggleOptionElement(string elementId, CancellationToken cancellationToken = new CancellationToken())
@@ -220,6 +247,9 @@ namespace Zu.Chrome.DriverCore
         public async Task<string> GetElementEffectiveStyle(string elementId, string property, CancellationToken cancellationToken = new CancellationToken())
         {
             var res = await webView.CallFunction(atoms.GET_EFFECTIVE_STYLE, $"{{\"{Session.GetElementKey()}\":\"{elementId}\"}}, \"{property}\"", Session?.GetCurrentFrameId(), true, false, cancellationToken);
+            var value = res?.Result?.Value as JToken;
+            var exception = ResultValueConverter.ToWebBrowserException(value);
+            if (exception != null) throw exception;
             return ResultValueConverter.AsString(res?.Result?.Value);
         }
 

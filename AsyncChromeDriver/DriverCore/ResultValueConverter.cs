@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Oleg Zudov. All Rights Reserved. Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
+using System;
 using Newtonsoft.Json.Linq;
 using Zu.WebBrowser.BasicTypes;
 
@@ -50,6 +51,13 @@ namespace Zu.Chrome.DriverCore
             return null;
         }
 
+        internal static bool ValueIsNull(JToken res)
+        {
+            if(res == null) return true;
+            if (res?["value"] is JValue && (res?["value"] as JValue)?.Value == null) return true;
+            return false;
+        }
+
         internal static string AsString(object value)
         {
             return (string)(value as JObject)?["value"];
@@ -58,6 +66,37 @@ namespace Zu.Chrome.DriverCore
         internal static string ToElementId(object value, string elementKey = "ELEMENT")
         {
             return (value as JObject)?["value"]?[elementKey]?.ToString();
+        }
+
+        internal static Exception ToWebBrowserException(JToken json)
+        {
+            if (json is JArray) return null;
+            var status = (json as JObject)?["status"]?.ToString();
+            if (status == "0") return null;
+            var value = (json as JObject)?["value"]?.ToString();
+            var res = new WebBrowserException(value);
+            res.Json = json;
+            if (status == "10" && value == "element is not attached to the page document")
+            {
+                res.Error = "stale element reference";
+            }
+            else if (status == "13" && value.EndsWith("is not defined"))
+            {
+                res.Error = "invalid operation";
+            }
+            else if (status == "32")
+            {
+                res.Error = "invalid selector";
+            }
+            else if (status =="17")
+            {
+                return new InvalidOperationException(value);
+            }
+            else
+            {
+                throw new NotImplementedException(nameof(ToWebBrowserException) + ": " + value);
+            }
+            return res;
         }
     }
 }

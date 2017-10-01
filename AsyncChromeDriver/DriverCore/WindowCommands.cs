@@ -6,6 +6,7 @@ using System.Threading;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace Zu.Chrome.DriverCore
 {
@@ -57,10 +58,14 @@ namespace Zu.Chrome.DriverCore
         {
             var func = atoms.FIND_ELEMENT;
             var frameId = session == null ? "" : session.GetCurrentFrameId();
+            expr = Regex.Replace(expr, @"(['""\\#.:;,!?+<>=~*^$|%&@`{}\-/\[\]\(\)])", @"\$1");
             var args = $"{{\"{strategy}\":\"{expr}\"}}";
             if (startNode != null) args += $", {{\"{session.GetElementKey()}\":\"{startNode}\"}}";
             var res = await webView.CallFunction(func, args, frameId, true, false, cancellationToken);
-            return res?.Result?.Value as JToken;
+            var value = res?.Result?.Value as JToken;
+            var exception = ResultValueConverter.ToWebBrowserException(value);
+            if (exception != null) throw exception;
+            return value;
         }
 
         public async Task<JToken> FindElements(string strategy, string expr, string startNode = null,
@@ -68,10 +73,14 @@ namespace Zu.Chrome.DriverCore
         {
             var func = atoms.FIND_ELEMENTS;
             var frameId = session == null ? "" : session.GetCurrentFrameId();
+            expr = Regex.Replace(expr, @"(['""\\#.:;,!?+<>=~*^$|%&@`{}\-/\[\]\(\)])", @"\$1");
             var args = $"{{\"{strategy}\":\"{expr}\"}}";
             if (startNode != null) args += $", {{\"{session.GetElementKey()}\":\"{startNode}\"}}";
-            var res = await webView.CallFunction(func, args, frameId, true, false, cancellationToken); 
-            return (res?.Result?.Value as JToken)?["value"];
+            var res = await webView.CallFunction(func, args, frameId, true, false, cancellationToken);
+            var value = res?.Result?.Value as JToken;
+            var exception = ResultValueConverter.ToWebBrowserException(value);
+            if (exception != null) throw exception;
+            return value?["value"];
         }
         public async Task<string> GoBack(CancellationToken cancellationToken = new CancellationToken())
         {

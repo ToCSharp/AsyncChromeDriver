@@ -79,30 +79,42 @@ namespace Zu.Chrome.DriverCore
                     return "Click";
                 }
         }
-        public async Task<WebPoint> GetElementLocation(string elementId)
+        public async Task<WebPoint> GetElementLocation(string elementId, CancellationToken cancellationToken = default(CancellationToken))
         {
             var res = await webView.CallFunction(atoms.GET_LOCATION, $"{{\"{Session.GetElementKey()}\":\"{elementId}\"}}", asyncChromeDriver.Session.GetCurrentFrameId());
             return ResultValueConverter.ToWebPoint(res?.Result?.Value);
         }
 
-        internal Task<string> GetElementValueOfCssProperty(string elementId, string propertyName, CancellationToken cancellationToken)
+        internal Task<string> GetElementValueOfCssProperty(string elementId, string propertyName, CancellationToken cancellationToken = default(CancellationToken))
         {
             return elementUtils.GetElementEffectiveStyle(elementId, propertyName);
         }
 
-        public async Task<EvaluateCommandResponse> FocusElement(string elementId)
+        public async Task<EvaluateCommandResponse> FocusElement(string elementId, CancellationToken cancellationToken = default(CancellationToken))
         {
-            var res = await webView.CallFunction(focus_js.JsSource, $"{{\"{Session.GetElementKey()}\":\"{elementId}\"}}", asyncChromeDriver.Session.GetCurrentFrameId());
+            var res = await webView.CallFunction(focus_js.JsSource, $"{{\"{Session.GetElementKey()}\":\"{elementId}\"}}", asyncChromeDriver.Session.GetCurrentFrameId(), true, false, cancellationToken);
             return res;
         }
 
-        public async Task<string> SendKeysToElement(string elementId, string keys)
+        public async Task<EvaluateCommandResponse> ClearElement(string elementId, CancellationToken cancellationToken = default(CancellationToken))
         {
-            var isInput = await elementUtils.IsElementAttributeEqualToIgnoreCase(elementId, "tagName", "input");
-            var isFile = await elementUtils.IsElementAttributeEqualToIgnoreCase(elementId, "type", "file");
+            var res = await webView.CallFunction(atoms.CLEAR, $"{{\"{Session.GetElementKey()}\":\"{elementId}\"}}", asyncChromeDriver.Session.GetCurrentFrameId(), true, false, cancellationToken);
+            return res;
+        }
+
+        public async Task<EvaluateCommandResponse> SubmitElement(string elementId, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            var res = await webView.CallFunction(atoms. SUBMIT, $"{{\"{Session.GetElementKey()}\":\"{elementId}\"}}", asyncChromeDriver.Session.GetCurrentFrameId(), true, false, cancellationToken);
+            return res;
+        }
+
+        public async Task<string> SendKeysToElement(string elementId, string keys, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            var isInput = await elementUtils.IsElementAttributeEqualToIgnoreCase(elementId, "tagName", "input", cancellationToken);
+            var isFile = await elementUtils.IsElementAttributeEqualToIgnoreCase(elementId, "type", "file", cancellationToken);
             if (isInput && isFile)
             {
-                bool multiple = await elementUtils.IsElementAttributeEqualToIgnoreCase(elementId, "multiple", "true");
+                bool multiple = await elementUtils.IsElementAttributeEqualToIgnoreCase(elementId, "multiple", "true", cancellationToken);
                 return webView.SetFileInputFiles(elementId, keys);
             }
             else
@@ -114,23 +126,23 @@ namespace Zu.Chrome.DriverCore
                 {
                     while (true)
                     {
-                        isDisplayed = await elementUtils.IsElementDisplayed(elementId);
+                        isDisplayed = await elementUtils.IsElementDisplayed(elementId, cancellationToken);
                         if (isDisplayed) break;
-                        isFocused = await elementUtils.IsElementFocused(elementId);
+                        isFocused = await elementUtils.IsElementFocused(elementId, cancellationToken);
                         if (isFocused) break;
                         if (Session.ImplicitWait == default(TimeSpan)) break;
                         if (DateTime.Now - startTime >= Session.ImplicitWait)
                         {
-                            return null;
+                            throw new WebBrowserException("Element is not displayed or focused", "invalid element state");
                         }
                         await Task.Delay(100);
                     }
                 }
-                bool isEnabled = await elementUtils.IsElementEnabled(elementId);
-                if (!isEnabled) return null;
+                bool isEnabled = await elementUtils.IsElementEnabled(elementId, cancellationToken);
+                if (!isEnabled) throw new WebBrowserException("Element is not enabled", "invalid element state");
                 if (!isFocused)
                 {
-                    await FocusElement(elementId);
+                    await FocusElement(elementId, cancellationToken);
                 }
                 //var res = SendKeysOnWindow(keys, true);
                 await webView.DispatchKeyEvents(keys);

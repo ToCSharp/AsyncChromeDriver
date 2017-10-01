@@ -5,10 +5,13 @@ using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 using Zu.WebBrowser.AsyncInteractions;
 using Zu.WebBrowser.BasicTypes;
+using System;
+using System.Linq;
+using Zu.Chrome.DriverCore;
 
 namespace Zu.Chrome
 {
-    public class ChromeDriverElements: IElements
+    public class ChromeDriverElements : IElements
     {
         private IAsyncChromeDriver asyncChromeDriver;
 
@@ -17,9 +20,10 @@ namespace Zu.Chrome
             this.asyncChromeDriver = asyncChromeDriver;
         }
 
-        public Task<string> ClearElement(string elementId, CancellationToken cancellationToken)
+        public async Task<string> ClearElement(string elementId, CancellationToken cancellationToken)
         {
-            throw new System.NotImplementedException();
+            var res = await asyncChromeDriver.ElementCommands.ClearElement(elementId, cancellationToken);
+            return "ok";
         }
 
         public Task Click(string elementId, CancellationToken cancellationToken = default(CancellationToken))
@@ -27,14 +31,45 @@ namespace Zu.Chrome
             return asyncChromeDriver.ElementCommands.ClickElement(elementId);
         }
 
-        public Task<JToken> FindElement(string strategy, string expr, string startNode = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<JToken> FindElement(string strategy, string expr, string startNode = null, CancellationToken cancellationToken = default(CancellationToken))
         {
-            return asyncChromeDriver.WindowCommands.FindElement(strategy, expr, startNode, cancellationToken);
+            var res = await asyncChromeDriver.WindowCommands.FindElement(strategy, expr, startNode, cancellationToken);
+            if (ResultValueConverter.ValueIsNull(res)) 
+            {
+                var implicitWait = await asyncChromeDriver.Options.Timeouts.GetImplicitWait();
+                if (implicitWait != default(TimeSpan))
+                {
+                    var waitEnd = DateTime.Now + implicitWait;
+                    while (ResultValueConverter.ValueIsNull(res) && DateTime.Now < waitEnd)
+                    {
+                        Thread.Sleep(50);
+                        res = await asyncChromeDriver.WindowCommands.FindElement(strategy, expr, startNode, cancellationToken = default(CancellationToken));
+                    }
+                }
+            }
+            if (ResultValueConverter.ValueIsNull(res)) throw new WebBrowserException($"Element not found by {strategy} = {expr}", "no such element");
+            return res;
         }
-
-        public Task<JToken> FindElements(string strategy, string expr, string startNode = null, CancellationToken cancellationToken = default(CancellationToken))
+         
+        public async Task<JToken> FindElements(string strategy, string expr, string startNode = null, CancellationToken cancellationToken = default(CancellationToken))
         {
-            return asyncChromeDriver.WindowCommands.FindElements(strategy, expr, startNode, cancellationToken);
+            var res = await asyncChromeDriver.WindowCommands.FindElements(strategy, expr, startNode, cancellationToken = default(CancellationToken));
+            if ((res as JArray)?.Any() != true)
+            {
+                var implicitWait = await asyncChromeDriver.Options.Timeouts.GetImplicitWait();
+                if (implicitWait != default(TimeSpan))
+                {
+                    var waitEnd = DateTime.Now + implicitWait;
+                    while (((res as JArray)?.Any() != true) && DateTime.Now < waitEnd)
+                    {
+                        Thread.Sleep(50);
+                        res = await asyncChromeDriver.WindowCommands.FindElements(strategy, expr, startNode, cancellationToken = default(CancellationToken));
+                    }
+                }
+            }
+            if (res == null) throw new WebBrowserException($"Element not found by {strategy} = {expr}", "no such element");
+            return res;
+            //return asyncChromeDriver.WindowCommands.FindElements(strategy, expr, startNode, cancellationToken);
         }
 
         public Task<string> GetActiveElement(CancellationToken cancellationToken = default(CancellationToken))
@@ -49,12 +84,12 @@ namespace Zu.Chrome
 
         public Task<WebPoint> GetElementLocation(string elementId, CancellationToken cancellationToken = default(CancellationToken))
         {
-            return asyncChromeDriver.ElementCommands.GetElementLocation(elementId);
+            return asyncChromeDriver.ElementCommands.GetElementLocation(elementId, cancellationToken);
         }
 
-        public Task<string> GetElementProperty(string elementId, string propertyName, CancellationToken cancellationToken)
+        public async Task<string> GetElementProperty(string elementId, string propertyName, CancellationToken cancellationToken = default(CancellationToken))
         {
-            throw new System.NotImplementedException();
+            return null;
         }
 
         public Task<WebRect> GetElementRect(string elementId, CancellationToken cancellationToken = default(CancellationToken))
@@ -77,7 +112,7 @@ namespace Zu.Chrome
             return asyncChromeDriver.ElementUtils.GetElementText(elementId, cancellationToken);
         }
 
-        public Task<string> GetElementValueOfCssProperty(string elementId, string propertyName, CancellationToken cancellationToken)
+        public Task<string> GetElementValueOfCssProperty(string elementId, string propertyName, CancellationToken cancellationToken = default(CancellationToken))
         {
             return asyncChromeDriver.ElementCommands.GetElementValueOfCssProperty(elementId, propertyName, cancellationToken);
         }
@@ -102,9 +137,10 @@ namespace Zu.Chrome
             return asyncChromeDriver.ElementCommands.SendKeysToElement(elementId, value);
         }
 
-        public Task<string> SubmitElement(string elementId, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<string> SubmitElement(string elementId, CancellationToken cancellationToken = default(CancellationToken))
         {
-            throw new System.NotImplementedException();
+            var res = await asyncChromeDriver.ElementCommands.SubmitElement(elementId, cancellationToken);
+            return "ok";
         }
     }
 }
