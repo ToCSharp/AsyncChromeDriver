@@ -8,9 +8,9 @@ namespace BaristaLabs.ChromeDevTools.Runtime
     using System;
     using System.Collections.Concurrent;
     using System.Diagnostics;
+    using System.Globalization;
     using System.Threading;
     using System.Threading.Tasks;
-    using System.Threading.Tasks.Dataflow;
     using WebSocket4Net;
 
     /// <summary>
@@ -23,11 +23,8 @@ namespace BaristaLabs.ChromeDevTools.Runtime
         private readonly ConcurrentDictionary<string, ConcurrentBag<Action<object>>> m_eventHandlers = new ConcurrentDictionary<string, ConcurrentBag<Action<object>>>();
         private readonly ConcurrentDictionary<Type, string> m_eventTypeMap = new ConcurrentDictionary<Type, string>();
 
-        private ActionBlock<string> m_messageQueue;
         private WebSocket m_sessionSocket;
         private ManualResetEventSlim m_openEvent = new ManualResetEventSlim(false);
-        private ManualResetEventSlim m_responseReceived = new ManualResetEventSlim(false);
-        private LastResponseInfo m_lastResponse;
         private long m_currentCommandId = 0;
 
         public delegate void DevToolsEventHandler(object sender, string methodName, JToken eventData);
@@ -73,12 +70,6 @@ namespace BaristaLabs.ChromeDevTools.Runtime
             CommandTimeout = 5000;
             m_logger = logger;
             m_endpointAddress = endpointAddress;
-
-            m_messageQueue = new ActionBlock<string>((Action<string>)ProcessIncomingMessage,
-                new ExecutionDataflowBlockOptions {
-                    EnsureOrdered = true,
-                    MaxDegreeOfParallelism = 1,
-                });
 
             m_sessionSocket = new WebSocket(m_endpointAddress)
             {
@@ -140,6 +131,8 @@ namespace BaristaLabs.ChromeDevTools.Runtime
             return result.ToObject<TCommandResponse>();
         }
 
+        private ConcurrentDictionary<long, TaskCompletionSource<ResponseInfo>> _messages =
+           new ConcurrentDictionary<long, TaskCompletionSource<ResponseInfo>>();
         /// <summary>
         /// Returns a JToken based on a command created with the specified command name and params.
         /// </summary>
@@ -152,9 +145,10 @@ namespace BaristaLabs.ChromeDevTools.Runtime
         //[DebuggerStepThrough]
         public virtual async Task<JToken> SendCommand(string commandName, JToken @params, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
+            var id = Interlocked.Increment(ref m_currentCommandId);
             var message = new
             {
-                id = Interlocked.Increment(ref m_currentCommandId),
+                id = id,
                 method = commandName,
                 @params = @params
             };
@@ -164,23 +158,35 @@ namespace BaristaLabs.ChromeDevTools.Runtime
 
             await OpenSessionConnection(cancellationToken);
 
-            LogTrace("Sending {id} {method}: {params}", message.id, message.method, @params.ToString());
-            
+            LogTrace("Sending {id} {method}: {params}", message.id, message.method, @params?.ToString());
+
             var contents = JsonConvert.SerializeObject(message);
 
             if (m_isDisposed) return null;
-            m_responseReceived.Reset();
-            m_sessionSocket.Send(contents);
-
-            var responseWasReceived = await Task.Run(() => m_responseReceived.Wait(millisecondsTimeout.Value, cancellationToken));
-
-            if (!responseWasReceived && throwExceptionIfResponseNotReceived)
-                throw new InvalidOperationException($"A command response was not received: {commandName}");
-
-            if (m_lastResponse.IsError)
+            ResponseInfo res = null;
+            try
             {
-                var errorMessage = m_lastResponse.Result.Value<string>("message");
-                var errorData = m_lastResponse.Result.Value<string>("data");
+
+                TaskCompletionSource<ResponseInfo> promise = _messages.GetOrAdd(id, i => new TaskCompletionSource<ResponseInfo>());
+                m_sessionSocket.Send(contents);
+                cancellationToken.ThrowIfCancellationRequested();
+
+                cancellationToken.Register(() => promise.TrySetCanceled(), false);
+
+                res = await promise.Task.ConfigureAwait(false);
+                cancellationToken.ThrowIfCancellationRequested();
+
+            }
+            finally
+            {
+                TaskCompletionSource<ResponseInfo> promise;
+                _messages.TryRemove(id, out promise);
+            }
+
+            if (res.IsError)
+            {
+                var errorMessage = res.Result.Value<string>("message");
+                var errorData = res.Result.Value<string>("data");
 
                 var exceptionMessage = $"{commandName}: {errorMessage}";
                 if (!String.IsNullOrWhiteSpace(errorData))
@@ -189,10 +195,10 @@ namespace BaristaLabs.ChromeDevTools.Runtime
                 LogTrace("Recieved Error Response {id}: {message} {data}", message.id, message, errorData);
                 throw new CommandResponseException(exceptionMessage)
                 {
-                    Code = m_lastResponse.Result.Value<long>("code")
+                    Code = res.Result.Value<long>("code")
                 };
             }
-            return m_lastResponse.Result;
+            return res.Result;
         }
 
         /// <summary>
@@ -252,32 +258,34 @@ namespace BaristaLabs.ChromeDevTools.Runtime
             }
         }
 
-        private void ProcessIncomingMessage(string message)
+        private void ProcessIncomingMessage(ResponseInfo response)
         {
-            var messageObject = JObject.Parse(message);
-
-            long commandId;
-            if (messageObject.TryGetValue("id", out JToken idProperty) && (commandId = idProperty.Value<long>()) == m_currentCommandId)
+            var messageObject = response.Result as JObject; 
+            if (messageObject == null) return;
+            if (messageObject.TryGetValue("id", out JToken idProperty))
             {
-
+                var res = new ResponseInfo();
                 if (messageObject.TryGetValue("error", out JToken errorProperty))
                 {
-                    m_lastResponse = new LastResponseInfo
-                    {
-                        IsError = true,
-                        Result = errorProperty
-                    };
-                    m_responseReceived?.Set();
-                    return;
+                    res.IsError = true;
+                    res.Result = errorProperty;
+                }
+                else 
+                {
+                    res.Result = messageObject["result"];
                 }
 
-                m_lastResponse = new LastResponseInfo
+                long commandId = idProperty.Value<long>();
+                TaskCompletionSource<ResponseInfo> promise;
+                if (_messages.TryGetValue(commandId, out promise))
                 {
-                    Result = messageObject["result"]
-                };
-                
-                LogTrace("Recieved Response {id}: {message}", commandId, m_lastResponse.Result.ToString());
-                m_responseReceived?.Set();
+                    promise.SetResult(res);
+                }
+                else
+                {
+                    Debug.Fail(string.Format(CultureInfo.CurrentCulture, "Invalid response identifier '{0}'", commandId));
+                }
+                LogTrace("Recieved Response {id}: {message}", commandId, res.Result.ToString());
                 return;
             }
 
@@ -290,7 +298,7 @@ namespace BaristaLabs.ChromeDevTools.Runtime
                 return;
             }
 
-            LogTrace("Recieved Other: {message}", message);
+            //LogTrace("Recieved Other: {message}", message);
         }
 
         private void LogTrace(string message, params object[] args)
@@ -324,11 +332,12 @@ namespace BaristaLabs.ChromeDevTools.Runtime
 
         private void Ws_MessageReceived(object sender, MessageReceivedEventArgs e)
         {
-            //Add incoming messages to an ActionBlock so they can be processed sequentially.
-            if (m_messageQueue != null)
+            try
             {
-                m_messageQueue.Post(e.Message);
+                var responseInfo = new ResponseInfo { Result = JToken.Parse(e.Message) };
+                ProcessIncomingMessage(responseInfo);
             }
+            catch { }
         }
         #endregion
 
@@ -354,23 +363,12 @@ namespace BaristaLabs.ChromeDevTools.Runtime
                         m_sessionSocket = null;
                     }
 
-                    if (m_messageQueue != null)
-                    {
-                        m_messageQueue.Complete();
-                        m_messageQueue = null;
-                    }
-
                     if (m_openEvent != null)
                     {
                         m_openEvent.Dispose();
                         m_openEvent = null;
                     }
 
-                    if (m_responseReceived != null)
-                    {
-                        m_responseReceived.Dispose();
-                        m_responseReceived = null;
-                    }
                 }
 
                 m_isDisposed = true;
@@ -387,7 +385,7 @@ namespace BaristaLabs.ChromeDevTools.Runtime
         #endregion
 
         #region Nested Classes
-        private class LastResponseInfo
+        private class ResponseInfo
         {
             public bool IsError = false;
             public JToken Result;
