@@ -20,8 +20,9 @@ PM> Install-Package AsyncChromeDriver
 ```csharp
      var asyncChromeDriver = new AsyncChromeDriver();
      var webDriver = new WebDriver(asyncChromeDriver);
+     await webDriver.Options().Timeouts.SetImplicitWait(TimeSpan.FromSeconds(3));
      await webDriver.GoToUrl("https://www.google.com/");
-     var query = await webDriver.WaitForElementWithName("q");
+     var query = await webDriver.FindElementByName("q");
      
      //await query.SendKeys("ToCSharp");
      foreach (var v in "ToCSharp".ToList())

@@ -137,7 +137,7 @@ namespace AsyncChromeDriverExample
                     await query.SendKeys(v.ToString());
                 }
                 await Task.Delay(500);
-                prevQuery = await webDriver.FindElement(By.Name("q"));
+                prevQuery = await webDriver.FindElementByName("q");
                 await query.SendKeys(Keys.Enter);
                 query = await webDriver.WaitForElementWithName("q", prevQuery?.Id);
                 await query.SendKeys(Keys.ArrowDown);
