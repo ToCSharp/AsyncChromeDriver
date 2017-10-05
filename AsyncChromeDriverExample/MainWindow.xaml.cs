@@ -120,7 +120,13 @@ namespace AsyncChromeDriverExample
             }
             try
             {
-                var prevQuery = await webDriver.FindElement(By.Name("q"));
+                IWebElement prevQuery = null;
+                try
+                {
+                    prevQuery = await webDriver.FindElement(By.Name("q"));
+                }
+                catch { }
+                await webDriver.Options().Timeouts.SetImplicitWait(TimeSpan.FromSeconds(3));
                 var res2 = await webDriver.GoToUrl("https://www.google.com/");
                 var query = await webDriver.WaitForElementWithName("q", prevQuery?.Id);
 
@@ -147,19 +153,19 @@ namespace AsyncChromeDriverExample
                 await webDriver.Keyboard.SendKeys(Keys.PageDown);
                 var allCookies = await asyncChromeDriver.DevTools.Session.Network.GetAllCookies();
                 var screenshot = await asyncChromeDriver.DevTools.Session.Page.CaptureScreenshot();
-                //if (!string.IsNullOrWhiteSpace(screenshot.Data))
-                //{
-                //    var dir = @"C:\temp";
-                //    if (!Directory.Exists(dir)) Directory.CreateDirectory(dir);
-                //    var i = 0;
-                //    var path = "";
-                //    do
-                //    {
-                //        i++;
-                //        path = Path.Combine(dir, $"screenshot{i}.png");
-                //    } while (File.Exists(path));
-                //    File.WriteAllBytes(path, Convert.FromBase64String(screenshot.Data));
-                //}
+                if (!string.IsNullOrWhiteSpace(screenshot.Data))
+                {
+                    var dir = @"C:\temp";
+                    if (!Directory.Exists(dir)) Directory.CreateDirectory(dir);
+                    var i = 0;
+                    var path = "";
+                    do
+                    {
+                        i++;
+                        path = Path.Combine(dir, $"screenshot{i}.png");
+                    } while (File.Exists(path));
+                    File.WriteAllBytes(path, Convert.FromBase64String(screenshot.Data));
+                }
 
             }
             catch (Exception ex)
@@ -269,7 +275,7 @@ namespace AsyncChromeDriverExample
             // Must be synchronous in Window_Closing. Any await will close immediately
             if (asyncChromeDriver != null) asyncChromeDriver.CloseSync();
             if (webDriver != null) webDriver.CloseSync();
-          
+
         }
 
         private async void Button_Click_8(object sender, RoutedEventArgs e)
