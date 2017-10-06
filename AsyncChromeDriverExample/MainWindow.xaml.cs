@@ -120,15 +120,11 @@ namespace AsyncChromeDriverExample
             }
             try
             {
-                IWebElement prevQuery = null;
-                try
-                {
-                    prevQuery = await webDriver.FindElement(By.Name("q"));
-                }
-                catch { }
                 await webDriver.Options().Timeouts.SetImplicitWait(TimeSpan.FromSeconds(3));
+                // name = "q", 0 - time to wait element, not use ImplicitWait
+                var prevQuery = await webDriver.FindElementByNameOrDefault("q", 0);
                 var res2 = await webDriver.GoToUrl("https://www.google.com/");
-                var query = await webDriver.WaitForElementWithName("q", prevQuery?.Id);
+                var query = await webDriver.FindElementByName("q", prevQuery?.Id);
 
                 //await query.SendKeys("ToCSharp");
                 foreach (var v in "ToCSharp")
@@ -139,7 +135,7 @@ namespace AsyncChromeDriverExample
                 await Task.Delay(500);
                 prevQuery = await webDriver.FindElementByName("q");
                 await query.SendKeys(Keys.Enter);
-                query = await webDriver.WaitForElementWithName("q", prevQuery?.Id);
+                query = await webDriver.FindElementByName("q", prevQuery?.Id);
                 await query.SendKeys(Keys.ArrowDown);
                 await Task.Delay(1000);
                 await query.SendKeys(Keys.ArrowDown);
