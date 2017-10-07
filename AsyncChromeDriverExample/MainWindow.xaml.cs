@@ -437,5 +437,23 @@ namespace AsyncChromeDriverExample
                 tbDevToolsRes2.Text = ex.ToString();
             }
         }
+
+        private async void Button_Click_14(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                asyncChromeDriver = new AsyncChromeDriver(new ChromeDriverConfig().SetDoOpenWSProxy());
+                webDriver = new WebDriver(asyncChromeDriver);
+                await asyncChromeDriver.Connect();
+                tbDevToolsRes.Text = "opened";
+                tbDevToolsRes2.Text = $"opened on port {asyncChromeDriver.Port} in dir {asyncChromeDriver.UserDir} \nWhen close, dir will be DELETED";
+            }
+            catch (Exception ex)
+            {
+                tbDevToolsRes.Text = ex.ToString();
+                tbDevToolsRes2.Text = ex.ToString();
+            }
+
+        }
     }
 }

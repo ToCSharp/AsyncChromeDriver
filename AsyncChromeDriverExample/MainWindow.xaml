@@ -60,6 +60,11 @@
                     <Button Content="default profile" HorizontalAlignment="Left" Margin="358,62,0,0" VerticalAlignment="Top" Width="143" Click="Button_Click_12"/>
                 </Grid>
             </TabItem>
+            <TabItem Header="ProxyWS">
+                <Grid Background="#FFE5E5E5">
+                    <Button Content="open temp profile with WS proxy" HorizontalAlignment="Left" Margin="26,21,0,0" VerticalAlignment="Top" Width="190" Click="Button_Click_14"/>
+                </Grid>
+            </TabItem>
         </TabControl>
 
     </Grid>

@@ -19,7 +19,7 @@ namespace Zu.Chrome
             Port = port;
         }
 
-        public async Task Connect()
+        public virtual async Task Connect()
         {
             var sessions = await GetSessions(Port);
             var endpointUrl = sessions.FirstOrDefault(s => s.Type == "page")?.WebSocketDebuggerUrl;

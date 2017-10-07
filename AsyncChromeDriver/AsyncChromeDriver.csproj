@@ -51,8 +51,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AsyncChromeDriver.cs" />
+    <Compile Include="ChromeDevToolsConnectionProxy.cs" />
     <Compile Include="ChromeDevToolsConnection.cs" />
     <Compile Include="ChromeDriverActionExecutor.cs" />
+    <Compile Include="ChromeWSProxyConfig.cs" />
     <Compile Include="ChromeDriverConfig.cs" />
     <Compile Include="ChromeProcessInfo.cs" />
     <Compile Include="ChromeProfilesWorker.cs" />
@@ -106,6 +108,10 @@
     <ProjectReference Include="..\BaristaLabs.chrome-dev-tools-runtime\BaristaLabs.ChromeDevTools.Runtime.NetFramework\BaristaLabs.ChromeDevTools.Runtime.NetFramework.csproj">
       <Project>{6f8eb349-fd03-41a7-9434-117ce10c999e}</Project>
       <Name>BaristaLabs.ChromeDevTools.Runtime.NetFramework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ChromeWebSocketProxy\ChromeWebSocketProxy.csproj">
+      <Project>{fc8345cf-3b80-4dbb-8be4-155fe5eaa28a}</Project>
+      <Name>ChromeWebSocketProxy</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

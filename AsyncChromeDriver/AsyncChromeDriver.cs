@@ -110,7 +110,8 @@ namespace Zu.Chrome
         {
             Config = config;
             if (Config.Port == 0) Config.Port = 11000 + new Random().Next(2000);
-            DevTools = new ChromeDevToolsConnection(Port);
+            if(Config.DoOpenWSProxy) DevTools = new ChromeDevToolsConnectionProxy(Port, wsProxyConfig: Config.WSProxyConfig);
+            else DevTools = new ChromeDevToolsConnection(Port);
             CreateDriverCore();
         }
 

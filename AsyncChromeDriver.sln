@@ -21,6 +21,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BaristaLabs.chrome-dev-tool
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BaristaLabs.ChromeDevTools.Runtime.NetFramework", "BaristaLabs.chrome-dev-tools-runtime\BaristaLabs.ChromeDevTools.Runtime.NetFramework\BaristaLabs.ChromeDevTools.Runtime.NetFramework.csproj", "{6F8EB349-FD03-41A7-9434-117CE10C999E}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebSocket", "WebSocket", "{5428E8AA-37D9-494B-8988-6B2DB172D1FB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "websocket-sharp", "WebSocket\websocket-sharp\websocket-sharp.csproj", "{44C2460F-E5C0-4732-BE8E-05FBB6E23DAC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChromeWebSocketProxy", "ChromeWebSocketProxy\ChromeWebSocketProxy.csproj", "{FC8345CF-3B80-4DBB-8BE4-155FE5EAA28A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,12 +49,22 @@ Global
 		{6F8EB349-FD03-41A7-9434-117CE10C999E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6F8EB349-FD03-41A7-9434-117CE10C999E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6F8EB349-FD03-41A7-9434-117CE10C999E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{44C2460F-E5C0-4732-BE8E-05FBB6E23DAC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44C2460F-E5C0-4732-BE8E-05FBB6E23DAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44C2460F-E5C0-4732-BE8E-05FBB6E23DAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44C2460F-E5C0-4732-BE8E-05FBB6E23DAC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC8345CF-3B80-4DBB-8BE4-155FE5EAA28A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC8345CF-3B80-4DBB-8BE4-155FE5EAA28A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC8345CF-3B80-4DBB-8BE4-155FE5EAA28A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC8345CF-3B80-4DBB-8BE4-155FE5EAA28A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{6F8EB349-FD03-41A7-9434-117CE10C999E} = {815998B2-309E-4844-8706-D39FD1C123DE}
+		{44C2460F-E5C0-4732-BE8E-05FBB6E23DAC} = {5428E8AA-37D9-494B-8988-6B2DB172D1FB}
+		{FC8345CF-3B80-4DBB-8BE4-155FE5EAA28A} = {5428E8AA-37D9-494B-8988-6B2DB172D1FB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {86C79CA9-9618-4FE7-A3DA-581BAB274BBA}

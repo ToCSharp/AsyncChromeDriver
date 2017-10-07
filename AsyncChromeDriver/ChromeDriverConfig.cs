@@ -6,16 +6,19 @@ using Zu.WebBrowser.BasicTypes;
 
 namespace Zu.Chrome
 {
-    public class ChromeDriverConfig: DriverConfig
+    public class ChromeDriverConfig : DriverConfig
     {
+        public bool DoOpenWSProxy { get; set; } = false;
+        public ChromeWSProxyConfig WSProxyConfig { get; set; }
+
         public ChromeDriverConfig()
-            :base()
+            : base()
         {
 
         }
 
         public ChromeDriverConfig(DriverConfig config)
-            :this()
+            : this()
         {
             UserDir = config.UserDir;
             IsTempProfile = config.IsTempProfile;
@@ -25,6 +28,16 @@ namespace Zu.Chrome
             Headless = config.Headless;
             WindowSize = config.WindowSize;
             DoNotOpenChromeProfile = config.DoNotOpenChromeProfile;
+        }
+
+    }
+    public static class ChromeDriverConfigFluent
+    {
+        public static T SetDoOpenWSProxy<T>(this T dc, ChromeWSProxyConfig wsProxyConfig = null) where T : ChromeDriverConfig
+        {
+            dc.DoOpenWSProxy = true;
+            dc.WSProxyConfig = wsProxyConfig ?? new ChromeWSProxyConfig();
+            return dc;
         }
 
     }
