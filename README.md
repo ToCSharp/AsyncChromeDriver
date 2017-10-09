@@ -1,4 +1,4 @@
-# AsyncChromeDriver
+## AsyncChromeDriver
 Chrome WebDriver and Chrome DevTools in one library. 
 
 It connects directly to [Chrome DevTools](https://chromedevtools.github.io/devtools-protocol/) and is async from this connection. No need in chromedriver.
@@ -9,14 +9,14 @@ It also has DevTools property and you can easily use all power of Chrome DevTool
 
 [![Join the chat at https://gitter.im/AsyncWebDriver/Lobby](https://badges.gitter.im/AsyncWebDriver/Lobby.svg)](https://gitter.im/AsyncWebDriver/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-## Usage
-### Install AsyncChromeDriver via NuGet
+### Usage
+#### Install AsyncChromeDriver via NuGet
 
 If you want to include AsyncChromeDriver in your project, you can [install it directly from NuGet](https://www.nuget.org/packages/AsyncChromeDriver/)
 ```
 PM> Install-Package AsyncChromeDriver
 ```
-### Write code example
+#### Write code example
 ```csharp
      var asyncChromeDriver = new AsyncChromeDriver();
      var webDriver = new WebDriver(asyncChromeDriver);
@@ -43,7 +43,7 @@ PM> Install-Package AsyncChromeDriver
       }
 
 ```
-### Using DevTools
+#### Using DevTools
 ```csharp
     asyncChromeDriver = new AsyncChromeDriver();
     await asyncChromeDriver.CheckConnected();
@@ -59,7 +59,7 @@ PM> Install-Package AsyncChromeDriver
         Url = "https://www.google.com/"
     });
 ```
-### Headless Chrome
+#### Headless Chrome
 ```csharp
      var asyncChromeDriver = new AsyncChromeDriver(new ChromeDriverConfig().SetHeadless().SetWindowSize(width, height));
      var webDriver = new WebDriver(asyncChromeDriver);
@@ -73,15 +73,21 @@ PM> Install-Package AsyncChromeDriver
      }
      await webDriver.Close();
 ```
-
-## Examples
+#### Chrome Developer Tools
+```csharp
+   asyncChromeDriver = new AsyncChromeDriver(
+        new ChromeDriverConfig().SetDoOpenBrowserDevTools());
+   webDriver = new WebDriver(asyncChromeDriver);
+   await asyncChromeDriver.Connect();
+```
+#### Examples
 Look at AsyncChromeDriverExample.
 
-## Tests
+#### Tests
 [Unit Tests from Selenuim](https://github.com/ToCSharp/AsyncChromeDriverExamplesAndTests/tree/master/AsyncWebDriver.SeleniumAdapter.Common.Tests) run through [SeleniumAdapter](https://github.com/ToCSharp/AsyncChromeDriverExamplesAndTests/tree/master/AsyncWebDriver.SeleniumAdapter) -> [SyncWebDriver](https://github.com/ToCSharp/AsyncWebDriver/tree/master/AsyncWebDriver/SyncWrapper) -> [AsyncWebDriver](https://github.com/ToCSharp/AsyncWebDriver) -> [AsyncChromeDriver](https://github.com/ToCSharp/AsyncChromeDriver)  
 
 
-## Implemented
+#### Implemented
 
 [Unit tests results for AsyncChromeDriver 0.2.6 and Chrome 61](https://github.com/ToCSharp/AsyncChromeDriverExamplesAndTests/wiki/Unit-tests-results-for-Chrome)  
 
@@ -95,7 +101,7 @@ It was ported from [ChromeDriver](https://cs.chromium.org/chromium/src/chrome/te
 partially. 
 
 
-## Contribute!
+#### Contribute!
 If you see NotImplementedException, means you need functionality, which is not implemented yet.
 
 Write issue or to [![Join the chat at https://gitter.im/AsyncWebDriver/Lobby](https://badges.gitter.im/AsyncWebDriver/Lobby.svg)](https://gitter.im/AsyncWebDriver/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge). I implemented what I myself use at first.
