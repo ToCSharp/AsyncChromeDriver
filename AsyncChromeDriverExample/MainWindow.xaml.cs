@@ -520,5 +520,11 @@ namespace AsyncChromeDriverExample
                 tbDevToolsRes2.Text = ex.ToString();
             }
         }
+
+        private async void Button_Click_20(object sender, RoutedEventArgs e)
+        {
+            if (webDriver == null) return;
+            await webDriver.GoToUrl("https://www.google.com/");
+        }
     }
 }

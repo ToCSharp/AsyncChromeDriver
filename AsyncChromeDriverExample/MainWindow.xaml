@@ -68,6 +68,7 @@
                     <Button Content="open temp profile and Developer Tools" HorizontalAlignment="Left" Margin="10,18,0,0" VerticalAlignment="Top" Width="245" Click="Button_Click_17"/>
                     <Button Content="tab-network" HorizontalAlignment="Left" Margin="19,85,0,0" VerticalAlignment="Top" Width="103" Click="Button_Click_18" IsEnabled="False"/>
                     <Button Content="open temp profile and Developer Tools + Developer Tools of Developer Tools" HorizontalAlignment="Left" Margin="19,50,0,0" VerticalAlignment="Top" Width="461" Click="Button_Click_19" IsEnabled="False"/>
+                    <Button Content="goto google" HorizontalAlignment="Left" Margin="295,18,0,0" VerticalAlignment="Top" Width="95" Click="Button_Click_20"/>
                 </Grid>
             </TabItem>
         </TabControl>
