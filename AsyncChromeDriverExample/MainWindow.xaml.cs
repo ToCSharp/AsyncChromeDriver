@@ -21,6 +21,7 @@ namespace AsyncChromeDriverExample
     public partial class MainWindow : Window
     {
         private AsyncChromeDriver asyncChromeDriver;
+        private ChromeProcessInfo chromeProcess;
         private WebDriver webDriver;
         private ChromeRequestListener chromeRequestListener;
 
@@ -56,6 +57,7 @@ namespace AsyncChromeDriverExample
 
         ObservableCollection<ResponseReceivedEventInfo> responseEvents = new ObservableCollection<ResponseReceivedEventInfo>();
         ObservableCollection<WebSocketFrameReceivedEventInfo> wsEvents = new ObservableCollection<WebSocketFrameReceivedEventInfo>();
+        private AsyncChromeDriver asyncChromeDriverDev;
 
         private async void Button_Click_2(object sender, RoutedEventArgs e)
         {
@@ -127,9 +129,10 @@ namespace AsyncChromeDriverExample
                 var query = await webDriver.FindElementByName("q", prevQuery?.Id);
 
                 //await query.SendKeys("ToCSharp");
+                var rnd = new Random();
                 foreach (var v in "ToCSharp")
                 {
-                    await Task.Delay(500 + new Random().Next(1000));
+                    await Task.Delay(500 + rnd.Next(1000));
                     await query.SendKeys(v.ToString());
                 }
                 await Task.Delay(500);
@@ -442,7 +445,7 @@ namespace AsyncChromeDriverExample
         {
             try
             {
-                asyncChromeDriver = new AsyncChromeDriver(new ChromeDriverConfig().SetDoOpenWSProxy());
+                asyncChromeDriver = new AsyncChromeDriver(new ChromeDriverConfig().SetDoOpenWSProxy().SetPort(14392));
                 webDriver = new WebDriver(asyncChromeDriver);
                 await asyncChromeDriver.Connect();
                 tbDevToolsRes.Text = "opened";
@@ -454,6 +457,68 @@ namespace AsyncChromeDriverExample
                 tbDevToolsRes2.Text = ex.ToString();
             }
 
+        }
+
+        private async void Button_Click_15(object sender, RoutedEventArgs e)
+        {
+            asyncChromeDriver = new AsyncChromeDriver(new ChromeDriverConfig().SetDoOpenWSProxy().SetPort(14392));
+            chromeProcess = await asyncChromeDriver.OpenChromeProfile(asyncChromeDriver.Config);
+            asyncChromeDriver.DevTools = new Zu.Chrome.BrowserDevTools.ChromeDevToolsConnectionProxy(14392, wsProxyConfig: asyncChromeDriver.Config.WSProxyConfig);
+            asyncChromeDriver.isConnected = true;
+            await asyncChromeDriver.DevTools.Connect();
+            asyncChromeDriverDev = new AsyncChromeDriver();
+            await asyncChromeDriverDev.Connect();
+            await asyncChromeDriverDev.Navigation.GoToUrl("http://127.0.0.1:14392/devtools/inspector.html?ws=127.0.0.1:5888/WSProxy");
+        }
+
+        private void Button_Click_16(object sender, RoutedEventArgs e)
+        {
+            asyncChromeDriver?.CloseSync();
+        }
+
+        private async void Button_Click_17(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                asyncChromeDriver = new AsyncChromeDriver(new ChromeDriverConfig().SetDoOpenBrowserDevTools());
+                webDriver = new WebDriver(asyncChromeDriver);
+                await asyncChromeDriver.Connect();
+                tbDevToolsRes.Text = "opened";
+                tbDevToolsRes2.Text = $"opened on port {asyncChromeDriver.Port} in dir {asyncChromeDriver.UserDir} \nWhen close, dir will be DELETED";
+            }
+            catch (Exception ex)
+            {
+                tbDevToolsRes.Text = ex.ToString();
+                tbDevToolsRes2.Text = ex.ToString();
+            }
+
+        }
+
+        private async void Button_Click_18(object sender, RoutedEventArgs e)
+        {
+            if (asyncChromeDriver?.BrowserDevTools == null) return;
+            var devToolsWebDriver = new WebDriver(asyncChromeDriver.BrowserDevTools);
+            var tabNetwork = await devToolsWebDriver.FindElementByIdOrDefault("tab-network");
+            var page = await devToolsWebDriver.PageSource();
+            if (tabNetwork != null) await tabNetwork.Click();
+        }
+
+        private async void Button_Click_19(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                asyncChromeDriver = new AsyncChromeDriver(new ChromeDriverConfig().SetDoOpenBrowserDevTools());
+                asyncChromeDriver.BrowserDevToolsConfig = new ChromeDriverConfig().SetDoOpenBrowserDevTools();
+                webDriver = new WebDriver(asyncChromeDriver);
+                await asyncChromeDriver.Connect();
+                tbDevToolsRes.Text = "opened";
+                tbDevToolsRes2.Text = $"opened on port {asyncChromeDriver.Port} in dir {asyncChromeDriver.UserDir} \nWhen close, dir will be DELETED";
+            }
+            catch (Exception ex)
+            {
+                tbDevToolsRes.Text = ex.ToString();
+                tbDevToolsRes2.Text = ex.ToString();
+            }
         }
     }
 }

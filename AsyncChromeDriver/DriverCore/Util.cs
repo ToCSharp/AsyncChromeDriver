@@ -8,9 +8,9 @@ namespace Zu.Chrome.DriverCore
 {
     public class Util
     {
+        static Random rnd = new Random();
         public static string GenerateId()
         {
-            var rnd = new Random();
             var bytes = new byte[16];
             rnd.NextBytes(bytes);
             return ByteArrayToString(bytes);

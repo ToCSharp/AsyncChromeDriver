@@ -57,7 +57,7 @@ namespace Zu.Chrome
         #endregion
 
 
-        private bool isConnected = false;
+        public bool isConnected = false;
 
         public ChromeDevToolsConnection DevTools { get; set; }
 
@@ -84,8 +84,13 @@ namespace Zu.Chrome
         public delegate void DevToolsEventHandler(object sender, string methodName, JToken eventData);
         public event DevToolsEventHandler DevToolsEvent;
 
+        public AsyncChromeDriver BrowserDevTools { get; set; }
+        public ChromeDriverConfig BrowserDevToolsConfig { get; set; }
+
+        static Random rnd = new Random();
+
         public AsyncChromeDriver(bool openInTempDir = true)
-            : this(11000 + new Random().Next(2000))
+            : this(11000 + rnd.Next(2000))
         {
             Config.SetIsTempProfile(openInTempDir);
         }
@@ -96,7 +101,7 @@ namespace Zu.Chrome
         }
 
         public AsyncChromeDriver(string profileDir)
-            : this(11000 + new Random().Next(2000))
+            : this(11000 + rnd.Next(2000))
         {
             UserDir = profileDir;
         }
@@ -109,8 +114,12 @@ namespace Zu.Chrome
         public AsyncChromeDriver(ChromeDriverConfig config)
         {
             Config = config;
-            if (Config.Port == 0) Config.Port = 11000 + new Random().Next(2000);
-            if(Config.DoOpenWSProxy) DevTools = new ChromeDevToolsConnectionProxy(Port, wsProxyConfig: Config.WSProxyConfig);
+            if (Config.Port == 0) Config.Port = 11000 + rnd.Next(2000);
+            if (Config.DoOpenWSProxy || Config.DoOpenBrowserDevTools)
+            {
+                if (Config.DevToolsConnectionProxyPort == 0) Config.DevToolsConnectionProxyPort = 15000 + rnd.Next(2000);
+                DevTools = new BrowserDevTools.ChromeDevToolsConnectionProxy(Port, Config.DevToolsConnectionProxyPort, Config.WSProxyConfig);
+            }
             else DevTools = new ChromeDevToolsConnection(Port);
             CreateDriverCore();
         }
@@ -140,6 +149,7 @@ namespace Zu.Chrome
 
         public virtual async Task<string> Connect(CancellationToken cancellationToken = default(CancellationToken))
         {
+            isConnected = true;
             UnsubscribeDevToolsSessionEvent();
             DoConnectWhenCheckConnected = false;
             if (!Config.DoNotOpenChromeProfile)
@@ -173,7 +183,17 @@ namespace Zu.Chrome
             SubscribeToDevToolsSessionEvent();
             await FrameTracker.Enable();
             await DomTracker.Enable();
+
+            if (Config.DoOpenBrowserDevTools) await OpenBrowserDevTools();
+
             return $"Connected to Chrome port {Port}";
+        }
+
+        public async Task OpenBrowserDevTools()
+        {
+            if (BrowserDevToolsConfig == null) BrowserDevToolsConfig = new ChromeDriverConfig();
+            BrowserDevTools = new AsyncChromeDriver(BrowserDevToolsConfig);
+            await BrowserDevTools.Navigation.GoToUrl("http://127.0.0.1:" + Port + "/devtools/inspector.html?ws=127.0.0.1:" + Config.DevToolsConnectionProxyPort + "/WSProxy");
         }
 
         public async Task CheckConnected(CancellationToken cancellationToken = default(CancellationToken))
@@ -182,7 +202,6 @@ namespace Zu.Chrome
             DoConnectWhenCheckConnected = false;
             if (!isConnected)
             {
-                isConnected = true;
                 await Connect(cancellationToken);
             }
         }
@@ -196,6 +215,7 @@ namespace Zu.Chrome
 
         public void CloseSync()
         {
+            BrowserDevTools?.CloseSync();
             if (isConnected)
             {
                 DevTools.Disconnect();
@@ -252,6 +272,12 @@ namespace Zu.Chrome
 
         public async Task<string> Close(CancellationToken cancellationToken = default(CancellationToken))
         {
+            try
+            {
+                if (BrowserDevTools != null) await BrowserDevTools.Close(cancellationToken);
+            }
+            catch { }
+ 
             if (isConnected) await Disconnect();
             if (chromeProcess?.Proc != null && !chromeProcess.Proc.HasExited)
             {

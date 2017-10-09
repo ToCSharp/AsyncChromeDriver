@@ -10,7 +10,7 @@ namespace Zu.ChromeWebSocketProxy
         public string ChromeEndpointUri { get; set; }
 
         public bool Connected = false;
-        private ProxyChromeSession proxyChromeSession;
+        private static ProxyChromeSession proxyChromeSession;
 
         protected async override void OnMessage(MessageEventArgs e)
         {
@@ -21,7 +21,11 @@ namespace Zu.ChromeWebSocketProxy
                 proxyChromeSession.OnEvent += ProxyChromeSession_OnEvent;
             }
             var res = await proxyChromeSession.SendCommand(e.Data);
-            Send(res);
+            try
+            {
+                Send(res);
+            }
+            catch { }
         }
 
         private void ProxyChromeSession_OnEvent(object sender, string e)

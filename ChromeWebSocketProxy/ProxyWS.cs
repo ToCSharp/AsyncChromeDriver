@@ -38,6 +38,10 @@ namespace Zu.ChromeWebSocketProxy
             });
         }
 
+        public void Stop()
+        {
+            wsServer?.Stop();
+        }
     }
 
     //public static class UriExtensions

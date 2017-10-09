@@ -6,9 +6,9 @@ using Zu.WebBrowser.BasicTypes;
 
 namespace Zu.Chrome
 {
-    public class ChromeWSProxyConfig 
+    public class ChromeWSProxyConfig
     {
-     
-
+        public string DevToolsFilesDir { get; set; }
+        public int HTTPServerPort { get; set; } = 0;
     }
 }

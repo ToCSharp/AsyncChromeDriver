@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Windows;
@@ -15,6 +16,7 @@ namespace AsyncChromeDriverNugetTest
     {
         private WebDriver webDriver;
         private AsyncChromeDriver asyncChromeDriver;
+        private List<AsyncChromeDriver> driversToClose = new List<AsyncChromeDriver>();
 
         public MainWindow()
         {
@@ -121,9 +123,32 @@ namespace AsyncChromeDriverNugetTest
             }
         }
 
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        private  void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             CloseChrome();
+            foreach (var item in driversToClose)
+            {
+                try
+                {
+                    item?.CloseSync();
+                }
+                catch { }
+            }
+        }
+
+        private async void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            var drv1 = new AsyncChromeDriver();
+            var drv2 = new AsyncChromeDriver();
+            var drv3 = new AsyncChromeDriver();
+            driversToClose.Add(drv1);
+            driversToClose.Add(drv2);
+            driversToClose.Add(drv3);
+            await drv1.Connect();
+            await drv2.Connect();
+            await drv3.Connect();
+            await drv2.Navigation.GoToUrl("http://www.google.co.uk");
+
         }
     }
 }

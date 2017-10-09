@@ -25,9 +25,10 @@ PM> Install-Package AsyncChromeDriver
      var query = await webDriver.FindElementByName("q");
      
      //await query.SendKeys("ToCSharp");
+     var rnd = new Random();
      foreach (var v in "ToCSharp".ToList())
      {
-        await Task.Delay(500 + new Random().Next(500));
+        await Task.Delay(500 + rnd.Next(500));
         await query.SendKeys(v.ToString());
       }
       await Task.Delay(500);

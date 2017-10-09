@@ -11,6 +11,8 @@ namespace Zu.Chrome
         public bool DoOpenWSProxy { get; set; } = false;
         public ChromeWSProxyConfig WSProxyConfig { get; set; }
 
+        public int DevToolsConnectionProxyPort { get; set; } = 0;
+
         public ChromeDriverConfig()
             : base()
         {
@@ -37,6 +39,13 @@ namespace Zu.Chrome
         {
             dc.DoOpenWSProxy = true;
             dc.WSProxyConfig = wsProxyConfig ?? new ChromeWSProxyConfig();
+            return dc;
+        }
+
+        public static T SetDevToolsConnectionProxyPort<T>(this T dc, int devToolsConnectionProxyPort) where T : ChromeDriverConfig
+        {
+            dc.DoOpenWSProxy = true;
+            dc.DevToolsConnectionProxyPort = devToolsConnectionProxyPort;
             return dc;
         }
 

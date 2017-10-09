@@ -60,9 +60,14 @@
                     <Button Content="default profile" HorizontalAlignment="Left" Margin="358,62,0,0" VerticalAlignment="Top" Width="143" Click="Button_Click_12"/>
                 </Grid>
             </TabItem>
-            <TabItem Header="ProxyWS">
+            <TabItem Header="Developer Tools" IsSelected="True">
                 <Grid Background="#FFE5E5E5">
-                    <Button Content="open temp profile with WS proxy" HorizontalAlignment="Left" Margin="26,21,0,0" VerticalAlignment="Top" Width="190" Click="Button_Click_14"/>
+                    <Button Content="open temp profile with WS proxy" HorizontalAlignment="Left" Margin="10,123,0,0" VerticalAlignment="Top" Width="190" Click="Button_Click_14"/>
+                    <Button Content="open not connect" HorizontalAlignment="Left" Margin="273,139,0,0" VerticalAlignment="Top" Width="170" Click="Button_Click_15"/>
+                    <Button Content="close" HorizontalAlignment="Left" Margin="315,164,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_16"/>
+                    <Button Content="open temp profile and Developer Tools" HorizontalAlignment="Left" Margin="10,18,0,0" VerticalAlignment="Top" Width="245" Click="Button_Click_17"/>
+                    <Button Content="tab-network" HorizontalAlignment="Left" Margin="19,85,0,0" VerticalAlignment="Top" Width="103" Click="Button_Click_18" IsEnabled="False"/>
+                    <Button Content="open temp profile and Developer Tools + Developer Tools of Developer Tools" HorizontalAlignment="Left" Margin="19,50,0,0" VerticalAlignment="Top" Width="461" Click="Button_Click_19" IsEnabled="False"/>
                 </Grid>
             </TabItem>
         </TabControl>

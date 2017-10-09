@@ -51,7 +51,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AsyncChromeDriver.cs" />
-    <Compile Include="ChromeDevToolsConnectionProxy.cs" />
+    <Compile Include="BrowserDevTools\ChromeDevToolsConnectionProxy.cs" />
+    <Compile Include="BrowserDevTools\SimpleHTTPServer.cs" />
     <Compile Include="ChromeDevToolsConnection.cs" />
     <Compile Include="ChromeDriverActionExecutor.cs" />
     <Compile Include="ChromeWSProxyConfig.cs" />

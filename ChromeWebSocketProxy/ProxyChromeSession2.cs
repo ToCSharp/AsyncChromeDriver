@@ -70,13 +70,13 @@ namespace Zu.ChromeWebSocketProxy
             m_logger = logger;
             m_endpointAddress = endpointAddress;
 
-            m_sessionSocket = new WebSocket(m_endpointAddress)
-            {
-                EnableAutoSendPing = false
-            };
-            m_sessionSocket.MessageReceived += Ws_MessageReceived;
-            m_sessionSocket.Error += Ws_Error;
-            m_sessionSocket.Opened += Ws_Opened;
+            //m_sessionSocket = new WebSocket(m_endpointAddress);
+            ////{
+            ////    EnableAutoSendPing = false
+            ////};
+            //m_sessionSocket.MessageReceived += Ws_MessageReceived;
+            //m_sessionSocket.Error += Ws_Error;
+            //m_sessionSocket.Opened += Ws_Opened;
         }
 
         private ConcurrentDictionary<long, TaskCompletionSource<string>> _messages =
@@ -84,7 +84,13 @@ namespace Zu.ChromeWebSocketProxy
         public virtual async Task<string> SendCommand(string command, CancellationToken cancellationToken = default(CancellationToken))
         {
             var id = Interlocked.Increment(ref m_currentCommandId);
-            
+
+            var json = JToken.Parse(command);
+            var commandId = json["id"]?.Value<int>();
+
+            json["id"] = id;
+            var commandWithNewId = json.ToString(Formatting.None);
+
             //var message = new
             //{
             //    id = id,
@@ -100,7 +106,7 @@ namespace Zu.ChromeWebSocketProxy
             //LogTrace("Sending {id} {method}: {params}", message.id, message.method, @params?.ToString());
 
             //var contents = JsonConvert.SerializeObject(message);
-            var contents = command;
+            var contents = commandWithNewId;
 
             if (m_isDisposed) return null;
             string res = null;
@@ -123,6 +129,10 @@ namespace Zu.ChromeWebSocketProxy
                 _messages.TryRemove(id, out promise);
             }
 
+            var resJson = JToken.Parse(res);
+            var resId = resJson["id"]?.ToString();
+            resJson["id"] = commandId;
+            res = resJson.ToString(Formatting.None);
             //if (res.IsError)
             //{
             //    var errorMessage = res.Result.Value<string>("message");
@@ -142,22 +152,48 @@ namespace Zu.ChromeWebSocketProxy
         }
 
 
-
+        SemaphoreSlim semaphore = new SemaphoreSlim(1);
         private async Task OpenSessionConnection(CancellationToken cancellationToken)
         {
-            if (m_sessionSocket.State != WebSocketState.Open)
+            try
             {
-                m_openEvent.Reset();
-                m_sessionSocket.Open();
+                await semaphore.WaitAsync();
+                //var st = m_sessionSocket.State;
+                if (m_sessionSocket == null || m_sessionSocket.State != WebSocketState.Open)
+                {
+                    if(m_sessionSocket != null)
+                    {
+                        m_sessionSocket.MessageReceived -= Ws_MessageReceived;
+                        m_sessionSocket.Error -= Ws_Error;
+                        m_sessionSocket.Opened -= Ws_Opened;
+                        m_sessionSocket.Dispose();
+                    }
+                    m_sessionSocket = new WebSocket(m_endpointAddress);
+                    //{
+                    //    EnableAutoSendPing = false
+                    //};
+                    m_sessionSocket.MessageReceived += Ws_MessageReceived;
+                    m_sessionSocket.Error += Ws_Error;
+                    m_sessionSocket.Opened += Ws_Opened;
 
-                await Task.Run(() => m_openEvent.Wait(cancellationToken));
+                    m_openEvent.Reset();
+                    //m_sessionSocket.LocalEndPoint = null;
+
+                    m_sessionSocket.Open();
+
+                    await Task.Run(() => m_openEvent.Wait(cancellationToken));
+                }
+            }
+            finally
+            {
+                semaphore.Release();
             }
         }
 
         private void ProcessIncomingMessage(string mess)
         {
             var response = JToken.Parse(mess);
-            var messageObject = response as JObject; 
+            var messageObject = response as JObject;
             if (messageObject == null) return;
             if (messageObject.TryGetValue("id", out JToken idProperty))
             {
@@ -192,7 +228,7 @@ namespace Zu.ChromeWebSocketProxy
             //    var method = methodProperty.Value<string>();
             //    var eventData = messageObject["params"];
             //    LogTrace("Recieved Event {method}: {params}", method, eventData.ToString());
-                
+
             //    RaiseEvent(method, eventData);
             //    return;
             //}
@@ -226,6 +262,7 @@ namespace Zu.ChromeWebSocketProxy
         private void Ws_Error(object sender, SuperSocket.ClientEngine.ErrorEventArgs e)
         {
             LogError("Error: {exception}", e.Exception);
+            m_openEvent.Set();
             //throw e.Exception;
         }
 

@@ -41,7 +41,7 @@ namespace Zu.Chrome
             catch (Exception ex)
             { return null; }
         }
-        public void Disconnect()
+        public virtual void Disconnect()
         {
             Session?.Dispose();
             Session = null;
