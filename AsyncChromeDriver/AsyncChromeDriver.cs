@@ -189,7 +189,7 @@ namespace Zu.Chrome
             return $"Connected to Chrome port {Port}";
         }
 
-        public async Task OpenBrowserDevTools()
+        public virtual async Task OpenBrowserDevTools()
         {
             if (BrowserDevToolsConfig == null) BrowserDevToolsConfig = new ChromeDriverConfig();
             BrowserDevTools = new AsyncChromeDriver(BrowserDevToolsConfig);

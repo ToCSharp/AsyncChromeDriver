@@ -30,6 +30,7 @@ namespace Zu.Chrome
             Headless = config.Headless;
             WindowSize = config.WindowSize;
             DoNotOpenChromeProfile = config.DoNotOpenChromeProfile;
+            DoOpenBrowserDevTools = config.DoOpenBrowserDevTools;
         }
 
     }
