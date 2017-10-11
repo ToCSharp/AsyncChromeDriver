@@ -7,7 +7,7 @@ using WebSocketSharp.Server;
 
 namespace Zu.ChromeWebSocketProxy
 {
-    public class ProxyWS
+    public class ProxyWS : IDisposable
     {
         private int port;
         private string endpointUrl;
@@ -40,8 +40,35 @@ namespace Zu.ChromeWebSocketProxy
 
         public void Stop()
         {
+            ChromeEndpoint.StopSession();
             wsServer?.Stop();
         }
+
+        #region IDisposable Support
+        private bool m_isDisposed = false;
+
+        private void Dispose(bool disposing)
+        {
+            if (!m_isDisposed)
+            {
+                if (disposing)
+                {
+                    Stop();
+                }
+
+                m_isDisposed = true;
+            }
+        }
+
+        /// <summary>
+        /// Disposes of the ChromeSession and frees all resources.
+        ///</summary>
+        public void Dispose()
+        {
+            Dispose(true);
+        }
+        #endregion
+
     }
 
     //public static class UriExtensions

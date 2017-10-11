@@ -32,5 +32,11 @@ namespace Zu.ChromeWebSocketProxy
         {
             Sessions.Broadcast(e);
         }
+
+        public static void StopSession()
+        {
+            proxyChromeSession?.Dispose();
+            proxyChromeSession = null;
+        }
     }
 }

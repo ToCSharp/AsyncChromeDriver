@@ -132,8 +132,8 @@ namespace Zu.Chrome.BrowserDevTools
         /// </summary>
         public void Stop()
         {
-            _listener?.Stop();
             _serverThread?.Abort();
+            _listener?.Stop();
         }
 
         private void Listen()
