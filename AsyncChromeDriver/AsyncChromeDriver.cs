@@ -189,11 +189,16 @@ namespace Zu.Chrome
             return $"Connected to Chrome port {Port}";
         }
 
+        public string GetBrowserDevToolsUrl()
+        {
+            return "http://127.0.0.1:" + Port + "/devtools/inspector.html?ws=127.0.0.1:" + Config.DevToolsConnectionProxyPort + "/WSProxy";
+        }
+
         public virtual async Task OpenBrowserDevTools()
         {
             if (BrowserDevToolsConfig == null) BrowserDevToolsConfig = new ChromeDriverConfig();
             BrowserDevTools = new AsyncChromeDriver(BrowserDevToolsConfig);
-            await BrowserDevTools.Navigation.GoToUrl("http://127.0.0.1:" + Port + "/devtools/inspector.html?ws=127.0.0.1:" + Config.DevToolsConnectionProxyPort + "/WSProxy");
+            await BrowserDevTools.Navigation.GoToUrl(GetBrowserDevToolsUrl());
         }
 
         public async Task CheckConnected(CancellationToken cancellationToken = default(CancellationToken))

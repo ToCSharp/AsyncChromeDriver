@@ -272,6 +272,7 @@ namespace AsyncChromeDriverExample
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             // Must be synchronous in Window_Closing. Any await will close immediately
+            asyncChromeDriverDev?.CloseSync();
             if (asyncChromeDriver != null) asyncChromeDriver.CloseSync();
             if (webDriver != null) webDriver.CloseSync();
 
@@ -461,18 +462,21 @@ namespace AsyncChromeDriverExample
 
         private async void Button_Click_15(object sender, RoutedEventArgs e)
         {
-            asyncChromeDriver = new AsyncChromeDriver(new ChromeDriverConfig().SetDoOpenWSProxy().SetPort(14392));
-            chromeProcess = await asyncChromeDriver.OpenChromeProfile(asyncChromeDriver.Config);
-            asyncChromeDriver.DevTools = new Zu.Chrome.BrowserDevTools.ChromeDevToolsConnectionProxy(14392, wsProxyConfig: asyncChromeDriver.Config.WSProxyConfig);
-            asyncChromeDriver.isConnected = true;
-            await asyncChromeDriver.DevTools.Connect();
+            asyncChromeDriver = new AsyncChromeDriver(new ChromeDriverConfig().SetDoOpenWSProxy());
+            webDriver = new WebDriver(asyncChromeDriver);
+            await webDriver.Open();
+            //chromeProcess = await asyncChromeDriver.OpenChromeProfile(asyncChromeDriver.Config);
+            //asyncChromeDriver.DevTools = new Zu.Chrome.BrowserDevTools.ChromeDevToolsConnectionProxy(14392, wsProxyConfig: asyncChromeDriver.Config.WSProxyConfig);
+            //asyncChromeDriver.isConnected = true;
+            //await asyncChromeDriver.DevTools.Connect();
             asyncChromeDriverDev = new AsyncChromeDriver();
             await asyncChromeDriverDev.Connect();
-            await asyncChromeDriverDev.Navigation.GoToUrl("http://127.0.0.1:14392/devtools/inspector.html?ws=127.0.0.1:5888/WSProxy");
+            await asyncChromeDriverDev.Navigation.GoToUrl(asyncChromeDriver.GetBrowserDevToolsUrl());
         }
 
         private void Button_Click_16(object sender, RoutedEventArgs e)
         {
+            asyncChromeDriverDev?.CloseSync();
             asyncChromeDriver?.CloseSync();
         }
 
