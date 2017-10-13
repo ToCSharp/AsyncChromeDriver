@@ -91,6 +91,7 @@ namespace Zu.Chrome.BrowserDevTools
         private HttpListener _listener;
         private int _port;
         private int portChrome;
+        private ChromeWSProxyConfig wsProxyConfig;
 
         public int Port
         {
@@ -125,6 +126,13 @@ namespace Zu.Chrome.BrowserDevTools
         public HTTPServer(string path, int port, int portChrome) : this(path, port)
         {
             this.portChrome = portChrome;
+        }
+
+        public HTTPServer(ChromeWSProxyConfig wsProxyConfig)
+        {
+            this.wsProxyConfig = wsProxyConfig;
+            portChrome = this.wsProxyConfig.ChromePort;
+            Initialize(this.wsProxyConfig.DevToolsFilesDir, this.wsProxyConfig.HTTPServerPort);
         }
 
         /// <summary>
@@ -162,26 +170,59 @@ namespace Zu.Chrome.BrowserDevTools
             try
             {
                 //ProcessFiles.Add(filename);
+                if (wsProxyConfig?.HTTPServerTryFindRequestedFileLocaly == true && File.Exists(filename = Path.Combine(_rootDirectory, filename.Replace("/", "\\").TrimStart('\\'))))
+                {
+                    try
+                    {
+                        Stream input = new FileStream(filename, FileMode.Open);
 
-                var webClient = new HttpClient();
-                var uriBuilder = new UriBuilder { Scheme = "http", Host = "127.0.0.1", Port = portChrome, Path = filename };
-                var doc = await webClient.GetStringAsync(uriBuilder.Uri);
+                        //Adding permanent http response headers
+                        string mime;
+                        context.Response.ContentType = _mimeTypeMappings.TryGetValue(Path.GetExtension(filename), out mime) ? mime : "application/octet-stream";
+                        context.Response.ContentLength64 = input.Length;
+                        context.Response.AddHeader("Date", DateTime.Now.ToString("r"));
+                        context.Response.AddHeader("Last-Modified", System.IO.File.GetLastWriteTime(filename).ToString("r"));
 
-                //var filePath = Path.Combine(_rootDirectory, filename.Replace("/", "\\").TrimStart('\\'));
-                //var dir = Path.GetDirectoryName(filePath);
-                //if (!Directory.Exists(dir)) Directory.CreateDirectory(dir);
-                //File.WriteAllText(filePath, doc);
+                        byte[] buffer = new byte[1024 * 16];
+                        int nbytes;
+                        while ((nbytes = input.Read(buffer, 0, buffer.Length)) > 0)
+                            context.Response.OutputStream.Write(buffer, 0, nbytes);
+                        input.Close();
+                        context.Response.OutputStream.Flush();
 
-                var buffer = Encoding.UTF8.GetBytes(doc);
-                context.Response.OutputStream.Write(buffer, 0, buffer.Length);
-                context.Response.OutputStream.Flush();
+                        context.Response.StatusCode = (int)HttpStatusCode.OK;
+                    }
+                    catch (Exception ex)
+                    {
+                        context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                    }
+                }
+                else
+                {
+                    var webClient = new HttpClient();
+                    var uriBuilder = new UriBuilder { Scheme = "http", Host = "127.0.0.1", Port = portChrome, Path = filename };
+                    var doc = await webClient.GetStringAsync(uriBuilder.Uri);
 
-                context.Response.StatusCode = (int)HttpStatusCode.OK;
+                    if (wsProxyConfig?.HTTPServerSaveRequestedFiles == true)
+                    {
+                        var filePath = Path.Combine(_rootDirectory, filename.Replace("/", "\\").TrimStart('\\'));
+                        var dir = Path.GetDirectoryName(filePath);
+                        if (!Directory.Exists(dir)) Directory.CreateDirectory(dir);
+                        if (!File.Exists(filePath)) File.WriteAllText(filePath, doc);
+                    }
+
+                    var buffer = Encoding.UTF8.GetBytes(doc);
+                    context.Response.OutputStream.Write(buffer, 0, buffer.Length);
+                    context.Response.OutputStream.Flush();
+
+                    context.Response.StatusCode = (int)HttpStatusCode.OK;
+                }
             }
             catch (Exception ex)
             {
                 context.Response.StatusCode = (int)HttpStatusCode.NotFound;
             }
+        
 
 
             ////Console.WriteLine(filename);

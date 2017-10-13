@@ -107,7 +107,7 @@ namespace Zu.Chrome
         }
 
         public AsyncChromeDriver(DriverConfig config)
-            : this(new ChromeDriverConfig(config))
+            : this(config as ChromeDriverConfig ?? new ChromeDriverConfig(config))
         {
         }
 
@@ -191,7 +191,8 @@ namespace Zu.Chrome
 
         public string GetBrowserDevToolsUrl()
         {
-            return "http://127.0.0.1:" + Port + "/devtools/inspector.html?ws=127.0.0.1:" + Config.DevToolsConnectionProxyPort + "/WSProxy";
+            var httpPort = Config?.WSProxyConfig?.DoProxyHttpTraffic == true ? Config.WSProxyConfig.HTTPServerPort : Port;
+            return "http://127.0.0.1:" + httpPort + "/devtools/inspector.html?ws=127.0.0.1:" + Config.DevToolsConnectionProxyPort + "/WSProxy";
         }
 
         public virtual async Task OpenBrowserDevTools()

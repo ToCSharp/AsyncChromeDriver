@@ -51,6 +51,13 @@ namespace Zu.Chrome
             return dc;
         }
 
+        public static T SetWSProxyConfig<T>(this T dc, ChromeWSProxyConfig wsProxyConfig = null) where T : ChromeDriverConfig
+        {
+            dc.DoOpenWSProxy = true;
+            dc.WSProxyConfig = wsProxyConfig ?? new ChromeWSProxyConfig();
+            return dc;
+        }
+
         public static T SetDevToolsConnectionProxyPort<T>(this T dc, int devToolsConnectionProxyPort) where T : ChromeDriverConfig
         {
             dc.DoOpenWSProxy = true;

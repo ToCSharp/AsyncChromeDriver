@@ -516,12 +516,10 @@ namespace AsyncChromeDriverExample
                 webDriver = new WebDriver(asyncChromeDriver);
                 await asyncChromeDriver.Connect();
                 tbDevToolsRes.Text = "opened";
-                tbDevToolsRes2.Text = $"opened on port {asyncChromeDriver.Port} in dir {asyncChromeDriver.UserDir} \nWhen close, dir will be DELETED";
             }
             catch (Exception ex)
             {
                 tbDevToolsRes.Text = ex.ToString();
-                tbDevToolsRes2.Text = ex.ToString();
             }
         }
 
@@ -529,6 +527,50 @@ namespace AsyncChromeDriverExample
         {
             if (webDriver == null) return;
             await webDriver.GoToUrl("https://www.google.com/");
+        }
+
+        private async void Button_Click_21(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                asyncChromeDriver = new AsyncChromeDriver(
+                    new ChromeDriverConfig()
+                    .SetDoOpenBrowserDevTools()
+                    .SetWSProxyConfig(new ChromeWSProxyConfig { HTTPServerSaveRequestedFiles = true })
+                    );
+                webDriver = new WebDriver(asyncChromeDriver);
+                await asyncChromeDriver.Connect();
+                tbDevToolsFilesDir.Text = Path.Combine( asyncChromeDriver.Config.WSProxyConfig.DevToolsFilesDir, "devtools");
+                tbDevToolsRes.Text = "opened";
+            }
+            catch (Exception ex)
+            {
+                tbDevToolsRes.Text = ex.ToString();
+            }
+
+        }
+
+        private async void Button_Click_22(object sender, RoutedEventArgs e)
+        {
+            var dir = tbDevToolsFilesDir.Text;
+            if (string.IsNullOrWhiteSpace(dir)) dir = Directory.GetCurrentDirectory();
+            dir = dir.TrimEnd('\\');
+            if (dir.EndsWith("\\devtools")) dir = Path.GetDirectoryName(dir);
+            try
+            {
+                asyncChromeDriver = new AsyncChromeDriver(
+                    new ChromeDriverConfig()
+                    .SetDoOpenBrowserDevTools()
+                    .SetWSProxyConfig(new ChromeWSProxyConfig { DevToolsFilesDir = dir, HTTPServerTryFindRequestedFileLocaly = true })
+                    );
+                webDriver = new WebDriver(asyncChromeDriver);
+                await asyncChromeDriver.Connect();
+                tbDevToolsRes.Text = "opened";
+            }
+            catch (Exception ex)
+            {
+                tbDevToolsRes.Text = ex.ToString();
+            }
         }
     }
 }

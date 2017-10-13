@@ -12,14 +12,14 @@ using Zu.ChromeWebSocketProxy;
 
 namespace Zu.Chrome.BrowserDevTools
 {
-    public class ChromeDevToolsConnectionProxy: ChromeDevToolsConnection
+    public class ChromeDevToolsConnectionProxy : ChromeDevToolsConnection
     {
         private ChromeWSProxyConfig wsProxyConfig;
         private HTTPServer httpServer;
         private string proxyEndpointUrl;
 
         public ChromeDevToolsConnectionProxy(int port = 5999, int port2 = 5888)
-            :base(port)
+            : base(port)
         {
             Port2 = port2;
         }
@@ -41,10 +41,15 @@ namespace Zu.Chrome.BrowserDevTools
             var sessions = await GetSessions(Port);
             var endpointUrl = sessions.FirstOrDefault(s => s.Type == "page")?.WebSocketDebuggerUrl;
 
-            var dir = wsProxyConfig?.DevToolsFilesDir ?? Directory.GetCurrentDirectory();
+            //var dir = wsProxyConfig.DevToolsFilesDir ?? Directory.GetCurrentDirectory();
             //await LoadDevToolsFiles(dir);
+            if (wsProxyConfig?.DoProxyHttpTraffic == true)
+            {
+                if (wsProxyConfig.DevToolsFilesDir == null) wsProxyConfig.DevToolsFilesDir = Directory.GetCurrentDirectory();
+                wsProxyConfig.ChromePort = Port;
 
-            httpServer = new HTTPServer(dir, wsProxyConfig.HTTPServerPort, Port);
+                httpServer = new HTTPServer(wsProxyConfig); // dir, wsProxyConfig.HTTPServerPort, Port);
+            }
             proxyEndpointUrl = await OpenProxyWS(endpointUrl);
 
             Session = new ChromeSession(proxyEndpointUrl);
