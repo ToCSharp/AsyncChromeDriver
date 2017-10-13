@@ -23,6 +23,7 @@ namespace Zu.Chrome
             : this()
         {
             UserDir = config.UserDir;
+            CommandLineArgumets = config.CommandLineArgumets;
             IsTempProfile = config.IsTempProfile;
             IsDefaultProfile = config.IsDefaultProfile;
             TempDirCreateDelay = config.TempDirCreateDelay;
@@ -31,6 +32,13 @@ namespace Zu.Chrome
             WindowSize = config.WindowSize;
             DoNotOpenChromeProfile = config.DoNotOpenChromeProfile;
             DoOpenBrowserDevTools = config.DoOpenBrowserDevTools;
+            var chromeConfig = config as ChromeDriverConfig;
+            if(chromeConfig != null)
+            {
+                DoOpenWSProxy = chromeConfig.DoOpenWSProxy;
+                WSProxyConfig = chromeConfig.WSProxyConfig;
+                DevToolsConnectionProxyPort = chromeConfig.DevToolsConnectionProxyPort;
+            }
         }
 
     }
