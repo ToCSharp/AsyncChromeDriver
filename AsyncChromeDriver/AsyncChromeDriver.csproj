@@ -34,8 +34,8 @@
     <Reference Include="AsyncWebDriver, Version=1.3.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\AsyncWebDriver.1.3.1\lib\net452\AsyncWebDriver.dll</HintPath>
     </Reference>
-    <Reference Include="IAsyncWebBrowserClient, Version=0.1.9.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\IAsyncWebBrowserClient.0.1.9\lib\net452\IAsyncWebBrowserClient.dll</HintPath>
+    <Reference Include="IAsyncWebBrowserClient, Version=0.1.10.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\IAsyncWebBrowserClient.0.1.10\lib\net452\IAsyncWebBrowserClient.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>

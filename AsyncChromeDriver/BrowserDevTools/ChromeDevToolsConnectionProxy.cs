@@ -40,10 +40,11 @@ namespace Zu.Chrome.BrowserDevTools
         {
             var sessions = await GetSessions(Port);
             var endpointUrl = sessions.FirstOrDefault(s => s.Type == "page")?.WebSocketDebuggerUrl;
-
-            //var dir = wsProxyConfig.DevToolsFilesDir ?? Directory.GetCurrentDirectory();
-            //await LoadDevToolsFiles(dir);
-            if (wsProxyConfig?.DoProxyHttpTraffic == true)
+            if (endpointUrl == null)
+                throw new Exception("Cannot get page session from Chrome");
+                //var dir = wsProxyConfig.DevToolsFilesDir ?? Directory.GetCurrentDirectory();
+                //await LoadDevToolsFiles(dir);
+                if (wsProxyConfig?.DoProxyHttpTraffic == true)
             {
                 if (wsProxyConfig.DevToolsFilesDir == null) wsProxyConfig.DevToolsFilesDir = Directory.GetCurrentDirectory();
                 wsProxyConfig.ChromePort = Port;
