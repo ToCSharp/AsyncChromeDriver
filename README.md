@@ -73,7 +73,8 @@ PM> Install-Package AsyncChromeDriver
      }
      await webDriver.Close();
 ```
-#### Chrome Developer Tools
+#### Chrome native Developer Tools
+Look [BrowsersDevToolsExample](https://github.com/ToCSharp/BrowsersDevToolsExample). It's interesting, you can open Developer tools for opened Developer tools.
 ```csharp
    asyncChromeDriver = new AsyncChromeDriver(
         new ChromeDriverConfig().SetDoOpenBrowserDevTools());
@@ -89,7 +90,7 @@ Look at AsyncChromeDriverExample.
 
 #### Implemented
 
-[Unit tests results for AsyncChromeDriver 0.2.6 and Chrome 61](https://github.com/ToCSharp/AsyncChromeDriverExamplesAndTests/wiki/Unit-tests-results-for-Chrome)  
+[Unit tests results for AsyncChromeDriver](https://github.com/ToCSharp/AsyncChromeDriverExamplesAndTests/wiki/Unit-tests-results-for-Chrome)  
 
 
 In WebDriver part mostly implemented: Navigation, WebElements, Mouse, Keyboard, Clicks, ExecutingJavascript, TakesScreenshot.  
