@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AsyncChromeDriverExample"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525" Closing="Window_Closing">
+        Title="MainWindow" Height="351" Width="545" Closing="Window_Closing">
     <Grid>
         <TabControl>
             <TabItem Header="AsyncChromeDriver">
@@ -71,7 +71,7 @@
                     <Button Content="goto google" HorizontalAlignment="Left" Margin="295,18,0,0" VerticalAlignment="Top" Width="95" Click="Button_Click_20"/>
                     <TextBox x:Name="tbDevToolsFilesDir" Height="23" Margin="38,193,31,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
                     <Button Content="open Chrome and Developer Tools and save used DevTools frontend files locally" HorizontalAlignment="Left" Margin="38,221,0,0" VerticalAlignment="Top" Width="442" Click="Button_Click_21"/>
-                    <Button Content="open Chrome and Developer Tools, use local DevToools from dir, if no from Chrome" HorizontalAlignment="Left" Margin="19,246,0,0" VerticalAlignment="Top" Width="472" Click="Button_Click_22"/>
+                    <Button Content="open Chrome and Developer Tools, use local DevToools from dir, if no one then from Chrome" HorizontalAlignment="Left" Margin="10,246,0,0" VerticalAlignment="Top" Width="511" Click="Button_Click_22"/>
                 </Grid>
             </TabItem>
         </TabControl>

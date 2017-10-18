@@ -170,8 +170,10 @@ namespace Zu.Chrome.BrowserDevTools
             try
             {
                 //ProcessFiles.Add(filename);
-                if (wsProxyConfig?.HTTPServerTryFindRequestedFileLocaly == true && File.Exists(filename = Path.Combine(_rootDirectory, filename.Replace("/", "\\").TrimStart('\\'))))
+                var fn = "";
+                if (wsProxyConfig?.HTTPServerTryFindRequestedFileLocaly == true && File.Exists(fn = Path.Combine(_rootDirectory, filename.Replace("/", "\\").TrimStart('\\'))))
                 {
+                    filename = fn;
                     try
                     {
                         Stream input = new FileStream(filename, FileMode.Open);
