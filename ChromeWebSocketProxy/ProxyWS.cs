@@ -27,21 +27,28 @@ namespace Zu.ChromeWebSocketProxy
 
         public string ProxyEndpointUrl { get; set; }
         public string ProxyPath { get; set; } = "WSProxy";
+        public ProxyChromeSession ProxyChromeSession { get; internal set; }
 
         public async Task Open()
         {
             await Task.Run(() =>
             {
                 wsServer = new WebSocketServer(port);
-                wsServer.AddWebSocketService<ChromeEndpoint>("/" + ProxyPath, (a) => { a.ChromeEndpointUri = endpointUrl; });
+                wsServer.AddWebSocketService<ChromeEndpoint>("/" + ProxyPath, (a) => { a.ChromeEndpointUri = endpointUrl; a.ProxyWS = this; });
                 wsServer.Start();
             });
         }
 
         public void Stop()
         {
-            ChromeEndpoint.StopSession();
+            /*ChromeEndpoint.*/StopSession();
             wsServer?.Stop();
+        }
+
+        private void StopSession()
+        {
+            ProxyChromeSession?.Dispose();
+            ProxyChromeSession = null;
         }
 
         #region IDisposable Support

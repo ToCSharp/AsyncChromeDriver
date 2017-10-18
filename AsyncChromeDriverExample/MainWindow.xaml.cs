@@ -126,7 +126,8 @@ namespace AsyncChromeDriverExample
                 // name = "q", 0 - time to wait element, not use ImplicitWait
                 var prevQuery = await webDriver.FindElementByNameOrDefault("q", 0);
                 var res2 = await webDriver.GoToUrl("https://www.google.com/");
-                var query = await webDriver.FindElementByName("q", prevQuery?.Id);
+                //var query = await webDriver.FindElementByName("q", prevQuery?.Id);
+                var query = await webDriver.FindElementById("lst-ib", prevQuery?.Id);
 
                 //await query.SendKeys("ToCSharp");
                 var rnd = new Random();

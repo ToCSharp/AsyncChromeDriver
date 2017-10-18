@@ -67,7 +67,7 @@
                     <Button Content="close" HorizontalAlignment="Left" Margin="315,164,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_16"/>
                     <Button Content="open temp profile and Developer Tools" HorizontalAlignment="Left" Margin="10,18,0,0" VerticalAlignment="Top" Width="245" Click="Button_Click_17"/>
                     <Button Content="tab-network" HorizontalAlignment="Left" Margin="19,85,0,0" VerticalAlignment="Top" Width="103" Click="Button_Click_18" IsEnabled="False"/>
-                    <Button Content="open temp profile and Developer Tools + Developer Tools of Developer Tools" HorizontalAlignment="Left" Margin="19,50,0,0" VerticalAlignment="Top" Width="461" Click="Button_Click_19" IsEnabled="False"/>
+                    <Button Content="open temp profile and Developer Tools + Developer Tools of Developer Tools" HorizontalAlignment="Left" Margin="19,50,0,0" VerticalAlignment="Top" Width="461" Click="Button_Click_19"/>
                     <Button Content="goto google" HorizontalAlignment="Left" Margin="295,18,0,0" VerticalAlignment="Top" Width="95" Click="Button_Click_20"/>
                     <TextBox x:Name="tbDevToolsFilesDir" Height="23" Margin="38,193,31,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
                     <Button Content="open Chrome and Developer Tools and save used DevTools frontend files locally" HorizontalAlignment="Left" Margin="38,221,0,0" VerticalAlignment="Top" Width="442" Click="Button_Click_21"/>
