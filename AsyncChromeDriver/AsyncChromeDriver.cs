@@ -16,126 +16,30 @@ namespace Zu.Chrome
 {
     public class AsyncChromeDriver : IAsyncChromeDriver
     {
-#region IAsyncWebBrowserClient
-        public IMouse Mouse
-        {
-            get
-            {
-                if (mouse == null)
-                    mouse = new ChromeDriverMouse(this);
-                return mouse;
-            }
-        }
+        #region IAsyncWebBrowserClient
+        public IMouse Mouse => mouse ?? (mouse = new ChromeDriverMouse(this));
 
-        public IKeyboard Keyboard
-        {
-            get
-            {
-                if (keyboard == null)
-                    keyboard = new ChromeDriverKeyboard(this);
-                return keyboard;
-            }
-        }
+        public IKeyboard Keyboard => keyboard ?? (keyboard = new ChromeDriverKeyboard(this));
 
-        public IOptions Options
-        {
-            get
-            {
-                if (options == null)
-                    options = new ChromeDriverOptions(this);
-                return options;
-            }
-        }
+        public IOptions Options => options ?? (options = new ChromeDriverOptions(this));
 
-        public IAlert Alert
-        {
-            get
-            {
-                if (alert == null)
-                    alert = new ChromeDriverAlert(this);
-                return alert;
-            }
-        }
+        public IAlert Alert => alert ?? (alert = new ChromeDriverAlert(this));
 
-        public ICoordinates Coordinates
-        {
-            get
-            {
-                if (coordinates == null)
-                    coordinates = new ChromeDriverCoordinates(this);
-                return coordinates;
-            }
-        }
+        public ICoordinates Coordinates => coordinates ?? (coordinates = new ChromeDriverCoordinates(this));
 
-        public ITakesScreenshot Screenshot
-        {
-            get
-            {
-                if (screenshot == null)
-                    screenshot = new ChromeDriverScreenshot(this);
-                return screenshot;
-            }
-        }
+        public ITakesScreenshot Screenshot => screenshot ?? (screenshot = new ChromeDriverScreenshot(this));
 
-        public ITouchScreen TouchScreen
-        {
-            get
-            {
-                if (touchScreen == null)
-                    touchScreen = new ChromeDriverTouchScreen(this);
-                return touchScreen;
-            }
-        }
+        public ITouchScreen TouchScreen => touchScreen ?? (touchScreen = new ChromeDriverTouchScreen(this));
 
-        public INavigation Navigation
-        {
-            get
-            {
-                if (navigation == null)
-                    navigation = new ChromeDriverNavigation(this);
-                return navigation;
-            }
-        }
+        public INavigation Navigation => navigation ?? (navigation = new ChromeDriverNavigation(this));
 
-        public IJavaScriptExecutor JavaScriptExecutor
-        {
-            get
-            {
-                if (javaScriptExecutor == null)
-                    javaScriptExecutor = new ChromeDriverJavaScriptExecutor(this);
-                return javaScriptExecutor;
-            }
-        }
+        public IJavaScriptExecutor JavaScriptExecutor => javaScriptExecutor ?? (javaScriptExecutor = new ChromeDriverJavaScriptExecutor(this));
 
-        public ITargetLocator TargetLocator
-        {
-            get
-            {
-                if (targetLocator == null)
-                    targetLocator = new ChromeDriverTargetLocator(this);
-                return targetLocator;
-            }
-        }
+        public ITargetLocator TargetLocator => targetLocator ?? (targetLocator = new ChromeDriverTargetLocator(this));
 
-        public IElements Elements
-        {
-            get
-            {
-                if (elements == null)
-                    elements = new ChromeDriverElements(this);
-                return elements;
-            }
-        }
+        public IElements Elements => elements ?? (elements = new ChromeDriverElements(this));
 
-        public IActionExecutor ActionExecutor
-        {
-            get
-            {
-                if (actionExecutor == null)
-                    actionExecutor = new ChromeDriverActionExecutor(this);
-                return actionExecutor;
-            }
-        }
+        public IActionExecutor ActionExecutor => actionExecutor ?? (actionExecutor = new ChromeDriverActionExecutor(this));
 
         private ChromeDriverNavigation navigation;
         private ChromeDriverTouchScreen touchScreen;
@@ -149,7 +53,8 @@ namespace Zu.Chrome
         private ChromeDriverTargetLocator targetLocator;
         private ChromeDriverElements elements;
         private ChromeDriverActionExecutor actionExecutor;
-#endregion
+        #endregion
+
         public bool isConnected = false;
         public ChromeDevToolsConnection DevTools
         {
@@ -227,9 +132,8 @@ namespace Zu.Chrome
         {
             get;
             set;
-        }
+        } = true;
 
-        = true;
         static int sessionId = 0;
         public ChromeProcessInfo chromeProcess;
         private bool _isClosed = false;
@@ -248,22 +152,22 @@ namespace Zu.Chrome
         }
 
         static Random rnd = new Random();
-        public AsyncChromeDriver(bool openInTempDir = true): this (11000 + rnd.Next(2000))
+        public AsyncChromeDriver(bool openInTempDir = true) : this(11000 + rnd.Next(2000))
         {
             Config.SetIsTempProfile(openInTempDir);
         }
 
-        public AsyncChromeDriver(string profileDir, int port): this (port)
+        public AsyncChromeDriver(string profileDir, int port) : this(port)
         {
             UserDir = profileDir;
         }
 
-        public AsyncChromeDriver(string profileDir): this (11000 + rnd.Next(2000))
+        public AsyncChromeDriver(string profileDir) : this(11000 + rnd.Next(2000))
         {
             UserDir = profileDir;
         }
 
-        public AsyncChromeDriver(DriverConfig config): this (config as ChromeDriverConfig ?? new ChromeDriverConfig(config))
+        public AsyncChromeDriver(DriverConfig config) : this(config as ChromeDriverConfig ?? new ChromeDriverConfig(config))
         {
         }
 
@@ -305,7 +209,7 @@ namespace Zu.Chrome
             WindowCommands = new WindowCommands(this);
         }
 
-        public virtual async Task<string> Connect(CancellationToken cancellationToken = default (CancellationToken))
+        public virtual async Task<string> Connect(CancellationToken cancellationToken = default(CancellationToken))
         {
             isConnected = true;
             UnsubscribeDevToolsSessionEvent();
@@ -363,7 +267,7 @@ namespace Zu.Chrome
             await BrowserDevTools.Navigation.GoToUrl(GetBrowserDevToolsUrl()).ConfigureAwait(false);
         }
 
-        public async Task CheckConnected(CancellationToken cancellationToken = default (CancellationToken))
+        public async Task CheckConnected(CancellationToken cancellationToken = default(CancellationToken))
         {
             if (!DoConnectWhenCheckConnected)
                 return;
@@ -443,7 +347,7 @@ namespace Zu.Chrome
             }
         }
 
-        public async Task<string> Close(CancellationToken cancellationToken = default (CancellationToken))
+        public async Task<string> Close(CancellationToken cancellationToken = default(CancellationToken))
         {
             try
             {
@@ -511,13 +415,13 @@ namespace Zu.Chrome
             return "ok";
         }
 
-        public async Task<string> GetPageSource(CancellationToken cancellationToken = default (CancellationToken))
+        public async Task<string> GetPageSource(CancellationToken cancellationToken = default(CancellationToken))
         {
             var res = await WindowCommands.GetPageSource(null, cancellationToken).ConfigureAwait(false);
             return res;
         }
 
-        public async Task<string> GetTitle(CancellationToken cancellationToken = default (CancellationToken))
+        public async Task<string> GetTitle(CancellationToken cancellationToken = default(CancellationToken))
         {
             var res = await WindowCommands.GetTitle(null, cancellationToken).ConfigureAwait(false);
             return res;
@@ -539,23 +443,23 @@ namespace Zu.Chrome
             DevToolsEvent?.Invoke(sender, methodName, eventData);
         }
 
-        public async Task Disconnect(CancellationToken cancellationToken = default (CancellationToken))
+        public async Task Disconnect(CancellationToken cancellationToken = default(CancellationToken))
         {
             await Task.Run(() => DevTools.Disconnect()).ConfigureAwait(false);
             isConnected = false;
-        //DoConnectWhenCheckConnected = true;
+            //DoConnectWhenCheckConnected = true;
         }
 
-        public async Task<DevToolsCommandResult> SendDevToolsCommand(DevToolsCommandData commandData, CancellationToken cancellationToken = default (CancellationToken))
+        public async Task<DevToolsCommandResult> SendDevToolsCommand(DevToolsCommandData commandData, CancellationToken cancellationToken = default(CancellationToken))
         {
             try
             {
                 var res = await DevTools.Session.SendCommand(commandData.CommandName, commandData.Params, cancellationToken, commandData.MillisecondsTimeout).ConfigureAwait(false);
-                return new DevToolsCommandResult{Id = commandData.Id, Result = res};
+                return new DevToolsCommandResult { Id = commandData.Id, Result = res };
             }
             catch (Exception ex)
             {
-                return new DevToolsCommandResult{Id = commandData.Id, Error = ex.ToString()};
+                return new DevToolsCommandResult { Id = commandData.Id, Error = ex.ToString() };
             }
         }
     }
