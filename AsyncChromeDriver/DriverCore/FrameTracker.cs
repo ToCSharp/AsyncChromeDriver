@@ -1,6 +1,5 @@
-﻿// Copyright (c) Oleg Zudov. All Rights Reserved. Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
+// Copyright (c) Oleg Zudov. All Rights Reserved. Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // This file is based on or incorporates material from the Chromium Projects, licensed under the BSD-style license. More info in THIRD-PARTY-NOTICES file.
-
 using System.Linq;
 using System.Threading.Tasks;
 using BaristaLabs.ChromeDevTools.Runtime.Page;
@@ -14,7 +13,6 @@ namespace Zu.Chrome.DriverCore
     {
         private ChromeDevToolsConnection devTools;
         private ConcurrentDictionary<string, long> frameToContext = new ConcurrentDictionary<string, long>();
-
         public FrameTracker(ChromeDevToolsConnection devTools)
         {
             this.devTools = devTools;
@@ -22,17 +20,18 @@ namespace Zu.Chrome.DriverCore
 
         public async Task Enable()
         {
-            devTools?.Session.Runtime.SubscribeToExecutionContextCreatedEvent(OnContextCreatedEvent);
-            devTools?.Session.Runtime.SubscribeToExecutionContextDestroyedEvent(OnContextDestroyedEvent);
-            devTools?.Session.Runtime.SubscribeToExecutionContextsClearedEvent(OnContextsClearedEvent);
-            devTools?.Session.Page.SubscribeToFrameNavigatedEvent(OnFrameNavigatedEvent);
-            await devTools?.Session.Runtime.Enable();
-            await devTools?.Session.Page.Enable();
+            devTools.Session.Runtime.SubscribeToExecutionContextCreatedEvent(OnContextCreatedEvent);
+            devTools.Session.Runtime.SubscribeToExecutionContextDestroyedEvent(OnContextDestroyedEvent);
+            devTools.Session.Runtime.SubscribeToExecutionContextsClearedEvent(OnContextsClearedEvent);
+            devTools.Session.Page.SubscribeToFrameNavigatedEvent(OnFrameNavigatedEvent);
+            await devTools.Session.Runtime.Enable().ConfigureAwait(false);
+            await devTools.Session.Page.Enable().ConfigureAwait(false);
         }
 
-        public long? GetContextIdForFrame(string frame)
+        public long ? GetContextIdForFrame(string frame)
         {
-            if (frameToContext.TryGetValue(frame, out long res)) return res;
+            if (frameToContext.TryGetValue(frame, out long res))
+                return res;
             //throw new KeyNotFoundException(frame);
             return null;
         }
@@ -63,7 +62,7 @@ namespace Zu.Chrome.DriverCore
 
         private void OnFrameNavigatedEvent(FrameNavigatedEvent obj)
         {
-            if(string.IsNullOrWhiteSpace(obj.Frame.ParentId))
+            if (string.IsNullOrWhiteSpace(obj.Frame.ParentId))
                 frameToContext.Clear();
         }
     }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Net.Sockets;
 using System.Net;
@@ -11,99 +11,36 @@ namespace Zu.Chrome.BrowserDevTools
 {
     public class HTTPServer
     {
-        private readonly string[] _indexFiles = {
-        "index.html",
-        "index.htm",
-        "default.html",
-        "default.htm"
-    };
-
-        private static IDictionary<string, string> _mimeTypeMappings = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase) {
-        #region extension to MIME type list
-        {".asf", "video/x-ms-asf"},
-        {".asx", "video/x-ms-asf"},
-        {".avi", "video/x-msvideo"},
-        {".bin", "application/octet-stream"},
-        {".cco", "application/x-cocoa"},
-        {".crt", "application/x-x509-ca-cert"},
-        {".css", "text/css"},
-        {".deb", "application/octet-stream"},
-        {".der", "application/x-x509-ca-cert"},
-        {".dll", "application/octet-stream"},
-        {".dmg", "application/octet-stream"},
-        {".ear", "application/java-archive"},
-        {".eot", "application/octet-stream"},
-        {".exe", "application/octet-stream"},
-        {".flv", "video/x-flv"},
-        {".gif", "image/gif"},
-        {".hqx", "application/mac-binhex40"},
-        {".htc", "text/x-component"},
-        {".htm", "text/html"},
-        {".html", "text/html"},
-        {".ico", "image/x-icon"},
-        {".img", "application/octet-stream"},
-        {".iso", "application/octet-stream"},
-        {".jar", "application/java-archive"},
-        {".jardiff", "application/x-java-archive-diff"},
-        {".jng", "image/x-jng"},
-        {".jnlp", "application/x-java-jnlp-file"},
-        {".jpeg", "image/jpeg"},
-        {".jpg", "image/jpeg"},
-        {".js", "application/x-javascript"},
-        {".mml", "text/mathml"},
-        {".mng", "video/x-mng"},
-        {".mov", "video/quicktime"},
-        {".mp3", "audio/mpeg"},
-        {".mpeg", "video/mpeg"},
-        {".mpg", "video/mpeg"},
-        {".msi", "application/octet-stream"},
-        {".msm", "application/octet-stream"},
-        {".msp", "application/octet-stream"},
-        {".pdb", "application/x-pilot"},
-        {".pdf", "application/pdf"},
-        {".pem", "application/x-x509-ca-cert"},
-        {".pl", "application/x-perl"},
-        {".pm", "application/x-perl"},
-        {".png", "image/png"},
-        {".prc", "application/x-pilot"},
-        {".ra", "audio/x-realaudio"},
-        {".rar", "application/x-rar-compressed"},
-        {".rpm", "application/x-redhat-package-manager"},
-        {".rss", "text/xml"},
-        {".run", "application/x-makeself"},
-        {".sea", "application/x-sea"},
-        {".shtml", "text/html"},
-        {".sit", "application/x-stuffit"},
-        {".swf", "application/x-shockwave-flash"},
-        {".tcl", "application/x-tcl"},
-        {".tk", "application/x-tcl"},
-        {".txt", "text/plain"},
-        {".war", "application/java-archive"},
-        {".wbmp", "image/vnd.wap.wbmp"},
-        {".wmv", "video/x-ms-wmv"},
-        {".xml", "text/xml"},
-        {".xpi", "application/x-xpinstall"},
-        {".zip", "application/zip"},
-        #endregion
-    };
+        private readonly string[] _indexFiles = {"index.html", "index.htm", "default.html", "default.htm"};
+        private static IDictionary<string, string> _mimeTypeMappings = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase)
+        {
+#region extension to MIME type list
+        {".asf", "video/x-ms-asf"}, {".asx", "video/x-ms-asf"}, {".avi", "video/x-msvideo"}, {".bin", "application/octet-stream"}, {".cco", "application/x-cocoa"}, {".crt", "application/x-x509-ca-cert"}, {".css", "text/css"}, {".deb", "application/octet-stream"}, {".der", "application/x-x509-ca-cert"}, {".dll", "application/octet-stream"}, {".dmg", "application/octet-stream"}, {".ear", "application/java-archive"}, {".eot", "application/octet-stream"}, {".exe", "application/octet-stream"}, {".flv", "video/x-flv"}, {".gif", "image/gif"}, {".hqx", "application/mac-binhex40"}, {".htc", "text/x-component"}, {".htm", "text/html"}, {".html", "text/html"}, {".ico", "image/x-icon"}, {".img", "application/octet-stream"}, {".iso", "application/octet-stream"}, {".jar", "application/java-archive"}, {".jardiff", "application/x-java-archive-diff"}, {".jng", "image/x-jng"}, {".jnlp", "application/x-java-jnlp-file"}, {".jpeg", "image/jpeg"}, {".jpg", "image/jpeg"}, {".js", "application/x-javascript"}, {".mml", "text/mathml"}, {".mng", "video/x-mng"}, {".mov", "video/quicktime"}, {".mp3", "audio/mpeg"}, {".mpeg", "video/mpeg"}, {".mpg", "video/mpeg"}, {".msi", "application/octet-stream"}, {".msm", "application/octet-stream"}, {".msp", "application/octet-stream"}, {".pdb", "application/x-pilot"}, {".pdf", "application/pdf"}, {".pem", "application/x-x509-ca-cert"}, {".pl", "application/x-perl"}, {".pm", "application/x-perl"}, {".png", "image/png"}, {".prc", "application/x-pilot"}, {".ra", "audio/x-realaudio"}, {".rar", "application/x-rar-compressed"}, {".rpm", "application/x-redhat-package-manager"}, {".rss", "text/xml"}, {".run", "application/x-makeself"}, {".sea", "application/x-sea"}, {".shtml", "text/html"}, {".sit", "application/x-stuffit"}, {".swf", "application/x-shockwave-flash"}, {".tcl", "application/x-tcl"}, {".tk", "application/x-tcl"}, {".txt", "text/plain"}, {".war", "application/java-archive"}, {".wbmp", "image/vnd.wap.wbmp"}, {".wmv", "video/x-ms-wmv"}, {".xml", "text/xml"}, {".xpi", "application/x-xpinstall"}, {".zip", "application/zip"}, 
+#endregion
+        };
         private Thread _serverThread;
         private string _rootDirectory;
         private HttpListener _listener;
         private int _port;
         private int portChrome;
         private ChromeWSProxyConfig wsProxyConfig;
-
         public int Port
         {
-            get { return _port; }
-            private set { }
+            get
+            {
+                return _port;
+            }
+
+            private set
+            {
+            }
         }
 
         /// <summary>
         /// Construct server with given port.
         /// </summary>
-        /// <param name="path">Directory path to serve.</param>
-        /// <param name="port">Port of the server.</param>
+        /// <param name = "path">Directory path to serve.</param>
+        /// <param name = "port">Port of the server.</param>
         public HTTPServer(string path, int port)
         {
             this.Initialize(path, port);
@@ -112,7 +49,7 @@ namespace Zu.Chrome.BrowserDevTools
         /// <summary>
         /// Construct server with suitable port.
         /// </summary>
-        /// <param name="path">Directory path to serve.</param>
+        /// <param name = "path">Directory path to serve.</param>
         public HTTPServer(string path)
         {
             //get an empty port
@@ -123,7 +60,7 @@ namespace Zu.Chrome.BrowserDevTools
             this.Initialize(path, port);
         }
 
-        public HTTPServer(string path, int port, int portChrome) : this(path, port)
+        public HTTPServer(string path, int port, int portChrome): this (path, port)
         {
             this.portChrome = portChrome;
         }
@@ -177,21 +114,18 @@ namespace Zu.Chrome.BrowserDevTools
                     try
                     {
                         Stream input = new FileStream(filename, FileMode.Open);
-
                         //Adding permanent http response headers
                         string mime;
                         context.Response.ContentType = _mimeTypeMappings.TryGetValue(Path.GetExtension(filename), out mime) ? mime : "application/octet-stream";
                         context.Response.ContentLength64 = input.Length;
                         context.Response.AddHeader("Date", DateTime.Now.ToString("r"));
                         context.Response.AddHeader("Last-Modified", System.IO.File.GetLastWriteTime(filename).ToString("r"));
-
                         byte[] buffer = new byte[1024 * 16];
                         int nbytes;
                         while ((nbytes = input.Read(buffer, 0, buffer.Length)) > 0)
                             context.Response.OutputStream.Write(buffer, 0, nbytes);
                         input.Close();
                         context.Response.OutputStream.Flush();
-
                         context.Response.StatusCode = (int)HttpStatusCode.OK;
                     }
                     catch (Exception ex)
@@ -202,21 +136,21 @@ namespace Zu.Chrome.BrowserDevTools
                 else
                 {
                     var webClient = new HttpClient();
-                    var uriBuilder = new UriBuilder { Scheme = "http", Host = "127.0.0.1", Port = portChrome, Path = filename };
-                    var doc = await webClient.GetStringAsync(uriBuilder.Uri);
-
+                    var uriBuilder = new UriBuilder{Scheme = "http", Host = "127.0.0.1", Port = portChrome, Path = filename};
+                    var doc = await webClient.GetStringAsync(uriBuilder.Uri).ConfigureAwait(false);
                     if (wsProxyConfig?.HTTPServerSaveRequestedFiles == true)
                     {
                         var filePath = Path.Combine(_rootDirectory, filename.Replace("/", "\\").TrimStart('\\'));
                         var dir = Path.GetDirectoryName(filePath);
-                        if (!Directory.Exists(dir)) Directory.CreateDirectory(dir);
-                        if (!File.Exists(filePath)) File.WriteAllText(filePath, doc);
+                        if (!Directory.Exists(dir))
+                            Directory.CreateDirectory(dir);
+                        if (!File.Exists(filePath))
+                            File.WriteAllText(filePath, doc);
                     }
 
                     var buffer = Encoding.UTF8.GetBytes(doc);
                     context.Response.OutputStream.Write(buffer, 0, buffer.Length);
                     context.Response.OutputStream.Flush();
-
                     context.Response.StatusCode = (int)HttpStatusCode.OK;
                 }
             }
@@ -224,12 +158,9 @@ namespace Zu.Chrome.BrowserDevTools
             {
                 context.Response.StatusCode = (int)HttpStatusCode.NotFound;
             }
-        
-
 
             ////Console.WriteLine(filename);
             //filename = filename.Substring(1);
-
             //if (string.IsNullOrEmpty(filename))
             //{
             //    foreach (string indexFile in _indexFiles)
@@ -241,42 +172,35 @@ namespace Zu.Chrome.BrowserDevTools
             //        }
             //    }
             //}
-
             //filename = Path.Combine(_rootDirectory, filename);
-
             //if (File.Exists(filename))
             //{
             //    try
             //    {
             //        Stream input = new FileStream(filename, FileMode.Open);
-
             //        //Adding permanent http response headers
             //        string mime;
             //        context.Response.ContentType = _mimeTypeMappings.TryGetValue(Path.GetExtension(filename), out mime) ? mime : "application/octet-stream";
             //        context.Response.ContentLength64 = input.Length;
             //        context.Response.AddHeader("Date", DateTime.Now.ToString("r"));
             //        context.Response.AddHeader("Last-Modified", System.IO.File.GetLastWriteTime(filename).ToString("r"));
-
             //        byte[] buffer = new byte[1024 * 16];
             //        int nbytes;
             //        while ((nbytes = input.Read(buffer, 0, buffer.Length)) > 0)
             //            context.Response.OutputStream.Write(buffer, 0, nbytes);
             //        input.Close();
             //        context.Response.OutputStream.Flush();
-
             //        context.Response.StatusCode = (int)HttpStatusCode.OK;
             //    }
             //    catch (Exception ex)
             //    {
             //        context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
             //    }
-
             //}
             //else
             //{
             //    context.Response.StatusCode = (int)HttpStatusCode.NotFound;
             //}
-
             context.Response.OutputStream.Close();
         }
 
@@ -287,6 +211,5 @@ namespace Zu.Chrome.BrowserDevTools
             _serverThread = new Thread(this.Listen);
             _serverThread.Start();
         }
-
     }
 }

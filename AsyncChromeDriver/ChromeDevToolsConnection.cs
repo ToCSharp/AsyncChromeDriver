@@ -1,5 +1,4 @@
-﻿// Copyright (c) Oleg Zudov. All Rights Reserved. Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
-
+// Copyright (c) Oleg Zudov. All Rights Reserved. Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 using BaristaLabs.ChromeDevTools.Runtime;
 using Newtonsoft.Json;
 using System;
@@ -11,8 +10,17 @@ namespace Zu.Chrome
 {
     public class ChromeDevToolsConnection
     {
-        public int Port { get; private set; }
-        public virtual ChromeSession Session { get; set; }
+        public int Port
+        {
+            get;
+            private set;
+        }
+
+        public virtual ChromeSession Session
+        {
+            get;
+            set;
+        }
 
         public ChromeDevToolsConnection(int port = 5999)
         {
@@ -21,7 +29,7 @@ namespace Zu.Chrome
 
         public virtual async Task Connect()
         {
-            var sessions = await GetSessions(Port);
+            var sessions = await GetSessions(Port).ConfigureAwait(false);
             var endpointUrl = sessions.FirstOrDefault(s => s.Type == "page")?.WebSocketDebuggerUrl;
             Session = new ChromeSession(endpointUrl);
         }
@@ -31,23 +39,24 @@ namespace Zu.Chrome
         {
             //var remoteSessionUrls = new List<string>();
             var webClient = new HttpClient();
-            var uriBuilder = new UriBuilder { Scheme = "http", Host = "127.0.0.1", Port = port, Path = "/json" };
-            var remoteSessions = await webClient.GetStringAsync(uriBuilder.Uri);
+            var uriBuilder = new UriBuilder{Scheme = "http", Host = "127.0.0.1", Port = port, Path = "/json"};
+            var remoteSessions = await webClient.GetStringAsync(uriBuilder.Uri).ConfigureAwait(false);
             try
             {
                 //return JsonConvert.DeserializeObject<RemoteSession[]>(remoteSessions); 
                 return JsonConvert.DeserializeObject<ChromeSessionInfo[]>(remoteSessions);
             }
             catch (Exception ex)
-            { return null; }
+            {
+                return null;
+            }
         }
+
         public virtual void Disconnect()
         {
             Session?.Dispose();
             Session = null;
         }
-
-        ////todo
-        
+    ////todo
     }
 }
