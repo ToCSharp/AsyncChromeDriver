@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -31,12 +31,12 @@ namespace Zu.ChromeWebSocketProxy
 
         public async Task Open()
         {
-            await Task.Run(() =>
+await Task.Run(() =>
             {
                 wsServer = new WebSocketServer(port);
                 wsServer.AddWebSocketService<ChromeEndpoint>("/" + ProxyPath, (a) => { a.ChromeEndpointUri = endpointUrl; a.ProxyWS = this; });
                 wsServer.Start();
-            });
+            }).ConfigureAwait(false);
         }
 
         public void Stop()

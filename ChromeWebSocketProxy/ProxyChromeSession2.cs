@@ -90,7 +90,6 @@ namespace Zu.ChromeWebSocketProxy
 
             json["id"] = id;
             var commandWithNewId = json.ToString(Formatting.None);
-
             //var message = new
             //{
             //    id = id,
@@ -101,7 +100,7 @@ namespace Zu.ChromeWebSocketProxy
             //if (millisecondsTimeout.HasValue == false)
             //    millisecondsTimeout = CommandTimeout;
 
-            await OpenSessionConnection(cancellationToken);
+            await OpenSessionConnection(cancellationToken).ConfigureAwait(false);
 
             //LogTrace("Sending {id} {method}: {params}", message.id, message.method, @params?.ToString());
 
@@ -157,7 +156,7 @@ namespace Zu.ChromeWebSocketProxy
         {
             try
             {
-                await semaphore.WaitAsync();
+await semaphore.WaitAsync().ConfigureAwait(false);
                 //var st = m_sessionSocket.State;
                 if (m_sessionSocket == null || m_sessionSocket.State != WebSocketState.Open)
                 {
@@ -180,8 +179,7 @@ namespace Zu.ChromeWebSocketProxy
                     //m_sessionSocket.LocalEndPoint = null;
 
                     m_sessionSocket.Open();
-
-                    await Task.Run(() => m_openEvent.Wait(cancellationToken));
+                    await Task.Run(() => m_openEvent.Wait(cancellationToken)).ConfigureAwait(false);
                 }
             }
             finally

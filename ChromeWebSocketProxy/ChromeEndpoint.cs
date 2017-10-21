@@ -21,7 +21,7 @@ namespace Zu.ChromeWebSocketProxy
                 ProxyWS.ProxyChromeSession = new ProxyChromeSession(ChromeEndpointUri);
                 ProxyWS.ProxyChromeSession.OnEvent += ProxyChromeSession_OnEvent;
             }
-            var res = await ProxyWS.ProxyChromeSession.SendCommand(e.Data);
+            var res = await ProxyWS.ProxyChromeSession.SendCommand(e.Data).ConfigureAwait(false);
             try
             {
                 Send(res);

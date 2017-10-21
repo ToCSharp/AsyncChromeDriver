@@ -146,7 +146,6 @@ namespace Zu.ChromeWebSocketProxy
         public virtual async Task<string> SendCommand(string command, CancellationToken cancellationToken = default(CancellationToken))
         {
             var id = Interlocked.Increment(ref m_currentCommandId);
-            //var message = new
             //{
             //    id = id,
             //    method = commandName,
@@ -156,7 +155,7 @@ namespace Zu.ChromeWebSocketProxy
             //if (millisecondsTimeout.HasValue == false)
             //    millisecondsTimeout = CommandTimeout;
 
-            await OpenSessionConnection(cancellationToken);
+            await OpenSessionConnection(cancellationToken).ConfigureAwait(false);
 
             //LogTrace("Sending {id} {method}: {params}", message.id, message.method, @params?.ToString());
 
@@ -239,8 +238,7 @@ namespace Zu.ChromeWebSocketProxy
             {
                 m_openEvent.Reset();
                 m_sessionSocket.Connect();
-
-                await Task.Run(() => m_openEvent.Wait(cancellationToken));
+                await Task.Run(() => m_openEvent.Wait(cancellationToken)).ConfigureAwait(false);
             }
         }
 
