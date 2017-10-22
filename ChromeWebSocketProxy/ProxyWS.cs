@@ -13,6 +13,12 @@ namespace Zu.ChromeWebSocketProxy
         private string endpointUrl;
         private WebSocketServer wsServer;
 
+        public string ProxyEndpointUrl { get; set; }
+        public string ProxyPath { get; set; } = "WSProxy";
+        public ProxyChromeSession ProxyChromeSession { get; internal set; }
+
+        public bool OnlyLocalConnections { get; set; } = true;
+
         public ProxyWS(string endpointUrl, int port)
         {
             this.port = port;
@@ -25,23 +31,20 @@ namespace Zu.ChromeWebSocketProxy
             ProxyEndpointUrl = builder.ToString();
         }
 
-        public string ProxyEndpointUrl { get; set; }
-        public string ProxyPath { get; set; } = "WSProxy";
-        public ProxyChromeSession ProxyChromeSession { get; internal set; }
-
         public async Task Open()
         {
-await Task.Run(() =>
-            {
-                wsServer = new WebSocketServer(port);
-                wsServer.AddWebSocketService<ChromeEndpoint>("/" + ProxyPath, (a) => { a.ChromeEndpointUri = endpointUrl; a.ProxyWS = this; });
-                wsServer.Start();
-            }).ConfigureAwait(false);
+            await Task.Run(() =>
+                        {
+                            wsServer = new WebSocketServer(port);
+                            wsServer.AddWebSocketService<ChromeEndpoint>("/" + ProxyPath, (a) => { a.ChromeEndpointUri = endpointUrl; a.ProxyWS = this; });
+                            wsServer.Start();
+                        }).ConfigureAwait(false);
         }
 
         public void Stop()
         {
-            /*ChromeEndpoint.*/StopSession();
+            /*ChromeEndpoint.*/
+            StopSession();
             wsServer?.Stop();
         }
 

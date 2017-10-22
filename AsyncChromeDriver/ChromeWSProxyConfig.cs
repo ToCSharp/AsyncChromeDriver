@@ -14,6 +14,8 @@ namespace Zu.Chrome
         public int HTTPServerPort { get; set; } = 0;
         public int ChromePort { get; internal set; }
 
+        public bool OnlyLocalConnections { get; set; } = true;
+
         bool httpServerSaveRequestedFiles = false;
         /// <summary>
         /// Saves requested DevTools frontend file to DevToolsFilesDir("devtools") if there no one
@@ -48,6 +50,5 @@ namespace Zu.Chrome
                 if (httpServerTryFindRequestedFileLocaly) DoProxyHttpTraffic = true;
             }
         }
-
     }
 }

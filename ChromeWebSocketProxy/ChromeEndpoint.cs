@@ -10,12 +10,8 @@ namespace Zu.ChromeWebSocketProxy
         public string ChromeEndpointUri { get; set; }
         public ProxyWS ProxyWS { get; set; }
 
-        public bool Connected = false;
-        //private ProxyChromeSession proxyChromeSession => ProxyWS;
-
         protected async override void OnMessage(MessageEventArgs e)
         {
-            //CreateChromeSession();
             if (ProxyWS.ProxyChromeSession == null)
             {
                 ProxyWS.ProxyChromeSession = new ProxyChromeSession(ChromeEndpointUri);
@@ -34,10 +30,11 @@ namespace Zu.ChromeWebSocketProxy
             Sessions.Broadcast(e);
         }
 
-        //public static void StopSession()
-        //{
-        //    proxyChromeSession?.Dispose();
-        //    proxyChromeSession = null;
-        //}
+        protected override void OnOpen()
+        {
+            //var user = Context.UserEndPoint;
+            if (ProxyWS.OnlyLocalConnections && !Context.IsLocal) Context.WebSocket.Close();
+        }
+
     }
 }
