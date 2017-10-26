@@ -7,6 +7,7 @@ AsyncChromeDriver implements [IAsyncWebBrowserClient](https://github.com/ToCShar
 
 It also has DevTools property and you can easily use all power of Chrome DevTools from your .Net app. Thanks to [BaristaLabs/chrome-dev-tools-runtime](https://github.com/BaristaLabs/chrome-dev-tools-runtime)
 
+Look video of BrowsersDevToolsExample: https://youtu.be/dNMuoeDmEME  
 [![Join the chat at https://gitter.im/AsyncWebDriver/Lobby](https://badges.gitter.im/AsyncWebDriver/Lobby.svg)](https://gitter.im/AsyncWebDriver/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ### Usage
