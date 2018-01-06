@@ -75,6 +75,8 @@ PM> Install-Package AsyncChromeDriver
      await webDriver.Close();
 ```
 #### Chrome native Developer Tools
+This feature is out of date. And you may further use it. But it opens unnecessary WebSocket server (we need remove this). Someday I do it if you ask.  
+https://developers.google.com/web/updates/2017/10/devtools-release-notes#multi-client  
 Look [BrowsersDevToolsExample](https://github.com/ToCSharp/BrowsersDevToolsExample). It's interesting, you can open Developer tools for opened Developer tools.
 ```csharp
    asyncChromeDriver = new AsyncChromeDriver(
