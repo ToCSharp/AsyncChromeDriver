@@ -68,7 +68,7 @@ namespace AsyncChromeDriverNugetTest
                     });
                 });
                 //await asyncChromeDriver.GoToUrl("https://www.google.com/");
-                await asyncChromeDriver.DevTools.Session.Page.Navigate(new BaristaLabs.ChromeDevTools.Runtime.Page.NavigateCommand
+                await asyncChromeDriver.DevTools.Session.Page.Navigate(new Zu.ChromeDevTools.Page.NavigateCommand
                 {
                     Url = "https://www.google.com/"
                 });

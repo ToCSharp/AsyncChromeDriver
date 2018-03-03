@@ -45,6 +45,7 @@ PM> Install-Package AsyncChromeDriver
 
 ```
 #### Using DevTools
+Now only NuGet WebSocket4Net 0.14.1 supported. Do not update it
 ```csharp
     asyncChromeDriver = new AsyncChromeDriver();
     await asyncChromeDriver.CheckConnected();

@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("AsyncChromeDriver")]
-[assembly: AssemblyDescription("Chrome WebDriver and Chrome DevTools through a single connection")]
+[assembly: AssemblyDescription("Async .Net Chrome WebDriver and Chrome DevTools through a single connection")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Oleg Zudov")]
 [assembly: AssemblyProduct("AsyncChromeDriver")]
-[assembly: AssemblyCopyright("Copyright © Oleg Zudov 2017")]
+[assembly: AssemblyCopyright("Copyright © Oleg Zudov 2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
