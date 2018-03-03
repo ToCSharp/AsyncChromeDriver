@@ -1,0 +1,41 @@
+namespace Zu.ChromeDevTools.Database
+{
+    using Newtonsoft.Json;
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public sealed class GetDatabaseTableNamesCommand : ICommand
+    {
+        private const string ChromeRemoteInterface_CommandName = "Database.getDatabaseTableNames";
+        
+        [JsonIgnore]
+        public string CommandName
+        {
+            get { return ChromeRemoteInterface_CommandName; }
+        }
+
+        /// <summary>
+        /// Gets or sets the databaseId
+        /// </summary>
+        [JsonProperty("databaseId")]
+        public string DatabaseId
+        {
+            get;
+            set;
+        }
+    }
+
+    public sealed class GetDatabaseTableNamesCommandResponse : ICommandResponse<GetDatabaseTableNamesCommand>
+    {
+        /// <summary>
+        /// Gets or sets the tableNames
+        /// </summary>
+        [JsonProperty("tableNames")]
+        public string[] TableNames
+        {
+            get;
+            set;
+        }
+    }
+}

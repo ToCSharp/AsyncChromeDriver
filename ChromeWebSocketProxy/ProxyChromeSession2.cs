@@ -1,5 +1,3 @@
-//using BaristaLabs.ChromeDevTools.Runtime.Framework;
-
 namespace Zu.ChromeWebSocketProxy
 {
     //using Microsoft.Extensions.Logging;

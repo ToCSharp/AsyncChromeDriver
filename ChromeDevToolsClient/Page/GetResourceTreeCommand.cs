@@ -1,0 +1,32 @@
+namespace Zu.ChromeDevTools.Page
+{
+    using Newtonsoft.Json;
+
+    /// <summary>
+    /// Returns present frame / resource tree structure.
+    /// </summary>
+    public sealed class GetResourceTreeCommand : ICommand
+    {
+        private const string ChromeRemoteInterface_CommandName = "Page.getResourceTree";
+        
+        [JsonIgnore]
+        public string CommandName
+        {
+            get { return ChromeRemoteInterface_CommandName; }
+        }
+
+    }
+
+    public sealed class GetResourceTreeCommandResponse : ICommandResponse<GetResourceTreeCommand>
+    {
+        /// <summary>
+        /// Present frame / resource tree structure.
+        ///</summary>
+        [JsonProperty("frameTree")]
+        public FrameResourceTree FrameTree
+        {
+            get;
+            set;
+        }
+    }
+}

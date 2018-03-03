@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
-using BaristaLabs.ChromeDevTools.Runtime.Network;
 using Zu.Chrome;
+using Zu.ChromeDevTools.Network;
 
 namespace AsyncChromeDriverExample
 {

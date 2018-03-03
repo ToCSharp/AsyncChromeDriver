@@ -37,8 +37,8 @@
     <Reference Include="IAsyncWebBrowserClient, Version=0.1.10.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\IAsyncWebBrowserClient.0.1.10\lib\net452\IAsyncWebBrowserClient.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -101,14 +101,15 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BaristaLabs.chrome-dev-tools-runtime\BaristaLabs.ChromeDevTools.Runtime.NetFramework\BaristaLabs.ChromeDevTools.Runtime.NetFramework.csproj">
-      <Project>{6f8eb349-fd03-41a7-9434-117ce10c999e}</Project>
-      <Name>BaristaLabs.ChromeDevTools.Runtime.NetFramework</Name>
+    <ProjectReference Include="..\ChromeDevToolsClient\ChromeDevToolsClient.csproj">
+      <Project>{61DD11A3-38A3-4D28-AB79-32F9E51F4E16}</Project>
+      <Name>ChromeDevToolsClient</Name>
     </ProjectReference>
     <ProjectReference Include="..\ChromeWebSocketProxy\ChromeWebSocketProxy.csproj">
       <Project>{fc8345cf-3b80-4dbb-8be4-155fe5eaa28a}</Project>

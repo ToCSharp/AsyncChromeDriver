@@ -2,10 +2,10 @@
 // This file is based on or incorporates material from the Chromium Projects, licensed under the BSD-style license. More info in THIRD-PARTY-NOTICES file.
 using System.Linq;
 using System.Threading.Tasks;
-using BaristaLabs.ChromeDevTools.Runtime.Page;
-using BaristaLabs.ChromeDevTools.Runtime.Runtime;
 using System.Collections.Concurrent;
 using Newtonsoft.Json.Linq;
+using Zu.ChromeDevTools.Page;
+using Zu.ChromeDevTools.Runtime;
 
 namespace Zu.Chrome.DriverCore
 {

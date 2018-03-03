@@ -1,11 +1,11 @@
 ## AsyncChromeDriver
-Chrome WebDriver and Chrome DevTools in one library. 
+Async .Net Chrome WebDriver and Chrome DevTools in one library. 
 
 It connects directly to [Chrome DevTools](https://chromedevtools.github.io/devtools-protocol/) and is async from this connection. No need in chromedriver.
 
 AsyncChromeDriver implements [IAsyncWebBrowserClient](https://github.com/ToCSharp/IAsyncWebBrowserClient) and can be used as [AsyncWebDriver](https://github.com/ToCSharp/AsyncWebDriver).
 
-It also has DevTools property and you can easily use all power of Chrome DevTools from your .Net app. Thanks to [BaristaLabs/chrome-dev-tools-runtime](https://github.com/BaristaLabs/chrome-dev-tools-runtime)
+It also has DevTools property and you can easily use all power of Chrome DevTools from your .Net app. We use modified version from [BaristaLabs/chrome-dev-tools-generator](https://github.com/BaristaLabs/chrome-dev-tools-generator)
 
 Look video of BrowsersDevToolsExample: https://youtu.be/dNMuoeDmEME  
 [![Join the chat at https://gitter.im/AsyncWebDriver/Lobby](https://badges.gitter.im/AsyncWebDriver/Lobby.svg)](https://gitter.im/AsyncWebDriver/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
@@ -55,7 +55,7 @@ PM> Install-Package AsyncChromeDriver
         SaveScreenshot(screenshot.Data);
     });
     //await asyncChromeDriver.GoToUrl("https://www.google.com/");
-    await asyncChromeDriver.DevTools.Session.Page.Navigate(new BaristaLabs.ChromeDevTools.Runtime.Page.NavigateCommand
+    await asyncChromeDriver.DevTools.Session.Page.Navigate(new ChromeDevTools.Page.NavigateCommand
     {
         Url = "https://www.google.com/"
     });

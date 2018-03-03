@@ -1,5 +1,4 @@
-﻿using BaristaLabs.ChromeDevTools.Runtime.Network;
-using System;
+﻿using System;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
@@ -11,6 +10,7 @@ using System.Windows.Threading;
 using Zu.AsyncWebDriver;
 using Zu.AsyncWebDriver.Remote;
 using Zu.Chrome;
+using Zu.ChromeDevTools.Page;
 using Zu.WebBrowser.BasicTypes;
 
 namespace AsyncChromeDriverExample
@@ -106,7 +106,7 @@ namespace AsyncChromeDriverExample
             }
         }
 
-        string CookieToString(BaristaLabs.ChromeDevTools.Runtime.Network.Cookie c)
+        string CookieToString(Zu.ChromeDevTools.Network.Cookie c)
         {
             var c2 = new Zu.WebBrowser.BasicTypes.Cookie(c.Name, c.Value, c.Domain, c.Path,
                 new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddMilliseconds(c.Expires).ToLocalTime()); //, DateTimeOffset.FromUnixTimeMilliseconds((long)c.Expires).UtcDateTime);
@@ -238,8 +238,8 @@ namespace AsyncChromeDriverExample
 
         private static string GetFilePathToSaveScreenshot()
         {
-            var dir = @"C:\temp";
-            if (!Directory.Exists(dir)) Directory.CreateDirectory(dir);
+            var dir = ""; // @"C:\temp";
+            if (!string.IsNullOrWhiteSpace(dir) && !Directory.Exists(dir)) Directory.CreateDirectory(dir);
             var i = 0;
             var path = "";
             do

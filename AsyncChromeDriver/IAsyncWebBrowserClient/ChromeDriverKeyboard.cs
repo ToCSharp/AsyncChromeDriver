@@ -1,10 +1,10 @@
 // Copyright (c) Oleg Zudov. All Rights Reserved. Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
-using BaristaLabs.ChromeDevTools.Runtime.Input;
 using System;
 using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
 using Zu.Chrome.DriverCore;
+using Zu.ChromeDevTools.Input;
 using Zu.WebBrowser.AsyncInteractions;
 using Zu.WebBrowser.BasicTypes;
 

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.16
+VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsyncChromeDriver", "AsyncChromeDriver\AsyncChromeDriver.csproj", "{B397FF4B-9290-478F-BB70-DA91D23E4B68}"
 EndProject
@@ -17,15 +17,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		THIRD-PARTY-NOTICES.txt = THIRD-PARTY-NOTICES.txt
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BaristaLabs.chrome-dev-tools-runtime", "BaristaLabs.chrome-dev-tools-runtime", "{815998B2-309E-4844-8706-D39FD1C123DE}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BaristaLabs.ChromeDevTools.Runtime.NetFramework", "BaristaLabs.chrome-dev-tools-runtime\BaristaLabs.ChromeDevTools.Runtime.NetFramework\BaristaLabs.ChromeDevTools.Runtime.NetFramework.csproj", "{6F8EB349-FD03-41A7-9434-117CE10C999E}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebSocket", "WebSocket", "{5428E8AA-37D9-494B-8988-6B2DB172D1FB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "websocket-sharp", "WebSocket\websocket-sharp\websocket-sharp.csproj", "{44C2460F-E5C0-4732-BE8E-05FBB6E23DAC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChromeWebSocketProxy", "ChromeWebSocketProxy\ChromeWebSocketProxy.csproj", "{FC8345CF-3B80-4DBB-8BE4-155FE5EAA28A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChromeDevToolsClient", "ChromeDevToolsClient\ChromeDevToolsClient.csproj", "{61DD11A3-38A3-4D28-AB79-32F9E51F4E16}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,10 +43,6 @@ Global
 		{2C781DC3-70E0-4CEE-8E29-7FB3034D3972}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2C781DC3-70E0-4CEE-8E29-7FB3034D3972}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2C781DC3-70E0-4CEE-8E29-7FB3034D3972}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6F8EB349-FD03-41A7-9434-117CE10C999E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6F8EB349-FD03-41A7-9434-117CE10C999E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6F8EB349-FD03-41A7-9434-117CE10C999E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6F8EB349-FD03-41A7-9434-117CE10C999E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{44C2460F-E5C0-4732-BE8E-05FBB6E23DAC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{44C2460F-E5C0-4732-BE8E-05FBB6E23DAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{44C2460F-E5C0-4732-BE8E-05FBB6E23DAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -57,12 +51,15 @@ Global
 		{FC8345CF-3B80-4DBB-8BE4-155FE5EAA28A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FC8345CF-3B80-4DBB-8BE4-155FE5EAA28A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FC8345CF-3B80-4DBB-8BE4-155FE5EAA28A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{61DD11A3-38A3-4D28-AB79-32F9E51F4E16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61DD11A3-38A3-4D28-AB79-32F9E51F4E16}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61DD11A3-38A3-4D28-AB79-32F9E51F4E16}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61DD11A3-38A3-4D28-AB79-32F9E51F4E16}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{6F8EB349-FD03-41A7-9434-117CE10C999E} = {815998B2-309E-4844-8706-D39FD1C123DE}
 		{44C2460F-E5C0-4732-BE8E-05FBB6E23DAC} = {5428E8AA-37D9-494B-8988-6B2DB172D1FB}
 		{FC8345CF-3B80-4DBB-8BE4-155FE5EAA28A} = {5428E8AA-37D9-494B-8988-6B2DB172D1FB}
 	EndGlobalSection

@@ -1,0 +1,23 @@
+namespace Zu.ChromeDevTools.CSS
+{
+    using Newtonsoft.Json;
+
+    /// <summary>
+    /// Enables the selector recording.
+    /// </summary>
+    public sealed class StartRuleUsageTrackingCommand : ICommand
+    {
+        private const string ChromeRemoteInterface_CommandName = "CSS.startRuleUsageTracking";
+        
+        [JsonIgnore]
+        public string CommandName
+        {
+            get { return ChromeRemoteInterface_CommandName; }
+        }
+
+    }
+
+    public sealed class StartRuleUsageTrackingCommandResponse : ICommandResponse<StartRuleUsageTrackingCommand>
+    {
+    }
+}

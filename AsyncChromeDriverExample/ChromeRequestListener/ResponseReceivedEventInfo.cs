@@ -1,4 +1,5 @@
-﻿using BaristaLabs.ChromeDevTools.Runtime.Network;
+﻿
+using Zu.ChromeDevTools.Network;
 
 namespace AsyncChromeDriverExample
 {

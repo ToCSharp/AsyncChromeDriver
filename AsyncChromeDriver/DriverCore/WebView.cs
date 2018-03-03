@@ -1,15 +1,15 @@
 // Copyright (c) Oleg Zudov. All Rights Reserved. Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // This file is based on or incorporates material from the Chromium Projects, licensed under the BSD-style license. More info in THIRD-PARTY-NOTICES file.
-using BaristaLabs.ChromeDevTools.Runtime.Runtime;
-using BaristaLabs.ChromeDevTools.Runtime.Page;
-using BaristaLabs.ChromeDevTools.Runtime.Input;
-using BaristaLabs.ChromeDevTools.Runtime.DOM;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Threading;
 using System.Globalization;
 using System.Collections.Generic;
+using Zu.ChromeDevTools.DOM;
+using Zu.ChromeDevTools.Input;
+using Zu.ChromeDevTools.Page;
+using Zu.ChromeDevTools.Runtime;
 using Zu.WebBrowser.BasicTypes;
 
 namespace Zu.Chrome.DriverCore
