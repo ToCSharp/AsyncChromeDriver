@@ -9,7 +9,7 @@ using System.Text;
 
 namespace Zu.Chrome.BrowserDevTools
 {
-    public class HTTPServer
+    public class HttpServer
     {
         private readonly string[] _indexFiles = {"index.html", "index.htm", "default.html", "default.htm"};
         private static IDictionary<string, string> _mimeTypeMappings = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase)
@@ -22,54 +22,44 @@ namespace Zu.Chrome.BrowserDevTools
         private string _rootDirectory;
         private HttpListener _listener;
         private int _port;
-        private int portChrome;
-        private ChromeWSProxyConfig wsProxyConfig;
-        public int Port
-        {
-            get
-            {
-                return _port;
-            }
-
-            private set
-            {
-            }
-        }
+        private int _portChrome;
+        private ChromeWSProxyConfig _wsProxyConfig;
+        public int Port => _port;
 
         /// <summary>
         /// Construct server with given port.
         /// </summary>
         /// <param name = "path">Directory path to serve.</param>
         /// <param name = "port">Port of the server.</param>
-        public HTTPServer(string path, int port)
+        public HttpServer(string path, int port)
         {
-            this.Initialize(path, port);
+            Initialize(path, port);
         }
 
         /// <summary>
         /// Construct server with suitable port.
         /// </summary>
         /// <param name = "path">Directory path to serve.</param>
-        public HTTPServer(string path)
+        public HttpServer(string path)
         {
             //get an empty port
             TcpListener l = new TcpListener(IPAddress.Loopback, 0);
             l.Start();
             int port = ((IPEndPoint)l.LocalEndpoint).Port;
             l.Stop();
-            this.Initialize(path, port);
+            Initialize(path, port);
         }
 
-        public HTTPServer(string path, int port, int portChrome): this (path, port)
+        public HttpServer(string path, int port, int portChrome): this (path, port)
         {
-            this.portChrome = portChrome;
+            _portChrome = portChrome;
         }
 
-        public HTTPServer(ChromeWSProxyConfig wsProxyConfig)
+        public HttpServer(ChromeWSProxyConfig wsProxyConfig)
         {
-            this.wsProxyConfig = wsProxyConfig;
-            portChrome = this.wsProxyConfig.ChromePort;
-            Initialize(this.wsProxyConfig.DevToolsFilesDir, this.wsProxyConfig.HTTPServerPort);
+            _wsProxyConfig = wsProxyConfig;
+            _portChrome = _wsProxyConfig.ChromePort;
+            Initialize(_wsProxyConfig.DevToolsFilesDir, _wsProxyConfig.HttpServerPort);
         }
 
         /// <summary>
@@ -93,7 +83,7 @@ namespace Zu.Chrome.BrowserDevTools
                     HttpListenerContext context = _listener.GetContext();
                     Process(context);
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     break;
                 }
@@ -107,19 +97,18 @@ namespace Zu.Chrome.BrowserDevTools
             try
             {
                 //ProcessFiles.Add(filename);
-                var fn = "";
-                if (wsProxyConfig?.HTTPServerTryFindRequestedFileLocaly == true && File.Exists(fn = Path.Combine(_rootDirectory, filename.Replace("/", "\\").TrimStart('\\'))))
+                string fn;
+                if (_wsProxyConfig?.HttpServerTryFindRequestedFileLocaly == true && File.Exists(fn = Path.Combine(_rootDirectory, filename.Replace("/", "\\").TrimStart('\\'))))
                 {
                     filename = fn;
                     try
                     {
                         Stream input = new FileStream(filename, FileMode.Open);
                         //Adding permanent http response headers
-                        string mime;
-                        context.Response.ContentType = _mimeTypeMappings.TryGetValue(Path.GetExtension(filename), out mime) ? mime : "application/octet-stream";
+                        context.Response.ContentType = _mimeTypeMappings.TryGetValue(Path.GetExtension(filename), out var mime) ? mime : "application/octet-stream";
                         context.Response.ContentLength64 = input.Length;
                         context.Response.AddHeader("Date", DateTime.Now.ToString("r"));
-                        context.Response.AddHeader("Last-Modified", System.IO.File.GetLastWriteTime(filename).ToString("r"));
+                        context.Response.AddHeader("Last-Modified", File.GetLastWriteTime(filename).ToString("r"));
                         byte[] buffer = new byte[1024 * 16];
                         int nbytes;
                         while ((nbytes = input.Read(buffer, 0, buffer.Length)) > 0)
@@ -128,7 +117,7 @@ namespace Zu.Chrome.BrowserDevTools
                         context.Response.OutputStream.Flush();
                         context.Response.StatusCode = (int)HttpStatusCode.OK;
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
                         context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
                     }
@@ -136,13 +125,13 @@ namespace Zu.Chrome.BrowserDevTools
                 else
                 {
                     var webClient = new HttpClient();
-                    var uriBuilder = new UriBuilder{Scheme = "http", Host = "127.0.0.1", Port = portChrome, Path = filename};
+                    var uriBuilder = new UriBuilder{Scheme = "http", Host = "127.0.0.1", Port = _portChrome, Path = filename};
                     var doc = await webClient.GetStringAsync(uriBuilder.Uri).ConfigureAwait(false);
-                    if (wsProxyConfig?.HTTPServerSaveRequestedFiles == true)
+                    if (_wsProxyConfig?.HttpServerSaveRequestedFiles == true)
                     {
                         var filePath = Path.Combine(_rootDirectory, filename.Replace("/", "\\").TrimStart('\\'));
                         var dir = Path.GetDirectoryName(filePath);
-                        if (!Directory.Exists(dir))
+                        if (!string.IsNullOrWhiteSpace(dir) && !Directory.Exists(dir))
                             Directory.CreateDirectory(dir);
                         if (!File.Exists(filePath))
                             File.WriteAllText(filePath, doc);
@@ -154,7 +143,7 @@ namespace Zu.Chrome.BrowserDevTools
                     context.Response.StatusCode = (int)HttpStatusCode.OK;
                 }
             }
-            catch (Exception ex)
+            catch (Exception) 
             {
                 context.Response.StatusCode = (int)HttpStatusCode.NotFound;
             }
@@ -206,9 +195,9 @@ namespace Zu.Chrome.BrowserDevTools
 
         private void Initialize(string path, int port)
         {
-            this._rootDirectory = path;
-            this._port = port;
-            _serverThread = new Thread(this.Listen);
+            _rootDirectory = path;
+            _port = port;
+            _serverThread = new Thread(Listen);
             _serverThread.Start();
         }
     }

@@ -2,7 +2,6 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-using Zu.WebBrowser.AsyncInteractions;
 using Zu.WebBrowser.BasicTypes;
 using Zu.WebBrowser.BrowserOptions;
 
@@ -10,11 +9,11 @@ namespace Zu.Chrome
 {
     public class ChromeDriverWindow: IWindow
     {
-        private IAsyncChromeDriver asyncChromeDriver;
+        private IAsyncChromeDriver _asyncChromeDriver;
 
         public ChromeDriverWindow(IAsyncChromeDriver asyncChromeDriver)
         {
-            this.asyncChromeDriver = asyncChromeDriver;
+            _asyncChromeDriver = asyncChromeDriver;
         }
 
         public Task<WebPoint> GetPosition(CancellationToken cancellationToken = default(CancellationToken))

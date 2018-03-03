@@ -84,7 +84,7 @@ namespace Zu.Chrome
             try {
                 //return JsonConvert.DeserializeObject<RemoteSession[]>(remoteSessions); 
                 return JsonConvert.DeserializeObject<ChromeSessionInfo[]>(remoteSessions);
-            } catch (Exception ex) {
+            } catch (Exception) {
                 return null;
             }
         }

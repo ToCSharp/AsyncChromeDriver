@@ -3,7 +3,6 @@
 using System.Collections.ObjectModel;
 using System.Threading;
 using System.Threading.Tasks;
-using Zu.WebBrowser.AsyncInteractions;
 using Zu.WebBrowser.BasicTypes;
 using Zu.WebBrowser.BrowserOptions;
 
@@ -11,11 +10,11 @@ namespace Zu.Chrome
 {
     public class ChromeDriverCookieJar: ICookieJar
     {
-        private IAsyncChromeDriver asyncChromeDriver;
+        private IAsyncChromeDriver _asyncChromeDriver;
 
         public ChromeDriverCookieJar(IAsyncChromeDriver asyncChromeDriver)
         {
-            this.asyncChromeDriver = asyncChromeDriver;
+            _asyncChromeDriver = asyncChromeDriver;
         }
 
         public Task AddCookie(Cookie cookie, CancellationToken cancellationToken = default(CancellationToken))

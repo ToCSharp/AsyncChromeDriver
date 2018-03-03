@@ -8,11 +8,11 @@ namespace Zu.Chrome
 {
     public class ChromeDriverTouchScreen : ITouchScreen
     {
-        private IAsyncChromeDriver asyncChromeDriver;
+        private IAsyncChromeDriver _asyncChromeDriver;
 
         public ChromeDriverTouchScreen(IAsyncChromeDriver asyncChromeDriver)
         {
-            this.asyncChromeDriver = asyncChromeDriver;
+            _asyncChromeDriver = asyncChromeDriver;
         }
 
         public Task DoubleTap(ICoordinates where, CancellationToken cancellationToken = default(CancellationToken))

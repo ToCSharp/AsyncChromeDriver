@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Zu.ChromeDevTools
+﻿namespace Zu.ChromeDevTools
 {
     public class ILogger<T>
     {

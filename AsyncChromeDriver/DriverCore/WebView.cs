@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Threading;
 using System.Globalization;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using Zu.ChromeDevTools.DOM;
 using Zu.ChromeDevTools.Input;
 using Zu.ChromeDevTools.Page;
@@ -14,22 +15,22 @@ using Zu.WebBrowser.BasicTypes;
 
 namespace Zu.Chrome.DriverCore
 {
+    [SuppressMessage("ReSharper", "InconsistentNaming")]
     public class WebView
     {
         public ChromeDevToolsConnection DevTools;
         private FrameTracker FrameTracker;
-        private AsyncChromeDriver asyncChromeDriver;
+        private AsyncChromeDriver _asyncChromeDriver;
         public WebView(ChromeDevToolsConnection devTools, FrameTracker frameTracker, AsyncChromeDriver asyncChromeDriver)
         {
             DevTools = devTools;
             FrameTracker = frameTracker;
-            this.asyncChromeDriver = asyncChromeDriver;
+            _asyncChromeDriver = asyncChromeDriver;
         }
 
         public async Task<EvaluateCommandResponse> CallFunction(string function, /*JToken*/
         string /*[]*/ args, string frame = null, bool returnByValue = true, bool w3c = false, CancellationToken cancellationToken = default (CancellationToken))
         {
-            var json = args == null ? "" : args.ToString();
             var expression = $"({call_function.JsSource}).apply(null, [null, {function}, [{args}], {w3c.ToString().ToLower()}])";
             var res = await EvaluateScript(expression, frame, returnByValue, cancellationToken).ConfigureAwait(false);
             //var res = await devTools?.Session.Runtime.CallFunctionOn(new CallFunctionOnCommand
@@ -42,7 +43,6 @@ namespace Zu.Chrome.DriverCore
 
         public async Task<EvaluateCommandResponse> CallFunctionInContext(string function, string args, long ? contextId = null, bool returnByValue = true, bool w3c = false, CancellationToken cancellationToken = default (CancellationToken))
         {
-            var json = args == null ? "" : args.ToString();
             var expression = $"({call_function.JsSource}).apply(null, [null, {function}, [{args}], {w3c.ToString().ToLower()}])";
             var res = await EvaluateScriptInContext(expression, contextId, returnByValue, cancellationToken).ConfigureAwait(false);
             return res;
@@ -61,16 +61,16 @@ namespace Zu.Chrome.DriverCore
             var asyncArgs = string.Join(", ", asyncArgsList);
             //var expression = $"({execute_async_script.JsSource}).apply(null, [null, {function}, [{args}], {w3c.ToString().ToLower()}])";
             //var res = await EvaluateScript(expression, frame, returnByValue, cancellationToken);
-            var r1 = await CallFunction(execute_async_script.JsSource, asyncArgs, asyncChromeDriver.Session?.GetCurrentFrameId()).ConfigureAwait(false);
+            var r1 = await CallFunction(execute_async_script.JsSource, asyncArgs, _asyncChromeDriver.Session?.GetCurrentFrameId()).ConfigureAwait(false);
             var kDocUnloadError = "document unloaded while waiting for result";
             var kJavaScriptError = 17;
             string kQueryResult = string.Format("function() {{" + "  var info = document.$chrome_asyncScriptInfo;" + "  if (!info)" + "    return {{status: {0}, value: '{1}' }};" + "  var result = info.result;" + "  if (!result)" + "    return {{status: 0}};" + "  delete info.result;" + "  return result;" + "}}", kJavaScriptError, kDocUnloadError);
             while (true)
             {
-                var query_value = await CallFunction(kQueryResult, "", frame).ConfigureAwait(false);
-                if (query_value.Result?.Value != null)
+                var queryValue = await CallFunction(kQueryResult, "", frame).ConfigureAwait(false);
+                if (queryValue.Result?.Value != null)
                 {
-                    return query_value.Result.Value;
+                    return queryValue.Result.Value;
                 }
 
                 await Task.Delay(100).ConfigureAwait(false);
@@ -79,16 +79,16 @@ namespace Zu.Chrome.DriverCore
 
         public async Task<EvaluateCommandResponse> EvaluateScript(string expression, string frame = null, bool returnByValue = true, CancellationToken cancellationToken = default (CancellationToken))
         {
-            if (asyncChromeDriver != null)
-                await asyncChromeDriver.CheckConnected().ConfigureAwait(false);
+            if (_asyncChromeDriver != null)
+                await _asyncChromeDriver.CheckConnected().ConfigureAwait(false);
             var contextId = string.IsNullOrWhiteSpace(frame) ? null : (long ? )FrameTracker.GetContextIdForFrame(frame);
             return await DevTools.Runtime.Evaluate(new EvaluateCommand{Expression = expression, ContextId = contextId, ReturnByValue = returnByValue}, cancellationToken).ConfigureAwait(false);
         }
 
         public async Task<EvaluateCommandResponse> EvaluateScriptInContext(string expression, long ? contextId = null, bool returnByValue = true, CancellationToken cancellationToken = default (CancellationToken))
         {
-            if (asyncChromeDriver != null)
-                await asyncChromeDriver.CheckConnected().ConfigureAwait(false);
+            if (_asyncChromeDriver != null)
+                await _asyncChromeDriver.CheckConnected().ConfigureAwait(false);
             return await DevTools.Runtime.Evaluate(new EvaluateCommand{Expression = expression, ContextId = contextId, ReturnByValue = returnByValue}, cancellationToken).ConfigureAwait(false);
         }
 
@@ -108,32 +108,32 @@ namespace Zu.Chrome.DriverCore
 
         public async Task<string> GetUrl(CancellationToken cancellationToken = default (CancellationToken))
         {
-            if (asyncChromeDriver != null)
-                await asyncChromeDriver.CheckConnected().ConfigureAwait(false);
+            if (_asyncChromeDriver != null)
+                await _asyncChromeDriver.CheckConnected().ConfigureAwait(false);
             var res = await DevTools.Page.GetNavigationHistory(new GetNavigationHistoryCommand(), cancellationToken).ConfigureAwait(false);
             return res.Entries?.ElementAtOrDefault((int)res.CurrentIndex)?.Url;
         }
 
         public async Task<NavigateCommandResponse> Load(string url, int ? timeout = null, CancellationToken cancellationToken = default (CancellationToken))
         {
-            if (asyncChromeDriver != null)
-                await asyncChromeDriver.CheckConnected().ConfigureAwait(false);
+            if (_asyncChromeDriver != null)
+                await _asyncChromeDriver.CheckConnected().ConfigureAwait(false);
             var res = await DevTools.Page.Navigate(new NavigateCommand{Url = url}, cancellationToken, timeout).ConfigureAwait(false);
             return res;
         }
 
         public async Task<string> Reload(CancellationToken cancellationToken = default (CancellationToken))
         {
-            if (asyncChromeDriver != null)
-                await asyncChromeDriver.CheckConnected().ConfigureAwait(false);
+            if (_asyncChromeDriver != null)
+                await _asyncChromeDriver.CheckConnected().ConfigureAwait(false);
             var res = await DevTools.Page.Reload(new ReloadCommand(), cancellationToken).ConfigureAwait(false);
             return res.ToString();
         }
 
         public async Task<NavigateToHistoryEntryCommandResponse> TraverseHistory(int delta, CancellationToken cancellationToken = default (CancellationToken))
         {
-            if (asyncChromeDriver != null)
-                await asyncChromeDriver.CheckConnected().ConfigureAwait(false);
+            if (_asyncChromeDriver != null)
+                await _asyncChromeDriver.CheckConnected().ConfigureAwait(false);
             var res = await DevTools.Page.GetNavigationHistory(new GetNavigationHistoryCommand(), cancellationToken).ConfigureAwait(false);
             if (delta == -1)
             {
@@ -180,8 +180,8 @@ namespace Zu.Chrome.DriverCore
 
         public async Task DispatchKeyEvents(string keys, CancellationToken cancellationToken = default (CancellationToken))
         {
-            if (asyncChromeDriver != null)
-                await asyncChromeDriver.CheckConnected().ConfigureAwait(false);
+            if (_asyncChromeDriver != null)
+                await _asyncChromeDriver.CheckConnected().ConfigureAwait(false);
             foreach (var key in keys)
             {
                 //var index = (int)key - 0xE000U; > 0
@@ -215,11 +215,11 @@ namespace Zu.Chrome.DriverCore
 
         public async Task<string> GetFrameByFunction(string frame, string function, List<string> args, CancellationToken cancellationToken = default (CancellationToken))
         {
-            long ? context_id = FrameTracker.GetContextIdForFrame(frame);
+            long ? contextId = FrameTracker.GetContextIdForFrame(frame);
             try
             {
-                var nodeId = await GetNodeIdFromFunction(context_id, function, args, cancellationToken).ConfigureAwait(false);
-                return await asyncChromeDriver.DomTracker.GetFrameIdForNode(nodeId).ConfigureAwait(false);
+                var nodeId = await GetNodeIdFromFunction(contextId, function, args, cancellationToken).ConfigureAwait(false);
+                return await _asyncChromeDriver.DomTracker.GetFrameIdForNode(nodeId).ConfigureAwait(false);
             }
             catch
             {
@@ -227,21 +227,21 @@ namespace Zu.Chrome.DriverCore
             }
         }
 
-        public async Task<int> GetNodeIdFromFunction(long ? context_id, string function, List<string> args, CancellationToken cancellationToken = default (CancellationToken))
+        public async Task<int> GetNodeIdFromFunction(long ? contextId, string function, List<string> args, CancellationToken cancellationToken = default (CancellationToken))
         {
             var argsJson = Newtonsoft.Json.JsonConvert.SerializeObject(args);
-            var w3 = asyncChromeDriver.Session.w3c_compliant ? "true" : "false";
+            var w3 = _asyncChromeDriver.Session.W3CCompliant ? "true" : "false";
             var expression = $"({call_function.JsSource}).apply(null, [null, {function}, {argsJson}, {w3}, true])";
             try
             {
-                var element_id = await EvaluateScriptAndGetObjectInContext(expression, null /*context_id*/, cancellationToken).ConfigureAwait(false);
+                var elementId = await EvaluateScriptAndGetObjectInContext(expression, null /*context_id*/, cancellationToken).ConfigureAwait(false);
                 //var element_id = await CallFunctionInContextAndGetObject(function, argsJson, context_id, asyncChromeDriver.Session.w3c_compliant, cancellationToken);
                 long ? nodeId = null;
-                var nodeResp = await DevTools.DOM.RequestNode(new RequestNodeCommand{ObjectId = element_id}, cancellationToken).ConfigureAwait(false);
+                var nodeResp = await DevTools.DOM.RequestNode(new RequestNodeCommand{ObjectId = elementId}, cancellationToken).ConfigureAwait(false);
                 nodeId = nodeResp?.NodeId;
                 if (nodeId == null)
                     throw new Exception("DOM.requestNode missing int 'nodeId'");
-                var releaseResp = await DevTools.Runtime.ReleaseObject(new ReleaseObjectCommand{ObjectId = element_id}).ConfigureAwait(false);
+                var releaseResp = await DevTools.Runtime.ReleaseObject(new ReleaseObjectCommand{ObjectId = elementId}).ConfigureAwait(false);
                 return (int)nodeId;
             }
             catch

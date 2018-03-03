@@ -11,26 +11,26 @@ namespace Zu.Chrome.DriverCore
 {
     public class FrameTracker
     {
-        private ChromeDevToolsConnection devTools;
-        private ConcurrentDictionary<string, long> frameToContext = new ConcurrentDictionary<string, long>();
+        private ChromeDevToolsConnection _devTools;
+        private ConcurrentDictionary<string, long> _frameToContext = new ConcurrentDictionary<string, long>();
         public FrameTracker(ChromeDevToolsConnection devTools)
         {
-            this.devTools = devTools;
+            _devTools = devTools;
         }
 
         public async Task Enable()
         {
-            devTools.Runtime.SubscribeToExecutionContextCreatedEvent(OnContextCreatedEvent);
-            devTools.Runtime.SubscribeToExecutionContextDestroyedEvent(OnContextDestroyedEvent);
-            devTools.Runtime.SubscribeToExecutionContextsClearedEvent(OnContextsClearedEvent);
-            devTools.Page.SubscribeToFrameNavigatedEvent(OnFrameNavigatedEvent);
-            await devTools.Runtime.Enable().ConfigureAwait(false);
-            await devTools.Page.Enable().ConfigureAwait(false);
+            _devTools.Runtime.SubscribeToExecutionContextCreatedEvent(OnContextCreatedEvent);
+            _devTools.Runtime.SubscribeToExecutionContextDestroyedEvent(OnContextDestroyedEvent);
+            _devTools.Runtime.SubscribeToExecutionContextsClearedEvent(OnContextsClearedEvent);
+            _devTools.Page.SubscribeToFrameNavigatedEvent(OnFrameNavigatedEvent);
+            await _devTools.Runtime.Enable().ConfigureAwait(false);
+            await _devTools.Page.Enable().ConfigureAwait(false);
         }
 
         public long ? GetContextIdForFrame(string frame)
         {
-            if (frameToContext.TryGetValue(frame, out long res))
+            if (_frameToContext.TryGetValue(frame, out long res))
                 return res;
             //throw new KeyNotFoundException(frame);
             return null;
@@ -44,26 +44,26 @@ namespace Zu.Chrome.DriverCore
                 var isDefault = auxData["isDefault"]?.Value<bool>();
                 var frameId = auxData["frameId"]?.Value<string>();
                 if (isDefault == true && !string.IsNullOrWhiteSpace(frameId))
-                    frameToContext[frameId] = ev.Context.Id;
+                    _frameToContext[frameId] = ev.Context.Id;
             }
         }
 
         private void OnContextDestroyedEvent(ExecutionContextDestroyedEvent ev)
         {
-            var itemsToRemove = frameToContext.Where(v => v.Value == ev.ExecutionContextId);
+            var itemsToRemove = _frameToContext.Where(v => v.Value == ev.ExecutionContextId);
             foreach (var item in itemsToRemove)
-                frameToContext.TryRemove(item.Key, out long context);
+                _frameToContext.TryRemove(item.Key, out long context);
         }
 
         private void OnContextsClearedEvent(ExecutionContextsClearedEvent ev)
         {
-            frameToContext.Clear();
+            _frameToContext.Clear();
         }
 
         private void OnFrameNavigatedEvent(FrameNavigatedEvent obj)
         {
             if (string.IsNullOrWhiteSpace(obj.Frame.ParentId))
-                frameToContext.Clear();
+                _frameToContext.Clear();
         }
     }
 }

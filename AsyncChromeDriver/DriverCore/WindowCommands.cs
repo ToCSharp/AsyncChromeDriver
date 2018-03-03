@@ -11,19 +11,19 @@ namespace Zu.Chrome.DriverCore
 {
     public class WindowCommands
     {
-        private WebView webView;
-        private Session session;
-        private AsyncChromeDriver asyncChromeDriver;
+        private WebView _webView;
+        private Session _session;
+        private AsyncChromeDriver _asyncChromeDriver;
         public WindowCommands(AsyncChromeDriver asyncChromeDriver)
         {
-            this.webView = asyncChromeDriver.WebView;
-            this.session = asyncChromeDriver.Session;
-            this.asyncChromeDriver = asyncChromeDriver;
+            _webView = asyncChromeDriver.WebView;
+            _session = asyncChromeDriver.Session;
+            _asyncChromeDriver = asyncChromeDriver;
         }
 
         public async Task<string> GoToUrl(string url, string frame = null, CancellationToken cancellationToken = default (CancellationToken))
         {
-            var res = await webView.Load(url, null, cancellationToken).ConfigureAwait(false);
+            var res = await _webView.Load(url, null, cancellationToken).ConfigureAwait(false);
             return res.FrameId;
         }
 
@@ -32,32 +32,32 @@ namespace Zu.Chrome.DriverCore
             //var res = (await webView.CallFunction(
             //   "function() { return document.URL; }", null, frame))?.Result?.Value;
             //var url = (res as JObject)?["value"]?.ToString() ?? res?.ToString();
-            var res = await webView.EvaluateScript("document.URL;", frame).ConfigureAwait(false);
+            var res = await _webView.EvaluateScript("document.URL;", frame).ConfigureAwait(false);
             var url = res.Result?.Value?.ToString() ?? res.ExceptionDetails?.ToString();
             return url;
         }
 
         public async Task<string> GetPageSource(string frame = null, CancellationToken cancellationToken = default (CancellationToken))
         {
-            var res = await webView.EvaluateScript("new XMLSerializer().serializeToString(document);", frame, true, cancellationToken).ConfigureAwait(false);
+            var res = await _webView.EvaluateScript("new XMLSerializer().serializeToString(document);", frame, true, cancellationToken).ConfigureAwait(false);
             return res.Result?.Value?.ToString() ?? res.ExceptionDetails?.ToString();
         }
 
         public async Task<string> GetTitle(string frame = null, CancellationToken cancellationToken = default (CancellationToken))
         {
-            var res = await webView.EvaluateScript("document.title", frame, true, cancellationToken).ConfigureAwait(false);
+            var res = await _webView.EvaluateScript("document.title", frame, true, cancellationToken).ConfigureAwait(false);
             return res.Result?.Value?.ToString() ?? res.ExceptionDetails?.ToString();
         }
 
         public async Task<JToken> FindElement(string strategy, string expr, string startNode = null, CancellationToken cancellationToken = new CancellationToken())
         {
             var func = atoms.FIND_ELEMENT;
-            var frameId = session == null ? "" : session.GetCurrentFrameId();
+            var frameId = _session == null ? "" : _session.GetCurrentFrameId();
             expr = Regex.Replace(expr, @"(['""\\#.:;,!?+<>=~*^$|%&@`{}\-/\[\]\(\)])", @"\$1");
             var args = $"{{\"{strategy}\":\"{expr}\"}}";
             if (startNode != null)
-                args += $", {{\"{session.GetElementKey()}\":\"{startNode}\"}}";
-            var res = await webView.CallFunction(func, args, frameId, true, false, cancellationToken).ConfigureAwait(false);
+                args += $", {{\"{_session.GetElementKey()}\":\"{startNode}\"}}";
+            var res = await _webView.CallFunction(func, args, frameId, true, false, cancellationToken).ConfigureAwait(false);
             var value = res?.Result?.Value as JToken;
             var exception = ResultValueConverter.ToWebBrowserException(value);
             if (exception != null)
@@ -68,12 +68,12 @@ namespace Zu.Chrome.DriverCore
         public async Task<JToken> FindElements(string strategy, string expr, string startNode = null, CancellationToken cancellationToken = new CancellationToken())
         {
             var func = atoms.FIND_ELEMENTS;
-            var frameId = session == null ? "" : session.GetCurrentFrameId();
+            var frameId = _session == null ? "" : _session.GetCurrentFrameId();
             expr = Regex.Replace(expr, @"(['""\\#.:;,!?+<>=~*^$|%&@`{}\-/\[\]\(\)])", @"\$1");
             var args = $"{{\"{strategy}\":\"{expr}\"}}";
             if (startNode != null)
-                args += $", {{\"{session.GetElementKey()}\":\"{startNode}\"}}";
-            var res = await webView.CallFunction(func, args, frameId, true, false, cancellationToken).ConfigureAwait(false);
+                args += $", {{\"{_session.GetElementKey()}\":\"{startNode}\"}}";
+            var res = await _webView.CallFunction(func, args, frameId, true, false, cancellationToken).ConfigureAwait(false);
             var value = res?.Result?.Value as JToken;
             var exception = ResultValueConverter.ToWebBrowserException(value);
             if (exception != null)
@@ -83,33 +83,33 @@ namespace Zu.Chrome.DriverCore
 
         public async Task<string> GoBack(CancellationToken cancellationToken = new CancellationToken())
         {
-            var res = await webView.TraverseHistory(-1, cancellationToken).ConfigureAwait(false);
-            session?.SwitchToTopFrame();
+            var res = await _webView.TraverseHistory(-1, cancellationToken).ConfigureAwait(false);
+            _session?.SwitchToTopFrame();
             return "ok";
         }
 
         public async Task<string> GoForward(CancellationToken cancellationToken = new CancellationToken())
         {
-            var res = await webView.TraverseHistory(1, cancellationToken).ConfigureAwait(false);
-            session?.SwitchToTopFrame();
+            var res = await _webView.TraverseHistory(1, cancellationToken).ConfigureAwait(false);
+            _session?.SwitchToTopFrame();
             return "ok";
         }
 
         public async Task<JToken> ExecuteScript(string script, List<string> args = null, CancellationToken cancellationToken = new CancellationToken())
         {
-            var frameId = session == null ? "" : session.GetCurrentFrameId();
+            var frameId = _session == null ? "" : _session.GetCurrentFrameId();
             var func = "function(){" + script + "}";
             var argsStr = args?.Any() == true ? string.Join(", ", args) : "";
-            var res = await webView.CallFunction(func, argsStr, frameId, cancellationToken: cancellationToken).ConfigureAwait(false);
+            var res = await _webView.CallFunction(func, argsStr, frameId, cancellationToken: cancellationToken).ConfigureAwait(false);
             return res?.Result?.Value as JToken;
         }
 
         public async Task<JToken> ExecuteAsyncScript(string script, List<string> args = null, CancellationToken cancellationToken = new CancellationToken())
         {
-            var frameId = session == null ? "" : session.GetCurrentFrameId();
+            var frameId = _session == null ? "" : _session.GetCurrentFrameId();
             var func = "function(){" + script + "}";
             var argsStr = args?.Any() == true ? string.Join(", ", args) : "";
-            var res = await webView.CallUserAsyncFunction(func, argsStr, session.ScriptTimeout, cancellationToken: cancellationToken).ConfigureAwait(false);
+            var res = await _webView.CallUserAsyncFunction(func, argsStr, _session.ScriptTimeout, cancellationToken: cancellationToken).ConfigureAwait(false);
             return res as JToken;
         }
     }

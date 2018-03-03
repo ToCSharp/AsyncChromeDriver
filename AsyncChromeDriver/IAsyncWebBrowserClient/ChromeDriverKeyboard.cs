@@ -12,12 +12,12 @@ namespace Zu.Chrome
 {
     public class ChromeDriverKeyboard : IKeyboard
     {
-        private WebView webView;
-        private IAsyncChromeDriver asyncChromeDriver;
+        private WebView _webView;
+        private IAsyncChromeDriver _asyncChromeDriver;
         public ChromeDriverKeyboard(IAsyncChromeDriver asyncChromeDriver)
         {
-            this.asyncChromeDriver = asyncChromeDriver;
-            webView = asyncChromeDriver.WebView;
+            _asyncChromeDriver = asyncChromeDriver;
+            _webView = asyncChromeDriver.WebView;
         }
 
         public async Task PressKey(string keyToPress, CancellationToken cancellationToken = default (CancellationToken))
@@ -30,12 +30,12 @@ namespace Zu.Chrome
                 var virtualKeyCode = Keys.KeyToVirtualKeyCode[key];
                 if (virtualKeyCode == 0)
                     return;
-                var res = await webView.DevTools.Input.DispatchKeyEvent(new DispatchKeyEventCommand{Type = "rawKeyDown", //NativeVirtualKeyCode = virtualKeyCode,
+                var res = await _webView.DevTools.Input.DispatchKeyEvent(new DispatchKeyEventCommand{Type = "rawKeyDown", //NativeVirtualKeyCode = virtualKeyCode,
  WindowsVirtualKeyCode = virtualKeyCode, }, cancellationToken).ConfigureAwait(false);
             }
             else
             {
-                await webView.DevTools.Input.DispatchKeyEvent(new DispatchKeyEventCommand{Type = "keyDown", //Type = "char",
+                await _webView.DevTools.Input.DispatchKeyEvent(new DispatchKeyEventCommand{Type = "keyDown", //Type = "char",
  Text = Convert.ToString(key, CultureInfo.InvariantCulture)}, cancellationToken).ConfigureAwait(false);
             }
         }
@@ -50,12 +50,12 @@ namespace Zu.Chrome
                 var virtualKeyCode = Keys.KeyToVirtualKeyCode[key];
                 if (virtualKeyCode == 0)
                     return;
-                await webView.DevTools.Input.DispatchKeyEvent(new DispatchKeyEventCommand{Type = "keyUp", //NativeVirtualKeyCode = virtualKeyCode,
+                await _webView.DevTools.Input.DispatchKeyEvent(new DispatchKeyEventCommand{Type = "keyUp", //NativeVirtualKeyCode = virtualKeyCode,
  WindowsVirtualKeyCode = virtualKeyCode, }, cancellationToken).ConfigureAwait(false);
             }
             else
             {
-                await webView.DevTools.Input.DispatchKeyEvent(new DispatchKeyEventCommand{Type = "keyUp", //Type = "char",
+                await _webView.DevTools.Input.DispatchKeyEvent(new DispatchKeyEventCommand{Type = "keyUp", //Type = "char",
  Text = Convert.ToString(key, CultureInfo.InvariantCulture)}, cancellationToken).ConfigureAwait(false);
             }
         }
@@ -69,15 +69,15 @@ namespace Zu.Chrome
                     var virtualKeyCode = Keys.KeyToVirtualKeyCode[key];
                     if (virtualKeyCode == 0)
                         continue;
-                    var res = await webView.DevTools.Input.DispatchKeyEvent(new DispatchKeyEventCommand{Type = "rawKeyDown", //NativeVirtualKeyCode = virtualKeyCode,
+                    var res = await _webView.DevTools.Input.DispatchKeyEvent(new DispatchKeyEventCommand{Type = "rawKeyDown", //NativeVirtualKeyCode = virtualKeyCode,
  WindowsVirtualKeyCode = virtualKeyCode, }, cancellationToken).ConfigureAwait(false);
-                    await webView.DevTools.Input.DispatchKeyEvent(new DispatchKeyEventCommand{Type = "keyUp", //NativeVirtualKeyCode = virtualKeyCode,
+                    await _webView.DevTools.Input.DispatchKeyEvent(new DispatchKeyEventCommand{Type = "keyUp", //NativeVirtualKeyCode = virtualKeyCode,
  WindowsVirtualKeyCode = virtualKeyCode, }, cancellationToken).ConfigureAwait(false);
                 //}
                 }
                 else
                 {
-                    await webView.DevTools.Input.DispatchKeyEvent(new DispatchKeyEventCommand{Type = "char", Text = Convert.ToString(key, CultureInfo.InvariantCulture)}, cancellationToken).ConfigureAwait(false);
+                    await _webView.DevTools.Input.DispatchKeyEvent(new DispatchKeyEventCommand{Type = "char", Text = Convert.ToString(key, CultureInfo.InvariantCulture)}, cancellationToken).ConfigureAwait(false);
                 }
             }
         }

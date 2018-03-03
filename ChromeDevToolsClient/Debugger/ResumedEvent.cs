@@ -1,7 +1,5 @@
 namespace Zu.ChromeDevTools.Debugger
 {
-    using Newtonsoft.Json;
-
     /// <summary>
     /// Fired when the virtual machine resumed execution.
     /// </summary>

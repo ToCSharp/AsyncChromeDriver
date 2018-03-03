@@ -51,11 +51,8 @@ using System.Collections.Specialized;
 using System.IO;
 using System.IO.Compression;
 using System.Net.Sockets;
-using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using WebSocketSharp.Net;
-using WebSocketSharp.Net.WebSockets;
-using WebSocketSharp.Server;
 
 namespace WebSocketSharp
 {

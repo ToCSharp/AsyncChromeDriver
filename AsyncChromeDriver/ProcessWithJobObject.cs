@@ -16,27 +16,27 @@ namespace Zu.Chrome
         [DllImport("kernel32.dll")]
         public static extern bool TerminateJobObject(IntPtr hJob, uint uExitCode);
 
-        IntPtr job;
+        IntPtr _job;
 
         public Process StartProc(string path, string commandLine = null)
         {
-            if (job == IntPtr.Zero)
-                job = CreateJobObject(IntPtr.Zero, null);
+            if (_job == IntPtr.Zero)
+                _job = CreateJobObject(IntPtr.Zero, null);
             ProcessStartInfo si = new ProcessStartInfo(path);
             if (!string.IsNullOrWhiteSpace(commandLine)) si.Arguments = /*"/c " +*/ commandLine;
             //si.CreateNoWindow = false;
             si.UseShellExecute = false;
             Process proc = Process.Start(si);
-            AssignProcessToJobObject(job, proc.Handle);
+            AssignProcessToJobObject(_job, proc.Handle);
             return proc;
         }
 
         public void TerminateProc()
         {
             // terminate the Job object, which kills all processes within it
-            if (job != null)
-                TerminateJobObject(job, 0);
-            job = IntPtr.Zero;
+            if (_job != null)
+                TerminateJobObject(_job, 0);
+            _job = IntPtr.Zero;
         }
     }
 }

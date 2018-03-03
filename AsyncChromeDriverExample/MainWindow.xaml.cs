@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
-using Zu.AsyncWebDriver;
 using Zu.AsyncWebDriver.Remote;
 using Zu.Chrome;
-using Zu.ChromeDevTools.Page;
 using Zu.WebBrowser.BasicTypes;
 
 namespace AsyncChromeDriverExample
@@ -108,7 +106,7 @@ namespace AsyncChromeDriverExample
 
         string CookieToString(Zu.ChromeDevTools.Network.Cookie c)
         {
-            var c2 = new Zu.WebBrowser.BasicTypes.Cookie(c.Name, c.Value, c.Domain, c.Path,
+            var c2 = new Cookie(c.Name, c.Value, c.Domain, c.Path,
                 new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddMilliseconds(c.Expires).ToLocalTime()); //, DateTimeOffset.FromUnixTimeMilliseconds((long)c.Expires).UtcDateTime);
             return c2.ToString();
         }
@@ -537,7 +535,7 @@ namespace AsyncChromeDriverExample
                 asyncChromeDriver = new AsyncChromeDriver(
                     new ChromeDriverConfig()
                     .SetDoOpenBrowserDevTools()
-                    .SetWSProxyConfig(new ChromeWSProxyConfig { HTTPServerSaveRequestedFiles = true })
+                    .SetWSProxyConfig(new ChromeWSProxyConfig { HttpServerSaveRequestedFiles = true })
                     );
                 webDriver = new WebDriver(asyncChromeDriver);
                 await asyncChromeDriver.Connect();
@@ -562,7 +560,7 @@ namespace AsyncChromeDriverExample
                 asyncChromeDriver = new AsyncChromeDriver(
                     new ChromeDriverConfig()
                     .SetDoOpenBrowserDevTools()
-                    .SetWSProxyConfig(new ChromeWSProxyConfig { DevToolsFilesDir = dir, HTTPServerTryFindRequestedFileLocaly = true })
+                    .SetWSProxyConfig(new ChromeWSProxyConfig { DevToolsFilesDir = dir, HttpServerTryFindRequestedFileLocaly = true })
                     );
                 webDriver = new WebDriver(asyncChromeDriver);
                 await asyncChromeDriver.Connect();

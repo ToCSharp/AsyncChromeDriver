@@ -9,11 +9,11 @@ namespace Zu.Chrome
 {
     public class ChromeDriverCoordinates: ICoordinates
     {
-        private IAsyncChromeDriver asyncChromeDriver;
+        private IAsyncChromeDriver _asyncChromeDriver;
 
         public ChromeDriverCoordinates(IAsyncChromeDriver asyncChromeDriver)
         {
-            this.asyncChromeDriver = asyncChromeDriver;
+            _asyncChromeDriver = asyncChromeDriver;
         }
 
         public string AuxiliaryLocator => throw new System.NotImplementedException();

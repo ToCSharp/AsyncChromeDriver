@@ -10,9 +10,9 @@ namespace Zu.Chrome.DriverCore
 {
     public class ElementCommands
     {
-        private WebView webView;
-        private ElementUtils elementUtils;
-        private AsyncChromeDriver asyncChromeDriver;
+        private WebView _webView;
+        private ElementUtils _elementUtils;
+        private AsyncChromeDriver _asyncChromeDriver;
         public Session Session
         {
             get;
@@ -21,38 +21,38 @@ namespace Zu.Chrome.DriverCore
 
         public ElementCommands(AsyncChromeDriver asyncChromeDriver)
         {
-            this.webView = asyncChromeDriver.WebView;
+            _webView = asyncChromeDriver.WebView;
             Session = asyncChromeDriver.Session;
-            this.elementUtils = asyncChromeDriver.ElementUtils;
-            this.asyncChromeDriver = asyncChromeDriver;
+            _elementUtils = asyncChromeDriver.ElementUtils;
+            _asyncChromeDriver = asyncChromeDriver;
         }
 
         public async Task<string> ClickElement(string elementId)
         {
-            if (asyncChromeDriver != null)
-                await asyncChromeDriver.CheckConnected().ConfigureAwait(false);
-            var tag_name = await elementUtils.GetElementTagName(elementId).ConfigureAwait(false);
-            if (tag_name == "option")
+            if (_asyncChromeDriver != null)
+                await _asyncChromeDriver.CheckConnected().ConfigureAwait(false);
+            var tagName = await _elementUtils.GetElementTagName(elementId).ConfigureAwait(false);
+            if (tagName == "option")
             {
-                bool is_toggleable = await elementUtils.IsOptionElementTogglable(elementId).ConfigureAwait(false);
-                if (is_toggleable)
+                bool isToggleable = await _elementUtils.IsOptionElementTogglable(elementId).ConfigureAwait(false);
+                if (isToggleable)
                 {
-                    await elementUtils.ToggleOptionElement(elementId).ConfigureAwait(false);
+                    await _elementUtils.ToggleOptionElement(elementId).ConfigureAwait(false);
                     return "ToggleOptionElement";
                 }
                 else
                 {
-                    await elementUtils.SetOptionElementSelected(elementId).ConfigureAwait(false);
+                    await _elementUtils.SetOptionElementSelected(elementId).ConfigureAwait(false);
                     return "SetOptionElementSelected";
                 }
             }
             else
             {
-                WebPoint location = await elementUtils.GetElementClickableLocation(elementId).ConfigureAwait(false);
-                var res = await webView.DevTools.Input.DispatchMouseEvent(new ChromeDevTools.Input.DispatchMouseEventCommand{Type = ChromeDriverMouse.MovedMouseEventType, Button = ChromeDriverMouse.NoneMouseButton, X = location.X, Y = location.Y, Modifiers = Session.sticky_modifiers, ClickCount = 0}).ConfigureAwait(false);
-                res = await webView.DevTools.Input.DispatchMouseEvent(new ChromeDevTools.Input.DispatchMouseEventCommand{Type = ChromeDriverMouse.PressedMouseEventType, Button = ChromeDriverMouse.LeftMouseButton, X = location.X, Y = location.Y, Modifiers = Session.sticky_modifiers, ClickCount = 1}).ConfigureAwait(false);
-                res = await webView.DevTools.Input.DispatchMouseEvent(new ChromeDevTools.Input.DispatchMouseEventCommand{Type = ChromeDriverMouse.ReleasedMouseEventType, Button = ChromeDriverMouse.LeftMouseButton, X = location.X, Y = location.Y, Modifiers = Session.sticky_modifiers, ClickCount = 1}).ConfigureAwait(false);
-                Session.mouse_position = location;
+                WebPoint location = await _elementUtils.GetElementClickableLocation(elementId).ConfigureAwait(false);
+                await _webView.DevTools.Input.DispatchMouseEvent(new ChromeDevTools.Input.DispatchMouseEventCommand{Type = ChromeDriverMouse.MovedMouseEventType, Button = ChromeDriverMouse.NoneMouseButton, X = location.X, Y = location.Y, Modifiers = Session.StickyModifiers, ClickCount = 0}).ConfigureAwait(false);
+                await _webView.DevTools.Input.DispatchMouseEvent(new ChromeDevTools.Input.DispatchMouseEventCommand{Type = ChromeDriverMouse.PressedMouseEventType, Button = ChromeDriverMouse.LeftMouseButton, X = location.X, Y = location.Y, Modifiers = Session.StickyModifiers, ClickCount = 1}).ConfigureAwait(false);
+                await _webView.DevTools.Input.DispatchMouseEvent(new ChromeDevTools.Input.DispatchMouseEventCommand{Type = ChromeDriverMouse.ReleasedMouseEventType, Button = ChromeDriverMouse.LeftMouseButton, X = location.X, Y = location.Y, Modifiers = Session.StickyModifiers, ClickCount = 1}).ConfigureAwait(false);
+                Session.MousePosition = location;
                 //await new ChromeDriverMouse(webView).Click(location);
                 return "Click";
             }
@@ -60,41 +60,41 @@ namespace Zu.Chrome.DriverCore
 
         public async Task<WebPoint> GetElementLocation(string elementId, CancellationToken cancellationToken = default (CancellationToken))
         {
-            var res = await webView.CallFunction(atoms.GET_LOCATION, $"{{\"{Session.GetElementKey()}\":\"{elementId}\"}}", asyncChromeDriver.Session.GetCurrentFrameId()).ConfigureAwait(false);
+            var res = await _webView.CallFunction(atoms.GET_LOCATION, $"{{\"{Session.GetElementKey()}\":\"{elementId}\"}}", _asyncChromeDriver.Session.GetCurrentFrameId(), cancellationToken: cancellationToken).ConfigureAwait(false);
             return ResultValueConverter.ToWebPoint(res?.Result?.Value);
         }
 
         internal Task<string> GetElementValueOfCssProperty(string elementId, string propertyName, CancellationToken cancellationToken = default (CancellationToken))
         {
-            return elementUtils.GetElementEffectiveStyle(elementId, propertyName);
+            return _elementUtils.GetElementEffectiveStyle(elementId, propertyName, cancellationToken);
         }
 
         public async Task<EvaluateCommandResponse> FocusElement(string elementId, CancellationToken cancellationToken = default (CancellationToken))
         {
-            var res = await webView.CallFunction(focus_js.JsSource, $"{{\"{Session.GetElementKey()}\":\"{elementId}\"}}", asyncChromeDriver.Session.GetCurrentFrameId(), true, false, cancellationToken).ConfigureAwait(false);
+            var res = await _webView.CallFunction(focus_js.JsSource, $"{{\"{Session.GetElementKey()}\":\"{elementId}\"}}", _asyncChromeDriver.Session.GetCurrentFrameId(), true, false, cancellationToken).ConfigureAwait(false);
             return res;
         }
 
         public async Task<EvaluateCommandResponse> ClearElement(string elementId, CancellationToken cancellationToken = default (CancellationToken))
         {
-            var res = await webView.CallFunction(atoms.CLEAR, $"{{\"{Session.GetElementKey()}\":\"{elementId}\"}}", asyncChromeDriver.Session.GetCurrentFrameId(), true, false, cancellationToken).ConfigureAwait(false);
+            var res = await _webView.CallFunction(atoms.CLEAR, $"{{\"{Session.GetElementKey()}\":\"{elementId}\"}}", _asyncChromeDriver.Session.GetCurrentFrameId(), true, false, cancellationToken).ConfigureAwait(false);
             return res;
         }
 
         public async Task<EvaluateCommandResponse> SubmitElement(string elementId, CancellationToken cancellationToken = default (CancellationToken))
         {
-            var res = await webView.CallFunction(atoms.SUBMIT, $"{{\"{Session.GetElementKey()}\":\"{elementId}\"}}", asyncChromeDriver.Session.GetCurrentFrameId(), true, false, cancellationToken).ConfigureAwait(false);
+            var res = await _webView.CallFunction(atoms.SUBMIT, $"{{\"{Session.GetElementKey()}\":\"{elementId}\"}}", _asyncChromeDriver.Session.GetCurrentFrameId(), true, false, cancellationToken).ConfigureAwait(false);
             return res;
         }
 
         public async Task<string> SendKeysToElement(string elementId, string keys, CancellationToken cancellationToken = default (CancellationToken))
         {
-            var isInput = await elementUtils.IsElementAttributeEqualToIgnoreCase(elementId, "tagName", "input", cancellationToken).ConfigureAwait(false);
-            var isFile = await elementUtils.IsElementAttributeEqualToIgnoreCase(elementId, "type", "file", cancellationToken).ConfigureAwait(false);
+            var isInput = await _elementUtils.IsElementAttributeEqualToIgnoreCase(elementId, "tagName", "input", cancellationToken).ConfigureAwait(false);
+            var isFile = await _elementUtils.IsElementAttributeEqualToIgnoreCase(elementId, "type", "file", cancellationToken).ConfigureAwait(false);
             if (isInput && isFile)
             {
-                bool multiple = await elementUtils.IsElementAttributeEqualToIgnoreCase(elementId, "multiple", "true", cancellationToken).ConfigureAwait(false);
-                return webView.SetFileInputFiles(elementId, keys);
+                bool multiple = await _elementUtils.IsElementAttributeEqualToIgnoreCase(elementId, "multiple", "true", cancellationToken).ConfigureAwait(false);
+                return _webView.SetFileInputFiles(elementId, keys);
             }
             else
             {
@@ -105,10 +105,10 @@ namespace Zu.Chrome.DriverCore
                 {
                     while (true)
                     {
-                        isDisplayed = await elementUtils.IsElementDisplayed(elementId, cancellationToken).ConfigureAwait(false);
+                        isDisplayed = await _elementUtils.IsElementDisplayed(elementId, cancellationToken).ConfigureAwait(false);
                         if (isDisplayed)
                             break;
-                        isFocused = await elementUtils.IsElementFocused(elementId, cancellationToken).ConfigureAwait(false);
+                        isFocused = await _elementUtils.IsElementFocused(elementId, cancellationToken).ConfigureAwait(false);
                         if (isFocused)
                             break;
                         if (Session.ImplicitWait == default (TimeSpan))
@@ -118,11 +118,11 @@ namespace Zu.Chrome.DriverCore
                             throw new WebBrowserException("Element is not displayed or focused", "invalid element state");
                         }
 
-                        await Task.Delay(100).ConfigureAwait(false);
+                        await Task.Delay(100, cancellationToken).ConfigureAwait(false);
                     }
                 }
 
-                bool isEnabled = await elementUtils.IsElementEnabled(elementId, cancellationToken).ConfigureAwait(false);
+                bool isEnabled = await _elementUtils.IsElementEnabled(elementId, cancellationToken).ConfigureAwait(false);
                 if (!isEnabled)
                     throw new WebBrowserException("Element is not enabled", "invalid element state");
                 if (!isFocused)
@@ -130,7 +130,7 @@ namespace Zu.Chrome.DriverCore
                     await FocusElement(elementId, cancellationToken).ConfigureAwait(false);
                 }
 
-                await webView.DispatchKeyEvents(keys).ConfigureAwait(false);
+                await _webView.DispatchKeyEvents(keys, cancellationToken).ConfigureAwait(false);
                 return "ok";
             }
         }

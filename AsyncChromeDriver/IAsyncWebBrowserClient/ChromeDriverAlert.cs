@@ -8,11 +8,11 @@ namespace Zu.Chrome
 {
     public class ChromeDriverAlert: IAlert
     {
-        private IAsyncChromeDriver asyncChromeDriver;
+        private IAsyncChromeDriver _asyncChromeDriver;
 
         public ChromeDriverAlert(IAsyncChromeDriver asyncChromeDriver)
         {
-            this.asyncChromeDriver = asyncChromeDriver;
+            _asyncChromeDriver = asyncChromeDriver;
         }
 
         public Task Accept(CancellationToken cancellationToken = default(CancellationToken))

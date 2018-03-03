@@ -37,11 +37,8 @@
 #endregion
 
 using System;
-using System.Collections.Generic;
 using System.Net.Sockets;
-using System.Security.Cryptography.X509Certificates;
 using System.Security.Principal;
-using System.Text;
 using System.Threading;
 using WebSocketSharp.Net;
 using WebSocketSharp.Net.WebSockets;

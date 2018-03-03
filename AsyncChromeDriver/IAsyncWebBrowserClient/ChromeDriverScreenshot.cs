@@ -8,17 +8,17 @@ namespace Zu.Chrome
 {
     public class ChromeDriverScreenshot : ITakesScreenshot
     {
-        private IAsyncChromeDriver asyncChromeDriver;
+        private IAsyncChromeDriver _asyncChromeDriver;
         public ChromeDriverScreenshot(IAsyncChromeDriver asyncChromeDriver)
         {
-            this.asyncChromeDriver = asyncChromeDriver;
+            _asyncChromeDriver = asyncChromeDriver;
         }
 
         public async Task<Screenshot> GetScreenshot(CancellationToken cancellationToken = default (CancellationToken))
         {
-            if (asyncChromeDriver?.DevTools?.Session == null)
+            if (_asyncChromeDriver?.DevTools?.Session == null)
                 return null;
-            var screenshot = await asyncChromeDriver.DevTools.Page.CaptureScreenshot().ConfigureAwait(false);
+            var screenshot = await _asyncChromeDriver.DevTools.Page.CaptureScreenshot().ConfigureAwait(false);
             return new Screenshot(screenshot?.Data);
         }
     }

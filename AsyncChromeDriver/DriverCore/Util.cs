@@ -1,18 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Zu.Chrome.DriverCore
 {
     public class Util
     {
-        static Random rnd = new Random();
+        static Random _rnd = new Random();
         public static string GenerateId()
         {
             var bytes = new byte[16];
-            rnd.NextBytes(bytes);
+            _rnd.NextBytes(bytes);
             return ByteArrayToString(bytes);
         }
 

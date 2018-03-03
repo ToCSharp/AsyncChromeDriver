@@ -15,14 +15,14 @@ namespace Zu.Chrome.DriverCore
 
         public int Id { get; set; }
 
-        private AsyncChromeDriver asyncChromeDriver;
-        public bool w3c_compliant = false;
-        public bool quit = false;
-        public bool detach = false;
-        public bool force_devtools_screenshot = false;
-        public int sticky_modifiers = 0;
-        public WebPoint mouse_position = new WebPoint(0, 0);
-        public bool auto_reporting_enabled = false;
+        private AsyncChromeDriver _asyncChromeDriver;
+        public bool W3CCompliant = false;
+        public bool Quit = false;
+        public bool Detach = false;
+        public bool ForceDevtoolsScreenshot = false;
+        public int StickyModifiers = 0;
+        public WebPoint MousePosition = new WebPoint(0, 0);
+        public bool AutoReportingEnabled = false;
         //todo: implicit or await for element, element state...
         public TimeSpan PageLoadTimeout
         {
@@ -36,15 +36,15 @@ namespace Zu.Chrome.DriverCore
         }
         public TimeSpan ScriptTimeout
         {
-            get => ((ChromeDriverTimeouts)asyncChromeDriver.Options.Timeouts).AsynchronousJavaScript;
-            set => ((ChromeDriverTimeouts)asyncChromeDriver.Options.Timeouts).AsynchronousJavaScript = value;
+            get => ((ChromeDriverTimeouts)_asyncChromeDriver.Options.Timeouts).AsynchronousJavaScript;
+            set => ((ChromeDriverTimeouts)_asyncChromeDriver.Options.Timeouts).AsynchronousJavaScript = value;
         }
 
 
         public Session(int id, AsyncChromeDriver asyncChromeDriver)
         {
             Id = id;
-            this.asyncChromeDriver = asyncChromeDriver;
+            _asyncChromeDriver = asyncChromeDriver;
         }
 
         public void SwitchToTopFrame()
@@ -75,7 +75,7 @@ namespace Zu.Chrome.DriverCore
 
         public string GetElementKey()
         {
-            if (w3c_compliant == true)
+            if (W3CCompliant == true)
                 return ElementKeys.ElementKeyW3C;
             else
                 return ElementKeys.ElementKey;

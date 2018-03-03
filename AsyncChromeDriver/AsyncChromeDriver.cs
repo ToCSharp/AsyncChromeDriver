@@ -3,13 +3,11 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
-using Zu.WebBrowser;
 using Zu.Chrome.DriverCore;
 using Zu.WebBrowser.BasicTypes;
 using Zu.WebBrowser.AsyncInteractions;
 using System.IO;
 using Zu.Chrome.DevTools;
-using System.Linq;
 using Zu.WebBrowser.BrowserOptions;
 
 namespace Zu.Chrome
@@ -17,45 +15,45 @@ namespace Zu.Chrome
     public class AsyncChromeDriver : IAsyncChromeDriver
     {
         #region IAsyncWebBrowserClient
-        public IMouse Mouse => mouse ?? (mouse = new ChromeDriverMouse(this));
+        public IMouse Mouse => _mouse ?? (_mouse = new ChromeDriverMouse(this));
 
-        public IKeyboard Keyboard => keyboard ?? (keyboard = new ChromeDriverKeyboard(this));
+        public IKeyboard Keyboard => _keyboard ?? (_keyboard = new ChromeDriverKeyboard(this));
 
-        public IOptions Options => options ?? (options = new ChromeDriverOptions(this));
+        public IOptions Options => _options ?? (_options = new ChromeDriverOptions(this));
 
-        public IAlert Alert => alert ?? (alert = new ChromeDriverAlert(this));
+        public IAlert Alert => _alert ?? (_alert = new ChromeDriverAlert(this));
 
-        public ICoordinates Coordinates => coordinates ?? (coordinates = new ChromeDriverCoordinates(this));
+        public ICoordinates Coordinates => _coordinates ?? (_coordinates = new ChromeDriverCoordinates(this));
 
-        public ITakesScreenshot Screenshot => screenshot ?? (screenshot = new ChromeDriverScreenshot(this));
+        public ITakesScreenshot Screenshot => _screenshot ?? (_screenshot = new ChromeDriverScreenshot(this));
 
-        public ITouchScreen TouchScreen => touchScreen ?? (touchScreen = new ChromeDriverTouchScreen(this));
+        public ITouchScreen TouchScreen => _touchScreen ?? (_touchScreen = new ChromeDriverTouchScreen(this));
 
-        public INavigation Navigation => navigation ?? (navigation = new ChromeDriverNavigation(this));
+        public INavigation Navigation => _navigation ?? (_navigation = new ChromeDriverNavigation(this));
 
-        public IJavaScriptExecutor JavaScriptExecutor => javaScriptExecutor ?? (javaScriptExecutor = new ChromeDriverJavaScriptExecutor(this));
+        public IJavaScriptExecutor JavaScriptExecutor => _javaScriptExecutor ?? (_javaScriptExecutor = new ChromeDriverJavaScriptExecutor(this));
 
-        public ITargetLocator TargetLocator => targetLocator ?? (targetLocator = new ChromeDriverTargetLocator(this));
+        public ITargetLocator TargetLocator => _targetLocator ?? (_targetLocator = new ChromeDriverTargetLocator(this));
 
-        public IElements Elements => elements ?? (elements = new ChromeDriverElements(this));
+        public IElements Elements => _elements ?? (_elements = new ChromeDriverElements(this));
 
-        public IActionExecutor ActionExecutor => actionExecutor ?? (actionExecutor = new ChromeDriverActionExecutor(this));
+        public IActionExecutor ActionExecutor => _actionExecutor ?? (_actionExecutor = new ChromeDriverActionExecutor(this));
 
-        private ChromeDriverNavigation navigation;
-        private ChromeDriverTouchScreen touchScreen;
-        private ChromeDriverScreenshot screenshot;
-        private ChromeDriverCoordinates coordinates;
-        private ChromeDriverAlert alert;
-        private ChromeDriverOptions options;
-        private ChromeDriverKeyboard keyboard;
-        private ChromeDriverMouse mouse;
-        private ChromeDriverJavaScriptExecutor javaScriptExecutor;
-        private ChromeDriverTargetLocator targetLocator;
-        private ChromeDriverElements elements;
-        private ChromeDriverActionExecutor actionExecutor;
+        private ChromeDriverNavigation _navigation;
+        private ChromeDriverTouchScreen _touchScreen;
+        private ChromeDriverScreenshot _screenshot;
+        private ChromeDriverCoordinates _coordinates;
+        private ChromeDriverAlert _alert;
+        private ChromeDriverOptions _options;
+        private ChromeDriverKeyboard _keyboard;
+        private ChromeDriverMouse _mouse;
+        private ChromeDriverJavaScriptExecutor _javaScriptExecutor;
+        private ChromeDriverTargetLocator _targetLocator;
+        private ChromeDriverElements _elements;
+        private ChromeDriverActionExecutor _actionExecutor;
         #endregion
 
-        public bool isConnected = false;
+        public bool IsConnected = false;
         public ChromeDevToolsConnection DevTools
         {
             get;
@@ -134,8 +132,8 @@ namespace Zu.Chrome
             set;
         } = true;
 
-        static int sessionId = 0;
-        public ChromeProcessInfo chromeProcess;
+        static int _sessionId = 0;
+        public ChromeProcessInfo ChromeProcess;
         private bool _isClosed = false;
         public delegate void DevToolsEventHandler(object sender, string methodName, JToken eventData);
         public event DevToolsEventHandler DevToolsEvent;
@@ -151,8 +149,8 @@ namespace Zu.Chrome
             set;
         }
 
-        static Random rnd = new Random();
-        public AsyncChromeDriver(bool openInTempDir = true) : this(11000 + rnd.Next(2000))
+        static Random _rnd = new Random();
+        public AsyncChromeDriver(bool openInTempDir = true) : this(11000 + _rnd.Next(2000))
         {
             Config.SetIsTempProfile(openInTempDir);
         }
@@ -162,7 +160,7 @@ namespace Zu.Chrome
             UserDir = profileDir;
         }
 
-        public AsyncChromeDriver(string profileDir) : this(11000 + rnd.Next(2000))
+        public AsyncChromeDriver(string profileDir) : this(11000 + _rnd.Next(2000))
         {
             UserDir = profileDir;
         }
@@ -175,11 +173,11 @@ namespace Zu.Chrome
         {
             Config = config;
             if (Config.Port == 0)
-                Config.Port = 11000 + rnd.Next(2000);
+                Config.Port = 11000 + _rnd.Next(2000);
             if (Config.DoOpenWSProxy || Config.DoOpenBrowserDevTools)
             {
                 if (Config.DevToolsConnectionProxyPort == 0)
-                    Config.DevToolsConnectionProxyPort = 15000 + rnd.Next(2000);
+                    Config.DevToolsConnectionProxyPort = 15000 + _rnd.Next(2000);
                 DevTools = new BrowserDevTools.ChromeDevToolsConnectionProxy(Port, Config.DevToolsConnectionProxyPort, Config.WSProxyConfig);
             }
             else
@@ -197,7 +195,7 @@ namespace Zu.Chrome
 
         public void CreateDriverCore()
         {
-            Session = new Session(sessionId++, this);
+            Session = new Session(_sessionId++, this);
             FrameTracker = new FrameTracker(DevTools);
             DomTracker = new DomTracker(DevTools);
             WebView = new WebView(DevTools, FrameTracker, this);
@@ -211,21 +209,21 @@ namespace Zu.Chrome
 
         public virtual async Task<string> Connect(CancellationToken cancellationToken = default(CancellationToken))
         {
-            isConnected = true;
+            IsConnected = true;
             UnsubscribeDevToolsSessionEvent();
             DoConnectWhenCheckConnected = false;
             if (!Config.DoNotOpenChromeProfile)
             {
-                chromeProcess = await OpenChromeProfile(Config).ConfigureAwait(false);
+                ChromeProcess = await OpenChromeProfile(Config).ConfigureAwait(false);
                 if (Config.IsTempProfile)
                     await Task.Delay(Config.TempDirCreateDelay).ConfigureAwait(false);
             }
 
-            int connection_attempts = 0;
+            int connectionAttempts = 0;
             const int MAX_ATTEMPTS = 5;
             while (true)
             {
-                connection_attempts++;
+                connectionAttempts++;
                 try
                 {
                     await DevTools.Connect().ConfigureAwait(false);
@@ -234,7 +232,7 @@ namespace Zu.Chrome
                 catch (Exception ex)
                 {
                     //LiveLogger.WriteLine("Connection attempt {0} failed with: {1}", connection_attempts, ex);
-                    if (_isClosed || connection_attempts >= MAX_ATTEMPTS)
+                    if (_isClosed || connectionAttempts >= MAX_ATTEMPTS)
                     {
                         throw;
                     }
@@ -255,8 +253,8 @@ namespace Zu.Chrome
 
         public string GetBrowserDevToolsUrl()
         {
-            var httpPort = Config?.WSProxyConfig?.DoProxyHttpTraffic == true ? Config.WSProxyConfig.HTTPServerPort : Port;
-            return "http://127.0.0.1:" + httpPort + "/devtools/inspector.html?ws=127.0.0.1:" + Config.DevToolsConnectionProxyPort + "/WSProxy";
+            var httpPort = Config?.WSProxyConfig?.DoProxyHttpTraffic == true ? Config.WSProxyConfig.HttpServerPort : Port;
+            return "http://127.0.0.1:" + httpPort + "/devtools/inspector.html?ws=127.0.0.1:" + Config?.DevToolsConnectionProxyPort + "/WSProxy";
         }
 
         public virtual async Task OpenBrowserDevTools()
@@ -272,7 +270,7 @@ namespace Zu.Chrome
             if (!DoConnectWhenCheckConnected)
                 return;
             DoConnectWhenCheckConnected = false;
-            if (!isConnected)
+            if (!IsConnected)
             {
                 await Connect(cancellationToken).ConfigureAwait(false);
             }
@@ -288,42 +286,43 @@ namespace Zu.Chrome
         public void CloseSync()
         {
             BrowserDevTools?.CloseSync();
-            if (isConnected)
+            if (IsConnected)
             {
                 DevTools.Disconnect();
-                isConnected = false;
+                IsConnected = false;
             }
 
-            if (chromeProcess?.Proc != null && !chromeProcess.Proc.HasExited)
+            if (ChromeProcess?.Proc != null && !ChromeProcess.Proc.HasExited)
             {
                 try
                 {
-                    chromeProcess.Proc.CloseMainWindow();
+                    ChromeProcess.Proc.CloseMainWindow();
                 }
                 catch
                 {
                     try
                     {
-                        chromeProcess.Proc.Kill();
+                        ChromeProcess.Proc.Kill();
                     }
                     catch
                     {
+                        // ignored
                     }
                 }
 
-                while (!chromeProcess.Proc.HasExited)
+                while (!ChromeProcess.Proc.HasExited)
                 {
                     Thread.Sleep(250);
                 }
             }
 
-            chromeProcess?.Proc?.Dispose();
-            if (chromeProcess?.ProcWithJobObject != null)
+            ChromeProcess?.Proc?.Dispose();
+            if (ChromeProcess?.ProcWithJobObject != null)
             {
-                chromeProcess.ProcWithJobObject.TerminateProc();
+                ChromeProcess.ProcWithJobObject.TerminateProc();
             }
 
-            chromeProcess = null;
+            ChromeProcess = null;
             Thread.Sleep(1000);
             if (IsTempProfile && !string.IsNullOrWhiteSpace(UserDir))
             {
@@ -342,6 +341,7 @@ namespace Zu.Chrome
                     }
                     catch
                     {
+                        // ignored
                     }
                 }
             }
@@ -356,40 +356,42 @@ namespace Zu.Chrome
             }
             catch
             {
+                // ignored
             }
 
-            if (isConnected)
+            if (IsConnected)
                 await Disconnect().ConfigureAwait(false);
-            if (chromeProcess?.Proc != null && !chromeProcess.Proc.HasExited)
+            if (ChromeProcess?.Proc != null && !ChromeProcess.Proc.HasExited)
             {
                 try
                 {
-                    chromeProcess.Proc.CloseMainWindow();
+                    ChromeProcess.Proc.CloseMainWindow();
                 }
                 catch
                 {
                     try
                     {
-                        chromeProcess.Proc.Kill();
+                        ChromeProcess.Proc.Kill();
                     }
                     catch
                     {
+                        // ignored
                     }
                 }
 
-                while (!chromeProcess.Proc.HasExited)
+                while (!ChromeProcess.Proc.HasExited)
                 {
                     await Task.Delay(250).ConfigureAwait(false);
                 }
             }
 
-            chromeProcess?.Proc?.Dispose();
-            if (chromeProcess?.ProcWithJobObject != null)
+            ChromeProcess?.Proc?.Dispose();
+            if (ChromeProcess?.ProcWithJobObject != null)
             {
-                chromeProcess.ProcWithJobObject.TerminateProc();
+                ChromeProcess.ProcWithJobObject.TerminateProc();
             }
 
-            chromeProcess = null;
+            ChromeProcess = null;
             await Task.Delay(1000).ConfigureAwait(false);
             if (IsTempProfile && !string.IsNullOrWhiteSpace(UserDir))
             {
@@ -408,6 +410,7 @@ namespace Zu.Chrome
                     }
                     catch
                     {
+                        // ignored
                     }
                 }
             }
@@ -446,7 +449,7 @@ namespace Zu.Chrome
         public async Task Disconnect(CancellationToken cancellationToken = default(CancellationToken))
         {
             await Task.Run(() => DevTools.Disconnect()).ConfigureAwait(false);
-            isConnected = false;
+            IsConnected = false;
             //DoConnectWhenCheckConnected = true;
         }
 

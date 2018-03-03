@@ -1,7 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using WebSocketSharp.Server;
 
@@ -9,9 +6,9 @@ namespace Zu.ChromeWebSocketProxy
 {
     public class ProxyWS : IDisposable
     {
-        private int port;
-        private string endpointUrl;
-        private WebSocketServer wsServer;
+        private int _port;
+        private string _endpointUrl;
+        private WebSocketServer _wsServer;
 
         public string ProxyEndpointUrl { get; set; }
         public string ProxyPath { get; set; } = "WSProxy";
@@ -21,8 +18,8 @@ namespace Zu.ChromeWebSocketProxy
 
         public ProxyWS(string endpointUrl, int port)
         {
-            this.port = port;
-            this.endpointUrl = endpointUrl;
+            _port = port;
+            _endpointUrl = endpointUrl;
             var uri = new Uri(endpointUrl);
             var builder = new UriBuilder(uri);
             builder.Port = port;
@@ -35,9 +32,9 @@ namespace Zu.ChromeWebSocketProxy
         {
             await Task.Run(() =>
                         {
-                            wsServer = new WebSocketServer(port);
-                            wsServer.AddWebSocketService<ChromeEndpoint>("/" + ProxyPath, (a) => { a.ChromeEndpointUri = endpointUrl; a.ProxyWS = this; });
-                            wsServer.Start();
+                            _wsServer = new WebSocketServer(_port);
+                            _wsServer.AddWebSocketService<ChromeEndpoint>("/" + ProxyPath, (a) => { a.ChromeEndpointUri = _endpointUrl; a.ProxyWS = this; });
+                            _wsServer.Start();
                         }).ConfigureAwait(false);
         }
 
@@ -45,7 +42,7 @@ namespace Zu.ChromeWebSocketProxy
         {
             /*ChromeEndpoint.*/
             StopSession();
-            wsServer?.Stop();
+            _wsServer?.Stop();
         }
 
         private void StopSession()
@@ -55,18 +52,18 @@ namespace Zu.ChromeWebSocketProxy
         }
 
         #region IDisposable Support
-        private bool m_isDisposed = false;
+        private bool _isDisposed = false;
 
         private void Dispose(bool disposing)
         {
-            if (!m_isDisposed)
+            if (!_isDisposed)
             {
                 if (disposing)
                 {
                     Stop();
                 }
 
-                m_isDisposed = true;
+                _isDisposed = true;
             }
         }
 

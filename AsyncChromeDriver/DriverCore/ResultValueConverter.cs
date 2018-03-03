@@ -11,8 +11,7 @@ namespace Zu.Chrome.DriverCore
         internal static WebPoint ToWebPoint(object value)
         {
             var res = (value as JObject)?["value"];
-            if (res != null)
-            {
+            if (res != null) {
                 var x = res["x"]?.Value<int>();
                 var y = res["y"]?.Value<int>();
                 if (x != null && y != null) return new WebPoint((int)x, (int)y);
@@ -28,8 +27,7 @@ namespace Zu.Chrome.DriverCore
         internal static WebSize ToWebSize(object value)
         {
             var res = (value as JObject)?["value"];
-            if (res != null)
-            {
+            if (res != null) {
                 var width = res["width"]?.Value<int>();
                 var height = res["height"]?.Value<int>();
                 if (width != null && height != null) return new WebSize((int)width, (int)height);
@@ -40,8 +38,7 @@ namespace Zu.Chrome.DriverCore
         internal static WebRect ToWebRect(object value)
         {
             var res = (value as JObject)?["value"];
-            if (res != null)
-            {
+            if (res != null) {
                 var x = res["x"]?.Value<int>() ?? res["left"]?.Value<int>();
                 var y = res["y"]?.Value<int>() ?? res["top"]?.Value<int>();
                 var width = res["width"]?.Value<int>();
@@ -53,7 +50,7 @@ namespace Zu.Chrome.DriverCore
 
         internal static bool ValueIsNull(JToken res)
         {
-            if(res == null) return true;
+            if (res == null) return true;
             if (res?["value"] is JValue && (res?["value"] as JValue)?.Value == null) return true;
             return false;
         }
@@ -74,26 +71,19 @@ namespace Zu.Chrome.DriverCore
             var status = (json as JObject)?["status"]?.ToString();
             if (status == "0") return null;
             var value = (json as JObject)?["value"]?.ToString();
-            var res = new WebBrowserException(value);
-            res.Json = json;
-            if (status == "10" && value == "element is not attached to the page document")
-            {
+            var res = new WebBrowserException(value) {
+                Json = json
+            };
+            if (value == null) { }
+            else if (status == "10" && value == "element is not attached to the page document") {
                 res.Error = "stale element reference";
-            }
-            else if (status == "13" && value.EndsWith("is not defined"))
-            {
+            } else if (status == "13" && value.EndsWith("is not defined")) {
                 res.Error = "invalid operation";
-            }
-            else if (status == "32")
-            {
+            } else if (status == "32") {
                 res.Error = "invalid selector";
-            }
-            else if (status =="17")
-            {
+            } else if (status == "17") {
                 return new InvalidOperationException(value);
-            }
-            else
-            {
+            } else {
                 throw new NotImplementedException(nameof(ToWebBrowserException) + ": " + value);
             }
             return res;

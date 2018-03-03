@@ -6,11 +6,11 @@ namespace Zu.Chrome
 {
     public class ChromeDriverWebStorage: IWebStorage
     {
-        private IAsyncChromeDriver asyncChromeDriver;
+        private IAsyncChromeDriver _asyncChromeDriver;
 
         public ChromeDriverWebStorage(IAsyncChromeDriver asyncChromeDriver)
         {
-            this.asyncChromeDriver = asyncChromeDriver;
+            _asyncChromeDriver = asyncChromeDriver;
         }
 
         public ILocalStorage LocalStorage => throw new System.NotImplementedException();

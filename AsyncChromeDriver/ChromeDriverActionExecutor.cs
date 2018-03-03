@@ -11,11 +11,11 @@ namespace Zu.Chrome
 {
     internal class ChromeDriverActionExecutor : IActionExecutor
     {
-        private AsyncChromeDriver asyncChromeDriver;
-        private CancellationTokenSource performActionsCancellationTokenSource;
+        private AsyncChromeDriver _asyncChromeDriver;
+        private CancellationTokenSource _performActionsCancellationTokenSource;
         public ChromeDriverActionExecutor(AsyncChromeDriver asyncChromeDriver)
         {
-            this.asyncChromeDriver = asyncChromeDriver;
+            _asyncChromeDriver = asyncChromeDriver;
         }
 
         public Task<bool> IsActionExecutor(CancellationToken cancellationToken = default (CancellationToken))
@@ -25,8 +25,8 @@ namespace Zu.Chrome
 
         public async Task PerformActions(IList<ActionSequence> actionSequenceList, CancellationToken cancellationToken = default (CancellationToken))
         {
-            performActionsCancellationTokenSource = new CancellationTokenSource();
-            using (CancellationTokenSource linkedCts = CancellationTokenSource.CreateLinkedTokenSource(performActionsCancellationTokenSource.Token, cancellationToken))
+            _performActionsCancellationTokenSource = new CancellationTokenSource();
+            using (CancellationTokenSource linkedCts = CancellationTokenSource.CreateLinkedTokenSource(_performActionsCancellationTokenSource.Token, cancellationToken))
             {
                 try
                 {
@@ -51,18 +51,18 @@ namespace Zu.Chrome
                                 {
                                     if (pdi.Button == MouseButton.Left)
                                     {
-                                        await asyncChromeDriver.Mouse.MouseDown(asyncChromeDriver.Session.mouse_position, ct).ConfigureAwait(false);
+                                        await _asyncChromeDriver.Mouse.MouseDown(_asyncChromeDriver.Session.MousePosition, ct).ConfigureAwait(false);
                                     }
                                     else if (pdi.Button == MouseButton.Right)
                                     {
-                                        await asyncChromeDriver.Mouse.ContextClick(asyncChromeDriver.Session.mouse_position, ct).ConfigureAwait(false);
+                                        await _asyncChromeDriver.Mouse.ContextClick(_asyncChromeDriver.Session.MousePosition, ct).ConfigureAwait(false);
                                     }
                                 }
                                 else if (pk == PointerKind.Touch)
                                 {
                                     if (pdi.Button == MouseButton.Left)
                                     {
-                                        await asyncChromeDriver.TouchScreen.Down(asyncChromeDriver.Session.mouse_position.X, asyncChromeDriver.Session.mouse_position.Y, ct).ConfigureAwait(false);
+                                        await _asyncChromeDriver.TouchScreen.Down(_asyncChromeDriver.Session.MousePosition.X, _asyncChromeDriver.Session.MousePosition.Y, ct).ConfigureAwait(false);
                                     }
                                     else if (pdi.Button == MouseButton.Right)
                                     {
@@ -82,11 +82,11 @@ namespace Zu.Chrome
                                 {
                                     if (pui.Button == MouseButton.Left)
                                     {
-                                        await asyncChromeDriver.Mouse.MouseUp(asyncChromeDriver.Session.mouse_position, ct).ConfigureAwait(false);
+                                        await _asyncChromeDriver.Mouse.MouseUp(_asyncChromeDriver.Session.MousePosition, ct).ConfigureAwait(false);
                                     }
                                     else if (pui.Button == MouseButton.Right)
                                     {
-                                        await asyncChromeDriver.Mouse.ContextClick(asyncChromeDriver.Session.mouse_position, ct).ConfigureAwait(false);
+                                        await _asyncChromeDriver.Mouse.ContextClick(_asyncChromeDriver.Session.MousePosition, ct).ConfigureAwait(false);
                                     }
                                 }
                                 else if (pk == PointerKind.Touch)
@@ -113,18 +113,18 @@ namespace Zu.Chrome
                                         {
                                             WebPoint location = await pmi.Target.Location().ConfigureAwait(false);
                                             location = location.Offset(pmi.X, pmi.Y);
-                                            await asyncChromeDriver.Mouse.MouseMove(location, ct).ConfigureAwait(false);
+                                            await _asyncChromeDriver.Mouse.MouseMove(location, ct).ConfigureAwait(false);
                                         }
                                         else
                                         {
                                             //WebPoint location = await asyncChromeDriver.ElementUtils.GetElementClickableLocation(pmi.Target.Id, ct);
                                             //if (location == null) 
-                                            var location = await asyncChromeDriver.Elements.GetElementLocation(pmi.Target.Id, ct).ConfigureAwait(false);
-                                            await asyncChromeDriver.Mouse.MouseMove(location, ct).ConfigureAwait(false);
+                                            var location = await _asyncChromeDriver.Elements.GetElementLocation(pmi.Target.Id, ct).ConfigureAwait(false);
+                                            await _asyncChromeDriver.Mouse.MouseMove(location, ct).ConfigureAwait(false);
                                         }
                                     }
                                     else
-                                        await asyncChromeDriver.Mouse.MouseMove(asyncChromeDriver.Session.mouse_position.Offset(pmi.X, pmi.Y), ct).ConfigureAwait(false);
+                                        await _asyncChromeDriver.Mouse.MouseMove(_asyncChromeDriver.Session.MousePosition.Offset(pmi.X, pmi.Y), ct).ConfigureAwait(false);
                                 }
                                 else if (pk == PointerKind.Touch)
                                 {
@@ -134,20 +134,20 @@ namespace Zu.Chrome
                                         {
                                             WebPoint location = await pmi.Target.Location().ConfigureAwait(false);
                                             location = location.Offset(pmi.X, pmi.Y);
-                                            await asyncChromeDriver.TouchScreen.Move(location.X, location.Y, ct).ConfigureAwait(false);
+                                            await _asyncChromeDriver.TouchScreen.Move(location.X, location.Y, ct).ConfigureAwait(false);
                                         }
                                         else
                                         {
                                             //WebPoint location = await asyncChromeDriver.ElementUtils.GetElementClickableLocation(pmi.Target.Id);
-                                            var location = await asyncChromeDriver.Elements.GetElementLocation(pmi.Target.Id, ct).ConfigureAwait(false);
+                                            var location = await _asyncChromeDriver.Elements.GetElementLocation(pmi.Target.Id, ct).ConfigureAwait(false);
                                             if (location != null)
-                                                await asyncChromeDriver.TouchScreen.Move(location.X, location.Y, ct).ConfigureAwait(false);
+                                                await _asyncChromeDriver.TouchScreen.Move(location.X, location.Y, ct).ConfigureAwait(false);
                                         }
                                     }
                                     else
                                     {
-                                        var newLoc = asyncChromeDriver.Session.mouse_position.Offset(pmi.X, pmi.Y);
-                                        await asyncChromeDriver.TouchScreen.Move(newLoc.X, newLoc.Y, ct).ConfigureAwait(false);
+                                        var newLoc = _asyncChromeDriver.Session.MousePosition.Offset(pmi.X, pmi.Y);
+                                        await _asyncChromeDriver.TouchScreen.Move(newLoc.X, newLoc.Y, ct).ConfigureAwait(false);
                                     }
                                 }
                                 else if (pk == PointerKind.Pen)
@@ -158,12 +158,12 @@ namespace Zu.Chrome
                             else if (interaction is KeyInputDevice.KeyDownInteraction)
                             {
                                 var value = ((KeyInputDevice.KeyDownInteraction)interaction).GetValue();
-                                await asyncChromeDriver.Keyboard.PressKey(value, ct).ConfigureAwait(false);
+                                await _asyncChromeDriver.Keyboard.PressKey(value, ct).ConfigureAwait(false);
                             }
                             else if (interaction is KeyInputDevice.KeyUpInteraction)
                             {
                                 var value = ((KeyInputDevice.KeyUpInteraction)interaction).GetValue();
-                                await asyncChromeDriver.Keyboard.ReleaseKey(value, ct).ConfigureAwait(false);
+                                await _asyncChromeDriver.Keyboard.ReleaseKey(value, ct).ConfigureAwait(false);
                             }
                         }
                     }
@@ -182,7 +182,7 @@ namespace Zu.Chrome
 
         private Task CancelCurrentActions()
         {
-            performActionsCancellationTokenSource?.Cancel();
+            _performActionsCancellationTokenSource?.Cancel();
             return Task.CompletedTask;
         }
     }

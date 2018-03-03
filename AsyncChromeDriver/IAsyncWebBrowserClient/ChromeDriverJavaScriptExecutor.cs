@@ -5,25 +5,23 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Zu.WebBrowser.AsyncInteractions;
-using System;
 using System.Collections.ObjectModel;
 using System.Collections;
-using Zu.WebBrowser.BasicTypes;
 using Zu.Chrome.DriverCore;
 
 namespace Zu.Chrome
 {
     public class ChromeDriverJavaScriptExecutor : IJavaScriptExecutor
     {
-        private IAsyncChromeDriver asyncChromeDriver;
+        private IAsyncChromeDriver _asyncChromeDriver;
         public ChromeDriverJavaScriptExecutor(IAsyncChromeDriver asyncChromeDriver)
         {
-            this.asyncChromeDriver = asyncChromeDriver;
+            _asyncChromeDriver = asyncChromeDriver;
         }
 
         public async Task<object> ExecuteAsyncScript(string script, CancellationToken cancellationToken = default (CancellationToken), params object[] args)
         {
-            var res = await asyncChromeDriver.WindowCommands.ExecuteAsyncScript(script, ArgsToStringList(args)).ConfigureAwait(false);
+            var res = await _asyncChromeDriver.WindowCommands.ExecuteAsyncScript(script, ArgsToStringList(args)).ConfigureAwait(false);
             var value = (res as JObject)?["value"];
             var exception = ResultValueConverter.ToWebBrowserException(value);
             if (exception != null)
@@ -49,7 +47,7 @@ namespace Zu.Chrome
 
         public async Task<object> ExecuteScript(string script, CancellationToken cancellationToken = default (CancellationToken), params object[] args)
         {
-            var res = await asyncChromeDriver.WindowCommands.ExecuteScript(script, ArgsToStringList(args)).ConfigureAwait(false);
+            var res = await _asyncChromeDriver.WindowCommands.ExecuteScript(script, ArgsToStringList(args)).ConfigureAwait(false);
             var exception = ResultValueConverter.ToWebBrowserException(res);
             if (exception != null)
                 throw exception;

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Zu.ChromeWebSocketProxy
+﻿namespace Zu.ChromeWebSocketProxy
 {
     public class ILogger<T>
     {

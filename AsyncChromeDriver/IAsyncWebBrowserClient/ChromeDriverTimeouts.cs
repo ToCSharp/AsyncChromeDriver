@@ -3,18 +3,17 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Zu.WebBrowser;
 using Zu.WebBrowser.BrowserOptions;
 
 namespace Zu.Chrome
 {
     public class ChromeDriverTimeouts: ITimeouts
     {
-        private IAsyncChromeDriver asyncChromeDriver;
+        private IAsyncChromeDriver _asyncChromeDriver;
 
         public ChromeDriverTimeouts(IAsyncChromeDriver asyncChromeDriver)
         {
-            this.asyncChromeDriver = asyncChromeDriver;
+            _asyncChromeDriver = asyncChromeDriver;
         }
 
         public TimeSpan AsynchronousJavaScript { get; set; }
