@@ -30,12 +30,12 @@ namespace Zu.Chrome
                 var virtualKeyCode = Keys.KeyToVirtualKeyCode[key];
                 if (virtualKeyCode == 0)
                     return;
-                var res = await webView.DevTools.Session.Input.DispatchKeyEvent(new DispatchKeyEventCommand{Type = "rawKeyDown", //NativeVirtualKeyCode = virtualKeyCode,
+                var res = await webView.DevTools.Input.DispatchKeyEvent(new DispatchKeyEventCommand{Type = "rawKeyDown", //NativeVirtualKeyCode = virtualKeyCode,
  WindowsVirtualKeyCode = virtualKeyCode, }, cancellationToken).ConfigureAwait(false);
             }
             else
             {
-                await webView.DevTools.Session.Input.DispatchKeyEvent(new DispatchKeyEventCommand{Type = "keyDown", //Type = "char",
+                await webView.DevTools.Input.DispatchKeyEvent(new DispatchKeyEventCommand{Type = "keyDown", //Type = "char",
  Text = Convert.ToString(key, CultureInfo.InvariantCulture)}, cancellationToken).ConfigureAwait(false);
             }
         }
@@ -50,12 +50,12 @@ namespace Zu.Chrome
                 var virtualKeyCode = Keys.KeyToVirtualKeyCode[key];
                 if (virtualKeyCode == 0)
                     return;
-                await webView.DevTools.Session.Input.DispatchKeyEvent(new DispatchKeyEventCommand{Type = "keyUp", //NativeVirtualKeyCode = virtualKeyCode,
+                await webView.DevTools.Input.DispatchKeyEvent(new DispatchKeyEventCommand{Type = "keyUp", //NativeVirtualKeyCode = virtualKeyCode,
  WindowsVirtualKeyCode = virtualKeyCode, }, cancellationToken).ConfigureAwait(false);
             }
             else
             {
-                await webView.DevTools.Session.Input.DispatchKeyEvent(new DispatchKeyEventCommand{Type = "keyUp", //Type = "char",
+                await webView.DevTools.Input.DispatchKeyEvent(new DispatchKeyEventCommand{Type = "keyUp", //Type = "char",
  Text = Convert.ToString(key, CultureInfo.InvariantCulture)}, cancellationToken).ConfigureAwait(false);
             }
         }
@@ -69,15 +69,15 @@ namespace Zu.Chrome
                     var virtualKeyCode = Keys.KeyToVirtualKeyCode[key];
                     if (virtualKeyCode == 0)
                         continue;
-                    var res = await webView.DevTools.Session.Input.DispatchKeyEvent(new DispatchKeyEventCommand{Type = "rawKeyDown", //NativeVirtualKeyCode = virtualKeyCode,
+                    var res = await webView.DevTools.Input.DispatchKeyEvent(new DispatchKeyEventCommand{Type = "rawKeyDown", //NativeVirtualKeyCode = virtualKeyCode,
  WindowsVirtualKeyCode = virtualKeyCode, }, cancellationToken).ConfigureAwait(false);
-                    await webView.DevTools.Session.Input.DispatchKeyEvent(new DispatchKeyEventCommand{Type = "keyUp", //NativeVirtualKeyCode = virtualKeyCode,
+                    await webView.DevTools.Input.DispatchKeyEvent(new DispatchKeyEventCommand{Type = "keyUp", //NativeVirtualKeyCode = virtualKeyCode,
  WindowsVirtualKeyCode = virtualKeyCode, }, cancellationToken).ConfigureAwait(false);
                 //}
                 }
                 else
                 {
-                    await webView.DevTools.Session.Input.DispatchKeyEvent(new DispatchKeyEventCommand{Type = "char", Text = Convert.ToString(key, CultureInfo.InvariantCulture)}, cancellationToken).ConfigureAwait(false);
+                    await webView.DevTools.Input.DispatchKeyEvent(new DispatchKeyEventCommand{Type = "char", Text = Convert.ToString(key, CultureInfo.InvariantCulture)}, cancellationToken).ConfigureAwait(false);
                 }
             }
         }

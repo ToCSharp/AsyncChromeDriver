@@ -34,7 +34,7 @@ PM> Install-Package AsyncChromeDriver
       }
       await Task.Delay(500);
       await query.SendKeys(Keys.Enter);
-      var allCookies = await asyncChromeDriver.DevTools.Session.Network.GetAllCookies();
+      var allCookies = await asyncChromeDriver.DevTools.Network.GetAllCookies();
 
       var screenshot = await webDriver.GetScreenshot();
       using (MemoryStream imageStream = new MemoryStream(screenshot.AsByteArray))
@@ -49,14 +49,14 @@ Now only NuGet WebSocket4Net 0.14.1 supported. Do not update it
 ```csharp
     asyncChromeDriver = new AsyncChromeDriver();
     await asyncChromeDriver.CheckConnected();
-    await asyncChromeDriver.DevTools.Session.Page.Enable();
-    asyncChromeDriver.DevTools.Session.Page.SubscribeToLoadEventFiredEvent(async (e2) =>
+    await asyncChromeDriver.DevTools.Page.Enable();
+    asyncChromeDriver.DevTools.Page.SubscribeToLoadEventFiredEvent(async (e2) =>
     {
-        var screenshot = await asyncChromeDriver.DevTools.Session.Page.CaptureScreenshot();
+        var screenshot = await asyncChromeDriver.DevTools.Page.CaptureScreenshot();
         SaveScreenshot(screenshot.Data);
     });
     //await asyncChromeDriver.GoToUrl("https://www.google.com/");
-    await asyncChromeDriver.DevTools.Session.Page.Navigate(new ChromeDevTools.Page.NavigateCommand
+    await asyncChromeDriver.DevTools.Page.Navigate(new ChromeDevTools.Page.NavigateCommand
     {
         Url = "https://www.google.com/"
     });

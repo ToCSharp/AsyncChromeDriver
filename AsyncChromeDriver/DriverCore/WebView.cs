@@ -82,14 +82,14 @@ namespace Zu.Chrome.DriverCore
             if (asyncChromeDriver != null)
                 await asyncChromeDriver.CheckConnected().ConfigureAwait(false);
             var contextId = string.IsNullOrWhiteSpace(frame) ? null : (long ? )FrameTracker.GetContextIdForFrame(frame);
-            return await DevTools.Session.Runtime.Evaluate(new EvaluateCommand{Expression = expression, ContextId = contextId, ReturnByValue = returnByValue}, cancellationToken).ConfigureAwait(false);
+            return await DevTools.Runtime.Evaluate(new EvaluateCommand{Expression = expression, ContextId = contextId, ReturnByValue = returnByValue}, cancellationToken).ConfigureAwait(false);
         }
 
         public async Task<EvaluateCommandResponse> EvaluateScriptInContext(string expression, long ? contextId = null, bool returnByValue = true, CancellationToken cancellationToken = default (CancellationToken))
         {
             if (asyncChromeDriver != null)
                 await asyncChromeDriver.CheckConnected().ConfigureAwait(false);
-            return await DevTools.Session.Runtime.Evaluate(new EvaluateCommand{Expression = expression, ContextId = contextId, ReturnByValue = returnByValue}, cancellationToken).ConfigureAwait(false);
+            return await DevTools.Runtime.Evaluate(new EvaluateCommand{Expression = expression, ContextId = contextId, ReturnByValue = returnByValue}, cancellationToken).ConfigureAwait(false);
         }
 
         public async Task<string> EvaluateScriptAndGetObject(string expression, string frame = null, //bool returnByValue = true,
@@ -110,7 +110,7 @@ namespace Zu.Chrome.DriverCore
         {
             if (asyncChromeDriver != null)
                 await asyncChromeDriver.CheckConnected().ConfigureAwait(false);
-            var res = await DevTools.Session.Page.GetNavigationHistory(new GetNavigationHistoryCommand(), cancellationToken).ConfigureAwait(false);
+            var res = await DevTools.Page.GetNavigationHistory(new GetNavigationHistoryCommand(), cancellationToken).ConfigureAwait(false);
             return res.Entries?.ElementAtOrDefault((int)res.CurrentIndex)?.Url;
         }
 
@@ -118,7 +118,7 @@ namespace Zu.Chrome.DriverCore
         {
             if (asyncChromeDriver != null)
                 await asyncChromeDriver.CheckConnected().ConfigureAwait(false);
-            var res = await DevTools.Session.Page.Navigate(new NavigateCommand{Url = url}, cancellationToken, timeout).ConfigureAwait(false);
+            var res = await DevTools.Page.Navigate(new NavigateCommand{Url = url}, cancellationToken, timeout).ConfigureAwait(false);
             return res;
         }
 
@@ -126,7 +126,7 @@ namespace Zu.Chrome.DriverCore
         {
             if (asyncChromeDriver != null)
                 await asyncChromeDriver.CheckConnected().ConfigureAwait(false);
-            var res = await DevTools.Session.Page.Reload(new ReloadCommand(), cancellationToken).ConfigureAwait(false);
+            var res = await DevTools.Page.Reload(new ReloadCommand(), cancellationToken).ConfigureAwait(false);
             return res.ToString();
         }
 
@@ -134,12 +134,12 @@ namespace Zu.Chrome.DriverCore
         {
             if (asyncChromeDriver != null)
                 await asyncChromeDriver.CheckConnected().ConfigureAwait(false);
-            var res = await DevTools.Session.Page.GetNavigationHistory(new GetNavigationHistoryCommand(), cancellationToken).ConfigureAwait(false);
+            var res = await DevTools.Page.GetNavigationHistory(new GetNavigationHistoryCommand(), cancellationToken).ConfigureAwait(false);
             if (delta == -1)
             {
                 if (res.CurrentIndex > 0)
                 {
-                    return await DevTools.Session.Page.NavigateToHistoryEntry(new NavigateToHistoryEntryCommand{EntryId = res.Entries[res.CurrentIndex + delta].Id}, cancellationToken).ConfigureAwait(false);
+                    return await DevTools.Page.NavigateToHistoryEntry(new NavigateToHistoryEntryCommand{EntryId = res.Entries[res.CurrentIndex + delta].Id}, cancellationToken).ConfigureAwait(false);
                 //return await EvaluateScript("window.history.back();");
                 }
                 else
@@ -150,7 +150,7 @@ namespace Zu.Chrome.DriverCore
             else if (delta == 1)
                 if (res.CurrentIndex + 1 < res.Entries.Count())
                 {
-                    return await DevTools.Session.Page.NavigateToHistoryEntry(new NavigateToHistoryEntryCommand{EntryId = res.Entries[res.CurrentIndex + delta].Id}, cancellationToken).ConfigureAwait(false);
+                    return await DevTools.Page.NavigateToHistoryEntry(new NavigateToHistoryEntryCommand{EntryId = res.Entries[res.CurrentIndex + delta].Id}, cancellationToken).ConfigureAwait(false);
                 //return await EvaluateScript("window.history.forward();");
                 }
                 else
@@ -200,15 +200,15 @@ namespace Zu.Chrome.DriverCore
                     //{
                     if (virtualKeyCode == 0)
                         continue;
-                    var res = await DevTools.Session.Input.DispatchKeyEvent(new DispatchKeyEventCommand{Type = "rawKeyDown", //NativeVirtualKeyCode = virtualKeyCode,
+                    var res = await DevTools.Input.DispatchKeyEvent(new DispatchKeyEventCommand{Type = "rawKeyDown", //NativeVirtualKeyCode = virtualKeyCode,
  WindowsVirtualKeyCode = virtualKeyCode, }, cancellationToken).ConfigureAwait(false);
-                    await DevTools.Session.Input.DispatchKeyEvent(new DispatchKeyEventCommand{Type = "keyUp", //NativeVirtualKeyCode = virtualKeyCode,
+                    await DevTools.Input.DispatchKeyEvent(new DispatchKeyEventCommand{Type = "keyUp", //NativeVirtualKeyCode = virtualKeyCode,
  WindowsVirtualKeyCode = virtualKeyCode, }, cancellationToken).ConfigureAwait(false);
                 //}
                 }
                 else
                 {
-                    await DevTools.Session.Input.DispatchKeyEvent(new DispatchKeyEventCommand{Type = "char", Text = Convert.ToString(key, CultureInfo.InvariantCulture)}, cancellationToken).ConfigureAwait(false);
+                    await DevTools.Input.DispatchKeyEvent(new DispatchKeyEventCommand{Type = "char", Text = Convert.ToString(key, CultureInfo.InvariantCulture)}, cancellationToken).ConfigureAwait(false);
                 }
             }
         }
@@ -237,11 +237,11 @@ namespace Zu.Chrome.DriverCore
                 var element_id = await EvaluateScriptAndGetObjectInContext(expression, null /*context_id*/, cancellationToken).ConfigureAwait(false);
                 //var element_id = await CallFunctionInContextAndGetObject(function, argsJson, context_id, asyncChromeDriver.Session.w3c_compliant, cancellationToken);
                 long ? nodeId = null;
-                var nodeResp = await DevTools.Session.DOM.RequestNode(new RequestNodeCommand{ObjectId = element_id}, cancellationToken).ConfigureAwait(false);
+                var nodeResp = await DevTools.DOM.RequestNode(new RequestNodeCommand{ObjectId = element_id}, cancellationToken).ConfigureAwait(false);
                 nodeId = nodeResp?.NodeId;
                 if (nodeId == null)
                     throw new Exception("DOM.requestNode missing int 'nodeId'");
-                var releaseResp = await DevTools.Session.Runtime.ReleaseObject(new ReleaseObjectCommand{ObjectId = element_id}).ConfigureAwait(false);
+                var releaseResp = await DevTools.Runtime.ReleaseObject(new ReleaseObjectCommand{ObjectId = element_id}).ConfigureAwait(false);
                 return (int)nodeId;
             }
             catch

@@ -18,7 +18,7 @@ namespace Zu.Chrome
         {
             if (asyncChromeDriver?.DevTools?.Session == null)
                 return null;
-            var screenshot = await asyncChromeDriver.DevTools.Session.Page.CaptureScreenshot().ConfigureAwait(false);
+            var screenshot = await asyncChromeDriver.DevTools.Page.CaptureScreenshot().ConfigureAwait(false);
             return new Screenshot(screenshot?.Data);
         }
     }

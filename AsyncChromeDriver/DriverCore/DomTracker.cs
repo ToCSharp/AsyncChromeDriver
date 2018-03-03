@@ -23,7 +23,7 @@ namespace Zu.Chrome.DriverCore
         {
             if (nodeToFrame.TryGetValue(nodeId, out string res))
                 return res;
-            await devTools.Session.DOM.GetDocument(new GetDocumentCommand()).ConfigureAwait(false);
+            await devTools.DOM.GetDocument(new GetDocumentCommand()).ConfigureAwait(false);
             if (nodeToFrame.TryGetValue(nodeId, out string res2))
                 return res2;
             //throw new KeyNotFoundException(frame);
@@ -33,11 +33,11 @@ namespace Zu.Chrome.DriverCore
         public async Task Enable()
         {
             nodeToFrame.Clear();
-            devTools.Session.DOM.SubscribeToSetChildNodesEvent(OnSetChildNodesEvent);
-            devTools.Session.DOM.SubscribeToChildNodeInsertedEvent(OnChildNodeInsertedEvent);
-            devTools.Session.DOM.SubscribeToDocumentUpdatedEvent(OnDocumentUpdatedEvent);
-            await devTools.Session.DOM.Enable().ConfigureAwait(false);
-            await devTools.Session.DOM.GetDocument(new GetDocumentCommand()).ConfigureAwait(false);
+            devTools.DOM.SubscribeToSetChildNodesEvent(OnSetChildNodesEvent);
+            devTools.DOM.SubscribeToChildNodeInsertedEvent(OnChildNodeInsertedEvent);
+            devTools.DOM.SubscribeToDocumentUpdatedEvent(OnDocumentUpdatedEvent);
+            await devTools.DOM.Enable().ConfigureAwait(false);
+            await devTools.DOM.GetDocument(new GetDocumentCommand()).ConfigureAwait(false);
         }
 
         private void OnSetChildNodesEvent(SetChildNodesEvent ev)
@@ -72,7 +72,7 @@ namespace Zu.Chrome.DriverCore
         private /*async*/ void OnDocumentUpdatedEvent(DocumentUpdatedEvent ev)
         {
             nodeToFrame.Clear();
-            devTools?.Session.DOM.GetDocument(new GetDocumentCommand());
+            devTools?.DOM.GetDocument(new GetDocumentCommand());
         }
     }
 }

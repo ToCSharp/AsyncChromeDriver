@@ -151,8 +151,8 @@ namespace AsyncChromeDriverExample
                 await query.SendKeys(Keys.Enter);
                 var el = await webDriver.SwitchTo().ActiveElement();
                 await webDriver.Keyboard.SendKeys(Keys.PageDown);
-                var allCookies = await asyncChromeDriver.DevTools.Session.Network.GetAllCookies();
-                var screenshot = await asyncChromeDriver.DevTools.Session.Page.CaptureScreenshot();
+                var allCookies = await asyncChromeDriver.DevTools.Network.GetAllCookies();
+                var screenshot = await asyncChromeDriver.DevTools.Page.CaptureScreenshot();
                 if (!string.IsNullOrWhiteSpace(screenshot.Data))
                 {
                     var dir = @"C:\temp";
@@ -211,10 +211,10 @@ namespace AsyncChromeDriverExample
             try
             {
                 await asyncChromeDriver.CheckConnected();
-                await asyncChromeDriver.DevTools.Session.Page.Enable();
-                asyncChromeDriver.DevTools.Session.Page.SubscribeToLoadEventFiredEvent(async (e2) =>
+                await asyncChromeDriver.DevTools.Page.Enable();
+                asyncChromeDriver.DevTools.Page.SubscribeToLoadEventFiredEvent(async (e2) =>
                 {
-                    var screenshot = await asyncChromeDriver.DevTools.Session.Page.CaptureScreenshot();
+                    var screenshot = await asyncChromeDriver.DevTools.Page.CaptureScreenshot();
                     SaveScreenshot(screenshot.Data);
 
                 });
@@ -260,7 +260,7 @@ namespace AsyncChromeDriverExample
             try
             {
                 var res2 = await webDriver.GoToUrl("https://www.google.com/");
-                var screenshot = await asyncChromeDriver.DevTools.Session.Page.CaptureScreenshot();
+                var screenshot = await asyncChromeDriver.DevTools.Page.CaptureScreenshot();
                 SaveScreenshot(screenshot.Data);
 
             }

@@ -20,12 +20,12 @@ namespace Zu.Chrome.DriverCore
 
         public async Task Enable()
         {
-            devTools.Session.Runtime.SubscribeToExecutionContextCreatedEvent(OnContextCreatedEvent);
-            devTools.Session.Runtime.SubscribeToExecutionContextDestroyedEvent(OnContextDestroyedEvent);
-            devTools.Session.Runtime.SubscribeToExecutionContextsClearedEvent(OnContextsClearedEvent);
-            devTools.Session.Page.SubscribeToFrameNavigatedEvent(OnFrameNavigatedEvent);
-            await devTools.Session.Runtime.Enable().ConfigureAwait(false);
-            await devTools.Session.Page.Enable().ConfigureAwait(false);
+            devTools.Runtime.SubscribeToExecutionContextCreatedEvent(OnContextCreatedEvent);
+            devTools.Runtime.SubscribeToExecutionContextDestroyedEvent(OnContextDestroyedEvent);
+            devTools.Runtime.SubscribeToExecutionContextsClearedEvent(OnContextsClearedEvent);
+            devTools.Page.SubscribeToFrameNavigatedEvent(OnFrameNavigatedEvent);
+            await devTools.Runtime.Enable().ConfigureAwait(false);
+            await devTools.Page.Enable().ConfigureAwait(false);
         }
 
         public long ? GetContextIdForFrame(string frame)

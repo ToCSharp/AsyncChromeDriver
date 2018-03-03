@@ -11,7 +11,7 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
     <summary>.Net Chrome WebDriver and Chrome DevTools through a single connection. It connects directly to Chrome DevTools and is async from this connection. No need in chromedriver.exe. </summary>
-    <releaseNotes>Change BaristaLabs.ChromeDevTools.Runtime to Zu.ChromeDevTools. Chrome 64.0.3282.186 DevTools support </releaseNotes>
+    <releaseNotes>Simplified access to DevTools properties (devTools.Session.DOM -> devTools.DOM)</releaseNotes>
     <copyright>Copyright Oleg Zudov 2018</copyright>
     <tags>Chrome DevTools AsyncChromeDriver AsyncWebDriver WebDriver</tags>
   </metadata>

@@ -22,14 +22,14 @@ namespace AsyncChromeDriverExample
 
         public async Task StartListen()
         {
-            asyncChromeDriver.DevTools.Session.Network.SubscribeToResponseReceivedEvent(OnResponseReceivedEvent);
-            asyncChromeDriver.DevTools.Session.Network.SubscribeToWebSocketFrameReceivedEvent(OnWebSocketFrameReceivedEvent);
-            await asyncChromeDriver.DevTools.Session.Network.Enable(new EnableCommand());
+            asyncChromeDriver.DevTools.Network.SubscribeToResponseReceivedEvent(OnResponseReceivedEvent);
+            asyncChromeDriver.DevTools.Network.SubscribeToWebSocketFrameReceivedEvent(OnWebSocketFrameReceivedEvent);
+            await asyncChromeDriver.DevTools.Network.Enable(new EnableCommand());
         }
 
         public async Task StopListen()
         {
-            await asyncChromeDriver.DevTools.Session.Network.Disable(new DisableCommand());
+            await asyncChromeDriver.DevTools.Network.Disable(new DisableCommand());
         }
 
         private void OnResponseReceivedEvent(ResponseReceivedEvent obj)
@@ -52,7 +52,7 @@ namespace AsyncChromeDriverExample
             if (string.IsNullOrWhiteSpace(requestId)) return null;
             try
             {
-                var res = await asyncChromeDriver.DevTools.Session.Network.GetResponseBody(new GetResponseBodyCommand
+                var res = await asyncChromeDriver.DevTools.Network.GetResponseBody(new GetResponseBodyCommand
                 {
                     RequestId = requestId
                 });
@@ -73,7 +73,7 @@ namespace AsyncChromeDriverExample
         public async Task<Cookie[]> GetCookies(string[] urls)
         {
             if (urls == null || urls.Length == 0) return null;
-            var res = await asyncChromeDriver.DevTools.Session.Network.GetCookies(new GetCookiesCommand
+            var res = await asyncChromeDriver.DevTools.Network.GetCookies(new GetCookiesCommand
             {
                 Urls = urls
             });
@@ -83,7 +83,7 @@ namespace AsyncChromeDriverExample
 
         public async Task<Cookie[]> GetAllCookies()
         {
-            var res = await asyncChromeDriver.DevTools.Session.Network.GetAllCookies();
+            var res = await asyncChromeDriver.DevTools.Network.GetAllCookies();
             return res.Cookies;
         }
     }
