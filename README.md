@@ -12,7 +12,8 @@ Look video of BrowsersDevToolsExample: https://youtu.be/dNMuoeDmEME
 
 ### Usage
 #### Install AsyncChromeDriver via NuGet
-
+Now only NuGet WebSocket4Net 0.14.1 supported. Do not update it.
+  
 If you want to include AsyncChromeDriver in your project, you can [install it directly from NuGet](https://www.nuget.org/packages/AsyncChromeDriver/)
 ```
 PM> Install-Package AsyncChromeDriver
@@ -45,7 +46,7 @@ PM> Install-Package AsyncChromeDriver
 
 ```
 #### Using DevTools
-Now only NuGet WebSocket4Net 0.14.1 supported. Do not update it
+Chrome 65.0.3325.146 DevTools support. Now only NuGet WebSocket4Net 0.14.1 supported. Do not update it
 ```csharp
     asyncChromeDriver = new AsyncChromeDriver();
     await asyncChromeDriver.CheckConnected();
