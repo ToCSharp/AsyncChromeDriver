@@ -3,7 +3,7 @@ namespace Zu.ChromeDevTools.Debugger
     using Newtonsoft.Json;
 
     /// <summary>
-    /// Returns stack trace with given <code>stackTraceId</code>.
+    /// Returns stack trace with given `stackTraceId`.
     /// </summary>
     public sealed class GetStackTraceCommand : ICommand
     {

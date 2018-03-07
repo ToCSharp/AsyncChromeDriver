@@ -34,5 +34,14 @@ namespace Zu.ChromeDevTools.Network
             get;
             set;
         }
+        /// <summary>
+        /// Set when response was blocked due to being cross-site document response.
+        /// </summary>
+        [JsonProperty("blockedCrossSiteDocument", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public bool? BlockedCrossSiteDocument
+        {
+            get;
+            set;
+        }
     }
 }

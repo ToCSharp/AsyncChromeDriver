@@ -8,7 +8,7 @@ namespace Zu.ChromeDevTools.Debugger
     public sealed class BreakLocation
     {
         /// <summary>
-        /// Script identifier as reported in the <code>Debugger.scriptParsed</code>.
+        /// Script identifier as reported in the `Debugger.scriptParsed`.
         ///</summary>
         [JsonProperty("scriptId")]
         public string ScriptId

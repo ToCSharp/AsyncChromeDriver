@@ -3,7 +3,8 @@ namespace Zu.ChromeDevTools.Runtime
     using Newtonsoft.Json;
 
     /// <summary>
-    /// Detailed information about exception (or error) that was thrown during script compilation or execution.
+    /// Detailed information about exception (or error) that was thrown during script compilation or
+    /// execution.
     /// </summary>
     public sealed class ExceptionDetails
     {

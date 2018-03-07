@@ -25,7 +25,8 @@ namespace Zu.ChromeDevTools.Browser
             set;
         }
         /// <summary>
-        /// New window bounds. The 'minimized', 'maximized' and 'fullscreen' states cannot be combined with 'left', 'top', 'width' or 'height'. Leaves unspecified fields unchanged.
+        /// New window bounds. The 'minimized', 'maximized' and 'fullscreen' states cannot be combined
+        /// with 'left', 'top', 'width' or 'height'. Leaves unspecified fields unchanged.
         /// </summary>
         [JsonProperty("bounds")]
         public Bounds Bounds

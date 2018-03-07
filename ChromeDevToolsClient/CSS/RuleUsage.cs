@@ -8,7 +8,8 @@ namespace Zu.ChromeDevTools.CSS
     public sealed class RuleUsage
     {
         /// <summary>
-        /// The css style sheet identifier (absent for user agent stylesheet and user-specified stylesheet rules) this rule came from.
+        /// The css style sheet identifier (absent for user agent stylesheet and user-specified
+        /// stylesheet rules) this rule came from.
         ///</summary>
         [JsonProperty("styleSheetId")]
         public string StyleSheetId

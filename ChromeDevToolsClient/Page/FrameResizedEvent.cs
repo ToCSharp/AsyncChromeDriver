@@ -1,5 +1,7 @@
 namespace Zu.ChromeDevTools.Page
 {
+    using Newtonsoft.Json;
+
     /// <summary>
     /// 
     /// </summary>

@@ -52,7 +52,8 @@ namespace Zu.ChromeDevTools.Input
             set;
         }
         /// <summary>
-        /// Which type of input events to be generated (default: 'default', which queries the platform for the preferred input type).
+        /// Which type of input events to be generated (default: 'default', which queries the platform
+        /// for the preferred input type).
         /// </summary>
         [JsonProperty("gestureSourceType", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public GestureSourceType? GestureSourceType

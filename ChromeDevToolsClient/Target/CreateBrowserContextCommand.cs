@@ -3,7 +3,8 @@ namespace Zu.ChromeDevTools.Target
     using Newtonsoft.Json;
 
     /// <summary>
-    /// Creates a new empty BrowserContext. Similar to an incognito profile but you can have more than one.
+    /// Creates a new empty BrowserContext. Similar to an incognito profile but you can have more than
+    /// one.
     /// </summary>
     public sealed class CreateBrowserContextCommand : ICommand
     {

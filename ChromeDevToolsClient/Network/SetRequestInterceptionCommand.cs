@@ -16,7 +16,8 @@ namespace Zu.ChromeDevTools.Network
         }
 
         /// <summary>
-        /// Requests matching any of these patterns will be forwarded and wait for the corresponding continueInterceptedRequest call.
+        /// Requests matching any of these patterns will be forwarded and wait for the corresponding
+        /// continueInterceptedRequest call.
         /// </summary>
         [JsonProperty("patterns")]
         public RequestPattern[] Patterns

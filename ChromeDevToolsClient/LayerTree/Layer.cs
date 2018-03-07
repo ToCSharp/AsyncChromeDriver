@@ -116,7 +116,8 @@ namespace Zu.ChromeDevTools.LayerTree
             set;
         }
         /// <summary>
-        /// Indicates whether this layer hosts any content, rather than being used for transform/scrolling purposes only.
+        /// Indicates whether this layer hosts any content, rather than being used for
+        /// transform/scrolling purposes only.
         ///</summary>
         [JsonProperty("drawsContent")]
         public bool DrawsContent

@@ -16,7 +16,8 @@ namespace Zu.ChromeDevTools.Debugger
         }
 
         /// <summary>
-        /// Maximum depth of async call stacks. Setting to <code>0</code> will effectively disable collecting async call stacks (default).
+        /// Maximum depth of async call stacks. Setting to `0` will effectively disable collecting async
+        /// call stacks (default).
         /// </summary>
         [JsonProperty("maxDepth")]
         public long MaxDepth

@@ -3,7 +3,8 @@ namespace Zu.ChromeDevTools.Debugger
     using Newtonsoft.Json;
 
     /// <summary>
-    /// Returns possible locations for breakpoint. scriptId in start and end range locations should be the same.
+    /// Returns possible locations for breakpoint. scriptId in start and end range locations should be
+    /// the same.
     /// </summary>
     public sealed class GetPossibleBreakpointsCommand : ICommand
     {
@@ -25,7 +26,8 @@ namespace Zu.ChromeDevTools.Debugger
             set;
         }
         /// <summary>
-        /// End of range to search possible breakpoint locations in (excluding). When not specified, end of scripts is used as end of range.
+        /// End of range to search possible breakpoint locations in (excluding). When not specified, end
+        /// of scripts is used as end of range.
         /// </summary>
         [JsonProperty("end", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public Location End

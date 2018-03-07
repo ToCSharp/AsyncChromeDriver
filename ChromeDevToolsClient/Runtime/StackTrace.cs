@@ -8,7 +8,8 @@ namespace Zu.ChromeDevTools.Runtime
     public sealed class StackTrace
     {
         /// <summary>
-        /// String label of this stack trace. For async traces this may be a name of the function that initiated the async call.
+        /// String label of this stack trace. For async traces this may be a name of the function that
+        /// initiated the async call.
         ///</summary>
         [JsonProperty("description", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public string Description

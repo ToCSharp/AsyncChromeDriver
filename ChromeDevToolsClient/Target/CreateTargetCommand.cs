@@ -52,7 +52,8 @@ namespace Zu.ChromeDevTools.Target
             set;
         }
         /// <summary>
-        /// Whether BeginFrames for this target will be controlled via DevTools (headless chrome only, not supported on MacOS yet, false by default).
+        /// Whether BeginFrames for this target will be controlled via DevTools (headless chrome only,
+        /// not supported on MacOS yet, false by default).
         /// </summary>
         [JsonProperty("enableBeginFrameControl", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public bool? EnableBeginFrameControl

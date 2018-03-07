@@ -16,7 +16,8 @@ namespace Zu.ChromeDevTools.Debugger
         }
 
         /// <summary>
-        /// Debugger will issue additional Debugger.paused notification if any async task is scheduled before next pause.
+        /// Debugger will issue additional Debugger.paused notification if any async task is scheduled
+        /// before next pause.
         /// </summary>
         [JsonProperty("breakOnAsyncCall", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public bool? BreakOnAsyncCall

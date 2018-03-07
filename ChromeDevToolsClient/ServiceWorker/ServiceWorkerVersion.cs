@@ -62,7 +62,8 @@ namespace Zu.ChromeDevTools.ServiceWorker
             set;
         }
         /// <summary>
-        /// The time at which the response headers of the main script were received from the server. For cached script it is the last time the cache entry was validated.
+        /// The time at which the response headers of the main script were received from the server.
+        /// For cached script it is the last time the cache entry was validated.
         ///</summary>
         [JsonProperty("scriptResponseTime", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public double? ScriptResponseTime

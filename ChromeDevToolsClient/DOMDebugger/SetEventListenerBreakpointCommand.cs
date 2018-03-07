@@ -25,7 +25,8 @@ namespace Zu.ChromeDevTools.DOMDebugger
             set;
         }
         /// <summary>
-        /// EventTarget interface name to stop on. If equal to `"*"` or not provided, will stop on any EventTarget.
+        /// EventTarget interface name to stop on. If equal to `"*"` or not provided, will stop on any
+        /// EventTarget.
         /// </summary>
         [JsonProperty("targetName", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public string TargetName

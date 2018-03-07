@@ -17,7 +17,8 @@ namespace Zu.ChromeDevTools.Page
             set;
         }
         /// <summary>
-        /// Delay (in seconds) until the navigation is scheduled to begin. The navigation is not guaranteed to start.
+        /// Delay (in seconds) until the navigation is scheduled to begin. The navigation is not
+        /// guaranteed to start.
         /// </summary>
         [JsonProperty("delay")]
         public double Delay

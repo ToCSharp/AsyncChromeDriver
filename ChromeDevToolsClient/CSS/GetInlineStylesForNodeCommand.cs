@@ -3,7 +3,8 @@ namespace Zu.ChromeDevTools.CSS
     using Newtonsoft.Json;
 
     /// <summary>
-    /// Returns the styles defined inline (explicitly in the "style" attribute and implicitly, using DOM attributes) for a DOM node identified by `nodeId`.
+    /// Returns the styles defined inline (explicitly in the "style" attribute and implicitly, using DOM
+    /// attributes) for a DOM node identified by `nodeId`.
     /// </summary>
     public sealed class GetInlineStylesForNodeCommand : ICommand
     {

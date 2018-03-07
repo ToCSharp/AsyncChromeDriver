@@ -91,10 +91,14 @@
     <Compile Include="Audits\GetEncodedResponseCommand.cs" />
     <Compile Include="Browser\Bounds.cs" />
     <Compile Include="Browser\BrowserAdapter.cs" />
+    <Compile Include="Browser\Bucket.cs" />
     <Compile Include="Browser\CloseCommand.cs" />
+    <Compile Include="Browser\GetHistogramCommand.cs" />
+    <Compile Include="Browser\GetHistogramsCommand.cs" />
     <Compile Include="Browser\GetVersionCommand.cs" />
     <Compile Include="Browser\GetWindowBoundsCommand.cs" />
     <Compile Include="Browser\GetWindowForTargetCommand.cs" />
+    <Compile Include="Browser\Histogram.cs" />
     <Compile Include="Browser\SetWindowBoundsCommand.cs" />
     <Compile Include="Browser\WindowState.cs" />
     <Compile Include="CacheStorage\Cache.cs" />
@@ -368,6 +372,7 @@
     <Compile Include="IndexedDB\DatabaseWithObjectStores.cs" />
     <Compile Include="IndexedDB\DataEntry.cs" />
     <Compile Include="IndexedDB\DeleteDatabaseCommand.cs" />
+    <Compile Include="IndexedDB\DeleteObjectStoreEntriesCommand.cs" />
     <Compile Include="IndexedDB\DisableCommand.cs" />
     <Compile Include="IndexedDB\EnableCommand.cs" />
     <Compile Include="IndexedDB\IndexedDBAdapter.cs" />
@@ -454,6 +459,7 @@
     <Compile Include="Network\GetAllCookiesCommand.cs" />
     <Compile Include="Network\GetCertificateCommand.cs" />
     <Compile Include="Network\GetCookiesCommand.cs" />
+    <Compile Include="Network\GetRequestPostDataCommand.cs" />
     <Compile Include="Network\GetResponseBodyCommand.cs" />
     <Compile Include="Network\GetResponseBodyForInterceptionCommand.cs" />
     <Compile Include="Network\Headers.cs" />
@@ -525,6 +531,7 @@
     <Compile Include="Page\ClearDeviceMetricsOverrideCommand.cs" />
     <Compile Include="Page\ClearDeviceOrientationOverrideCommand.cs" />
     <Compile Include="Page\ClearGeolocationOverrideCommand.cs" />
+    <Compile Include="Page\CrashCommand.cs" />
     <Compile Include="Page\CreateIsolatedWorldCommand.cs" />
     <Compile Include="Page\DeleteCookieCommand.cs" />
     <Compile Include="Page\DialogType.cs" />
@@ -574,7 +581,6 @@
     <Compile Include="Page\ScreencastVisibilityChangedEvent.cs" />
     <Compile Include="Page\SearchInResourceCommand.cs" />
     <Compile Include="Page\SetAdBlockingEnabledCommand.cs" />
-    <Compile Include="Page\SetAutoAttachToCreatedPagesCommand.cs" />
     <Compile Include="Page\SetDeviceMetricsOverrideCommand.cs" />
     <Compile Include="Page\SetDeviceOrientationOverrideCommand.cs" />
     <Compile Include="Page\SetDocumentContentCommand.cs" />
@@ -671,6 +677,7 @@
     <Compile Include="Security\SecurityState.cs" />
     <Compile Include="Security\SecurityStateChangedEvent.cs" />
     <Compile Include="Security\SecurityStateExplanation.cs" />
+    <Compile Include="Security\SetIgnoreCertificateErrorsCommand.cs" />
     <Compile Include="Security\SetOverrideCertificateErrorsCommand.cs" />
     <Compile Include="ServiceWorker\DeliverPushMessageCommand.cs" />
     <Compile Include="ServiceWorker\DisableCommand.cs" />
@@ -745,6 +752,7 @@
     <Compile Include="Tracing\RecordClockSyncMarkerCommand.cs" />
     <Compile Include="Tracing\RequestMemoryDumpCommand.cs" />
     <Compile Include="Tracing\StartCommand.cs" />
+    <Compile Include="Tracing\StreamCompression.cs" />
     <Compile Include="Tracing\TraceConfig.cs" />
     <Compile Include="Tracing\TracingAdapter.cs" />
     <Compile Include="Tracing\TracingCompleteEvent.cs" />

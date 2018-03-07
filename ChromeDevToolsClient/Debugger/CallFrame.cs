@@ -62,7 +62,7 @@ namespace Zu.ChromeDevTools.Debugger
             set;
         }
         /// <summary>
-        /// <code>this</code> object for this call frame.
+        /// `this` object for this call frame.
         ///</summary>
         [JsonProperty("this")]
         public Runtime.RemoteObject This

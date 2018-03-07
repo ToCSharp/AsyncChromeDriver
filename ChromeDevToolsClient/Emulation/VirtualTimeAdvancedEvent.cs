@@ -8,7 +8,8 @@ namespace Zu.ChromeDevTools.Emulation
     public sealed class VirtualTimeAdvancedEvent : IEvent
     {
         /// <summary>
-        /// The amount of virtual time that has elapsed in milliseconds since virtual time was first enabled.
+        /// The amount of virtual time that has elapsed in milliseconds since virtual time was first
+        /// enabled.
         /// </summary>
         [JsonProperty("virtualTimeElapsed")]
         public double VirtualTimeElapsed

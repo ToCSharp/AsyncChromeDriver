@@ -3,7 +3,8 @@ namespace Zu.ChromeDevTools.DOM
     using Newtonsoft.Json;
 
     /// <summary>
-    /// Returns search results from given `fromIndex` to given `toIndex` from the search with the given identifier.
+    /// Returns search results from given `fromIndex` to given `toIndex` from the search with the given
+    /// identifier.
     /// </summary>
     public sealed class GetSearchResultsCommand : ICommand
     {

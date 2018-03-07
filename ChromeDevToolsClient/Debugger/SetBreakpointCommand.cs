@@ -25,7 +25,8 @@ namespace Zu.ChromeDevTools.Debugger
             set;
         }
         /// <summary>
-        /// Expression to use as a breakpoint condition. When specified, debugger will only stop on the breakpoint if this expression evaluates to true.
+        /// Expression to use as a breakpoint condition. When specified, debugger will only stop on the
+        /// breakpoint if this expression evaluates to true.
         /// </summary>
         [JsonProperty("condition", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public string Condition

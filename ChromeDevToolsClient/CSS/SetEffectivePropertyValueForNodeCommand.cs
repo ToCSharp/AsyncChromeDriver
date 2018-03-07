@@ -3,7 +3,8 @@ namespace Zu.ChromeDevTools.CSS
     using Newtonsoft.Json;
 
     /// <summary>
-    /// Find a rule with the given active property for the given node and set the new value for this property
+    /// Find a rule with the given active property for the given node and set the new value for this
+    /// property
     /// </summary>
     public sealed class SetEffectivePropertyValueForNodeCommand : ICommand
     {
