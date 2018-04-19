@@ -393,16 +393,16 @@ namespace Zu.ChromeDevTools.Page
             m_session.Subscribe(eventCallback);
         }
         /// <summary>
-        /// Fired when a JavaScript initiated dialog (alert, confirm, prompt, or onbeforeunload) has been
-    ///         /// closed.
+        /// Fired when a JavaScript initiated dialog (alert, confirm, prompt, or onbeforeunload) has been
+        /// closed.
         /// </summary>
         public void SubscribeToJavascriptDialogClosedEvent(Action<JavascriptDialogClosedEvent> eventCallback)
         {
             m_session.Subscribe(eventCallback);
         }
         /// <summary>
-        /// Fired when a JavaScript initiated dialog (alert, confirm, prompt, or onbeforeunload) is about to
-    ///         /// open.
+        /// Fired when a JavaScript initiated dialog (alert, confirm, prompt, or onbeforeunload) is about to
+        /// open.
         /// </summary>
         public void SubscribeToJavascriptDialogOpeningEvent(Action<JavascriptDialogOpeningEvent> eventCallback)
         {
@@ -437,8 +437,8 @@ namespace Zu.ChromeDevTools.Page
             m_session.Subscribe(eventCallback);
         }
         /// <summary>
-        /// Fired when a new window is going to be opened, via window.open(), link click, form submission,
-    ///         /// etc.
+        /// Fired when a new window is going to be opened, via window.open(), link click, form submission,
+        /// etc.
         /// </summary>
         public void SubscribeToWindowOpenEvent(Action<WindowOpenEvent> eventCallback)
         {

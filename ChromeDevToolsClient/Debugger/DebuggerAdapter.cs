@@ -265,8 +265,8 @@ namespace Zu.ChromeDevTools.Debugger
             m_session.Subscribe(eventCallback);
         }
         /// <summary>
-        /// Fired when virtual machine parses script. This event is also fired for all known and uncollected
-    ///         /// scripts upon enabling debugger.
+        /// Fired when virtual machine parses script. This event is also fired for all known and uncollected
+        /// scripts upon enabling debugger.
         /// </summary>
         public void SubscribeToScriptParsedEvent(Action<ScriptParsedEvent> eventCallback)
         {

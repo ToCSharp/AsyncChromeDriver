@@ -53,5 +53,12 @@ namespace Zu.ChromeDevTools.Inspector
         {
             m_session.Subscribe(eventCallback);
         }
+        /// <summary>
+        /// Fired when debugging target has reloaded after crash
+        /// </summary>
+        public void SubscribeToTargetReloadedAfterCrashEvent(Action<TargetReloadedAfterCrashEvent> eventCallback)
+        {
+            m_session.Subscribe(eventCallback);
+        }
     }
 }

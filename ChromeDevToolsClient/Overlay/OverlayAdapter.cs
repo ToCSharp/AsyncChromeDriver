@@ -140,8 +140,8 @@ namespace Zu.ChromeDevTools.Overlay
         }
 
         /// <summary>
-        /// Fired when the node should be inspected. This happens after call to `setInspectMode` or when
-    ///         /// user manually inspects an element.
+        /// Fired when the node should be inspected. This happens after call to `setInspectMode` or when
+        /// user manually inspects an element.
         /// </summary>
         public void SubscribeToInspectNodeRequestedEvent(Action<InspectNodeRequestedEvent> eventCallback)
         {

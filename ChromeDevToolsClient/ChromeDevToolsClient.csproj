@@ -93,6 +93,7 @@
     <Compile Include="Browser\BrowserAdapter.cs" />
     <Compile Include="Browser\Bucket.cs" />
     <Compile Include="Browser\CloseCommand.cs" />
+    <Compile Include="Browser\GetCommandLineCommand.cs" />
     <Compile Include="Browser\GetHistogramCommand.cs" />
     <Compile Include="Browser\GetHistogramsCommand.cs" />
     <Compile Include="Browser\GetVersionCommand.cs" />
@@ -136,6 +137,7 @@
     <Compile Include="CSS\CSSStyleSheetHeader.cs" />
     <Compile Include="CSS\DisableCommand.cs" />
     <Compile Include="CSS\EnableCommand.cs" />
+    <Compile Include="CSS\FontFace.cs" />
     <Compile Include="CSS\FontsUpdatedEvent.cs" />
     <Compile Include="CSS\ForcePseudoStateCommand.cs" />
     <Compile Include="CSS\GetBackgroundColorsCommand.cs" />
@@ -275,6 +277,7 @@
     <Compile Include="DOM\GetBoxModelCommand.cs" />
     <Compile Include="DOM\GetDocumentCommand.cs" />
     <Compile Include="DOM\GetFlattenedDocumentCommand.cs" />
+    <Compile Include="DOM\GetFrameOwnerCommand.cs" />
     <Compile Include="DOM\GetNodeForLocationCommand.cs" />
     <Compile Include="DOM\GetOuterHTMLCommand.cs" />
     <Compile Include="DOM\GetRelayoutBoundaryCommand.cs" />
@@ -400,6 +403,7 @@
     <Compile Include="Inspector\EnableCommand.cs" />
     <Compile Include="Inspector\InspectorAdapter.cs" />
     <Compile Include="Inspector\TargetCrashedEvent.cs" />
+    <Compile Include="Inspector\TargetReloadedAfterCrashEvent.cs" />
     <Compile Include="IO\CloseCommand.cs" />
     <Compile Include="IO\IOAdapter.cs" />
     <Compile Include="IO\ReadCommand.cs" />
@@ -429,12 +433,19 @@
     <Compile Include="Log\StartViolationsReportCommand.cs" />
     <Compile Include="Log\StopViolationsReportCommand.cs" />
     <Compile Include="Log\ViolationSetting.cs" />
+    <Compile Include="Memory\GetAllTimeSamplingProfileCommand.cs" />
+    <Compile Include="Memory\GetBrowserSamplingProfileCommand.cs" />
     <Compile Include="Memory\GetDOMCountersCommand.cs" />
+    <Compile Include="Memory\GetSamplingProfileCommand.cs" />
     <Compile Include="Memory\MemoryAdapter.cs" />
     <Compile Include="Memory\PrepareForLeakDetectionCommand.cs" />
     <Compile Include="Memory\PressureLevel.cs" />
+    <Compile Include="Memory\SamplingProfile.cs" />
+    <Compile Include="Memory\SamplingProfileNode.cs" />
     <Compile Include="Memory\SetPressureNotificationsSuppressedCommand.cs" />
     <Compile Include="Memory\SimulatePressureNotificationCommand.cs" />
+    <Compile Include="Memory\StartSamplingCommand.cs" />
+    <Compile Include="Memory\StopSamplingCommand.cs" />
     <Compile Include="Network\AuthChallenge.cs" />
     <Compile Include="Network\AuthChallengeResponse.cs" />
     <Compile Include="Network\BlockedReason.cs" />

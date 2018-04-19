@@ -3,8 +3,8 @@ namespace Zu.ChromeDevTools.Page
     using Newtonsoft.Json;
 
     /// <summary>
-    /// Fired when a JavaScript initiated dialog (alert, confirm, prompt, or onbeforeunload) has been
-    ///         /// closed.
+    /// Fired when a JavaScript initiated dialog (alert, confirm, prompt, or onbeforeunload) has been
+        /// closed.
     /// </summary>
     public sealed class JavascriptDialogClosedEvent : IEvent
     {

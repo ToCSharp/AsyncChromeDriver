@@ -11,7 +11,7 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
     <summary>.Net Chrome WebDriver and Chrome DevTools through a single connection. It connects directly to Chrome DevTools and is async from this connection. No need in chromedriver.exe. </summary>
-    <releaseNotes>Chrome 65.0.3325.146 DevTools</releaseNotes>
+    <releaseNotes>Chrome 66.0.3359.117 DevTools</releaseNotes>
     <copyright>Copyright Oleg Zudov 2018</copyright>
     <tags>Chrome DevTools AsyncChromeDriver AsyncWebDriver WebDriver</tags>
   </metadata>

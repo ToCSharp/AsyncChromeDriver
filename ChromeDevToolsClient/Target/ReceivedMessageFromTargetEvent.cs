@@ -3,8 +3,8 @@ namespace Zu.ChromeDevTools.Target
     using Newtonsoft.Json;
 
     /// <summary>
-    /// Notifies about a new protocol message received from the session (as reported in
-    ///         /// `attachedToTarget` event).
+    /// Notifies about a new protocol message received from the session (as reported in
+        /// `attachedToTarget` event).
     /// </summary>
     public sealed class ReceivedMessageFromTargetEvent : IEvent
     {

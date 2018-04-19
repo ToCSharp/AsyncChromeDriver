@@ -250,8 +250,8 @@ namespace Zu.ChromeDevTools.Network
             m_session.Subscribe(eventCallback);
         }
         /// <summary>
-        /// Details of an intercepted HTTP request, which must be either allowed, blocked, modified or
-    ///         /// mocked.
+        /// Details of an intercepted HTTP request, which must be either allowed, blocked, modified or
+        /// mocked.
         /// </summary>
         public void SubscribeToRequestInterceptedEvent(Action<RequestInterceptedEvent> eventCallback)
         {

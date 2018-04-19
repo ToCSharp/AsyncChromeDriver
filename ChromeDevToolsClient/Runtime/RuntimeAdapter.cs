@@ -177,8 +177,8 @@ namespace Zu.ChromeDevTools.Runtime
             m_session.Subscribe(eventCallback);
         }
         /// <summary>
-        /// Issued when object should be inspected (for example, as a result of inspect() command line API
-    ///         /// call).
+        /// Issued when object should be inspected (for example, as a result of inspect() command line API
+        /// call).
         /// </summary>
         public void SubscribeToInspectRequestedEvent(Action<InspectRequestedEvent> eventCallback)
         {

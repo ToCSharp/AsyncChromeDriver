@@ -96,13 +96,6 @@ namespace Zu.ChromeDevTools.Target
             return await m_session.SendCommand<SendMessageToTargetCommand, SendMessageToTargetCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
         }
         /// <summary>
-        /// 
-        /// </summary>
-        public async Task<SetAttachToFramesCommandResponse> SetAttachToFrames(SetAttachToFramesCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
-        {
-            return await m_session.SendCommand<SetAttachToFramesCommand, SetAttachToFramesCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
-        }
-        /// <summary>
         /// Controls whether to automatically attach to new targets which are considered to be related to
     /// this one. When turned on, attaches to all existing related targets as well. When turned off,
     /// automatically detaches from all currently attached targets.
@@ -136,16 +129,16 @@ namespace Zu.ChromeDevTools.Target
             m_session.Subscribe(eventCallback);
         }
         /// <summary>
-        /// Issued when detached from target for any reason (including `detachFromTarget` command). Can be
-    ///         /// issued multiple times per target if multiple sessions have been attached to it.
+        /// Issued when detached from target for any reason (including `detachFromTarget` command). Can be
+        /// issued multiple times per target if multiple sessions have been attached to it.
         /// </summary>
         public void SubscribeToDetachedFromTargetEvent(Action<DetachedFromTargetEvent> eventCallback)
         {
             m_session.Subscribe(eventCallback);
         }
         /// <summary>
-        /// Notifies about a new protocol message received from the session (as reported in
-    ///         /// `attachedToTarget` event).
+        /// Notifies about a new protocol message received from the session (as reported in
+        /// `attachedToTarget` event).
         /// </summary>
         public void SubscribeToReceivedMessageFromTargetEvent(Action<ReceivedMessageFromTargetEvent> eventCallback)
         {
@@ -166,8 +159,8 @@ namespace Zu.ChromeDevTools.Target
             m_session.Subscribe(eventCallback);
         }
         /// <summary>
-        /// Issued when some information about a target has changed. This only happens between
-    ///         /// `targetCreated` and `targetDestroyed`.
+        /// Issued when some information about a target has changed. This only happens between
+        /// `targetCreated` and `targetDestroyed`.
         /// </summary>
         public void SubscribeToTargetInfoChangedEvent(Action<TargetInfoChangedEvent> eventCallback)
         {

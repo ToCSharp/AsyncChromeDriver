@@ -308,6 +308,13 @@ namespace Zu.ChromeDevTools.DOM
         {
             return await m_session.SendCommand<UndoCommand, UndoCommandResponse>(command ?? new UndoCommand(), cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
         }
+        /// <summary>
+        /// Returns iframe node that owns iframe with the given domain.
+        /// </summary>
+        public async Task<GetFrameOwnerCommandResponse> GetFrameOwner(GetFrameOwnerCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
+        {
+            return await m_session.SendCommand<GetFrameOwnerCommand, GetFrameOwnerCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
+        }
 
         /// <summary>
         /// Fired when `Element`'s attribute is modified.
@@ -387,8 +394,8 @@ namespace Zu.ChromeDevTools.DOM
             m_session.Subscribe(eventCallback);
         }
         /// <summary>
-        /// Fired when backend wants to provide client with the missing DOM structure. This happens upon
-    ///         /// most of the calls requesting node ids.
+        /// Fired when backend wants to provide client with the missing DOM structure. This happens upon
+        /// most of the calls requesting node ids.
         /// </summary>
         public void SubscribeToSetChildNodesEvent(Action<SetChildNodesEvent> eventCallback)
         {

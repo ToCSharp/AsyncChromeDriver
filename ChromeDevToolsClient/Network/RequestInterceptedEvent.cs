@@ -4,8 +4,7 @@ namespace Zu.ChromeDevTools.Network
 
     /// <summary>
     /// Details of an intercepted HTTP request, which must be either allowed, blocked, modified or
-
-    ///         /// mocked.
+        /// mocked.
     /// </summary>
     public sealed class RequestInterceptedEvent : IEvent
     {
