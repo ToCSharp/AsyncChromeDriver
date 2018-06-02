@@ -77,6 +77,21 @@ namespace Zu.ChromeDevTools.Runtime
             return await m_session.SendCommand<EvaluateCommand, EvaluateCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
         }
         /// <summary>
+        /// Returns the isolate id.
+        /// </summary>
+        public async Task<GetIsolateIdCommandResponse> GetIsolateId(GetIsolateIdCommand command = null, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
+        {
+            return await m_session.SendCommand<GetIsolateIdCommand, GetIsolateIdCommandResponse>(command ?? new GetIsolateIdCommand(), cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
+        }
+        /// <summary>
+        /// Returns the JavaScript heap usage.
+    /// It is the total usage of the corresponding isolate not scoped to a particular Runtime.
+        /// </summary>
+        public async Task<GetHeapUsageCommandResponse> GetHeapUsage(GetHeapUsageCommand command = null, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
+        {
+            return await m_session.SendCommand<GetHeapUsageCommand, GetHeapUsageCommandResponse>(command ?? new GetHeapUsageCommand(), cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
+        }
+        /// <summary>
         /// Returns properties of a given object. Object group of the result is inherited from the target
     /// object.
         /// </summary>
@@ -127,13 +142,54 @@ namespace Zu.ChromeDevTools.Runtime
             return await m_session.SendCommand<RunScriptCommand, RunScriptCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
         }
         /// <summary>
+        /// Enables or disables async call stacks tracking.
+        /// </summary>
+        public async Task<SetAsyncCallStackDepthCommandResponse> SetAsyncCallStackDepth(SetAsyncCallStackDepthCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
+        {
+            return await m_session.SendCommand<SetAsyncCallStackDepthCommand, SetAsyncCallStackDepthCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
+        }
+        /// <summary>
         /// 
         /// </summary>
         public async Task<SetCustomObjectFormatterEnabledCommandResponse> SetCustomObjectFormatterEnabled(SetCustomObjectFormatterEnabledCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
             return await m_session.SendCommand<SetCustomObjectFormatterEnabledCommand, SetCustomObjectFormatterEnabledCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
         }
+        /// <summary>
+        /// Terminate current or next JavaScript execution.
+    /// Will cancel the termination when the outer-most script execution ends.
+        /// </summary>
+        public async Task<TerminateExecutionCommandResponse> TerminateExecution(TerminateExecutionCommand command = null, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
+        {
+            return await m_session.SendCommand<TerminateExecutionCommand, TerminateExecutionCommandResponse>(command ?? new TerminateExecutionCommand(), cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
+        }
+        /// <summary>
+        /// Adds binding with the given name on the global objects of all inspected
+    /// contexts, including those created later. Bindings survive reloads.
+    /// Binding function takes exactly one argument, this argument should be string,
+    /// in case of any other input, function throws an exception.
+    /// Each binding function call produces Runtime.bindingCalled notification.
+        /// </summary>
+        public async Task<AddBindingCommandResponse> AddBinding(AddBindingCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
+        {
+            return await m_session.SendCommand<AddBindingCommand, AddBindingCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
+        }
+        /// <summary>
+        /// This method does not remove binding function from global object but
+    /// unsubscribes current runtime agent from Runtime.bindingCalled notifications.
+        /// </summary>
+        public async Task<RemoveBindingCommandResponse> RemoveBinding(RemoveBindingCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
+        {
+            return await m_session.SendCommand<RemoveBindingCommand, RemoveBindingCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
+        }
 
+        /// <summary>
+        /// Notification is issued every time when binding is called.
+        /// </summary>
+        public void SubscribeToBindingCalledEvent(Action<BindingCalledEvent> eventCallback)
+        {
+            m_session.Subscribe(eventCallback);
+        }
         /// <summary>
         /// Issued when console API was called.
         /// </summary>

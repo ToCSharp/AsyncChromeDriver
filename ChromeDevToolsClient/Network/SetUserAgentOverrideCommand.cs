@@ -24,6 +24,24 @@ namespace Zu.ChromeDevTools.Network
             get;
             set;
         }
+        /// <summary>
+        /// Browser langugage to emulate.
+        /// </summary>
+        [JsonProperty("acceptLanguage", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public string AcceptLanguage
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// The platform navigator.platform should return.
+        /// </summary>
+        [JsonProperty("platform", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public string Platform
+        {
+            get;
+            set;
+        }
     }
 
     public sealed class SetUserAgentOverrideCommandResponse : ICommandResponse<SetUserAgentOverrideCommand>

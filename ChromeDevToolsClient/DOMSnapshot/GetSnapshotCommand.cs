@@ -36,6 +36,24 @@ namespace Zu.ChromeDevTools.DOMSnapshot
             get;
             set;
         }
+        /// <summary>
+        /// Whether to determine and include the paint order index of LayoutTreeNodes (default false).
+        /// </summary>
+        [JsonProperty("includePaintOrder", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public bool? IncludePaintOrder
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// Whether to include UA shadow tree in the snapshot (default false).
+        /// </summary>
+        [JsonProperty("includeUserAgentShadowTree", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public bool? IncludeUserAgentShadowTree
+        {
+            get;
+            set;
+        }
     }
 
     public sealed class GetSnapshotCommandResponse : ICommandResponse<GetSnapshotCommand>

@@ -93,7 +93,7 @@
     <Compile Include="Browser\BrowserAdapter.cs" />
     <Compile Include="Browser\Bucket.cs" />
     <Compile Include="Browser\CloseCommand.cs" />
-    <Compile Include="Browser\GetCommandLineCommand.cs" />
+    <Compile Include="Browser\GetBrowserCommandLineCommand.cs" />
     <Compile Include="Browser\GetHistogramCommand.cs" />
     <Compile Include="Browser\GetHistogramsCommand.cs" />
     <Compile Include="Browser\GetVersionCommand.cs" />
@@ -212,6 +212,7 @@
     <Compile Include="Debugger\SetBlackboxPatternsCommand.cs" />
     <Compile Include="Debugger\SetBreakpointByUrlCommand.cs" />
     <Compile Include="Debugger\SetBreakpointCommand.cs" />
+    <Compile Include="Debugger\SetBreakpointOnFunctionCallCommand.cs" />
     <Compile Include="Debugger\SetBreakpointsActiveCommand.cs" />
     <Compile Include="Debugger\SetPauseOnExceptionsCommand.cs" />
     <Compile Include="Debugger\SetReturnValueCommand.cs" />
@@ -237,8 +238,10 @@
     <Compile Include="DOMDebugger\SetInstrumentationBreakpointCommand.cs" />
     <Compile Include="DOMDebugger\SetXHRBreakpointCommand.cs" />
     <Compile Include="DOMSnapshot\ComputedStyle.cs" />
+    <Compile Include="DOMSnapshot\DisableCommand.cs" />
     <Compile Include="DOMSnapshot\DOMNode.cs" />
     <Compile Include="DOMSnapshot\DOMSnapshotAdapter.cs" />
+    <Compile Include="DOMSnapshot\EnableCommand.cs" />
     <Compile Include="DOMSnapshot\GetSnapshotCommand.cs" />
     <Compile Include="DOMSnapshot\InlineTextBox.cs" />
     <Compile Include="DOMSnapshot\LayoutTreeNode.cs" />
@@ -333,7 +336,9 @@
     <Compile Include="Emulation\SetNavigatorOverridesCommand.cs" />
     <Compile Include="Emulation\SetPageScaleFactorCommand.cs" />
     <Compile Include="Emulation\SetScriptExecutionDisabledCommand.cs" />
+    <Compile Include="Emulation\SetScrollbarsHiddenCommand.cs" />
     <Compile Include="Emulation\SetTouchEmulationEnabledCommand.cs" />
+    <Compile Include="Emulation\SetUserAgentOverrideCommand.cs" />
     <Compile Include="Emulation\SetVirtualTimePolicyCommand.cs" />
     <Compile Include="Emulation\SetVisibleSizeCommand.cs" />
     <Compile Include="Emulation\VirtualTimeAdvancedEvent.cs" />
@@ -345,7 +350,6 @@
     <Compile Include="HeadlessExperimental\DisableCommand.cs" />
     <Compile Include="HeadlessExperimental\EnableCommand.cs" />
     <Compile Include="HeadlessExperimental\HeadlessExperimentalAdapter.cs" />
-    <Compile Include="HeadlessExperimental\MainFrameReadyForScreenshotsEvent.cs" />
     <Compile Include="HeadlessExperimental\NeedsBeginFramesChangedEvent.cs" />
     <Compile Include="HeadlessExperimental\ScreenshotParams.cs" />
     <Compile Include="HeapProfiler\AddHeapSnapshotChunkEvent.cs" />
@@ -453,6 +457,7 @@
     <Compile Include="Network\CanClearBrowserCacheCommand.cs" />
     <Compile Include="Network\CanClearBrowserCookiesCommand.cs" />
     <Compile Include="Network\CanEmulateNetworkConditionsCommand.cs" />
+    <Compile Include="Network\CertificateTransparencyCompliance.cs" />
     <Compile Include="Network\ClearBrowserCacheCommand.cs" />
     <Compile Include="Network\ClearBrowserCookiesCommand.cs" />
     <Compile Include="Network\ConnectionType.cs" />
@@ -502,6 +507,13 @@
     <Compile Include="Network\SetRequestInterceptionCommand.cs" />
     <Compile Include="Network\SetUserAgentOverrideCommand.cs" />
     <Compile Include="Network\SignedCertificateTimestamp.cs" />
+    <Compile Include="Network\SignedExchangeError.cs" />
+    <Compile Include="Network\SignedExchangeErrorField.cs" />
+    <Compile Include="Network\SignedExchangeHeader.cs" />
+    <Compile Include="Network\SignedExchangeInfo.cs" />
+    <Compile Include="Network\SignedExchangeReceivedEvent.cs" />
+    <Compile Include="Network\SignedExchangeSignature.cs" />
+    <Compile Include="Network\TakeResponseBodyForInterceptionAsStreamCommand.cs" />
     <Compile Include="Network\WebSocketClosedEvent.cs" />
     <Compile Include="Network\WebSocketCreatedEvent.cs" />
     <Compile Include="Network\WebSocketFrame.cs" />
@@ -542,6 +554,7 @@
     <Compile Include="Page\ClearDeviceMetricsOverrideCommand.cs" />
     <Compile Include="Page\ClearDeviceOrientationOverrideCommand.cs" />
     <Compile Include="Page\ClearGeolocationOverrideCommand.cs" />
+    <Compile Include="Page\CloseCommand.cs" />
     <Compile Include="Page\CrashCommand.cs" />
     <Compile Include="Page\CreateIsolatedWorldCommand.cs" />
     <Compile Include="Page\DeleteCookieCommand.cs" />
@@ -577,6 +590,7 @@
     <Compile Include="Page\LifecycleEventEvent.cs" />
     <Compile Include="Page\LoadEventFiredEvent.cs" />
     <Compile Include="Page\NavigateCommand.cs" />
+    <Compile Include="Page\NavigatedWithinDocumentEvent.cs" />
     <Compile Include="Page\NavigateToHistoryEntryCommand.cs" />
     <Compile Include="Page\NavigationEntry.cs" />
     <Compile Include="Page\PageAdapter.cs" />
@@ -592,6 +606,7 @@
     <Compile Include="Page\ScreencastVisibilityChangedEvent.cs" />
     <Compile Include="Page\SearchInResourceCommand.cs" />
     <Compile Include="Page\SetAdBlockingEnabledCommand.cs" />
+    <Compile Include="Page\SetBypassCSPCommand.cs" />
     <Compile Include="Page\SetDeviceMetricsOverrideCommand.cs" />
     <Compile Include="Page\SetDeviceOrientationOverrideCommand.cs" />
     <Compile Include="Page\SetDocumentContentCommand.cs" />
@@ -599,6 +614,7 @@
     <Compile Include="Page\SetGeolocationOverrideCommand.cs" />
     <Compile Include="Page\SetLifecycleEventsEnabledCommand.cs" />
     <Compile Include="Page\SetTouchEmulationEnabledCommand.cs" />
+    <Compile Include="Page\SetWebLifecycleStateCommand.cs" />
     <Compile Include="Page\StartScreencastCommand.cs" />
     <Compile Include="Page\StopLoadingCommand.cs" />
     <Compile Include="Page\StopScreencastCommand.cs" />
@@ -637,7 +653,9 @@
     <Compile Include="Profiler\TypeObject.cs" />
     <Compile Include="Profiler\TypeProfileEntry.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Runtime\AddBindingCommand.cs" />
     <Compile Include="Runtime\AwaitPromiseCommand.cs" />
+    <Compile Include="Runtime\BindingCalledEvent.cs" />
     <Compile Include="Runtime\CallArgument.cs" />
     <Compile Include="Runtime\CallFrame.cs" />
     <Compile Include="Runtime\CallFunctionOnCommand.cs" />
@@ -656,6 +674,8 @@
     <Compile Include="Runtime\ExecutionContextDescription.cs" />
     <Compile Include="Runtime\ExecutionContextDestroyedEvent.cs" />
     <Compile Include="Runtime\ExecutionContextsClearedEvent.cs" />
+    <Compile Include="Runtime\GetHeapUsageCommand.cs" />
+    <Compile Include="Runtime\GetIsolateIdCommand.cs" />
     <Compile Include="Runtime\GetPropertiesCommand.cs" />
     <Compile Include="Runtime\GlobalLexicalScopeNamesCommand.cs" />
     <Compile Include="Runtime\InspectRequestedEvent.cs" />
@@ -667,13 +687,15 @@
     <Compile Include="Runtime\ReleaseObjectCommand.cs" />
     <Compile Include="Runtime\ReleaseObjectGroupCommand.cs" />
     <Compile Include="Runtime\RemoteObject.cs" />
+    <Compile Include="Runtime\RemoveBindingCommand.cs" />
     <Compile Include="Runtime\RunIfWaitingForDebuggerCommand.cs" />
     <Compile Include="Runtime\RunScriptCommand.cs" />
     <Compile Include="Runtime\RuntimeAdapter.cs" />
+    <Compile Include="Runtime\SetAsyncCallStackDepthCommand.cs" />
     <Compile Include="Runtime\SetCustomObjectFormatterEnabledCommand.cs" />
     <Compile Include="Runtime\StackTrace.cs" />
     <Compile Include="Runtime\StackTraceId.cs" />
-    <Compile Include="Runtime\UnserializableValue.cs" />
+    <Compile Include="Runtime\TerminateExecutionCommand.cs" />
     <Compile Include="Schema\Domain.cs" />
     <Compile Include="Schema\GetDomainsCommand.cs" />
     <Compile Include="Schema\SchemaAdapter.cs" />
@@ -737,16 +759,17 @@
     <Compile Include="Target\DetachedFromTargetEvent.cs" />
     <Compile Include="Target\DetachFromTargetCommand.cs" />
     <Compile Include="Target\DisposeBrowserContextCommand.cs" />
+    <Compile Include="Target\GetBrowserContextsCommand.cs" />
     <Compile Include="Target\GetTargetInfoCommand.cs" />
     <Compile Include="Target\GetTargetsCommand.cs" />
     <Compile Include="Target\ReceivedMessageFromTargetEvent.cs" />
     <Compile Include="Target\RemoteLocation.cs" />
     <Compile Include="Target\SendMessageToTargetCommand.cs" />
-    <Compile Include="Target\SetAttachToFramesCommand.cs" />
     <Compile Include="Target\SetAutoAttachCommand.cs" />
     <Compile Include="Target\SetDiscoverTargetsCommand.cs" />
     <Compile Include="Target\SetRemoteLocationsCommand.cs" />
     <Compile Include="Target\TargetAdapter.cs" />
+    <Compile Include="Target\TargetCrashedEvent.cs" />
     <Compile Include="Target\TargetCreatedEvent.cs" />
     <Compile Include="Target\TargetDestroyedEvent.cs" />
     <Compile Include="Target\TargetInfo.cs" />

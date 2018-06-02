@@ -235,6 +235,13 @@ namespace Zu.ChromeDevTools.Page
             return await m_session.SendCommand<SetAdBlockingEnabledCommand, SetAdBlockingEnabledCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
         }
         /// <summary>
+        /// Enable page Content Security Policy by-passing.
+        /// </summary>
+        public async Task<SetBypassCSPCommandResponse> SetBypassCSP(SetBypassCSPCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
+        {
+            return await m_session.SendCommand<SetBypassCSPCommand, SetBypassCSPCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
+        }
+        /// <summary>
         /// Overrides the values of device screen dimensions (window.screen.width, window.screen.height,
     /// window.innerWidth, window.innerHeight, and "device-width"/"device-height"-related CSS media
     /// query results).
@@ -306,6 +313,22 @@ namespace Zu.ChromeDevTools.Page
         public async Task<CrashCommandResponse> Crash(CrashCommand command = null, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
             return await m_session.SendCommand<CrashCommand, CrashCommandResponse>(command ?? new CrashCommand(), cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
+        }
+        /// <summary>
+        /// Tries to close page, running its beforeunload hooks, if any.
+        /// </summary>
+        public async Task<CloseCommandResponse> Close(CloseCommand command = null, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
+        {
+            return await m_session.SendCommand<CloseCommand, CloseCommandResponse>(command ?? new CloseCommand(), cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
+        }
+        /// <summary>
+        /// Tries to update the web lifecycle state of the page.
+    /// It will transition the page to the given state according to:
+    /// https://github.com/WICG/web-lifecycle/
+        /// </summary>
+        public async Task<SetWebLifecycleStateCommandResponse> SetWebLifecycleState(SetWebLifecycleStateCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
+        {
+            return await m_session.SendCommand<SetWebLifecycleStateCommand, SetWebLifecycleStateCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
         }
         /// <summary>
         /// Stops sending each frame in the `screencastFrame`.
@@ -419,6 +442,13 @@ namespace Zu.ChromeDevTools.Page
         /// 
         /// </summary>
         public void SubscribeToLoadEventFiredEvent(Action<LoadEventFiredEvent> eventCallback)
+        {
+            m_session.Subscribe(eventCallback);
+        }
+        /// <summary>
+        /// Fired when same-document navigation happens, e.g. due to history API usage or anchor navigation.
+        /// </summary>
+        public void SubscribeToNavigatedWithinDocumentEvent(Action<NavigatedWithinDocumentEvent> eventCallback)
         {
             m_session.Subscribe(eventCallback);
         }

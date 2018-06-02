@@ -43,7 +43,7 @@ namespace Zu.ChromeDevTools.Target
             set;
         }
         /// <summary>
-        /// The browser context to create the page in (headless chrome only).
+        /// The browser context to create the page in.
         /// </summary>
         [JsonProperty("browserContextId", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public string BrowserContextId

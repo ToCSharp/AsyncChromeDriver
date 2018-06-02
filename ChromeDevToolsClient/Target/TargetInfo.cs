@@ -61,5 +61,14 @@ namespace Zu.ChromeDevTools.Target
             get;
             set;
         }
+        /// <summary>
+        /// 
+        ///</summary>
+        [JsonProperty("browserContextId", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public string BrowserContextId
+        {
+            get;
+            set;
+        }
     }
 }

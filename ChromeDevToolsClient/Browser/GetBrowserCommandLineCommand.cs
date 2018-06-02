@@ -6,9 +6,9 @@ namespace Zu.ChromeDevTools.Browser
     /// Returns the command line switches for the browser process if, and only if
     /// --enable-automation is on the commandline.
     /// </summary>
-    public sealed class GetCommandLineCommand : ICommand
+    public sealed class GetBrowserCommandLineCommand : ICommand
     {
-        private const string ChromeRemoteInterface_CommandName = "Browser.getCommandLine";
+        private const string ChromeRemoteInterface_CommandName = "Browser.getBrowserCommandLine";
         
         [JsonIgnore]
         public string CommandName
@@ -18,7 +18,7 @@ namespace Zu.ChromeDevTools.Browser
 
     }
 
-    public sealed class GetCommandLineCommandResponse : ICommandResponse<GetCommandLineCommand>
+    public sealed class GetBrowserCommandLineCommandResponse : ICommandResponse<GetBrowserCommandLineCommand>
     {
         /// <summary>
         /// Commandline parameters

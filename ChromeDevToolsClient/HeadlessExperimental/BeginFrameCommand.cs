@@ -19,21 +19,11 @@ namespace Zu.ChromeDevTools.HeadlessExperimental
         }
 
         /// <summary>
-        /// Timestamp of this BeginFrame (milliseconds since epoch). If not set, the current time will
-        /// be used.
+        /// Timestamp of this BeginFrame in Renderer TimeTicks (milliseconds of uptime). If not set,
+        /// the current time will be used.
         /// </summary>
-        [JsonProperty("frameTime", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public double? FrameTime
-        {
-            get;
-            set;
-        }
-        /// <summary>
-        /// Deadline of this BeginFrame (milliseconds since epoch). If not set, the deadline will be
-        /// calculated from the frameTime and interval.
-        /// </summary>
-        [JsonProperty("deadline", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public double? Deadline
+        [JsonProperty("frameTimeTicks", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public double? FrameTimeTicks
         {
             get;
             set;

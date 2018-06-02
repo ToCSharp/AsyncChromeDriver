@@ -48,7 +48,7 @@ namespace Zu.ChromeDevTools.Runtime
         /// property.
         ///</summary>
         [JsonProperty("unserializableValue", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public UnserializableValue? UnserializableValue
+        public string UnserializableValue
         {
             get;
             set;

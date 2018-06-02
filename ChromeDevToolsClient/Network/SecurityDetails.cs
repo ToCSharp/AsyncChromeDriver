@@ -115,5 +115,14 @@ namespace Zu.ChromeDevTools.Network
             get;
             set;
         }
+        /// <summary>
+        /// Whether the request complied with Certificate Transparency policy
+        ///</summary>
+        [JsonProperty("certificateTransparencyCompliance")]
+        public CertificateTransparencyCompliance CertificateTransparencyCompliance
+        {
+            get;
+            set;
+        }
     }
 }

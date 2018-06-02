@@ -90,6 +90,15 @@ namespace Zu.ChromeDevTools.Debugger
             get;
             set;
         }
+        /// <summary>
+        /// Terminate execution after timing out (number of milliseconds).
+        /// </summary>
+        [JsonProperty("timeout", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public double? Timeout
+        {
+            get;
+            set;
+        }
     }
 
     public sealed class EvaluateOnCallFrameCommandResponse : ICommandResponse<EvaluateOnCallFrameCommand>

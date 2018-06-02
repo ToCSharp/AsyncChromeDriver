@@ -79,6 +79,13 @@ namespace Zu.ChromeDevTools.Emulation
         /// <summary>
         /// 
         /// </summary>
+        public async Task<SetScrollbarsHiddenCommandResponse> SetScrollbarsHidden(SetScrollbarsHiddenCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
+        {
+            return await m_session.SendCommand<SetScrollbarsHiddenCommand, SetScrollbarsHiddenCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
+        }
+        /// <summary>
+        /// 
+        /// </summary>
         public async Task<SetEmitTouchEventsForMouseCommandResponse> SetEmitTouchEventsForMouse(SetEmitTouchEventsForMouseCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
             return await m_session.SendCommand<SetEmitTouchEventsForMouseCommand, SetEmitTouchEventsForMouseCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
@@ -142,6 +149,13 @@ namespace Zu.ChromeDevTools.Emulation
         public async Task<SetVisibleSizeCommandResponse> SetVisibleSize(SetVisibleSizeCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
             return await m_session.SendCommand<SetVisibleSizeCommand, SetVisibleSizeCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
+        }
+        /// <summary>
+        /// Allows overriding user agent with the given string.
+        /// </summary>
+        public async Task<SetUserAgentOverrideCommandResponse> SetUserAgentOverride(SetUserAgentOverrideCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
+        {
+            return await m_session.SendCommand<SetUserAgentOverrideCommand, SetUserAgentOverrideCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
         }
 
         /// <summary>

@@ -34,6 +34,8 @@ namespace Zu.ChromeDevTools.Page
         WebSocket,
         [EnumMember(Value = "Manifest")]
         Manifest,
+        [EnumMember(Value = "SignedExchange")]
+        SignedExchange,
         [EnumMember(Value = "Other")]
         Other,
     }

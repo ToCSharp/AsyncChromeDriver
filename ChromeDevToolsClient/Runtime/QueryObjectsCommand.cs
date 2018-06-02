@@ -24,6 +24,15 @@ namespace Zu.ChromeDevTools.Runtime
             get;
             set;
         }
+        /// <summary>
+        /// Symbolic group name that can be used to release the results.
+        /// </summary>
+        [JsonProperty("objectGroup", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public string ObjectGroup
+        {
+            get;
+            set;
+        }
     }
 
     public sealed class QueryObjectsCommandResponse : ICommandResponse<QueryObjectsCommand>

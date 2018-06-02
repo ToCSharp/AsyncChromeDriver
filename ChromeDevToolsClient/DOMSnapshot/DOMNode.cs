@@ -258,5 +258,14 @@ namespace Zu.ChromeDevTools.DOMSnapshot
             get;
             set;
         }
+        /// <summary>
+        /// The url of the script (if any) that generates this node.
+        ///</summary>
+        [JsonProperty("originURL", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public string OriginURL
+        {
+            get;
+            set;
+        }
     }
 }

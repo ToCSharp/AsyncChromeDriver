@@ -55,15 +55,24 @@ namespace Zu.ChromeDevTools.Emulation
             get;
             set;
         }
+        /// <summary>
+        /// If set, base::Time::Now will be overriden to initially return this value.
+        /// </summary>
+        [JsonProperty("initialVirtualTime", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public double? InitialVirtualTime
+        {
+            get;
+            set;
+        }
     }
 
     public sealed class SetVirtualTimePolicyCommandResponse : ICommandResponse<SetVirtualTimePolicyCommand>
     {
         /// <summary>
-        /// Absolute timestamp at which virtual time was first enabled (milliseconds since epoch).
+        /// Absolute timestamp at which virtual time was first enabled (up time in milliseconds).
         ///</summary>
-        [JsonProperty("virtualTimeBase")]
-        public double VirtualTimeBase
+        [JsonProperty("virtualTimeTicksBase")]
+        public double VirtualTimeTicksBase
         {
             get;
             set;

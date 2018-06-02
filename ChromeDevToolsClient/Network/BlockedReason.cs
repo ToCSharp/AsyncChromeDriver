@@ -10,6 +10,8 @@ namespace Zu.ChromeDevTools.Network
     [JsonConverter(typeof(StringEnumConverter))]
     public enum BlockedReason
     {
+        [EnumMember(Value = "other")]
+        Other,
         [EnumMember(Value = "csp")]
         Csp,
         [EnumMember(Value = "mixed-content")]
@@ -20,7 +22,7 @@ namespace Zu.ChromeDevTools.Network
         Inspector,
         [EnumMember(Value = "subresource-filter")]
         SubresourceFilter,
-        [EnumMember(Value = "other")]
-        Other,
+        [EnumMember(Value = "content-type")]
+        ContentType,
     }
 }

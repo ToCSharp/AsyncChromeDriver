@@ -46,7 +46,9 @@ PM> Install-Package AsyncChromeDriver
 
 ```
 #### Using DevTools
-Chrome 66 DevTools support. Now only NuGet WebSocket4Net 0.14.1 supported. Do not update it
+Protocol r563932 support on June 2, 2018.  
+https://github.com/ChromeDevTools/devtools-protocol/tree/master/json  
+Now only NuGet WebSocket4Net 0.14.1 supported. Do not update it
 ```csharp
     asyncChromeDriver = new AsyncChromeDriver();
     await asyncChromeDriver.CheckConnected();

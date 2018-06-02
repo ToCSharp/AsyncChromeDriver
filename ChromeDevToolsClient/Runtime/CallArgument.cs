@@ -21,7 +21,7 @@ namespace Zu.ChromeDevTools.Runtime
         /// Primitive value which can not be JSON-stringified.
         ///</summary>
         [JsonProperty("unserializableValue", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public UnserializableValue? UnserializableValue
+        public string UnserializableValue
         {
             get;
             set;

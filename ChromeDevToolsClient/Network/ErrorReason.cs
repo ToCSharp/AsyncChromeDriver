@@ -34,5 +34,9 @@ namespace Zu.ChromeDevTools.Network
         InternetDisconnected,
         [EnumMember(Value = "AddressUnreachable")]
         AddressUnreachable,
+        [EnumMember(Value = "BlockedByClient")]
+        BlockedByClient,
+        [EnumMember(Value = "BlockedByResponse")]
+        BlockedByResponse,
     }
 }

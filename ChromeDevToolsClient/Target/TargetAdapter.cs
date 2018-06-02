@@ -54,6 +54,13 @@ namespace Zu.ChromeDevTools.Target
             return await m_session.SendCommand<CreateBrowserContextCommand, CreateBrowserContextCommandResponse>(command ?? new CreateBrowserContextCommand(), cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
         }
         /// <summary>
+        /// Returns all browser contexts created with `Target.createBrowserContext` method.
+        /// </summary>
+        public async Task<GetBrowserContextsCommandResponse> GetBrowserContexts(GetBrowserContextsCommand command = null, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
+        {
+            return await m_session.SendCommand<GetBrowserContextsCommand, GetBrowserContextsCommandResponse>(command ?? new GetBrowserContextsCommand(), cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
+        }
+        /// <summary>
         /// Creates a new page.
         /// </summary>
         public async Task<CreateTargetCommandResponse> CreateTarget(CreateTargetCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
@@ -68,7 +75,8 @@ namespace Zu.ChromeDevTools.Target
             return await m_session.SendCommand<DetachFromTargetCommand, DetachFromTargetCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
         }
         /// <summary>
-        /// Deletes a BrowserContext, will fail of any open page uses it.
+        /// Deletes a BrowserContext. All the belonging pages will be closed without calling their
+    /// beforeunload hooks.
         /// </summary>
         public async Task<DisposeBrowserContextCommandResponse> DisposeBrowserContext(DisposeBrowserContextCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
@@ -155,6 +163,13 @@ namespace Zu.ChromeDevTools.Target
         /// Issued when a target is destroyed.
         /// </summary>
         public void SubscribeToTargetDestroyedEvent(Action<TargetDestroyedEvent> eventCallback)
+        {
+            m_session.Subscribe(eventCallback);
+        }
+        /// <summary>
+        /// Issued when a target has crashed.
+        /// </summary>
+        public void SubscribeToTargetCrashedEvent(Action<TargetCrashedEvent> eventCallback)
         {
             m_session.Subscribe(eventCallback);
         }
