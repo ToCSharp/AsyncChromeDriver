@@ -17,7 +17,7 @@ namespace Zu.ChromeDevTools.DOMSnapshot
             set;
         }
         /// <summary>
-        /// The absolute position bounding box.
+        /// The bounding box in document coordinates. Note that scroll offset of the document is ignored.
         ///</summary>
         [JsonProperty("boundingBox")]
         public DOM.Rect BoundingBox
@@ -59,6 +59,15 @@ namespace Zu.ChromeDevTools.DOMSnapshot
         ///</summary>
         [JsonProperty("paintOrder", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public long? PaintOrder
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// Set to true to indicate the element begins a new stacking context.
+        ///</summary>
+        [JsonProperty("isStackingContext", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public bool? IsStackingContext
         {
             get;
             set;

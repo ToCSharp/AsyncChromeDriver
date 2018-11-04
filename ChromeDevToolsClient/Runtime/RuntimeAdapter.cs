@@ -156,6 +156,13 @@ namespace Zu.ChromeDevTools.Runtime
             return await m_session.SendCommand<SetCustomObjectFormatterEnabledCommand, SetCustomObjectFormatterEnabledCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
         }
         /// <summary>
+        /// 
+        /// </summary>
+        public async Task<SetMaxCallStackSizeToCaptureCommandResponse> SetMaxCallStackSizeToCapture(SetMaxCallStackSizeToCaptureCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
+        {
+            return await m_session.SendCommand<SetMaxCallStackSizeToCaptureCommand, SetMaxCallStackSizeToCaptureCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
+        }
+        /// <summary>
         /// Terminate current or next JavaScript execution.
     /// Will cancel the termination when the outer-most script execution ends.
         /// </summary>
@@ -164,8 +171,11 @@ namespace Zu.ChromeDevTools.Runtime
             return await m_session.SendCommand<TerminateExecutionCommand, TerminateExecutionCommandResponse>(command ?? new TerminateExecutionCommand(), cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
         }
         /// <summary>
-        /// Adds binding with the given name on the global objects of all inspected
-    /// contexts, including those created later. Bindings survive reloads.
+        /// If executionContextId is empty, adds binding with the given name on the
+    /// global objects of all inspected contexts, including those created later,
+    /// bindings survive reloads.
+    /// If executionContextId is specified, adds binding only on global object of
+    /// given execution context.
     /// Binding function takes exactly one argument, this argument should be string,
     /// in case of any other input, function throws an exception.
     /// Each binding function call produces Runtime.bindingCalled notification.

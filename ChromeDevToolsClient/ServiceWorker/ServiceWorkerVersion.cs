@@ -75,7 +75,7 @@ namespace Zu.ChromeDevTools.ServiceWorker
         /// 
         ///</summary>
         [JsonProperty("controlledClients", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public string ControlledClients
+        public string[] ControlledClients
         {
             get;
             set;

@@ -21,7 +21,7 @@ namespace Zu.ChromeDevTools.Network
         /// If set, only requests for matching resource types will be intercepted.
         ///</summary>
         [JsonProperty("resourceType", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public Page.ResourceType ResourceType
+        public ResourceType? ResourceType
         {
             get;
             set;

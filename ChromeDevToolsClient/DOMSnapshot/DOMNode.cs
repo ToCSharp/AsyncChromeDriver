@@ -192,26 +192,6 @@ namespace Zu.ChromeDevTools.DOMSnapshot
             set;
         }
         /// <summary>
-        /// Index of the imported document's node of a link element in the `domNodes` array returned by
-        /// `getSnapshot`, if any.
-        ///</summary>
-        [JsonProperty("importedDocumentIndex", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public long? ImportedDocumentIndex
-        {
-            get;
-            set;
-        }
-        /// <summary>
-        /// Index of the content node of a template element in the `domNodes` array returned by
-        /// `getSnapshot`.
-        ///</summary>
-        [JsonProperty("templateContentIndex", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public long? TemplateContentIndex
-        {
-            get;
-            set;
-        }
-        /// <summary>
         /// Type of a pseudo element node.
         ///</summary>
         [JsonProperty("pseudoType", DefaultValueHandling = DefaultValueHandling.Ignore)]
@@ -263,6 +243,24 @@ namespace Zu.ChromeDevTools.DOMSnapshot
         ///</summary>
         [JsonProperty("originURL", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public string OriginURL
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// Scroll offsets, set when this node is a Document.
+        ///</summary>
+        [JsonProperty("scrollOffsetX", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public double? ScrollOffsetX
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 
+        ///</summary>
+        [JsonProperty("scrollOffsetY", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public double? ScrollOffsetY
         {
             get;
             set;

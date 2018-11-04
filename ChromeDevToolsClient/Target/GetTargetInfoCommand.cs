@@ -18,7 +18,7 @@ namespace Zu.ChromeDevTools.Target
         /// <summary>
         /// Gets or sets the targetId
         /// </summary>
-        [JsonProperty("targetId")]
+        [JsonProperty("targetId", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public string TargetId
         {
             get;

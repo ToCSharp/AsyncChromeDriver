@@ -83,7 +83,7 @@ namespace Zu.ChromeDevTools.Network
         /// Type of this resource.
         /// </summary>
         [JsonProperty("type", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public Page.ResourceType Type
+        public ResourceType? Type
         {
             get;
             set;

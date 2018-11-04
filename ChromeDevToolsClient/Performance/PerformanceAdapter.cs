@@ -39,6 +39,15 @@ namespace Zu.ChromeDevTools.Performance
             return await m_session.SendCommand<EnableCommand, EnableCommandResponse>(command ?? new EnableCommand(), cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
         }
         /// <summary>
+        /// Sets time domain to use for collecting and reporting duration metrics.
+    /// Note that this must be called before enabling metrics collection. Calling
+    /// this method while metrics collection is enabled returns an error.
+        /// </summary>
+        public async Task<SetTimeDomainCommandResponse> SetTimeDomain(SetTimeDomainCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
+        {
+            return await m_session.SendCommand<SetTimeDomainCommand, SetTimeDomainCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
+        }
+        /// <summary>
         /// Retrieve current values of run-time metrics.
         /// </summary>
         public async Task<GetMetricsCommandResponse> GetMetrics(GetMetricsCommand command = null, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)

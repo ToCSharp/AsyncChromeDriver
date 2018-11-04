@@ -1,4 +1,4 @@
-namespace Zu.ChromeDevTools.Page
+namespace Zu.ChromeDevTools.Network
 {
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
@@ -36,6 +36,10 @@ namespace Zu.ChromeDevTools.Page
         Manifest,
         [EnumMember(Value = "SignedExchange")]
         SignedExchange,
+        [EnumMember(Value = "Ping")]
+        Ping,
+        [EnumMember(Value = "CSPViolationReport")]
+        CSPViolationReport,
         [EnumMember(Value = "Other")]
         Other,
     }

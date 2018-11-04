@@ -29,10 +29,19 @@ namespace Zu.ChromeDevTools.DOM
     public sealed class GetFrameOwnerCommandResponse : ICommandResponse<GetFrameOwnerCommand>
     {
         /// <summary>
-        /// Gets or sets the nodeId
-        /// </summary>
-        [JsonProperty("nodeId")]
-        public long NodeId
+        /// Resulting node.
+        ///</summary>
+        [JsonProperty("backendNodeId")]
+        public long BackendNodeId
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// Id of the node at given coordinates, only when enabled.
+        ///</summary>
+        [JsonProperty("nodeId", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public long? NodeId
         {
             get;
             set;

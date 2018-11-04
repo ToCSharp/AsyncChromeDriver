@@ -16,5 +16,14 @@ namespace Zu.ChromeDevTools.Memory
             get;
             set;
         }
+        /// <summary>
+        /// 
+        ///</summary>
+        [JsonProperty("modules")]
+        public Module[] Modules
+        {
+            get;
+            set;
+        }
     }
 }

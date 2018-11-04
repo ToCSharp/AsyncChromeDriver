@@ -46,7 +46,7 @@ PM> Install-Package AsyncChromeDriver
 
 ```
 #### Using DevTools
-Protocol r563932 support on June 2, 2018.  
+Protocol r604639 on November 2, 2018 (Chrome 70).  
 https://github.com/ChromeDevTools/devtools-protocol/tree/master/json  
 Now only NuGet WebSocket4Net 0.14.1 supported. Do not update it
 ```csharp

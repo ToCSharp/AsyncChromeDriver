@@ -37,6 +37,8 @@ namespace Zu.ChromeDevTools
         private Lazy<Target.TargetAdapter> m_Target;
         private Lazy<Tethering.TetheringAdapter> m_Tethering;
         private Lazy<Tracing.TracingAdapter> m_Tracing;
+        private Lazy<Testing.TestingAdapter> m_Testing;
+        private Lazy<Fetch.FetchAdapter> m_Fetch;
         private Lazy<Console.ConsoleAdapter> m_Console;
         private Lazy<Debugger.DebuggerAdapter> m_Debugger;
         private Lazy<HeapProfiler.HeapProfilerAdapter> m_HeapProfiler;
@@ -79,6 +81,8 @@ namespace Zu.ChromeDevTools
             m_Target = new Lazy<Target.TargetAdapter>(() => new Target.TargetAdapter(this));
             m_Tethering = new Lazy<Tethering.TetheringAdapter>(() => new Tethering.TetheringAdapter(this));
             m_Tracing = new Lazy<Tracing.TracingAdapter>(() => new Tracing.TracingAdapter(this));
+            m_Testing = new Lazy<Testing.TestingAdapter>(() => new Testing.TestingAdapter(this));
+            m_Fetch = new Lazy<Fetch.FetchAdapter>(() => new Fetch.FetchAdapter(this));
             m_Console = new Lazy<Console.ConsoleAdapter>(() => new Console.ConsoleAdapter(this));
             m_Debugger = new Lazy<Debugger.DebuggerAdapter>(() => new Debugger.DebuggerAdapter(this));
             m_HeapProfiler = new Lazy<HeapProfiler.HeapProfilerAdapter>(() => new HeapProfiler.HeapProfilerAdapter(this));
@@ -349,6 +353,22 @@ namespace Zu.ChromeDevTools
         public Tracing.TracingAdapter Tracing
         {
             get { return m_Tracing.Value; }
+        }
+        
+        /// <summary>
+        /// Gets the adapter for the Testing domain.
+        /// </summary>
+        public Testing.TestingAdapter Testing
+        {
+            get { return m_Testing.Value; }
+        }
+        
+        /// <summary>
+        /// Gets the adapter for the Fetch domain.
+        /// </summary>
+        public Fetch.FetchAdapter Fetch
+        {
+            get { return m_Fetch.Value; }
         }
         
         /// <summary>

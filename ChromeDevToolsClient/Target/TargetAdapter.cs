@@ -39,11 +39,32 @@ namespace Zu.ChromeDevTools.Target
             return await m_session.SendCommand<AttachToTargetCommand, AttachToTargetCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
         }
         /// <summary>
+        /// Attaches to the browser target, only uses flat sessionId mode.
+        /// </summary>
+        public async Task<AttachToBrowserTargetCommandResponse> AttachToBrowserTarget(AttachToBrowserTargetCommand command = null, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
+        {
+            return await m_session.SendCommand<AttachToBrowserTargetCommand, AttachToBrowserTargetCommandResponse>(command ?? new AttachToBrowserTargetCommand(), cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
+        }
+        /// <summary>
         /// Closes the target. If the target is a page that gets closed too.
         /// </summary>
         public async Task<CloseTargetCommandResponse> CloseTarget(CloseTargetCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
             return await m_session.SendCommand<CloseTargetCommand, CloseTargetCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
+        }
+        /// <summary>
+        /// Inject object to the target's main frame that provides a communication
+    /// channel with browser target.
+    /// 
+    /// Injected object will be available as `window[bindingName]`.
+    /// 
+    /// The object has the follwing API:
+    /// - `binding.send(json)` - a method to send messages over the remote debugging protocol
+    /// - `binding.onmessage = json => handleMessage(json)` - a callback that will be called for the protocol notifications and command responses.
+        /// </summary>
+        public async Task<ExposeDevToolsProtocolCommandResponse> ExposeDevToolsProtocol(ExposeDevToolsProtocolCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
+        {
+            return await m_session.SendCommand<ExposeDevToolsProtocolCommand, ExposeDevToolsProtocolCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
         }
         /// <summary>
         /// Creates a new empty BrowserContext. Similar to an incognito profile but you can have more than

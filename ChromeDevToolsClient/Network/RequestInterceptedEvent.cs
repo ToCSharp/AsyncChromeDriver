@@ -41,7 +41,7 @@ namespace Zu.ChromeDevTools.Network
         /// How the requested resource will be used.
         /// </summary>
         [JsonProperty("resourceType")]
-        public Page.ResourceType ResourceType
+        public ResourceType ResourceType
         {
             get;
             set;

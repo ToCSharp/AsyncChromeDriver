@@ -24,6 +24,17 @@ namespace Zu.ChromeDevTools.Page
             get;
             set;
         }
+        /// <summary>
+        /// If specified, creates an isolated world with the given name and evaluates given script in it.
+        /// This world name will be used as the ExecutionContextDescription::name when the corresponding
+        /// event is emitted.
+        /// </summary>
+        [JsonProperty("worldName", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public string WorldName
+        {
+            get;
+            set;
+        }
     }
 
     public sealed class AddScriptToEvaluateOnNewDocumentCommandResponse : ICommandResponse<AddScriptToEvaluateOnNewDocumentCommand>

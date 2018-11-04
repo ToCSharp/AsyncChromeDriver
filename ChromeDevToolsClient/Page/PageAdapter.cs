@@ -258,6 +258,20 @@ namespace Zu.ChromeDevTools.Page
             return await m_session.SendCommand<SetDeviceOrientationOverrideCommand, SetDeviceOrientationOverrideCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
         }
         /// <summary>
+        /// Set generic font families.
+        /// </summary>
+        public async Task<SetFontFamiliesCommandResponse> SetFontFamilies(SetFontFamiliesCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
+        {
+            return await m_session.SendCommand<SetFontFamiliesCommand, SetFontFamiliesCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
+        }
+        /// <summary>
+        /// Set default font sizes.
+        /// </summary>
+        public async Task<SetFontSizesCommandResponse> SetFontSizes(SetFontSizesCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
+        {
+            return await m_session.SendCommand<SetFontSizesCommand, SetFontSizesCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
+        }
+        /// <summary>
         /// Sets given markup as the document's HTML.
         /// </summary>
         public async Task<SetDocumentContentCommandResponse> SetDocumentContent(SetDocumentContentCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
@@ -336,6 +350,35 @@ namespace Zu.ChromeDevTools.Page
         public async Task<StopScreencastCommandResponse> StopScreencast(StopScreencastCommand command = null, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
             return await m_session.SendCommand<StopScreencastCommand, StopScreencastCommandResponse>(command ?? new StopScreencastCommand(), cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
+        }
+        /// <summary>
+        /// Forces compilation cache to be generated for every subresource script.
+        /// </summary>
+        public async Task<SetProduceCompilationCacheCommandResponse> SetProduceCompilationCache(SetProduceCompilationCacheCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
+        {
+            return await m_session.SendCommand<SetProduceCompilationCacheCommand, SetProduceCompilationCacheCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
+        }
+        /// <summary>
+        /// Seeds compilation cache for given url. Compilation cache does not survive
+    /// cross-process navigation.
+        /// </summary>
+        public async Task<AddCompilationCacheCommandResponse> AddCompilationCache(AddCompilationCacheCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
+        {
+            return await m_session.SendCommand<AddCompilationCacheCommand, AddCompilationCacheCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
+        }
+        /// <summary>
+        /// Clears seeded compilation cache.
+        /// </summary>
+        public async Task<ClearCompilationCacheCommandResponse> ClearCompilationCache(ClearCompilationCacheCommand command = null, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
+        {
+            return await m_session.SendCommand<ClearCompilationCacheCommand, ClearCompilationCacheCommandResponse>(command ?? new ClearCompilationCacheCommand(), cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
+        }
+        /// <summary>
+        /// Generates a report for testing.
+        /// </summary>
+        public async Task<GenerateTestReportCommandResponse> GenerateTestReport(GenerateTestReportCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
+        {
+            return await m_session.SendCommand<GenerateTestReportCommand, GenerateTestReportCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
         }
 
         /// <summary>
@@ -471,6 +514,14 @@ namespace Zu.ChromeDevTools.Page
         /// etc.
         /// </summary>
         public void SubscribeToWindowOpenEvent(Action<WindowOpenEvent> eventCallback)
+        {
+            m_session.Subscribe(eventCallback);
+        }
+        /// <summary>
+        /// Issued for every compilation cache generated. Is only available
+        /// if Page.setGenerateCompilationCache is enabled.
+        /// </summary>
+        public void SubscribeToCompilationCacheProducedEvent(Action<CompilationCacheProducedEvent> eventCallback)
         {
             m_session.Subscribe(eventCallback);
         }

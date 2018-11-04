@@ -18,6 +18,12 @@ namespace Zu.ChromeDevTools.Accessibility
         Busy,
         [EnumMember(Value = "disabled")]
         Disabled,
+        [EnumMember(Value = "editable")]
+        Editable,
+        [EnumMember(Value = "focusable")]
+        Focusable,
+        [EnumMember(Value = "focused")]
+        Focused,
         [EnumMember(Value = "hidden")]
         Hidden,
         [EnumMember(Value = "hiddenRoot")]
@@ -26,6 +32,8 @@ namespace Zu.ChromeDevTools.Accessibility
         Invalid,
         [EnumMember(Value = "keyshortcuts")]
         Keyshortcuts,
+        [EnumMember(Value = "settable")]
+        Settable,
         [EnumMember(Value = "roledescription")]
         Roledescription,
         [EnumMember(Value = "live")]
