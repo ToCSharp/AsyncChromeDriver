@@ -92,6 +92,8 @@ Look [BrowsersDevToolsExample](https://github.com/ToCSharp/BrowsersDevToolsExamp
 Look at AsyncChromeDriverExample.
 
 #### Tests
+Tests ported to async/await from selenium project In AsyncChromeDriver.Tests. Before run, start HtmlForTests (Start Without Debugging)  
+Or  
 [Unit Tests from Selenuim](https://github.com/ToCSharp/AsyncChromeDriverExamplesAndTests/tree/master/AsyncWebDriver.SeleniumAdapter.Common.Tests) run through [SeleniumAdapter](https://github.com/ToCSharp/AsyncChromeDriverExamplesAndTests/tree/master/AsyncWebDriver.SeleniumAdapter) -> [SyncWebDriver](https://github.com/ToCSharp/AsyncWebDriver/tree/master/AsyncWebDriver/SyncWrapper) -> [AsyncWebDriver](https://github.com/ToCSharp/AsyncWebDriver) -> [AsyncChromeDriver](https://github.com/ToCSharp/AsyncChromeDriver)  
 
 
