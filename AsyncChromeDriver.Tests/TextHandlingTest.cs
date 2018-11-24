@@ -51,7 +51,7 @@ namespace Zu.AsyncChromeDriver.Tests
         [Test]
         public async Task ShouldRepresentABlockLevelElementAsANewline()
         {
-            await driver.GoToUrl((simpleTestPage));
+            await driver.GoToUrl(simpleTestPage);
             string text = await driver.FindElement(By.Id("multiline")).Text();
 
             Assert.That(text, Does.StartWith("A div containing" + NewLine));

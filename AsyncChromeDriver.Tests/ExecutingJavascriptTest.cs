@@ -220,7 +220,7 @@ namespace Zu.AsyncChromeDriver.Tests
             await driver.GoToUrl(xhtmlTestPage);
             //Assert.That(async () => await ExecuteScript("return squiggle();"), Throws.InstanceOf<WebDriverException>());
             await AssertEx.ThrowsAsync<WebBrowserException>(async () => await ExecuteScript("return squiggle();"),
-                exception => Assert.AreEqual("WebDriverException", exception.Error));
+                exception => Assert.AreEqual("invalid operation", exception.Error));
         }
 
         [Test]
