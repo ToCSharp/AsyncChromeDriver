@@ -109,7 +109,7 @@ namespace Zu.Chrome.DriverCore
         public async Task<string> GetUrl(CancellationToken cancellationToken = default (CancellationToken))
         {
             if (_asyncChromeDriver != null)
-                await _asyncChromeDriver.CheckConnected().ConfigureAwait(false);
+                await _asyncChromeDriver.CheckConnected(cancellationToken).ConfigureAwait(false);
             var res = await DevTools.Page.GetNavigationHistory(new GetNavigationHistoryCommand(), cancellationToken).ConfigureAwait(false);
             return res.Entries?.ElementAtOrDefault((int)res.CurrentIndex)?.Url;
         }
@@ -117,7 +117,7 @@ namespace Zu.Chrome.DriverCore
         public async Task<NavigateCommandResponse> Load(string url, int ? timeout = null, CancellationToken cancellationToken = default (CancellationToken))
         {
             if (_asyncChromeDriver != null)
-                await _asyncChromeDriver.CheckConnected().ConfigureAwait(false);
+                await _asyncChromeDriver.CheckConnected(cancellationToken).ConfigureAwait(false);
             var res = await DevTools.Page.Navigate(new NavigateCommand{Url = url}, cancellationToken, timeout).ConfigureAwait(false);
             return res;
         }
@@ -241,7 +241,7 @@ namespace Zu.Chrome.DriverCore
                 nodeId = nodeResp?.NodeId;
                 if (nodeId == null)
                     throw new Exception("DOM.requestNode missing int 'nodeId'");
-                var releaseResp = await DevTools.Runtime.ReleaseObject(new ReleaseObjectCommand{ObjectId = elementId}).ConfigureAwait(false);
+                var releaseResp = await DevTools.Runtime.ReleaseObject(new ReleaseObjectCommand{ObjectId = elementId}, cancellationToken).ConfigureAwait(false);
                 return (int)nodeId;
             }
             catch

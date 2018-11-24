@@ -57,7 +57,7 @@ namespace Zu.Chrome.DriverCore
 
         internal static string AsString(object value)
         {
-            return (string)(value as JObject)?["value"];
+            return ((string)(value as JObject)?["value"])?.Replace("\n", "\r\n").Replace("\r\r", "\r");
         }
 
         internal static string ToElementId(object value, string elementKey = "ELEMENT")
