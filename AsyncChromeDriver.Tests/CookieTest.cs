@@ -2,7 +2,7 @@ using System;
 using NUnit.Framework;
 using Zu.WebBrowser.BasicTypes;
 
-namespace OpenQA.Selenium
+namespace Zu.AsyncChromeDriver.Tests
 {
     [TestFixture]
     public class CookieTest
