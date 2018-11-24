@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 using NUnit.Framework;
 using Zu.AsyncWebDriver;
 
-namespace OpenQA.Selenium
+namespace Zu.AsyncChromeDriver.Tests
 {
     [TestFixture]
     public class GetMultipleAttributeTest : DriverTestFixture

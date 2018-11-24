@@ -6,22 +6,22 @@ using Zu.AsyncWebDriver.Remote;
 
 //using AsyncWebDriver.SeleniumAdapter;
 
-namespace OpenQA.Selenium.Environment
+namespace Zu.AsyncChromeDriver.Tests.Environment
 {
     public class EnvironmentManager
     {
         public static Browser CurrentTestingBrowser = (Browser)Enum.Parse(typeof(Browser), GetSettingValue("DriverName"));// Browser.Chrome;
 
-        private static EnvironmentManager instance;
-        private Type driverType;
-        private Browser browser;
+        private static EnvironmentManager _instance;
+        private Type _driverType;
+        private Browser _browser;
         private Zu.Chrome.AsyncChromeDriver _asyncChromeDriver;
-        private IWebDriver driver;
-        private UrlBuilder urlBuilder;
-        private TestWebServer webServer;
+        private IWebDriver _driver;
+        private UrlBuilder _urlBuilder;
+        private TestWebServer _webServer;
         //RemoteSeleniumServer remoteServer;
-        private string remoteCapabilities;
-        private string driverStringArg;
+        private string _remoteCapabilities;
+        private string _driverStringArg;
 
         private EnvironmentManager()
         {
@@ -29,17 +29,17 @@ namespace OpenQA.Selenium.Environment
             try
             {
                 string driverClassName = GetSettingValue("Driver");
-                driverStringArg = GetSettingValue("DriverStringArg");
+                _driverStringArg = GetSettingValue("DriverStringArg");
                 //string assemblyName = GetSettingValue("Assembly");
                 //Assembly assembly = Assembly.Load(assemblyName);
                 //driverType = assembly.GetType(driverClassName);
-                remoteCapabilities = GetSettingValue("RemoteCapabilities");
+                _remoteCapabilities = GetSettingValue("RemoteCapabilities");
             }
             catch (Exception)
             {
             }
 
-            urlBuilder = new UrlBuilder();
+            _urlBuilder = new UrlBuilder();
 
             string currentDirectory = this.CurrentDirectory;
             DirectoryInfo info = new DirectoryInfo(currentDirectory);
@@ -49,9 +49,9 @@ namespace OpenQA.Selenium.Environment
             }
 
             //info = info.Parent;
-            webServer = new TestWebServer(info.FullName);
+            _webServer = new TestWebServer(info.FullName);
             bool autoStartRemoteServer = false;
-            if (browser == Browser.Remote)
+            if (_browser == Browser.Remote)
             {
                 autoStartRemoteServer = bool.Parse(GetSettingValue("AutoStartRemoteServer"));
             }
@@ -62,8 +62,8 @@ namespace OpenQA.Selenium.Environment
         ~EnvironmentManager()
         {
             //remoteServer.Stop();
-            webServer?.Stop();
-            driver?.Quit();
+            _webServer?.Stop();
+            _driver?.Quit();
         }
 
         public static string GetSettingValue(string key)
@@ -82,7 +82,7 @@ namespace OpenQA.Selenium.Environment
 
         public Browser Browser 
         {
-            get { return browser; }
+            get { return _browser; }
         }
 
         public string CurrentDirectory
@@ -107,7 +107,7 @@ namespace OpenQA.Selenium.Environment
         
         public TestWebServer WebServer
         {
-            get { return webServer; }
+            get { return _webServer; }
         }
 
         //public RemoteSeleniumServer RemoteServer
@@ -117,14 +117,14 @@ namespace OpenQA.Selenium.Environment
 
         public string RemoteCapabilities
         {
-            get { return remoteCapabilities; }
+            get { return _remoteCapabilities; }
         }
 
         public IWebDriver GetCurrentDriver()
         {
-            if (driver != null)
+            if (_driver != null)
             { 
-                return driver; 
+                return _driver; 
             }
             else 
             { 
@@ -135,8 +135,8 @@ namespace OpenQA.Selenium.Environment
         public IWebDriver CreateDriverInstance()
         {
             _asyncChromeDriver = new Zu.Chrome.AsyncChromeDriver();
-            driver = new WebDriver(_asyncChromeDriver);
-            return driver;
+            _driver = new WebDriver(_asyncChromeDriver);
+            return _driver;
             //if(!string.IsNullOrWhiteSpace(driverStringArg)) return (IWebDriver)Activator.CreateInstance(driverType, driverStringArg);
             //return (IWebDriver)Activator.CreateInstance(driverType);
         }
@@ -144,26 +144,26 @@ namespace OpenQA.Selenium.Environment
         public IWebDriver CreateFreshDriver()
         {
             CloseCurrentDriver();
-            driver = CreateDriverInstance();
-            return driver;
+            _driver = CreateDriverInstance();
+            return _driver;
         }
 
         public void CloseCurrentDriver()
         {
-            driver?.Close();
-            driver = null;
+            _driver?.Close();
+            _driver = null;
         }
 
         public static EnvironmentManager Instance
         {
             get
             {
-                if (instance == null)
+                if (_instance == null)
                 {
-                    instance = new EnvironmentManager();
+                    _instance = new EnvironmentManager();
                 }
 
-                return instance;
+                return _instance;
             }
         }
 
@@ -171,7 +171,7 @@ namespace OpenQA.Selenium.Environment
         {
             get
             {
-                return urlBuilder;
+                return _urlBuilder;
             }
         }
 

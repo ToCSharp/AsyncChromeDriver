@@ -2,7 +2,7 @@ using System;
 using System.Threading.Tasks;
 using NUnit.Framework;
 
-namespace OpenQA.Selenium
+namespace Zu.AsyncChromeDriver.Tests
 {
     public static class AssertEx
     {

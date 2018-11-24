@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Zu.AsyncWebDriver;
 
-namespace OpenQA.Selenium
+namespace Zu.AsyncChromeDriver.Tests
 {
     [TestFixture]
     public class PartialLinkTextMatchTest : DriverTestFixture

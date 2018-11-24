@@ -5,7 +5,7 @@ using Zu.AsyncWebDriver;
 using Zu.WebBrowser.BrowserOptions;
 using Size = Zu.WebBrowser.BasicTypes.WebSize;
 using Point = Zu.WebBrowser.BasicTypes.WebPoint;
-namespace OpenQA.Selenium
+namespace Zu.AsyncChromeDriver.Tests
 {
     [TestFixture]
     public class WindowTest : DriverTestFixture

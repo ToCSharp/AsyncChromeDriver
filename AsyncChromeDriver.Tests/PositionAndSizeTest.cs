@@ -1,12 +1,12 @@
 using System.Threading.Tasks;
 using NUnit.Framework;
-using OpenQA.Selenium.Environment;
+using Zu.AsyncChromeDriver.Tests.Environment;
 using Zu.AsyncWebDriver;
 using Zu.WebBrowser.AsyncInteractions;
 using Size = Zu.WebBrowser.BasicTypes.WebSize;
 using Point = Zu.WebBrowser.BasicTypes.WebPoint;
 
-namespace OpenQA.Selenium
+namespace Zu.AsyncChromeDriver.Tests
 {
     [TestFixture]
     public class PositionAndSizeTest : DriverTestFixture

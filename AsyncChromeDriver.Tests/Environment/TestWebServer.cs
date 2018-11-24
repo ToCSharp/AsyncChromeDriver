@@ -3,7 +3,7 @@ using System.IO;
 using System.Net;
 using System.Diagnostics;
 
-namespace OpenQA.Selenium.Environment
+namespace Zu.AsyncChromeDriver.Tests.Environment
 {
     public class TestWebServer
     {
@@ -12,12 +12,12 @@ namespace OpenQA.Selenium.Environment
         //private string standaloneTestJar = @"buck-out/gen/java/client/test/org/openqa/selenium/environment/webserver.jar";
         //private string webserverClassName = "org.openqa.selenium.environment.webserver.JettyAppServer";
         public static int Port = 2310;
-        private string projectRootPath;
-        private SimpleHTTPServer simpleHTTPServer;
+        private string _projectRootPath;
+        private SimpleHTTPServer _simpleHttpServer;
 
         public TestWebServer(string projectRoot)
         {
-            projectRootPath = projectRoot;
+            _projectRootPath = projectRoot;
         }
 
         public void Start()
@@ -48,7 +48,7 @@ namespace OpenQA.Selenium.Environment
 //#if DEBUG
             if (webserverProcess == null || webserverProcess.HasExited)
             {
-                string webserverBinaryPath = Path.Combine(projectRootPath, "SimpleHTTPServer", "bin", "Release", "SimpleHTTPServer.exe");
+                string webserverBinaryPath = Path.Combine(_projectRootPath, "SimpleHTTPServer", "bin", "Release", "SimpleHTTPServer.exe");
                 //if (System.Environment.OSVersion.Platform == PlatformID.Win32NT || System.Environment.OSVersion.Platform == PlatformID.Win32Windows)
                 //{
                 //    webserverBinaryPath = webserverBinaryPath + ".exe";
@@ -56,7 +56,7 @@ namespace OpenQA.Selenium.Environment
 
                 webserverProcess = new Process();
                 webserverProcess.StartInfo.FileName = webserverBinaryPath;
-                webserverProcess.StartInfo.Arguments = $"{Port} \"{projectRootPath}\"";
+                webserverProcess.StartInfo.Arguments = $"{Port} \"{_projectRootPath}\"";
                 //webserverProcess.StartInfo.WorkingDirectory = projectRootPath;
                 webserverProcess.Start();
             }

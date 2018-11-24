@@ -6,43 +6,31 @@ using System.Net;
 using System.Text;
 using Newtonsoft.Json;
 
-namespace OpenQA.Selenium.Environment
+namespace Zu.AsyncChromeDriver.Tests.Environment
 {
     public class UrlBuilder
     {
-        string protocol;
-        string hostName;
-        string port;
-        string securePort;
-        string path;
-        string alternateHostName;
+        string _protocol;
+        string _port;
+        string _securePort;
 
-        public string AlternateHostName
-        {
-            get { return alternateHostName; }
-        }
+        public string AlternateHostName { get; }
 
-        public string HostName
-        {
-            get { return hostName; }
-        }
+        public string HostName { get; }
 
-        public string Path
-        {
-            get { return path; }
-        }
+        public string Path { get; }
 
         public UrlBuilder()
         {
-            protocol = EnvironmentManager.GetSettingValue("Protocol");
-            hostName = EnvironmentManager.GetSettingValue("HostName");
-            port = EnvironmentManager.GetSettingValue("Port");
-            securePort = EnvironmentManager.GetSettingValue("SecurePort");
+            _protocol = EnvironmentManager.GetSettingValue("Protocol");
+            HostName = EnvironmentManager.GetSettingValue("HostName");
+            _port = EnvironmentManager.GetSettingValue("Port");
+            _securePort = EnvironmentManager.GetSettingValue("SecurePort");
             // TODO(andre.nogueira): Remove trailing / from folder
-            path = EnvironmentManager.GetSettingValue("Folder");
+            Path = EnvironmentManager.GetSettingValue("Folder");
             //Use the first IPv4 address that we find
             IPAddress ipAddress = IPAddress.Parse("127.0.0.1");
-            foreach (IPAddress ip in Dns.GetHostEntry(hostName).AddressList)
+            foreach (IPAddress ip in Dns.GetHostEntry(HostName).AddressList)
             {
                 if (ip.AddressFamily == AddressFamily.InterNetwork)
                 {
@@ -50,13 +38,13 @@ namespace OpenQA.Selenium.Environment
                     break;
                 }
             }
-            alternateHostName = ipAddress.ToString();
+            AlternateHostName = ipAddress.ToString();
         }
 
         public string LocalWhereIs(string page)
         {
             string location = string.Empty;
-            location = "http://localhost:" + port + "/" + path + "/" + page;
+            location = "http://localhost:" + _port + "/" + Path + "/" + page;
 
             return location;
         }
@@ -64,7 +52,7 @@ namespace OpenQA.Selenium.Environment
         public string WhereIs(string page)
         {
             string location = string.Empty;
-            location = "http://" + hostName + ":" + port + "/" + path + "/" + page;
+            location = "http://" + HostName + ":" + _port + "/" + Path + "/" + page;
 
             return location;
         }
@@ -72,7 +60,7 @@ namespace OpenQA.Selenium.Environment
         public string WhereElseIs(string page)
         {
             string location = string.Empty;
-            location = "http://" + alternateHostName + ":" + port + "/" + path + "/" + page;
+            location = "http://" + AlternateHostName + ":" + _port + "/" + Path + "/" + page;
 
             return location;
         }
@@ -80,7 +68,7 @@ namespace OpenQA.Selenium.Environment
         public string WhereIsSecure(string page)
         {
             string location = string.Empty;
-            location = "https://" + hostName + ":" + securePort + "/" + path + "/" + page;
+            location = "https://" + HostName + ":" + _securePort + "/" + Path + "/" + page;
 
             return location;
         }
@@ -113,7 +101,7 @@ namespace OpenQA.Selenium.Environment
             }
 
             if (responseString.Contains("localhost")) {
-                responseString = responseString.Replace("localhost", this.hostName);
+                responseString = responseString.Replace("localhost", this.HostName);
             }
 
             return responseString;

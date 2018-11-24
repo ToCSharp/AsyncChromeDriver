@@ -1,13 +1,13 @@
 using System;
 using NUnit.Framework;
-using OpenQA.Selenium.Environment;
+using Zu.AsyncChromeDriver.Tests.Environment;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Zu.AsyncWebDriver;
 using Zu.WebBrowser.BasicTypes;
 using Zu.WebBrowser.BrowserOptions;
 using Size = Zu.WebBrowser.BasicTypes.WebSize;
-namespace OpenQA.Selenium
+namespace Zu.AsyncChromeDriver.Tests
 {
     [TestFixture]
     public class VisibilityTest : DriverTestFixture

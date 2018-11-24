@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Zu.AsyncWebDriver;
 
-namespace OpenQA.Selenium
+namespace Zu.AsyncChromeDriver.Tests
 {
     // TODO(andre.nogueira): Find better name. This class is to distinguish 
     // finding elements in the driver (whole page), and inside other elements

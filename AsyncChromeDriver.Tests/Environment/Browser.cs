@@ -1,4 +1,4 @@
-namespace OpenQA.Selenium
+namespace Zu.AsyncChromeDriver.Tests
 {
     public enum Browser
     {

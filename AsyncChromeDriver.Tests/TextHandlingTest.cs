@@ -1,13 +1,13 @@
 using System;
 using NUnit.Framework;
-using OpenQA.Selenium.Environment;
+using Zu.AsyncChromeDriver.Tests.Environment;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Zu.AsyncWebDriver;
 using Zu.WebBrowser.AsyncInteractions;
 
-namespace OpenQA.Selenium
+namespace Zu.AsyncChromeDriver.Tests
 {
     [TestFixture]
     public class TextHandlingTest : DriverTestFixture

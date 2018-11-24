@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Zu.AsyncWebDriver;
 using Zu.WebBrowser.AsyncInteractions;
 
-namespace OpenQA.Selenium
+namespace Zu.AsyncChromeDriver.Tests
 {
     public class TestUtilities
     {
@@ -36,7 +36,7 @@ namespace OpenQA.Selenium
         //    IHasCapabilities hasCaps = driver as IHasCapabilities;
         //    if (hasCaps != null)
         //    {
-        //        object cap = hasCaps.Capabilities.GetCapability(OpenQA.Selenium.Remote.CapabilityType.HasNativeEvents);
+        //        object cap = hasCaps.Capabilities.GetCapability(Zu.AsyncChromeDriver.Tests.Remote.CapabilityType.HasNativeEvents);
         //        if (cap != null && cap is bool)
         //        {
         //            return (bool)cap;

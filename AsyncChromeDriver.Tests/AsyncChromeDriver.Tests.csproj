@@ -60,6 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AlertsTest.cs" />
+    <Compile Include="CookieImplementationTest.cs" />
     <Compile Include="Extensions\AssertEx.cs" />
     <Compile Include="AtomsInjectionTest.cs" />
     <Compile Include="ChildrenFindingTest.cs" />

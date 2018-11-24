@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using NUnit.Framework;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
-using OpenQA.Selenium.Environment;
+using Zu.AsyncChromeDriver.Tests.Environment;
 using Zu.AsyncWebDriver;
 
-namespace OpenQA.Selenium
+namespace Zu.AsyncChromeDriver.Tests
 {
     [TestFixture]
     public class ElementAttributeTest : DriverTestFixture

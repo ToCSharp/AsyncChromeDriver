@@ -1,11 +1,11 @@
 using System.Threading.Tasks;
 using NUnit.Framework;
-using OpenQA.Selenium.Environment;
+using Zu.AsyncChromeDriver.Tests.Environment;
 using Zu.AsyncWebDriver;
 using Zu.AsyncWebDriver.Remote;
 using Zu.WebBrowser.AsyncInteractions;
 
-namespace OpenQA.Selenium
+namespace Zu.AsyncChromeDriver.Tests
 {
  
     [TestFixture]

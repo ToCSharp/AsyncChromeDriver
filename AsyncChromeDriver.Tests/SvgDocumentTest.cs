@@ -3,7 +3,7 @@ using NUnit.Framework;
 using Zu.AsyncWebDriver;
 using Zu.WebBrowser.AsyncInteractions;
 
-namespace OpenQA.Selenium
+namespace Zu.AsyncChromeDriver.Tests
 {
     [TestFixture]
     public class SvgDocumentTest : DriverTestFixture

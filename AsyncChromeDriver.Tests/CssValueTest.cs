@@ -1,9 +1,9 @@
 using System.Threading.Tasks;
 using NUnit.Framework;
-using OpenQA.Selenium.Environment;
+using Zu.AsyncChromeDriver.Tests.Environment;
 using Zu.AsyncWebDriver;
 
-namespace OpenQA.Selenium
+namespace Zu.AsyncChromeDriver.Tests
 {
     [TestFixture]
     public class CssValueTest : DriverTestFixture

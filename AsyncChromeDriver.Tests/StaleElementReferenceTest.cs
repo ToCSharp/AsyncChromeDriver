@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Zu.AsyncWebDriver;
 using Zu.WebBrowser.BasicTypes;
 using Size = Zu.WebBrowser.BasicTypes.WebSize;
-namespace OpenQA.Selenium
+namespace Zu.AsyncChromeDriver.Tests
 {
     [TestFixture]
     public class StaleElementReferenceTest : DriverTestFixture

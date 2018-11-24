@@ -1,30 +1,18 @@
 ﻿using NUnit.Framework;
 using NUnit.Framework.Interfaces;
-using OpenQA.Selenium.Environment;
+using Zu.AsyncChromeDriver.Tests.Environment;
 
-namespace OpenQA.Selenium
+namespace Zu.AsyncChromeDriver.Tests
 {
     public class NeedsFreshDriverAttribute : TestActionAttribute
     {
-        private bool isCreatedBeforeTest = false;
-        private bool isCreatedAfterTest = false;
+        public bool IsCreatedBeforeTest { get; set; } = false;
 
-        public bool IsCreatedBeforeTest
-        {
-            get { return isCreatedBeforeTest; }
-            set { isCreatedBeforeTest = value; }
-        }
-
-        public bool IsCreatedAfterTest
-        {
-            get { return isCreatedAfterTest; }
-            set { isCreatedAfterTest = value; }
-        }
+        public bool IsCreatedAfterTest { get; set; } = false;
 
         public override void BeforeTest(ITest test)
         {
-            DriverTestFixture fixtureInstance = test.Fixture as DriverTestFixture;
-            if (fixtureInstance != null && this.isCreatedBeforeTest)
+            if (test.Fixture is DriverTestFixture fixtureInstance && IsCreatedBeforeTest)
             {
                 EnvironmentManager.Instance.CreateFreshDriver();
                 fixtureInstance.DriverInstance = EnvironmentManager.Instance.GetCurrentDriver();
@@ -34,8 +22,7 @@ namespace OpenQA.Selenium
 
         public override void AfterTest(ITest test)
         {
-            DriverTestFixture fixtureInstance = test.Fixture as DriverTestFixture;
-            if (fixtureInstance != null && this.isCreatedAfterTest)
+            if (test.Fixture is DriverTestFixture fixtureInstance && IsCreatedAfterTest)
             {
                 EnvironmentManager.Instance.CreateFreshDriver();
                 fixtureInstance.DriverInstance = EnvironmentManager.Instance.GetCurrentDriver();

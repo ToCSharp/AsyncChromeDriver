@@ -8,7 +8,7 @@ using Zu.AsyncWebDriver;
 using Zu.WebBrowser.AsyncInteractions;
 using Zu.WebBrowser.BasicTypes;
 
-namespace OpenQA.Selenium
+namespace Zu.AsyncChromeDriver.Tests
 {
     [TestFixture]
     public class ExecutingJavascriptTest : DriverTestFixture

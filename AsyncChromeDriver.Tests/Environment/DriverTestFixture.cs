@@ -1,13 +1,13 @@
 using NUnit.Framework;
-using OpenQA.Selenium.Environment;
+using Zu.AsyncChromeDriver.Tests.Environment;
 using System;
 using System.Threading.Tasks;
 using Zu.AsyncWebDriver;
 
-//using OpenQA.Selenium.Remote;
+//using Zu.AsyncChromeDriver.Tests.Remote;
 //using AsyncWebDriver.SeleniumAdapter;
 
-namespace OpenQA.Selenium
+namespace Zu.AsyncChromeDriver.Tests
 {
     public abstract class DriverTestFixture
     {
