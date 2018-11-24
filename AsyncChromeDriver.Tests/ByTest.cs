@@ -1,39 +1,43 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using NUnit.Framework;
-using OpenQA.Selenium.Internal;
 using Moq;
 using Zu.AsyncWebDriver;
 using Zu.AsyncWebDriver.Internal;
 
-namespace OpenQA.Selenium
+namespace Zu.AsyncChromeDriver.Tests
 {
     [TestFixture]
     public class ByTest
     {
         [Test]
-        public void ShouldUseFindsByNameToLocateElementsByName() 
+        public async Task ShouldUseFindsByNameToLocateElementsByName() 
         {
             var mockDriver = new Mock<IAllDriver>();
             var mockElement = new Mock<IWebElement>();
+            List<(Task<IWebElement>, string, CancellationToken)> queue = new List<(Task<IWebElement>, string, CancellationToken)>();
 
-            mockDriver.Setup(_ => _.FindElementByName(It.Is<string>(x => x == "cheese"))).Returns(mockElement.Object);
+            mockDriver.Setup(_ => _.FindElementByName(It.Is<string>(x => x == "cheese"), new CancellationToken())).ReturnsAsync(mockElement.Object);
 
             By by = By.Name("cheese");
-            var element = by.FindElement(mockDriver.Object);
+            var element = await by.FindElement(mockDriver.Object);
+
             Assert.AreEqual(mockElement.Object, element);
-            mockDriver.Verify(x => x.FindElementByName("cheese"), Times.Once);
+            mockDriver.Verify(x => x.FindElementByName("cheese", new CancellationToken()), Times.Once);
         }
 
-        // TODO (jimevan): This test is disabled in the Java implementation unit tests.
-        // Is the functionality not implemented?*
-        public void ShouldUseXPathToFindByNameIfDriverDoesNotImplementFindsByName()
+        public async Task ShouldUseXPathToFindByNameIfDriverDoesNotImplementFindsByName()
         {
             var mockDriver = new Mock<IOnlyXPath>();
             var mockElement = new Mock<IWebElement>();
 
-            mockDriver.Setup(_ => _.FindElementByXPath(It.Is<string>(x => x == "//*[@name='cheese']"))).Returns(mockElement.Object);
+            mockDriver.Setup(_ => _.FindElementByXPath(It.Is<string>(x => x == "//*[@name='cheese']"), new CancellationToken())).ReturnsAsync(mockElement.Object);
 
             By by = By.Name("cheese");
-            var element = by.FindElement(mockDriver.Object);
+            var element = await by.FindElement(mockDriver.Object);
             Assert.AreEqual(mockElement.Object, element);
         }
 
