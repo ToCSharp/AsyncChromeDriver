@@ -1,0 +1,397 @@
+﻿<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.5\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.5\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\Microsoft.Net.Compilers.2.1.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.2.1.0\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{2FB6308D-F2D2-4D8C-ACB3-CDE08291E378}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>HtmlForTests</RootNamespace>
+    <AssemblyName>HtmlForTests</AssemblyName>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.5\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="actualXhtmlPage.xhtml" />
+    <Content Include="button.png" />
+    <Content Include="changes.txt" />
+    <Content Include="elementObscuredByInvisibleElement.html" />
+    <Content Include="html5\test.appcache" />
+    <Content Include="inputs.html" />
+    <Content Include="js\skins\lightgray\fonts\readme.md" />
+    <Content Include="js\skins\lightgray\fonts\tinymce-small.eot" />
+    <Content Include="js\skins\lightgray\fonts\tinymce-small.ttf" />
+    <Content Include="js\skins\lightgray\fonts\tinymce-small.woff" />
+    <Content Include="js\skins\lightgray\fonts\tinymce.eot" />
+    <Content Include="js\skins\lightgray\fonts\tinymce.ttf" />
+    <Content Include="js\skins\lightgray\fonts\tinymce.woff" />
+    <None Include="packages.config" />
+    <Content Include="Settings.StyleCop" />
+    <Content Include="svgPiechart.xhtml" />
+    <Content Include="upload_invisible.html" />
+    <Content Include="upload_multiple.html" />
+    <Content Include="Web - Copy.config" />
+    <Content Include="Web - Copy.Debug.config">
+      <DependentUpon>Web - Copy.config</DependentUpon>
+    </Content>
+    <Content Include="Web - Copy.Release.config">
+      <DependentUpon>Web - Copy.config</DependentUpon>
+    </Content>
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <Content Include="xhtmlFormPage.xhtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ajaxy_page.html" />
+    <Content Include="alerts.html" />
+    <Content Include="animals\.gitignore" />
+    <Content Include="banner.gif" />
+    <Content Include="beach.jpg" />
+    <Content Include="blank.html" />
+    <Content Include="bodyTypingTest.html" />
+    <Content Include="booleanAttributes.html" />
+    <Content Include="child\childPage.html" />
+    <Content Include="child\grandchild\grandchildPage.html" />
+    <Content Include="clickEventPage.html" />
+    <Content Include="clicks.html" />
+    <Content Include="ClickTest_testClicksASurroundingStrongTag.html" />
+    <Content Include="click_frames.html" />
+    <Content Include="click_jacker.html" />
+    <Content Include="click_out_of_bounds.html" />
+    <Content Include="click_out_of_bounds_overflow.html" />
+    <Content Include="click_rtl.html" />
+    <Content Include="click_source.html" />
+    <Content Include="click_tests\click_iframe.html" />
+    <Content Include="click_tests\click_in_iframe.html" />
+    <Content Include="click_tests\disabled_element.html" />
+    <Content Include="click_tests\disappearing_element.html" />
+    <Content Include="click_tests\google_map.html" />
+    <Content Include="click_tests\google_map.png" />
+    <Content Include="click_tests\html5_submit_buttons.html" />
+    <Content Include="click_tests\issue5237.html" />
+    <Content Include="click_tests\issue5237_frame.html" />
+    <Content Include="click_tests\issue5237_target.html" />
+    <Content Include="click_tests\link_that_wraps.html" />
+    <Content Include="click_tests\mapped_page1.html" />
+    <Content Include="click_tests\mapped_page2.html" />
+    <Content Include="click_tests\mapped_page3.html" />
+    <Content Include="click_tests\overlapping_elements.html" />
+    <Content Include="click_tests\partially_overlapping_elements.html" />
+    <Content Include="click_tests\span_that_wraps.html" />
+    <Content Include="click_tests\submitted_page.html" />
+    <Content Include="click_tests\wrapped_overlapping_elements.html" />
+    <Content Include="click_too_big.html" />
+    <Content Include="click_too_big_in_frame.html" />
+    <Content Include="closeable_window.html" />
+    <Content Include="cn-test.html" />
+    <Content Include="colorPage.html" />
+    <Content Include="content-editable.html" />
+    <Content Include="cookies.html" />
+    <Content Include="coordinates_tests\element_in_frame.html" />
+    <Content Include="coordinates_tests\element_in_nested_frame.html" />
+    <Content Include="coordinates_tests\page_with_element_out_of_view.html" />
+    <Content Include="coordinates_tests\page_with_empty_element.html" />
+    <Content Include="coordinates_tests\page_with_fixed_element.html" />
+    <Content Include="coordinates_tests\page_with_hidden_element.html" />
+    <Content Include="coordinates_tests\page_with_invisible_element.html" />
+    <Content Include="coordinates_tests\page_with_transparent_element.html" />
+    <Content Include="coordinates_tests\simple_page.html" />
+    <Content Include="cssTransform.html" />
+    <Content Include="cssTransform2.html" />
+    <Content Include="css\ui-lightness\images\ui-bg_diagonals-thick_18_b81900_40x40.png" />
+    <Content Include="css\ui-lightness\images\ui-bg_diagonals-thick_20_666666_40x40.png" />
+    <Content Include="css\ui-lightness\images\ui-bg_flat_10_000000_40x100.png" />
+    <Content Include="css\ui-lightness\images\ui-bg_glass_100_f6f6f6_1x400.png" />
+    <Content Include="css\ui-lightness\images\ui-bg_glass_100_fdf5ce_1x400.png" />
+    <Content Include="css\ui-lightness\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="css\ui-lightness\images\ui-bg_gloss-wave_35_f6a828_500x100.png" />
+    <Content Include="css\ui-lightness\images\ui-bg_highlight-soft_100_eeeeee_1x100.png" />
+    <Content Include="css\ui-lightness\images\ui-bg_highlight-soft_75_ffe45c_1x100.png" />
+    <Content Include="css\ui-lightness\images\ui-icons_222222_256x240.png" />
+    <Content Include="css\ui-lightness\images\ui-icons_228ef1_256x240.png" />
+    <Content Include="css\ui-lightness\images\ui-icons_ef8c08_256x240.png" />
+    <Content Include="css\ui-lightness\images\ui-icons_ffd27a_256x240.png" />
+    <Content Include="css\ui-lightness\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="css\ui-lightness\jquery-ui-1.8.10.custom.css" />
+    <Content Include="document_write_in_onload.html" />
+    <Content Include="dragAndDropInsideScrolledDiv.html" />
+    <Content Include="dragAndDropTest.html" />
+    <Content Include="dragDropOverflow.html" />
+    <Content Include="draggableLists.html" />
+    <Content Include="droppableItems.html" />
+    <Content Include="dynamic.html" />
+    <Content Include="dynamicallyModifiedPage.html" />
+    <Content Include="errors.html" />
+    <Content Include="fixedFooterNoScroll.html" />
+    <Content Include="fixedFooterNoScrollQuirksMode.html" />
+    <Content Include="formPage.html" />
+    <Content Include="formSelectionPage.html" />
+    <Content Include="form_handling_js_submit.html" />
+    <Content Include="framePage3.html" />
+    <Content Include="frameScrollChild.html" />
+    <Content Include="frameScrollPage.html" />
+    <Content Include="frameScrollParent.html" />
+    <Content Include="frameset.html" />
+    <Content Include="framesetPage2.html" />
+    <Content Include="framesetPage3.html" />
+    <Content Include="frameWithAnimals.html" />
+    <Content Include="frame_switching_tests\bug4876.html" />
+    <Content Include="frame_switching_tests\bug4876_iframe.html" />
+    <Content Include="frame_switching_tests\deletingFrame.html" />
+    <Content Include="frame_switching_tests\deletingFrame_iframe.html" />
+    <Content Include="frame_switching_tests\deletingFrame_iframe2.html" />
+    <Content Include="galaxy\.gitignore" />
+    <Content Include="globalscope.html" />
+    <Content Include="hidden.html" />
+    <Content Include="hidden_partially.html" />
+    <Content Include="html5Page.html" />
+    <Content Include="html5\blue.jpg" />
+    <Content Include="html5\database.js" />
+    <Content Include="html5\geolocation.js" />
+    <Content Include="html5\green.jpg" />
+    <Content Include="html5\red.jpg" />
+    <Content Include="html5\status.html" />
+    <Content Include="html5\yellow.jpg" />
+    <Content Include="icon.gif" />
+    <Content Include="idElements.html" />
+    <Content Include="iframeAtBottom.html" />
+    <Content Include="iframes.html" />
+    <Content Include="iframeWithAlert.html" />
+    <Content Include="iframeWithIframe.html" />
+    <Content Include="injectableContent.html" />
+    <Content Include="javascriptEnhancedForm.html" />
+    <Content Include="javascriptPage.html" />
+    <Content Include="jquery-1.3.2.js" />
+    <Content Include="js\jquery-1.4.4.min.js" />
+    <Content Include="js\jquery-ui-1.8.10.custom.min.js" />
+    <Content Include="js\skins\lightgray\content.inline.min.css" />
+    <Content Include="js\skins\lightgray\content.min.css" />
+    <Content Include="js\skins\lightgray\fonts\tinymce-small.dev.svg" />
+    <Content Include="js\skins\lightgray\fonts\tinymce-small.svg" />
+    <Content Include="js\skins\lightgray\fonts\tinymce.dev.svg" />
+    <Content Include="js\skins\lightgray\fonts\tinymce.svg" />
+    <Content Include="js\skins\lightgray\img\anchor.gif" />
+    <Content Include="js\skins\lightgray\img\loader.gif" />
+    <Content Include="js\skins\lightgray\img\object.gif" />
+    <Content Include="js\skins\lightgray\img\trans.gif" />
+    <Content Include="js\skins\lightgray\skin.ie7.min.css" />
+    <Content Include="js\skins\lightgray\skin.min.css" />
+    <Content Include="js\themes\modern\theme.min.js" />
+    <Content Include="js\tinymce.min.js" />
+    <Content Include="keyboard_shortcut.html" />
+    <Content Include="key_logger.html" />
+    <Content Include="key_tests\remove_on_keypress.html" />
+    <Content Include="linked_image.html" />
+    <Content Include="locators_tests\boolean_attribute_selected.html" />
+    <Content Include="locators_tests\boolean_attribute_selected_html4.html" />
+    <Content Include="longContentPage.html" />
+    <Content Include="macbeth.html" />
+    <Content Include="map.png" />
+    <Content Include="map_visibility.html" />
+    <Content Include="markerTransparent.png" />
+    <Content Include="messages.html" />
+    <Content Include="meta-redirect.html" />
+    <Content Include="missedJsReference.html" />
+    <Content Include="modal_dialogs\modalindex.html" />
+    <Content Include="modal_dialogs\modal_1.html" />
+    <Content Include="modal_dialogs\modal_2.html" />
+    <Content Include="modal_dialogs\modal_3.html" />
+    <Content Include="mouseOver.html" />
+    <Content Include="mousePositionTracker.html" />
+    <Content Include="nestedElements.html" />
+    <Content Include="overflow-body.html" />
+    <Content Include="overflow\x_auto_y_auto.html" />
+    <Content Include="overflow\x_auto_y_hidden.html" />
+    <Content Include="overflow\x_auto_y_scroll.html" />
+    <Content Include="overflow\x_hidden_y_auto.html" />
+    <Content Include="overflow\x_hidden_y_hidden.html" />
+    <Content Include="overflow\x_hidden_y_scroll.html" />
+    <Content Include="overflow\x_scroll_y_auto.html" />
+    <Content Include="overflow\x_scroll_y_hidden.html" />
+    <Content Include="overflow\x_scroll_y_scroll.html" />
+    <Content Include="Page.aspx" />
+    <Content Include="pageWithOnBeforeUnloadMessage.html" />
+    <Content Include="pageWithOnLoad.html" />
+    <Content Include="pageWithOnUnload.html" />
+    <Content Include="page_with_link_to_slow_loading_page.html" />
+    <Content Include="plain.txt" />
+    <Content Include="proxy\page1.html" />
+    <Content Include="proxy\page2.html" />
+    <Content Include="proxy\page3.html" />
+    <Content Include="readOnlyPage.html" />
+    <Content Include="rectangles.html" />
+    <Content Include="Redirect.aspx" />
+    <Content Include="resultPage.html" />
+    <Content Include="rich_text.html" />
+    <Content Include="safari\frames_benchmark.html" />
+    <Content Include="screen\screen.css" />
+    <Content Include="screen\screen.html" />
+    <Content Include="screen\screen.js" />
+    <Content Include="screen\screen_frame1.html" />
+    <Content Include="screen\screen_frame2.html" />
+    <Content Include="screen\screen_frames.html" />
+    <Content Include="screen\screen_iframes.html" />
+    <Content Include="screen\screen_too_long.html" />
+    <Content Include="screen\screen_x_long.html" />
+    <Content Include="screen\screen_x_too_long.html" />
+    <Content Include="screen\screen_y_long.html" />
+    <Content Include="screen\screen_y_too_long.html" />
+    <Content Include="scroll.html" />
+    <Content Include="scroll2.html" />
+    <Content Include="scroll3.html" />
+    <Content Include="scroll4.html" />
+    <Content Include="scroll5.html" />
+    <Content Include="scrolling_tests\frame_with_height_above_200.html" />
+    <Content Include="scrolling_tests\frame_with_height_above_2000.html" />
+    <Content Include="scrolling_tests\frame_with_nested_scrolling_frame.html" />
+    <Content Include="scrolling_tests\frame_with_nested_scrolling_frame_out_of_view.html" />
+    <Content Include="scrolling_tests\frame_with_small_height.html" />
+    <Content Include="scrolling_tests\page_with_double_overflow_auto.html" />
+    <Content Include="scrolling_tests\page_with_frame_out_of_view.html" />
+    <Content Include="scrolling_tests\page_with_nested_scrolling_frames.html" />
+    <Content Include="scrolling_tests\page_with_nested_scrolling_frames_out_of_view.html" />
+    <Content Include="scrolling_tests\page_with_non_scrolling_frame.html" />
+    <Content Include="scrolling_tests\page_with_partially_hidden_element.html" />
+    <Content Include="scrolling_tests\page_with_scrolling_frame.html" />
+    <Content Include="scrolling_tests\page_with_scrolling_frame_out_of_view.html" />
+    <Content Include="scrolling_tests\page_with_tall_frame.html" />
+    <Content Include="scrolling_tests\page_with_y_overflow_auto.html" />
+    <Content Include="scrolling_tests\target_page.html" />
+    <Content Include="selectableItems.html" />
+    <Content Include="selectPage.html" />
+    <Content Include="sessionCookie.html" />
+    <Content Include="sessionCookieDest.html" />
+    <Content Include="simple.xml" />
+    <Content Include="simpleTest.html" />
+    <Content Include="single_text_input.html" />
+    <Content Include="slowLoadingAlert.html" />
+    <Content Include="slowLoadingResourcePage.html" />
+    <Content Include="slow_loading_iframes.html" />
+    <Content Include="styledPage.html" />
+    <Content Include="svgTest.svg" />
+    <Content Include="tables.html" />
+    <Content Include="tinymce.html" />
+    <Content Include="transformable.xml" />
+    <Content Include="transformable.xsl" />
+    <Content Include="transparentUpload.html" />
+    <Content Include="underscore.html" />
+    <Content Include="unicode_ltr.html" />
+    <Content Include="upload.html" />
+    <Content Include="userDefinedProperty.html" />
+    <Content Include="veryLargeCanvas.html" />
+    <Content Include="visibility-css.html" />
+    <Content Include="Web.config" />
+    <Content Include="win32frameset.html" />
+    <Content Include="window_switching_tests\page_with_frame.html" />
+    <Content Include="window_switching_tests\simple_page.html" />
+    <Content Include="xhtmlTest.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Page.aspx.cs">
+      <DependentUpon>Page.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Redirect.aspx.cs">
+      <DependentUpon>Redirect.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>52454</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:2310/HtmlForTests</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.2.1.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.2.1.0\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.5\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.5\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -124,8 +124,8 @@ namespace AsyncChromeDriverExample
                 // name = "q", 0 - time to wait element, not use ImplicitWait
                 var prevQuery = await webDriver.FindElementByNameOrDefault("q", 0);
                 var res2 = await webDriver.GoToUrl("https://www.google.com/");
-                //var query = await webDriver.FindElementByName("q", prevQuery?.Id);
-                var query = await webDriver.FindElementById("lst-ib", prevQuery?.Id);
+                var query = await webDriver.FindElementByName("q", prevQuery?.Id);
+                //var query = await webDriver.FindElementById("lst-ib", prevQuery?.Id);
 
                 //await query.SendKeys("ToCSharp");
                 var rnd = new Random();
@@ -136,7 +136,10 @@ namespace AsyncChromeDriverExample
                 }
                 await Task.Delay(500);
                 prevQuery = await webDriver.FindElementByName("q");
-                await query.SendKeys(Keys.Enter);
+                await query.Click();
+                //await query.SendKeys(Keys.Enter);
+                //await query.SendKeys(Keys.Return);
+                await query.Submit();
                 query = await webDriver.FindElementByName("q", prevQuery?.Id);
                 await query.SendKeys(Keys.ArrowDown);
                 await Task.Delay(1000);
@@ -147,7 +150,7 @@ namespace AsyncChromeDriverExample
                 await query.SendKeys(Keys.ArrowUp);
                 await Task.Delay(500);
                 await query.SendKeys(Keys.Enter);
-                var el = await webDriver.SwitchTo().ActiveElement();
+                await webDriver.SwitchTo().ActiveElement();
                 await webDriver.Keyboard.SendKeys(Keys.PageDown);
                 var allCookies = await asyncChromeDriver.DevTools.Network.GetAllCookies();
                 var screenshot = await asyncChromeDriver.DevTools.Page.CaptureScreenshot();
