@@ -729,8 +729,8 @@ namespace Zu.AsyncChromeDriver.Tests
             var innerText = await element.GetAttribute("innerText");
             var textContent = await element.GetAttribute("textContent");
             Assert.AreEqual(newParaText, text);
-            Assert.AreEqual(innerText, text);
-            Assert.AreEqual(textContent, text);
+            Assert.AreEqual(newParaText, innerText);
+            Assert.AreEqual(newParaText, textContent);
         }
 
 
