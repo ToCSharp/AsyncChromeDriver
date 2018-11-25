@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net.Sockets;
 using System.Net;
 using System.Text;
 using Newtonsoft.Json;
+using Zu.AsyncWebDriver;
 
 namespace Zu.AsyncChromeDriver.Tests.Environment
 {
@@ -30,10 +32,8 @@ namespace Zu.AsyncChromeDriver.Tests.Environment
             Path = EnvironmentManager.GetSettingValue("Folder");
             //Use the first IPv4 address that we find
             IPAddress ipAddress = IPAddress.Parse("127.0.0.1");
-            foreach (IPAddress ip in Dns.GetHostEntry(HostName).AddressList)
-            {
-                if (ip.AddressFamily == AddressFamily.InterNetwork)
-                {
+            foreach (IPAddress ip in Dns.GetHostEntry(HostName).AddressList) {
+                if (ip.AddressFamily == AddressFamily.InterNetwork) {
                     ipAddress = ip;
                     break;
                 }
@@ -75,9 +75,15 @@ namespace Zu.AsyncChromeDriver.Tests.Environment
 
         public string CreateInlinePage(InlinePage page)
         {
-            Uri createPageUri = new Uri(new Uri(WhereIs(string.Empty)), "createPage");
+            Uri createPageUri = new Uri(new Uri(WhereIs(string.Empty)), "CreatePage.aspx");
             Dictionary<string, object> payloadDictionary = new Dictionary<string, object>();
             payloadDictionary["content"] = page.ToString();
+            DirectoryInfo info = new DirectoryInfo(EnvironmentManager.Instance.CurrentDirectory);
+            while (info != info.Root && string.Compare(info.Name, "AsyncChromeDriver", StringComparison.OrdinalIgnoreCase) != 0) {
+                info = info.Parent;
+            }
+
+            payloadDictionary["dir"] = System.IO.Path.Combine(info.FullName, "HtmlForTests", "temp");
             string commandPayload = JsonConvert.SerializeObject(payloadDictionary);
             byte[] data = Encoding.UTF8.GetBytes(commandPayload);
             HttpWebRequest request = HttpWebRequest.Create(createPageUri) as HttpWebRequest;
@@ -94,17 +100,7 @@ namespace Zu.AsyncChromeDriver.Tests.Environment
             string responseString = responseStreamReader.ReadToEnd();
             responseStreamReader.Close();
 
-            // The response string from the Java remote server has trailing null
-            // characters. This is due to the fix for issue 288.
-            if (responseString.IndexOf('\0') >= 0) {
-                responseString = responseString.Substring(0, responseString.IndexOf('\0'));
-            }
-
-            if (responseString.Contains("localhost")) {
-                responseString = responseString.Replace("localhost", this.HostName);
-            }
-
-            return responseString;
+            return new Uri(new Uri(WhereIs(string.Empty)), "temp/" + responseString.Split('\n').First()).ToString();
         }
     }
 }
