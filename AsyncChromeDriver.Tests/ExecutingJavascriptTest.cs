@@ -711,6 +711,29 @@ namespace Zu.AsyncChromeDriver.Tests
             Assert.AreEqual("2014-05-20T20:00:00+08:00", text);
         }
 
+        [Test]
+        //[NeedsFreshDriver(IsCreatedAfterTest = true)]
+        public async Task ShouldBeAbleToGetTextOfElementGeneratedOnTheFly()
+        {
+            await driver.GoToUrl(javascriptPage);
+
+            var newParaText = "This is a new paragraph.";
+            await ExecuteScript("var para = document.createElement(\"p\");\n" +
+                                $"var node = document.createTextNode(\"{newParaText}\");\n" +
+                                "para.appendChild(node);\n" +
+                                "para.id = \"newPara\";\n" +
+                                "document.body.appendChild(para);");
+
+            IWebElement element = await driver.FindElement(By.Id("newPara"));
+            var text = await element.Text();
+            var innerText = await element.GetAttribute("innerText");
+            var textContent = await element.GetAttribute("textContent");
+            Assert.AreEqual(newParaText, text);
+            Assert.AreEqual(innerText, text);
+            Assert.AreEqual(textContent, text);
+        }
+
+
         private async Task<object> ExecuteScript(String script, params Object[] args)
         {
             object toReturn = await ((IJavaScriptExecutor)driver).ExecuteScript(script, new CancellationToken(), args);
