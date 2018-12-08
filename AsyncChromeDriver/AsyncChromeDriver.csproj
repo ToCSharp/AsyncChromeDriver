@@ -2,6 +2,15 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;net462</TargetFrameworks>
+    <Version>0.5.1</Version>
+    <Authors>Oleg Zudov</Authors>
+    <Description>Async .Net Chrome WebDriver and Chrome DevTools through a single connection.</Description>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageLicenseUrl>https://github.com/ToCSharp/AsyncChromeDriver/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/ToCSharp/AsyncChromeDriver</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/ToCSharp/AsyncChromeDriver</RepositoryUrl>
+    <PackageTags>Chrome DevTools AsyncChromeDriver AsyncWebDriver WebDriver</PackageTags>
+    <PackageReleaseNotes>Added .NET Standard 2.0 support</PackageReleaseNotes>
   </PropertyGroup>
   
   <!-- Conditionally obtain references for the .NET Framework 4.0 target -->
