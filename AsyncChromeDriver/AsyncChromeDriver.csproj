@@ -1,115 +1,32 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B397FF4B-9290-478F-BB70-DA91D23E4B68}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AsyncChromeDriver</RootNamespace>
-    <AssemblyName>AsyncChromeDriver</AssemblyName>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
+    <TargetFrameworks>netstandard2.0;net462</TargetFrameworks>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="AsyncWebDriver, Version=1.3.11.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\AsyncWebDriver.1.3.11\lib\net462\AsyncWebDriver.dll</HintPath>
-    </Reference>
-    <Reference Include="IAsyncWebBrowserClient, Version=0.1.10.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\IAsyncWebBrowserClient.0.1.10\lib\net452\IAsyncWebBrowserClient.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
+  
+  <!-- Conditionally obtain references for the .NET Framework 4.0 target -->
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net40' ">
+    <Reference Include="System.Net" />
+  </ItemGroup>
+
+  <!-- Conditionally obtain references for the .NET Framework 4.6.2 target -->
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net462' ">
     <Reference Include="System.Net.Http" />
   </ItemGroup>
+
   <ItemGroup>
-    <Compile Include="AsyncChromeDriver.cs" />
-    <Compile Include="BrowserDevTools\ChromeDevToolsConnectionProxy.cs" />
-    <Compile Include="BrowserDevTools\HttpServer.cs" />
-    <Compile Include="ChromeDevToolsConnection.cs" />
-    <Compile Include="ChromeDriverActionExecutor.cs" />
-    <Compile Include="ChromeWSProxyConfig.cs" />
-    <Compile Include="ChromeDriverConfig.cs" />
-    <Compile Include="ChromeProcessInfo.cs" />
-    <Compile Include="ChromeProfilesWorker.cs" />
-    <Compile Include="ChromeSessionInfo.cs" />
-    <Compile Include="DevTools\DevToolsEventData.cs" />
-    <Compile Include="DevTools\DevToolsCommandResult.cs" />
-    <Compile Include="DevTools\DevToolsCommandData.cs" />
-    <Compile Include="DriverCore\atoms.cs" />
-    <Compile Include="DriverCore\ElementCommands.cs" />
-    <Compile Include="DriverCore\ElementKeys.cs" />
-    <Compile Include="DriverCore\ElementUtils.cs" />
-    <Compile Include="DriverCore\FrameInfo.cs" />
-    <Compile Include="DriverCore\DomTracker.cs" />
-    <Compile Include="DriverCore\FrameTracker.cs" />
-    <Compile Include="DriverCore\js\execute_async_script.js.cs" />
-    <Compile Include="DriverCore\js\call_function.js.cs" />
-    <Compile Include="DriverCore\js\focus.js.cs" />
-    <Compile Include="DriverCore\js\get_element_region.js.cs" />
-    <Compile Include="DriverCore\js\is_option_element_toggleable.js.cs" />
-    <Compile Include="DriverCore\ResultValueConverter.cs" />
-    <Compile Include="DriverCore\Session.cs" />
-    <Compile Include="DriverCore\Util.cs" />
-    <Compile Include="DriverCore\WebView.cs" />
-    <Compile Include="DriverCore\WindowCommands.cs" />
-    <Compile Include="IAsyncChromeDriver.cs" />
-    <Compile Include="IAsyncWebBrowserClient\ChromeDriverAlert.cs" />
-    <Compile Include="IAsyncWebBrowserClient\ChromeDriverCookieJar.cs" />
-    <Compile Include="IAsyncWebBrowserClient\ChromeDriverCoordinates.cs" />
-    <Compile Include="IAsyncWebBrowserClient\ChromeDriverElements.cs" />
-    <Compile Include="IAsyncWebBrowserClient\ChromeDriverJavaScriptExecutor.cs" />
-    <Compile Include="IAsyncWebBrowserClient\ChromeDriverKeyboard.cs" />
-    <Compile Include="IAsyncWebBrowserClient\ChromeDriverLogs.cs" />
-    <Compile Include="IAsyncWebBrowserClient\ChromeDriverMouse.cs" />
-    <Compile Include="IAsyncWebBrowserClient\ChromeDriverNavigation.cs" />
-    <Compile Include="IAsyncWebBrowserClient\ChromeDriverOptions.cs" />
-    <Compile Include="IAsyncWebBrowserClient\ChromeDriverScreenshot.cs" />
-    <Compile Include="IAsyncWebBrowserClient\ChromeDriverTargetLocator.cs" />
-    <Compile Include="IAsyncWebBrowserClient\ChromeDriverTimeouts.cs" />
-    <Compile Include="IAsyncWebBrowserClient\ChromeDriverTouchScreen.cs" />
-    <Compile Include="IAsyncWebBrowserClient\ChromeDriverWebStorage.cs" />
-    <Compile Include="IAsyncWebBrowserClient\ChromeDriverWindow.cs" />
-    <Compile Include="ProcessWithJobObject.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
+    <None Remove="DriverCore\utils.csx" />
   </ItemGroup>
+
   <ItemGroup>
-    <None Include="app.config" />
-    <None Include="packages.config">
-      <SubType>Designer</SubType>
-    </None>
+    <PackageReference Include="AsyncWebDriver" Version="1.4.1" />
+    <PackageReference Include="IAsyncWebBrowserClient" Version="0.2.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
   </ItemGroup>
+
   <ItemGroup>
-    <ProjectReference Include="..\ChromeDevToolsClient\ChromeDevToolsClient.csproj">
-      <Project>{61DD11A3-38A3-4D28-AB79-32F9E51F4E16}</Project>
-      <Name>ChromeDevToolsClient</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\WebSocket\ChromeWebSocketProxy\ChromeWebSocketProxy.csproj">
-      <Project>{fc8345cf-3b80-4dbb-8be4-155fe5eaa28a}</Project>
-      <Name>ChromeWebSocketProxy</Name>
-    </ProjectReference>
+    <ProjectReference Include="..\ChromeDevToolsClient\ChromeDevToolsClient.csproj" />
+    <ProjectReference Include="..\WebSocket\ChromeWebSocketProxy\ChromeWebSocketProxy.csproj" />
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+
 </Project>
