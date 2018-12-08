@@ -8,6 +8,7 @@ using Point = Zu.WebBrowser.BasicTypes.WebPoint;
 namespace Zu.AsyncChromeDriver.Tests
 {
     [TestFixture]
+    [Explicit("NotImplemented")]
     public class WindowTest : DriverTestFixture
     {
         private Size originalWindowSize;

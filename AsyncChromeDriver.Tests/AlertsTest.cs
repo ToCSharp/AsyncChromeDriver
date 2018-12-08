@@ -11,6 +11,7 @@ using Zu.WebBrowser.BasicTypes;
 namespace Zu.AsyncChromeDriver.Tests
 {
     [TestFixture]
+    [Explicit ("NotImplemented")]
     public class AlertsTest : DriverTestFixture
     {
         [Test]

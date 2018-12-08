@@ -9,6 +9,7 @@ using Zu.WebBrowser.AsyncInteractions;
 namespace Zu.AsyncChromeDriver.Tests
 {
     [TestFixture]
+    [Explicit("NotImplemented")]
     public class WindowSwitchingTest : DriverTestFixture
     {
         [Test]
