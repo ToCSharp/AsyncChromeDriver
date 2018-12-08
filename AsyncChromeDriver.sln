@@ -22,13 +22,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebSocket", "WebSocket", "{
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "websocket-sharp", "WebSocket\websocket-sharp\websocket-sharp.csproj", "{44C2460F-E5C0-4732-BE8E-05FBB6E23DAC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChromeWebSocketProxy", "ChromeWebSocketProxy\ChromeWebSocketProxy.csproj", "{FC8345CF-3B80-4DBB-8BE4-155FE5EAA28A}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChromeDevToolsClient", "ChromeDevToolsClient\ChromeDevToolsClient.csproj", "{61DD11A3-38A3-4D28-AB79-32F9E51F4E16}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsyncChromeDriver.Tests", "AsyncChromeDriver.Tests\AsyncChromeDriver.Tests.csproj", "{B418B7D7-2297-47FF-86BF-C3E4BB47F571}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HtmlForTests", "HtmlForTests\HtmlForTests.csproj", "{2FB6308D-F2D2-4D8C-ACB3-CDE08291E378}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChromeWebSocketProxy", "WebSocket\ChromeWebSocketProxy\ChromeWebSocketProxy.csproj", "{FC8345CF-3B80-4DBB-8BE4-155FE5EAA28A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -52,10 +52,6 @@ Global
 		{44C2460F-E5C0-4732-BE8E-05FBB6E23DAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{44C2460F-E5C0-4732-BE8E-05FBB6E23DAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{44C2460F-E5C0-4732-BE8E-05FBB6E23DAC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FC8345CF-3B80-4DBB-8BE4-155FE5EAA28A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FC8345CF-3B80-4DBB-8BE4-155FE5EAA28A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FC8345CF-3B80-4DBB-8BE4-155FE5EAA28A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FC8345CF-3B80-4DBB-8BE4-155FE5EAA28A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{61DD11A3-38A3-4D28-AB79-32F9E51F4E16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{61DD11A3-38A3-4D28-AB79-32F9E51F4E16}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{61DD11A3-38A3-4D28-AB79-32F9E51F4E16}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -68,6 +64,10 @@ Global
 		{2FB6308D-F2D2-4D8C-ACB3-CDE08291E378}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2FB6308D-F2D2-4D8C-ACB3-CDE08291E378}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2FB6308D-F2D2-4D8C-ACB3-CDE08291E378}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC8345CF-3B80-4DBB-8BE4-155FE5EAA28A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC8345CF-3B80-4DBB-8BE4-155FE5EAA28A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC8345CF-3B80-4DBB-8BE4-155FE5EAA28A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC8345CF-3B80-4DBB-8BE4-155FE5EAA28A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

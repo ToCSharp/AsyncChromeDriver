@@ -54,7 +54,7 @@
     <Compile Include="ProxyWS.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\WebSocket\websocket-sharp\websocket-sharp.csproj">
+    <ProjectReference Include="..\websocket-sharp\websocket-sharp.csproj">
       <Project>{44c2460f-e5c0-4732-be8e-05fbb6e23dac}</Project>
       <Name>websocket-sharp</Name>
     </ProjectReference>
