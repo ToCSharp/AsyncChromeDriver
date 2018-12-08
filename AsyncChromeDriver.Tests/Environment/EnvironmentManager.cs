@@ -10,7 +10,7 @@ namespace Zu.AsyncChromeDriver.Tests.Environment
 {
     public class EnvironmentManager
     {
-        public static Browser CurrentTestingBrowser = (Browser)Enum.Parse(typeof(Browser), GetSettingValue("DriverName"));// Browser.Chrome;
+        //public static Browser CurrentTestingBrowser = (Browser)Enum.Parse(typeof(Browser), GetSettingValue("DriverName"));// Browser.Chrome;
 
         private static EnvironmentManager _instance;
         private Type _driverType;
@@ -25,15 +25,15 @@ namespace Zu.AsyncChromeDriver.Tests.Environment
 
         private EnvironmentManager()
         {
-            string configFile = AppDomain.CurrentDomain.SetupInformation.ConfigurationFile;
+            //string configFile = AppDomain.CurrentDomain.SetupInformation.ConfigurationFile;
             try
             {
-                string driverClassName = GetSettingValue("Driver");
-                _driverStringArg = GetSettingValue("DriverStringArg");
+                //string driverClassName = GetSettingValue("Driver");
+                _driverStringArg = "";// GetSettingValue("DriverStringArg");
                 //string assemblyName = GetSettingValue("Assembly");
                 //Assembly assembly = Assembly.Load(assemblyName);
                 //driverType = assembly.GetType(driverClassName);
-                _remoteCapabilities = GetSettingValue("RemoteCapabilities");
+                _remoteCapabilities = "chrome";//GetSettingValue("RemoteCapabilities");
             }
             catch (Exception)
             {
@@ -53,7 +53,7 @@ namespace Zu.AsyncChromeDriver.Tests.Environment
             bool autoStartRemoteServer = false;
             if (_browser == Browser.Remote)
             {
-                autoStartRemoteServer = bool.Parse(GetSettingValue("AutoStartRemoteServer"));
+                autoStartRemoteServer = false; // bool.Parse(GetSettingValue("AutoStartRemoteServer"));
             }
 
             //remoteServer = new RemoteSeleniumServer(info.FullName, autoStartRemoteServer);
@@ -66,19 +66,19 @@ namespace Zu.AsyncChromeDriver.Tests.Environment
             _driver?.Quit();
         }
 
-        public static string GetSettingValue(string key)
-        {
-            string settingValue = string.Empty;
-            try
-            {
-                settingValue = System.Configuration.ConfigurationManager.AppSettings.GetValues(key)[0];
-            }
-            catch (Exception)
-            {
-            }
+        //public static string GetSettingValue(string key)
+        //{
+        //    string settingValue = string.Empty;
+        //    try
+        //    {
+        //        settingValue = System.Configuration.ConfigurationManager.AppSettings.GetValues(key)[0];
+        //    }
+        //    catch (Exception)
+        //    {
+        //    }
 
-            return settingValue;
-        }
+        //    return settingValue;
+        //}
 
         public Browser Browser 
         {

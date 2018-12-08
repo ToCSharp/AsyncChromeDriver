@@ -24,12 +24,11 @@ namespace Zu.AsyncChromeDriver.Tests.Environment
 
         public UrlBuilder()
         {
-            _protocol = EnvironmentManager.GetSettingValue("Protocol");
-            HostName = EnvironmentManager.GetSettingValue("HostName");
-            _port = EnvironmentManager.GetSettingValue("Port");
-            _securePort = EnvironmentManager.GetSettingValue("SecurePort");
-            // TODO(andre.nogueira): Remove trailing / from folder
-            Path = EnvironmentManager.GetSettingValue("Folder");
+            _protocol = "http";
+            HostName = "localhost";
+            _port = "2310";
+            _securePort = "2410";
+            Path = "HtmlForTests";
             //Use the first IPv4 address that we find
             IPAddress ipAddress = IPAddress.Parse("127.0.0.1");
             foreach (IPAddress ip in Dns.GetHostEntry(HostName).AddressList) {

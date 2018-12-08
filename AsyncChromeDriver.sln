@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsyncChromeDriver", "AsyncChromeDriver\AsyncChromeDriver.csproj", "{B397FF4B-9290-478F-BB70-DA91D23E4B68}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AsyncChromeDriver", "AsyncChromeDriver\AsyncChromeDriver.csproj", "{B397FF4B-9290-478F-BB70-DA91D23E4B68}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsyncChromeDriverExample", "AsyncChromeDriverExample\AsyncChromeDriverExample.csproj", "{17955490-8C37-4809-9529-B4269187BE46}"
 EndProject
@@ -20,15 +20,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebSocket", "WebSocket", "{5428E8AA-37D9-494B-8988-6B2DB172D1FB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "websocket-sharp", "WebSocket\websocket-sharp\websocket-sharp.csproj", "{44C2460F-E5C0-4732-BE8E-05FBB6E23DAC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "websocket-sharp", "WebSocket\websocket-sharp\websocket-sharp.csproj", "{44C2460F-E5C0-4732-BE8E-05FBB6E23DAC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChromeDevToolsClient", "ChromeDevToolsClient\ChromeDevToolsClient.csproj", "{61DD11A3-38A3-4D28-AB79-32F9E51F4E16}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsyncChromeDriver.Tests", "AsyncChromeDriver.Tests\AsyncChromeDriver.Tests.csproj", "{B418B7D7-2297-47FF-86BF-C3E4BB47F571}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChromeDevToolsClient", "ChromeDevToolsClient\ChromeDevToolsClient.csproj", "{61DD11A3-38A3-4D28-AB79-32F9E51F4E16}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HtmlForTests", "HtmlForTests\HtmlForTests.csproj", "{2FB6308D-F2D2-4D8C-ACB3-CDE08291E378}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChromeWebSocketProxy", "WebSocket\ChromeWebSocketProxy\ChromeWebSocketProxy.csproj", "{FC8345CF-3B80-4DBB-8BE4-155FE5EAA28A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChromeWebSocketProxy", "WebSocket\ChromeWebSocketProxy\ChromeWebSocketProxy.csproj", "{FC8345CF-3B80-4DBB-8BE4-155FE5EAA28A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsyncChromeDriver.Tests", "AsyncChromeDriver.Tests\AsyncChromeDriver.Tests.csproj", "{230BED34-F373-4CD9-AE01-CEDAA908E972}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -56,10 +56,6 @@ Global
 		{61DD11A3-38A3-4D28-AB79-32F9E51F4E16}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{61DD11A3-38A3-4D28-AB79-32F9E51F4E16}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{61DD11A3-38A3-4D28-AB79-32F9E51F4E16}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B418B7D7-2297-47FF-86BF-C3E4BB47F571}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B418B7D7-2297-47FF-86BF-C3E4BB47F571}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B418B7D7-2297-47FF-86BF-C3E4BB47F571}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B418B7D7-2297-47FF-86BF-C3E4BB47F571}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2FB6308D-F2D2-4D8C-ACB3-CDE08291E378}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2FB6308D-F2D2-4D8C-ACB3-CDE08291E378}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2FB6308D-F2D2-4D8C-ACB3-CDE08291E378}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -68,6 +64,10 @@ Global
 		{FC8345CF-3B80-4DBB-8BE4-155FE5EAA28A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FC8345CF-3B80-4DBB-8BE4-155FE5EAA28A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FC8345CF-3B80-4DBB-8BE4-155FE5EAA28A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{230BED34-F373-4CD9-AE01-CEDAA908E972}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{230BED34-F373-4CD9-AE01-CEDAA908E972}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{230BED34-F373-4CD9-AE01-CEDAA908E972}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{230BED34-F373-4CD9-AE01-CEDAA908E972}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
