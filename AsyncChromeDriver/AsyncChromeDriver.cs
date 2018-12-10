@@ -54,80 +54,67 @@ namespace Zu.Chrome
         #endregion
 
         public bool IsConnected = false;
-        public ChromeDevToolsConnection DevTools
-        {
+        public ChromeDevToolsConnection DevTools {
             get;
             set;
         }
 
-        public FrameTracker FrameTracker
-        {
+        public FrameTracker FrameTracker {
             get;
             private set;
         }
 
-        public DomTracker DomTracker
-        {
+        public DomTracker DomTracker {
             get;
             private set;
         }
 
-        public Session Session
-        {
+        public Session Session {
             get;
             private set;
         }
 
-        public WebView WebView
-        {
+        public WebView WebView {
             get;
             private set;
         }
 
-        public ElementCommands ElementCommands
-        {
+        public ElementCommands ElementCommands {
             get;
             private set;
         }
 
-        public ElementUtils ElementUtils
-        {
+        public ElementUtils ElementUtils {
             get;
             private set;
         }
 
-        public WindowCommands WindowCommands
-        {
+        public WindowCommands WindowCommands {
             get;
             private set;
         }
 
-        public ChromeDriverConfig Config
-        {
+        public ChromeDriverConfig Config {
             get;
             set;
         }
 
-        public int Port
-        {
+        public int Port {
             get => Config.Port;
             set => Config.Port = value;
         }
 
-        public string UserDir
-        {
+        public string UserDir {
             get => Config.UserDir;
             set => Config.SetUserDir(value);
         }
 
-        public bool IsTempProfile
-        {
+        public bool IsTempProfile {
             get => Config.IsTempProfile;
             set => Config.IsTempProfile = value;
         }
 
-        public bool DoConnectWhenCheckConnected
-        {
+        public bool DoConnectWhenCheckConnected {
             get;
             set;
         } = true;
@@ -137,14 +124,12 @@ namespace Zu.Chrome
         private bool _isClosed = false;
         public delegate void DevToolsEventHandler(object sender, string methodName, JToken eventData);
         public event DevToolsEventHandler DevToolsEvent;
-        public AsyncChromeDriver BrowserDevTools
-        {
+        public AsyncChromeDriver BrowserDevTools {
             get;
             set;
         }
 
-        public ChromeDriverConfig BrowserDevToolsConfig
-        {
+        public ChromeDriverConfig BrowserDevToolsConfig {
             get;
             set;
         }
@@ -174,13 +159,11 @@ namespace Zu.Chrome
             Config = config;
             if (Config.Port == 0)
                 Config.Port = 11000 + _rnd.Next(2000);
-            if (Config.DoOpenWSProxy || Config.DoOpenBrowserDevTools)
-            {
+            if (Config.DoOpenWSProxy || Config.DoOpenBrowserDevTools) {
                 if (Config.DevToolsConnectionProxyPort == 0)
                     Config.DevToolsConnectionProxyPort = 15000 + _rnd.Next(2000);
                 DevTools = new BrowserDevTools.ChromeDevToolsConnectionProxy(Port, Config.DevToolsConnectionProxyPort, Config.WSProxyConfig);
-            }
-            else
+            } else
                 DevTools = new ChromeDevToolsConnection(Port);
             CreateDriverCore();
         }
@@ -212,32 +195,27 @@ namespace Zu.Chrome
             IsConnected = true;
             UnsubscribeDevToolsSessionEvent();
             DoConnectWhenCheckConnected = false;
-            if (!Config.DoNotOpenChromeProfile)
-            {
+            if (!Config.DoNotOpenChromeProfile) {
                 ChromeProcess = await OpenChromeProfile(Config).ConfigureAwait(false);
                 if (Config.IsTempProfile)
                     await Task.Delay(Config.TempDirCreateDelay).ConfigureAwait(false);
             }
 
             int connectionAttempts = 0;
-            const int MAX_ATTEMPTS = 5;
-            while (true)
-            {
+            int maxAttempts = 5;
+            if (ChromeProfilesWorker.GetPlatformString() != "windows") {
+                maxAttempts = 50;
+            }
+            while (true) {
                 connectionAttempts++;
-                try
-                {
+                try {
                     await DevTools.Connect().ConfigureAwait(false);
                     break;
-                }
-                catch (Exception ex)
-                {
+                } catch (Exception ex) {
                     //LiveLogger.WriteLine("Connection attempt {0} failed with: {1}", connection_attempts, ex);
-                    if (_isClosed || connectionAttempts >= MAX_ATTEMPTS)
-                    {
+                    if (_isClosed || connectionAttempts >= maxAttempts) {
                         throw;
-                    }
-                    else
-                    {
+                    } else {
                         await Task.Delay(200).ConfigureAwait(false);
                     }
                 }
@@ -270,8 +248,7 @@ namespace Zu.Chrome
             if (!DoConnectWhenCheckConnected)
                 return;
             DoConnectWhenCheckConnected = false;
-            if (!IsConnected)
-            {
+            if (!IsConnected) {
                 await Connect(cancellationToken).ConfigureAwait(false);
             }
         }
@@ -286,61 +263,47 @@ namespace Zu.Chrome
         public void CloseSync()
         {
             BrowserDevTools?.CloseSync();
-            if (IsConnected)
-            {
+            if (IsConnected) {
                 DevTools.Disconnect();
                 IsConnected = false;
             }
 
-            if (ChromeProcess?.Proc != null && !ChromeProcess.Proc.HasExited)
-            {
-                try
-                {
+            if (ChromeProcess?.Proc != null && !ChromeProcess.Proc.HasExited) {
+                try {
                     ChromeProcess.Proc.CloseMainWindow();
-                }
-                catch
-                {
-                    try
-                    {
+                    ChromeProcess.Proc.Close();
+                } catch {
+                    try {
                         ChromeProcess.Proc.Kill();
-                    }
-                    catch
-                    {
+                    } catch {
                         // ignored
                     }
                 }
 
-                while (!ChromeProcess.Proc.HasExited)
-                {
-                    Thread.Sleep(250);
+                try {
+                    while (!ChromeProcess.Proc.HasExited) {
+                        Thread.Sleep(250);
+                    }
+                } catch {
+                    // ignored
                 }
             }
 
             ChromeProcess?.Proc?.Dispose();
-            if (ChromeProcess?.ProcWithJobObject != null)
-            {
-                ChromeProcess.ProcWithJobObject.TerminateProc();
-            }
+            ChromeProcess?.ProcWithJobObject?.TerminateProc();
 
             ChromeProcess = null;
             Thread.Sleep(1000);
-            if (IsTempProfile && !string.IsNullOrWhiteSpace(UserDir))
-            {
-                try
-                {
+            if (IsTempProfile && !string.IsNullOrWhiteSpace(UserDir)) {
+                try {
                     if (Directory.Exists(UserDir))
                         Directory.Delete(UserDir, true);
-                }
-                catch
-                {
+                } catch {
                     Thread.Sleep(3000);
-                    try
-                    {
+                    try {
                         if (Directory.Exists(UserDir))
                             Directory.Delete(UserDir, true);
-                    }
-                    catch
-                    {
+                    } catch {
                         // ignored
                     }
                 }
@@ -349,67 +312,53 @@ namespace Zu.Chrome
 
         public async Task<string> Close(CancellationToken cancellationToken = default(CancellationToken))
         {
-            try
-            {
+            try {
                 if (BrowserDevTools != null)
                     await BrowserDevTools.Close(cancellationToken).ConfigureAwait(false);
-            }
-            catch
-            {
+            } catch {
                 // ignored
             }
 
             if (IsConnected)
                 await Disconnect().ConfigureAwait(false);
-            if (ChromeProcess?.Proc != null && !ChromeProcess.Proc.HasExited)
-            {
-                try
-                {
+            if (ChromeProcess?.Proc != null && !ChromeProcess.Proc.HasExited) {
+                try {
                     ChromeProcess.Proc.CloseMainWindow();
-                }
-                catch
-                {
-                    try
-                    {
+                    ChromeProcess.Proc.Close();
+                } catch {
+                    try {
                         ChromeProcess.Proc.Kill();
-                    }
-                    catch
-                    {
+                    } catch {
                         // ignored
                     }
                 }
 
-                while (!ChromeProcess.Proc.HasExited)
-                {
-                    await Task.Delay(250).ConfigureAwait(false);
+                try {
+                    while (!ChromeProcess.Proc.HasExited) {
+                        await Task.Delay(250).ConfigureAwait(false);
+                    }
+                } catch {
+                    //
                 }
             }
 
             ChromeProcess?.Proc?.Dispose();
-            if (ChromeProcess?.ProcWithJobObject != null)
-            {
+            if (ChromeProcess?.ProcWithJobObject != null) {
                 ChromeProcess.ProcWithJobObject.TerminateProc();
             }
 
             ChromeProcess = null;
             await Task.Delay(1000).ConfigureAwait(false);
-            if (IsTempProfile && !string.IsNullOrWhiteSpace(UserDir))
-            {
-                try
-                {
+            if (IsTempProfile && !string.IsNullOrWhiteSpace(UserDir)) {
+                try {
                     if (Directory.Exists(UserDir))
                         Directory.Delete(UserDir, true);
-                }
-                catch
-                {
+                } catch {
                     await Task.Delay(3000).ConfigureAwait(false);
-                    try
-                    {
+                    try {
                         if (Directory.Exists(UserDir))
                             Directory.Delete(UserDir, true);
-                    }
-                    catch
-                    {
+                    } catch {
                         // ignored
                     }
                 }
@@ -455,13 +404,10 @@ namespace Zu.Chrome
 
         public async Task<DevToolsCommandResult> SendDevToolsCommand(DevToolsCommandData commandData, CancellationToken cancellationToken = default(CancellationToken))
         {
-            try
-            {
+            try {
                 var res = await DevTools.Session.SendCommand(commandData.CommandName, commandData.Params, cancellationToken, commandData.MillisecondsTimeout).ConfigureAwait(false);
                 return new DevToolsCommandResult { Id = commandData.Id, Result = res };
-            }
-            catch (Exception ex)
-            {
+            } catch (Exception ex) {
                 return new DevToolsCommandResult { Id = commandData.Id, Error = ex.ToString() };
             }
         }

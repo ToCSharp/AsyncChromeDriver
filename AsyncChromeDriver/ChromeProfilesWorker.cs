@@ -70,7 +70,7 @@ namespace Zu.Chrome
         }
 
 
-        private static string GetPlatformString()
+        public static string GetPlatformString()
         {
             string platformName = "unknown";
 #if NETSTANDARD2_0 || NETCOREAPP2_0
