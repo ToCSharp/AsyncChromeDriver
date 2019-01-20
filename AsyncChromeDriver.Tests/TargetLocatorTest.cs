@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using Zu.AsyncWebDriver;
@@ -77,6 +78,9 @@ namespace Zu.AsyncChromeDriver.Tests
                 Assert.AreEqual(await driver.FindElement(By.Id("pageNumber")).Text(), "1");
                 Assert.Fail("Should not be able to get element in frame from DefaultContent");
             } catch (NoSuchElementException) {
+                Assert.Fail("catch WebBrowserException");
+            } catch (WebBrowserException ex) {
+                Assert.AreEqual("no such element", ex.Error);
             }
 
             await driver.SwitchTo().Frame("second");
@@ -88,6 +92,9 @@ namespace Zu.AsyncChromeDriver.Tests
                 Assert.AreEqual(await driver.FindElement(By.Id("pageNumber")).Text(), "1");
                 Assert.Fail("Should not be able to get element in frame from DefaultContent");
             } catch (NoSuchElementException) {
+                Assert.Fail("catch WebBrowserException");
+            } catch (WebBrowserException ex) {
+                Assert.AreEqual("no such element", ex.Error);
             }
         }
 
@@ -105,6 +112,9 @@ namespace Zu.AsyncChromeDriver.Tests
                 Assert.AreEqual(await driver.FindElement(By.Id("pageNumber")).Text(), "1");
                 Assert.Fail("Should not be able to get element in frame from DefaultContent");
             } catch (NoSuchElementException) {
+                Assert.Fail("catch WebBrowserException");
+            } catch (WebBrowserException ex) {
+                Assert.AreEqual("no such element", ex.Error);
             }
 
             await driver.SwitchTo().Frame(1);
@@ -116,6 +126,9 @@ namespace Zu.AsyncChromeDriver.Tests
                 Assert.AreEqual(await driver.FindElement(By.Id("pageNumber")).Text(), "1");
                 Assert.Fail("Should not be able to get element in frame from DefaultContent");
             } catch (NoSuchElementException) {
+                Assert.Fail("catch WebBrowserException");
+            } catch (WebBrowserException ex) {
+                Assert.AreEqual("no such element", ex.Error);
             }
         }
 
