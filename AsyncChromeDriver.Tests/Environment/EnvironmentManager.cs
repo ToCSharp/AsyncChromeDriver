@@ -16,7 +16,7 @@ namespace Zu.AsyncChromeDriver.Tests.Environment
         private Type _driverType;
         private Browser _browser;
         private Zu.Chrome.AsyncChromeDriver _asyncChromeDriver;
-        private IWebDriver _driver;
+        private WebDriver _driver;
         private UrlBuilder _urlBuilder;
         private TestWebServer _webServer;
         //RemoteSeleniumServer remoteServer;
@@ -120,7 +120,7 @@ namespace Zu.AsyncChromeDriver.Tests.Environment
             get { return _remoteCapabilities; }
         }
 
-        public IWebDriver GetCurrentDriver()
+        public WebDriver GetCurrentDriver()
         {
             if (_driver != null)
             { 
@@ -132,7 +132,7 @@ namespace Zu.AsyncChromeDriver.Tests.Environment
             }
         }
 
-        public IWebDriver CreateDriverInstance()
+        public WebDriver CreateDriverInstance()
         {
             _asyncChromeDriver = new Zu.Chrome.AsyncChromeDriver();
             _driver = new WebDriver(_asyncChromeDriver);
@@ -141,7 +141,7 @@ namespace Zu.AsyncChromeDriver.Tests.Environment
             //return (IWebDriver)Activator.CreateInstance(driverType);
         }
 
-        public IWebDriver CreateFreshDriver()
+        public WebDriver CreateFreshDriver()
         {
             CloseCurrentDriver();
             _driver = CreateDriverInstance();

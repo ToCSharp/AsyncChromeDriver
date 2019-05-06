@@ -3,6 +3,7 @@ using Zu.AsyncChromeDriver.Tests.Environment;
 using System;
 using System.Threading.Tasks;
 using Zu.AsyncWebDriver;
+using Zu.AsyncWebDriver.Remote;
 
 //using Zu.AsyncChromeDriver.Tests.Remote;
 //using AsyncWebDriver.SeleniumAdapter;
@@ -85,9 +86,9 @@ namespace Zu.AsyncChromeDriver.Tests
         public string authenticationPage = EnvironmentManager.Instance.UrlBuilder.WhereIs("basicAuth");
         public string html5Page = EnvironmentManager.Instance.UrlBuilder.WhereIs("html5Page.html");
 
-        protected IWebDriver driver;
+        protected WebDriver driver;
 
-        public IWebDriver DriverInstance
+        public WebDriver DriverInstance
         {
             get { return driver; }
             set { driver = value; }

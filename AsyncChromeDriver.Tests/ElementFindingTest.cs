@@ -407,7 +407,8 @@ namespace Zu.AsyncChromeDriver.Tests
         {
             await driver.GoToUrl(xhtmlTestPage);
             String xpathString = "//node()[contains(@id,'id')]";
-            Assert.AreEqual(3, await driver.FindElements(By.XPath(xpathString)).Count());
+            //Assert.AreEqual(3, await driver.FindElements(By.XPath(xpathString)).Count());
+            Assert.AreEqual(3, await driver.FindElementsByXPath(xpathString, 1000).Count());
 
             xpathString = "//node()[contains(@id,'nope')]";
             Assert.AreEqual(0, await driver.FindElements(By.XPath(xpathString)).Count());
@@ -578,7 +579,8 @@ namespace Zu.AsyncChromeDriver.Tests
         public async Task ShouldBeAbleToFindMultipleElementsByCompoundCssSelector()
         {
             await driver.GoToUrl(xhtmlTestPage);
-            ReadOnlyCollection<IWebElement> elements = await driver.FindElements(By.CssSelector("div.extraDiv, div.content"));
+            ReadOnlyCollection<IWebElement> elements = await driver.FindElementsByCssSelector("div.extraDiv, div.content", 1000);
+            //ReadOnlyCollection<IWebElement> elements = await driver.FindElements(By.CssSelector("div.extraDiv, div.content"), );
             Assert.That(elements, Has.Count.GreaterThan(1));
             Assert.That(await elements[0].GetAttribute("class"), Is.EqualTo("content"));
             Assert.That(await elements[1].GetAttribute("class"), Is.EqualTo("extraDiv"));
