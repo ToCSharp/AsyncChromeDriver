@@ -53,6 +53,16 @@ namespace Zu.ChromeDevTools.Tracing
             set;
         }
         /// <summary>
+        /// Trace data format to use. This only applies when using `ReturnAsStream`
+        /// transfer mode (defaults to `json`).
+        /// </summary>
+        [JsonProperty("streamFormat", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public StreamFormat? StreamFormat
+        {
+            get;
+            set;
+        }
+        /// <summary>
         /// Compression format to use. This only applies when using `ReturnAsStream`
         /// transfer mode (defaults to `none`)
         /// </summary>

@@ -38,7 +38,7 @@ namespace Zu.ChromeDevTools.DOM
             set;
         }
         /// <summary>
-        /// Id of the node at given coordinates, only when enabled.
+        /// Id of the node at given coordinates, only when enabled and requested document.
         ///</summary>
         [JsonProperty("nodeId", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public long? NodeId

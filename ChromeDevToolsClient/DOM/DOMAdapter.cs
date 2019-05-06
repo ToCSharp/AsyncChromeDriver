@@ -282,6 +282,14 @@ namespace Zu.ChromeDevTools.DOM
             return await m_session.SendCommand<SetFileInputFilesCommand, SetFileInputFilesCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
         }
         /// <summary>
+        /// Returns file information for the given
+    /// File wrapper.
+        /// </summary>
+        public async Task<GetFileInfoCommandResponse> GetFileInfo(GetFileInfoCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
+        {
+            return await m_session.SendCommand<GetFileInfoCommand, GetFileInfoCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
+        }
+        /// <summary>
         /// Enables console to refer to the node with given id via $x (see Command Line API for more details
     /// $x functions).
         /// </summary>

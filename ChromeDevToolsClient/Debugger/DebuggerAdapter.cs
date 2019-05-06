@@ -42,9 +42,9 @@ namespace Zu.ChromeDevTools.Debugger
         /// Enables debugger for the given page. Clients should not assume that the debugging has been
     /// enabled until the result for this command is received.
         /// </summary>
-        public async Task<EnableCommandResponse> Enable(EnableCommand command = null, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
+        public async Task<EnableCommandResponse> Enable(EnableCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
-            return await m_session.SendCommand<EnableCommand, EnableCommandResponse>(command ?? new EnableCommand(), cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
+            return await m_session.SendCommand<EnableCommand, EnableCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
         }
         /// <summary>
         /// Evaluates expression on a given call frame.
@@ -109,16 +109,6 @@ namespace Zu.ChromeDevTools.Debugger
         public async Task<ResumeCommandResponse> Resume(ResumeCommand command = null, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
             return await m_session.SendCommand<ResumeCommand, ResumeCommandResponse>(command ?? new ResumeCommand(), cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
-        }
-        /// <summary>
-        /// This method is deprecated - use Debugger.stepInto with breakOnAsyncCall and
-    /// Debugger.pauseOnAsyncTask instead. Steps into next scheduled async task if any is scheduled
-    /// before next pause. Returns success when async task is actually scheduled, returns error if no
-    /// task were scheduled or another scheduleStepIntoAsync was called.
-        /// </summary>
-        public async Task<ScheduleStepIntoAsyncCommandResponse> ScheduleStepIntoAsync(ScheduleStepIntoAsyncCommand command = null, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
-        {
-            return await m_session.SendCommand<ScheduleStepIntoAsyncCommand, ScheduleStepIntoAsyncCommandResponse>(command ?? new ScheduleStepIntoAsyncCommand(), cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
         }
         /// <summary>
         /// Searches for given string in script content.

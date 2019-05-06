@@ -17,6 +17,15 @@ namespace Zu.ChromeDevTools.Overlay
             set;
         }
         /// <summary>
+        /// Whether the node styles in the tooltip (default: false).
+        ///</summary>
+        [JsonProperty("showStyles", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public bool? ShowStyles
+        {
+            get;
+            set;
+        }
+        /// <summary>
         /// Whether the rulers should be shown (default: false).
         ///</summary>
         [JsonProperty("showRulers", DefaultValueHandling = DefaultValueHandling.Ignore)]
@@ -30,15 +39,6 @@ namespace Zu.ChromeDevTools.Overlay
         ///</summary>
         [JsonProperty("showExtensionLines", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public bool? ShowExtensionLines
-        {
-            get;
-            set;
-        }
-        /// <summary>
-        /// 
-        ///</summary>
-        [JsonProperty("displayAsMaterial", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public bool? DisplayAsMaterial
         {
             get;
             set;
@@ -102,15 +102,6 @@ namespace Zu.ChromeDevTools.Overlay
         ///</summary>
         [JsonProperty("shapeMarginColor", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public DOM.RGBA ShapeMarginColor
-        {
-            get;
-            set;
-        }
-        /// <summary>
-        /// Selectors to highlight relevant nodes.
-        ///</summary>
-        [JsonProperty("selectorList", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public string SelectorList
         {
             get;
             set;

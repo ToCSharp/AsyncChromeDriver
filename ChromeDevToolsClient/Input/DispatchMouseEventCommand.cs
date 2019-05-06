@@ -72,6 +72,16 @@ namespace Zu.ChromeDevTools.Input
             set;
         }
         /// <summary>
+        /// A number indicating which buttons are pressed on the mouse when a mouse event is triggered.
+        /// Left=1, Right=2, Middle=4, Back=8, Forward=16, None=0.
+        /// </summary>
+        [JsonProperty("buttons", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public long? Buttons
+        {
+            get;
+            set;
+        }
+        /// <summary>
         /// Number of times the mouse button was clicked (default: 0).
         /// </summary>
         [JsonProperty("clickCount", DefaultValueHandling = DefaultValueHandling.Ignore)]
@@ -94,6 +104,15 @@ namespace Zu.ChromeDevTools.Input
         /// </summary>
         [JsonProperty("deltaY", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public double? DeltaY
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// Pointer type (default: "mouse").
+        /// </summary>
+        [JsonProperty("pointerType", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public string PointerType
         {
             get;
             set;

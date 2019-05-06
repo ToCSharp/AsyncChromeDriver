@@ -29,7 +29,7 @@ namespace Zu.ChromeDevTools.Network
     public sealed class GetRequestPostDataCommandResponse : ICommandResponse<GetRequestPostDataCommand>
     {
         /// <summary>
-        /// Base64-encoded request body.
+        /// Request body string, omitting files from multipart requests
         ///</summary>
         [JsonProperty("postData")]
         public string PostData

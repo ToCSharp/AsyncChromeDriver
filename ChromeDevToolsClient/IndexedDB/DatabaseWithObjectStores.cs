@@ -17,10 +17,11 @@ namespace Zu.ChromeDevTools.IndexedDB
             set;
         }
         /// <summary>
-        /// Database version.
+        /// Database version (type is not 'integer', as the standard
+        /// requires the version number to be 'unsigned long long')
         ///</summary>
         [JsonProperty("version")]
-        public long Version
+        public double Version
         {
             get;
             set;

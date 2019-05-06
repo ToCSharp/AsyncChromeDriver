@@ -60,14 +60,5 @@ namespace Zu.ChromeDevTools.CSS
             get;
             set;
         }
-        /// <summary>
-        /// The computed font size for the document body, as a computed CSS value string (e.g. '16px').
-        ///</summary>
-        [JsonProperty("computedBodyFontSize", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public string ComputedBodyFontSize
-        {
-            get;
-            set;
-        }
     }
 }

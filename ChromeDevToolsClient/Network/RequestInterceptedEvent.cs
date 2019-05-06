@@ -114,5 +114,15 @@ namespace Zu.ChromeDevTools.Network
             get;
             set;
         }
+        /// <summary>
+        /// If the intercepted request had a corresponding requestWillBeSent event fired for it, then
+        /// this requestId will be the same as the requestId present in the requestWillBeSent event.
+        /// </summary>
+        [JsonProperty("requestId", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public string RequestId
+        {
+            get;
+            set;
+        }
     }
 }

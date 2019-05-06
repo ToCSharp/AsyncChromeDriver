@@ -15,5 +15,9 @@ namespace Zu.ChromeDevTools.Network
         Strict,
         [EnumMember(Value = "Lax")]
         Lax,
+        [EnumMember(Value = "Extended")]
+        Extended,
+        [EnumMember(Value = "None")]
+        None,
     }
 }

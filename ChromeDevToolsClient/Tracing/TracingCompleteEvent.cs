@@ -18,6 +18,15 @@ namespace Zu.ChromeDevTools.Tracing
             set;
         }
         /// <summary>
+        /// Trace data format of returned stream.
+        /// </summary>
+        [JsonProperty("traceFormat", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public StreamFormat? TraceFormat
+        {
+            get;
+            set;
+        }
+        /// <summary>
         /// Compression format of returned stream.
         /// </summary>
         [JsonProperty("streamCompression", DefaultValueHandling = DefaultValueHandling.Ignore)]

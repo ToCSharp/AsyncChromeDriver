@@ -52,6 +52,15 @@ namespace Zu.ChromeDevTools.Overlay
             get;
             set;
         }
+        /// <summary>
+        /// Selectors to highlight relevant nodes.
+        /// </summary>
+        [JsonProperty("selector", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public string Selector
+        {
+            get;
+            set;
+        }
     }
 
     public sealed class HighlightNodeCommandResponse : ICommandResponse<HighlightNodeCommand>

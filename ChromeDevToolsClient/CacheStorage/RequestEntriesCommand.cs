@@ -42,6 +42,15 @@ namespace Zu.ChromeDevTools.CacheStorage
             get;
             set;
         }
+        /// <summary>
+        /// If present, only return the entries containing this substring in the path
+        /// </summary>
+        [JsonProperty("pathFilter", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public string PathFilter
+        {
+            get;
+            set;
+        }
     }
 
     public sealed class RequestEntriesCommandResponse : ICommandResponse<RequestEntriesCommand>
@@ -56,10 +65,11 @@ namespace Zu.ChromeDevTools.CacheStorage
             set;
         }
         /// <summary>
-        /// If true, there are more entries to fetch in the given range.
+        /// Count of returned entries from this storage. If pathFilter is empty, it
+        /// is the count of all entries from this storage.
         ///</summary>
-        [JsonProperty("hasMore")]
-        public bool HasMore
+        [JsonProperty("returnCount")]
+        public double ReturnCount
         {
             get;
             set;

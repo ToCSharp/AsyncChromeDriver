@@ -75,5 +75,15 @@ namespace Zu.ChromeDevTools.Fetch
             get;
             set;
         }
+        /// <summary>
+        /// If the intercepted request had a corresponding Network.requestWillBeSent event fired for it,
+        /// then this networkId will be the same as the requestId present in the requestWillBeSent event.
+        /// </summary>
+        [JsonProperty("networkId", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public string NetworkId
+        {
+            get;
+            set;
+        }
     }
 }

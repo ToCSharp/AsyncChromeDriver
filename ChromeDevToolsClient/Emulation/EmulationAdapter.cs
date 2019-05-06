@@ -173,23 +173,9 @@ namespace Zu.ChromeDevTools.Emulation
         }
 
         /// <summary>
-        /// Notification sent after the virtual time has advanced.
-        /// </summary>
-        public void SubscribeToVirtualTimeAdvancedEvent(Action<VirtualTimeAdvancedEvent> eventCallback)
-        {
-            m_session.Subscribe(eventCallback);
-        }
-        /// <summary>
         /// Notification sent after the virtual time budget for the current VirtualTimePolicy has run out.
         /// </summary>
         public void SubscribeToVirtualTimeBudgetExpiredEvent(Action<VirtualTimeBudgetExpiredEvent> eventCallback)
-        {
-            m_session.Subscribe(eventCallback);
-        }
-        /// <summary>
-        /// Notification sent after the virtual time has paused.
-        /// </summary>
-        public void SubscribeToVirtualTimePausedEvent(Action<VirtualTimePausedEvent> eventCallback)
         {
             m_session.Subscribe(eventCallback);
         }

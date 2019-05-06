@@ -90,6 +90,13 @@ namespace Zu.ChromeDevTools.Overlay
             return await m_session.SendCommand<SetInspectModeCommand, SetInspectModeCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
         }
         /// <summary>
+        /// Highlights owner element of all frames detected to be ads.
+        /// </summary>
+        public async Task<SetShowAdHighlightsCommandResponse> SetShowAdHighlights(SetShowAdHighlightsCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
+        {
+            return await m_session.SendCommand<SetShowAdHighlightsCommand, SetShowAdHighlightsCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
+        }
+        /// <summary>
         /// 
         /// </summary>
         public async Task<SetPausedInDebuggerMessageCommandResponse> SetPausedInDebuggerMessage(SetPausedInDebuggerMessageCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
@@ -125,18 +132,18 @@ namespace Zu.ChromeDevTools.Overlay
             return await m_session.SendCommand<SetShowScrollBottleneckRectsCommand, SetShowScrollBottleneckRectsCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
         }
         /// <summary>
+        /// Requests that backend shows hit-test borders on layers
+        /// </summary>
+        public async Task<SetShowHitTestBordersCommandResponse> SetShowHitTestBorders(SetShowHitTestBordersCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
+        {
+            return await m_session.SendCommand<SetShowHitTestBordersCommand, SetShowHitTestBordersCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
+        }
+        /// <summary>
         /// Paints viewport size upon main frame resize.
         /// </summary>
         public async Task<SetShowViewportSizeOnResizeCommandResponse> SetShowViewportSizeOnResize(SetShowViewportSizeOnResizeCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
             return await m_session.SendCommand<SetShowViewportSizeOnResizeCommand, SetShowViewportSizeOnResizeCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        public async Task<SetSuspendedCommandResponse> SetSuspended(SetSuspendedCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
-        {
-            return await m_session.SendCommand<SetSuspendedCommand, SetSuspendedCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
         }
 
         /// <summary>
@@ -158,6 +165,13 @@ namespace Zu.ChromeDevTools.Overlay
         /// Fired when user asks to capture screenshot of some area on the page.
         /// </summary>
         public void SubscribeToScreenshotRequestedEvent(Action<ScreenshotRequestedEvent> eventCallback)
+        {
+            m_session.Subscribe(eventCallback);
+        }
+        /// <summary>
+        /// Fired when user cancels the inspect mode.
+        /// </summary>
+        public void SubscribeToInspectModeCanceledEvent(Action<InspectModeCanceledEvent> eventCallback)
         {
             m_session.Subscribe(eventCallback);
         }

@@ -8,9 +8,11 @@ namespace Zu.ChromeDevTools
         private Lazy<Animation.AnimationAdapter> m_Animation;
         private Lazy<ApplicationCache.ApplicationCacheAdapter> m_ApplicationCache;
         private Lazy<Audits.AuditsAdapter> m_Audits;
+        private Lazy<BackgroundService.BackgroundServiceAdapter> m_BackgroundService;
         private Lazy<Browser.BrowserAdapter> m_Browser;
         private Lazy<CSS.CSSAdapter> m_CSS;
         private Lazy<CacheStorage.CacheStorageAdapter> m_CacheStorage;
+        private Lazy<Cast.CastAdapter> m_Cast;
         private Lazy<DOM.DOMAdapter> m_DOM;
         private Lazy<DOMDebugger.DOMDebuggerAdapter> m_DOMDebugger;
         private Lazy<DOMSnapshot.DOMSnapshotAdapter> m_DOMSnapshot;
@@ -37,8 +39,8 @@ namespace Zu.ChromeDevTools
         private Lazy<Target.TargetAdapter> m_Target;
         private Lazy<Tethering.TetheringAdapter> m_Tethering;
         private Lazy<Tracing.TracingAdapter> m_Tracing;
-        private Lazy<Testing.TestingAdapter> m_Testing;
         private Lazy<Fetch.FetchAdapter> m_Fetch;
+        private Lazy<WebAudio.WebAudioAdapter> m_WebAudio;
         private Lazy<Console.ConsoleAdapter> m_Console;
         private Lazy<Debugger.DebuggerAdapter> m_Debugger;
         private Lazy<HeapProfiler.HeapProfilerAdapter> m_HeapProfiler;
@@ -52,9 +54,11 @@ namespace Zu.ChromeDevTools
             m_Animation = new Lazy<Animation.AnimationAdapter>(() => new Animation.AnimationAdapter(this));
             m_ApplicationCache = new Lazy<ApplicationCache.ApplicationCacheAdapter>(() => new ApplicationCache.ApplicationCacheAdapter(this));
             m_Audits = new Lazy<Audits.AuditsAdapter>(() => new Audits.AuditsAdapter(this));
+            m_BackgroundService = new Lazy<BackgroundService.BackgroundServiceAdapter>(() => new BackgroundService.BackgroundServiceAdapter(this));
             m_Browser = new Lazy<Browser.BrowserAdapter>(() => new Browser.BrowserAdapter(this));
             m_CSS = new Lazy<CSS.CSSAdapter>(() => new CSS.CSSAdapter(this));
             m_CacheStorage = new Lazy<CacheStorage.CacheStorageAdapter>(() => new CacheStorage.CacheStorageAdapter(this));
+            m_Cast = new Lazy<Cast.CastAdapter>(() => new Cast.CastAdapter(this));
             m_DOM = new Lazy<DOM.DOMAdapter>(() => new DOM.DOMAdapter(this));
             m_DOMDebugger = new Lazy<DOMDebugger.DOMDebuggerAdapter>(() => new DOMDebugger.DOMDebuggerAdapter(this));
             m_DOMSnapshot = new Lazy<DOMSnapshot.DOMSnapshotAdapter>(() => new DOMSnapshot.DOMSnapshotAdapter(this));
@@ -81,8 +85,8 @@ namespace Zu.ChromeDevTools
             m_Target = new Lazy<Target.TargetAdapter>(() => new Target.TargetAdapter(this));
             m_Tethering = new Lazy<Tethering.TetheringAdapter>(() => new Tethering.TetheringAdapter(this));
             m_Tracing = new Lazy<Tracing.TracingAdapter>(() => new Tracing.TracingAdapter(this));
-            m_Testing = new Lazy<Testing.TestingAdapter>(() => new Testing.TestingAdapter(this));
             m_Fetch = new Lazy<Fetch.FetchAdapter>(() => new Fetch.FetchAdapter(this));
+            m_WebAudio = new Lazy<WebAudio.WebAudioAdapter>(() => new WebAudio.WebAudioAdapter(this));
             m_Console = new Lazy<Console.ConsoleAdapter>(() => new Console.ConsoleAdapter(this));
             m_Debugger = new Lazy<Debugger.DebuggerAdapter>(() => new Debugger.DebuggerAdapter(this));
             m_HeapProfiler = new Lazy<HeapProfiler.HeapProfilerAdapter>(() => new HeapProfiler.HeapProfilerAdapter(this));
@@ -124,6 +128,14 @@ namespace Zu.ChromeDevTools
         }
         
         /// <summary>
+        /// Gets the adapter for the BackgroundService domain.
+        /// </summary>
+        public BackgroundService.BackgroundServiceAdapter BackgroundService
+        {
+            get { return m_BackgroundService.Value; }
+        }
+        
+        /// <summary>
         /// Gets the adapter for the Browser domain.
         /// </summary>
         public Browser.BrowserAdapter Browser
@@ -145,6 +157,14 @@ namespace Zu.ChromeDevTools
         public CacheStorage.CacheStorageAdapter CacheStorage
         {
             get { return m_CacheStorage.Value; }
+        }
+        
+        /// <summary>
+        /// Gets the adapter for the Cast domain.
+        /// </summary>
+        public Cast.CastAdapter Cast
+        {
+            get { return m_Cast.Value; }
         }
         
         /// <summary>
@@ -356,19 +376,19 @@ namespace Zu.ChromeDevTools
         }
         
         /// <summary>
-        /// Gets the adapter for the Testing domain.
-        /// </summary>
-        public Testing.TestingAdapter Testing
-        {
-            get { return m_Testing.Value; }
-        }
-        
-        /// <summary>
         /// Gets the adapter for the Fetch domain.
         /// </summary>
         public Fetch.FetchAdapter Fetch
         {
             get { return m_Fetch.Value; }
+        }
+        
+        /// <summary>
+        /// Gets the adapter for the WebAudio domain.
+        /// </summary>
+        public WebAudio.WebAudioAdapter WebAudio
+        {
+            get { return m_WebAudio.Value; }
         }
         
         /// <summary>

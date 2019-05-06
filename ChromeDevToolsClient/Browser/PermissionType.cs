@@ -36,11 +36,15 @@ namespace Zu.ChromeDevTools.Browser
         Notifications,
         [EnumMember(Value = "paymentHandler")]
         PaymentHandler,
+        [EnumMember(Value = "periodicBackgroundSync")]
+        PeriodicBackgroundSync,
         [EnumMember(Value = "protectedMediaIdentifier")]
         ProtectedMediaIdentifier,
         [EnumMember(Value = "sensors")]
         Sensors,
         [EnumMember(Value = "videoCapture")]
         VideoCapture,
+        [EnumMember(Value = "idleDetection")]
+        IdleDetection,
     }
 }

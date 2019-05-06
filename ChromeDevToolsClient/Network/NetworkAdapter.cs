@@ -217,7 +217,7 @@ namespace Zu.ChromeDevTools.Network
             return await m_session.SendCommand<SetExtraHTTPHeadersCommand, SetExtraHTTPHeadersCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
         }
         /// <summary>
-        /// Sets the requests to intercept that match a the provided patterns and optionally resource types.
+        /// Sets the requests to intercept that match the provided patterns and optionally resource types.
         /// </summary>
         public async Task<SetRequestInterceptionCommandResponse> SetRequestInterception(SetRequestInterceptionCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
@@ -317,21 +317,21 @@ namespace Zu.ChromeDevTools.Network
             m_session.Subscribe(eventCallback);
         }
         /// <summary>
-        /// Fired when WebSocket frame error occurs.
+        /// Fired when WebSocket message error occurs.
         /// </summary>
         public void SubscribeToWebSocketFrameErrorEvent(Action<WebSocketFrameErrorEvent> eventCallback)
         {
             m_session.Subscribe(eventCallback);
         }
         /// <summary>
-        /// Fired when WebSocket frame is received.
+        /// Fired when WebSocket message is received.
         /// </summary>
         public void SubscribeToWebSocketFrameReceivedEvent(Action<WebSocketFrameReceivedEvent> eventCallback)
         {
             m_session.Subscribe(eventCallback);
         }
         /// <summary>
-        /// Fired when WebSocket frame is sent.
+        /// Fired when WebSocket message is sent.
         /// </summary>
         public void SubscribeToWebSocketFrameSentEvent(Action<WebSocketFrameSentEvent> eventCallback)
         {

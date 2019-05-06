@@ -18,15 +18,6 @@ namespace Zu.ChromeDevTools.Network
             set;
         }
         /// <summary>
-        /// Signed exchange request method.
-        ///</summary>
-        [JsonProperty("requestMethod")]
-        public string RequestMethod
-        {
-            get;
-            set;
-        }
-        /// <summary>
         /// Signed exchange response code.
         ///</summary>
         [JsonProperty("responseCode")]

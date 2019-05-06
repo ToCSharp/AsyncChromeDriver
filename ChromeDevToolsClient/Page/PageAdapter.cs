@@ -53,6 +53,14 @@ namespace Zu.ChromeDevTools.Page
             return await m_session.SendCommand<CaptureScreenshotCommand, CaptureScreenshotCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
         }
         /// <summary>
+        /// Returns a snapshot of the page as a string. For MHTML format, the serialization includes
+    /// iframes, shadow DOM, external resources, and element-inline styles.
+        /// </summary>
+        public async Task<CaptureSnapshotCommandResponse> CaptureSnapshot(CaptureSnapshotCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
+        {
+            return await m_session.SendCommand<CaptureSnapshotCommand, CaptureSnapshotCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
+        }
+        /// <summary>
         /// Clears the overriden device metrics.
         /// </summary>
         public async Task<ClearDeviceMetricsOverrideCommandResponse> ClearDeviceMetricsOverride(ClearDeviceMetricsOverrideCommand command = null, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
@@ -109,6 +117,13 @@ namespace Zu.ChromeDevTools.Page
             return await m_session.SendCommand<GetAppManifestCommand, GetAppManifestCommandResponse>(command ?? new GetAppManifestCommand(), cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
         }
         /// <summary>
+        /// 
+        /// </summary>
+        public async Task<GetInstallabilityErrorsCommandResponse> GetInstallabilityErrors(GetInstallabilityErrorsCommand command = null, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
+        {
+            return await m_session.SendCommand<GetInstallabilityErrorsCommand, GetInstallabilityErrorsCommandResponse>(command ?? new GetInstallabilityErrorsCommand(), cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
+        }
+        /// <summary>
         /// Returns all browser cookies. Depending on the backend support, will return detailed cookie
     /// information in the `cookies` field.
         /// </summary>
@@ -142,6 +157,13 @@ namespace Zu.ChromeDevTools.Page
         public async Task<GetNavigationHistoryCommandResponse> GetNavigationHistory(GetNavigationHistoryCommand command = null, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
             return await m_session.SendCommand<GetNavigationHistoryCommand, GetNavigationHistoryCommandResponse>(command ?? new GetNavigationHistoryCommand(), cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
+        }
+        /// <summary>
+        /// Resets navigation history for the current page.
+        /// </summary>
+        public async Task<ResetNavigationHistoryCommandResponse> ResetNavigationHistory(ResetNavigationHistoryCommand command = null, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
+        {
+            return await m_session.SendCommand<ResetNavigationHistoryCommand, ResetNavigationHistoryCommandResponse>(command ?? new ResetNavigationHistoryCommand(), cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
         }
         /// <summary>
         /// Returns content of the given resource.
@@ -205,13 +227,6 @@ namespace Zu.ChromeDevTools.Page
         public async Task<RemoveScriptToEvaluateOnNewDocumentCommandResponse> RemoveScriptToEvaluateOnNewDocument(RemoveScriptToEvaluateOnNewDocumentCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
             return await m_session.SendCommand<RemoveScriptToEvaluateOnNewDocumentCommand, RemoveScriptToEvaluateOnNewDocumentCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        public async Task<RequestAppBannerCommandResponse> RequestAppBanner(RequestAppBannerCommand command = null, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
-        {
-            return await m_session.SendCommand<RequestAppBannerCommand, RequestAppBannerCommandResponse>(command ?? new RequestAppBannerCommand(), cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
         }
         /// <summary>
         /// Acknowledges that a screencast frame has been received by the frontend.
@@ -380,6 +395,13 @@ namespace Zu.ChromeDevTools.Page
         {
             return await m_session.SendCommand<GenerateTestReportCommand, GenerateTestReportCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
         }
+        /// <summary>
+        /// Pauses page execution. Can be resumed using generic Runtime.runIfWaitingForDebugger.
+        /// </summary>
+        public async Task<WaitForDebuggerCommandResponse> WaitForDebugger(WaitForDebuggerCommand command = null, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
+        {
+            return await m_session.SendCommand<WaitForDebuggerCommand, WaitForDebuggerCommandResponse>(command ?? new WaitForDebuggerCommand(), cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
+        }
 
         /// <summary>
         /// 
@@ -424,6 +446,14 @@ namespace Zu.ChromeDevTools.Page
             m_session.Subscribe(eventCallback);
         }
         /// <summary>
+        /// Fired when a renderer-initiated navigation is requested.
+        /// Navigation may still be cancelled after the event is issued.
+        /// </summary>
+        public void SubscribeToFrameRequestedNavigationEvent(Action<FrameRequestedNavigationEvent> eventCallback)
+        {
+            m_session.Subscribe(eventCallback);
+        }
+        /// <summary>
         /// Fired when frame schedules a potential navigation.
         /// </summary>
         public void SubscribeToFrameScheduledNavigationEvent(Action<FrameScheduledNavigationEvent> eventCallback)
@@ -441,6 +471,13 @@ namespace Zu.ChromeDevTools.Page
         /// Fired when frame has stopped loading.
         /// </summary>
         public void SubscribeToFrameStoppedLoadingEvent(Action<FrameStoppedLoadingEvent> eventCallback)
+        {
+            m_session.Subscribe(eventCallback);
+        }
+        /// <summary>
+        /// Fired when page is about to start a download.
+        /// </summary>
+        public void SubscribeToDownloadWillBeginEvent(Action<DownloadWillBeginEvent> eventCallback)
         {
             m_session.Subscribe(eventCallback);
         }

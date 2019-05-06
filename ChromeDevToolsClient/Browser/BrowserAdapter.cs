@@ -53,6 +53,13 @@ namespace Zu.ChromeDevTools.Browser
             return await m_session.SendCommand<CrashCommand, CrashCommandResponse>(command ?? new CrashCommand(), cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
         }
         /// <summary>
+        /// Crashes GPU process.
+        /// </summary>
+        public async Task<CrashGpuProcessCommandResponse> CrashGpuProcess(CrashGpuProcessCommand command = null, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
+        {
+            return await m_session.SendCommand<CrashGpuProcessCommand, CrashGpuProcessCommandResponse>(command ?? new CrashGpuProcessCommand(), cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
+        }
+        /// <summary>
         /// Returns version information.
         /// </summary>
         public async Task<GetVersionCommandResponse> GetVersion(GetVersionCommand command = null, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
@@ -101,6 +108,13 @@ namespace Zu.ChromeDevTools.Browser
         public async Task<SetWindowBoundsCommandResponse> SetWindowBounds(SetWindowBoundsCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
             return await m_session.SendCommand<SetWindowBoundsCommand, SetWindowBoundsCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
+        }
+        /// <summary>
+        /// Set dock tile details, platform-specific.
+        /// </summary>
+        public async Task<SetDockTileCommandResponse> SetDockTile(SetDockTileCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
+        {
+            return await m_session.SendCommand<SetDockTileCommand, SetDockTileCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
         }
 
     }

@@ -3,7 +3,7 @@ namespace Zu.ChromeDevTools.Network
     using Newtonsoft.Json;
 
     /// <summary>
-    /// Sets the requests to intercept that match a the provided patterns and optionally resource types.
+    /// Sets the requests to intercept that match the provided patterns and optionally resource types.
     /// </summary>
     public sealed class SetRequestInterceptionCommand : ICommand
     {

@@ -77,6 +77,15 @@ namespace Zu.ChromeDevTools.Runtime
             set;
         }
         /// <summary>
+        /// Object private properties.
+        ///</summary>
+        [JsonProperty("privateProperties", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public PrivatePropertyDescriptor[] PrivateProperties
+        {
+            get;
+            set;
+        }
+        /// <summary>
         /// Exception details.
         ///</summary>
         [JsonProperty("exceptionDetails", DefaultValueHandling = DefaultValueHandling.Ignore)]
