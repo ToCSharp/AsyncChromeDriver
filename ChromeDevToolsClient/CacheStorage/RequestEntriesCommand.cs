@@ -27,8 +27,8 @@ namespace Zu.ChromeDevTools.CacheStorage
         /// <summary>
         /// Number of records to skip.
         /// </summary>
-        [JsonProperty("skipCount")]
-        public long SkipCount
+        [JsonProperty("skipCount", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public long? SkipCount
         {
             get;
             set;
@@ -36,8 +36,8 @@ namespace Zu.ChromeDevTools.CacheStorage
         /// <summary>
         /// Number of records to fetch.
         /// </summary>
-        [JsonProperty("pageSize")]
-        public long PageSize
+        [JsonProperty("pageSize", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public long? PageSize
         {
             get;
             set;

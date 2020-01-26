@@ -25,6 +25,15 @@ namespace Zu.ChromeDevTools.HeapProfiler
             get;
             set;
         }
+        /// <summary>
+        /// Gets or sets the treatGlobalObjectsAsRoots
+        /// </summary>
+        [JsonProperty("treatGlobalObjectsAsRoots", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public bool? TreatGlobalObjectsAsRoots
+        {
+            get;
+            set;
+        }
     }
 
     public sealed class StopTrackingHeapObjectsCommandResponse : ICommandResponse<StopTrackingHeapObjectsCommand>

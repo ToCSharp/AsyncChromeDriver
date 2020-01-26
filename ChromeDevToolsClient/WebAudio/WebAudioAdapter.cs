@@ -54,9 +54,9 @@ namespace Zu.ChromeDevTools.WebAudio
             m_session.Subscribe(eventCallback);
         }
         /// <summary>
-        /// Notifies that existing BaseAudioContext has been destroyed.
+        /// Notifies that an existing BaseAudioContext will be destroyed.
         /// </summary>
-        public void SubscribeToContextDestroyedEvent(Action<ContextDestroyedEvent> eventCallback)
+        public void SubscribeToContextWillBeDestroyedEvent(Action<ContextWillBeDestroyedEvent> eventCallback)
         {
             m_session.Subscribe(eventCallback);
         }
@@ -64,6 +64,76 @@ namespace Zu.ChromeDevTools.WebAudio
         /// Notifies that existing BaseAudioContext has changed some properties (id stays the same)..
         /// </summary>
         public void SubscribeToContextChangedEvent(Action<ContextChangedEvent> eventCallback)
+        {
+            m_session.Subscribe(eventCallback);
+        }
+        /// <summary>
+        /// Notifies that the construction of an AudioListener has finished.
+        /// </summary>
+        public void SubscribeToAudioListenerCreatedEvent(Action<AudioListenerCreatedEvent> eventCallback)
+        {
+            m_session.Subscribe(eventCallback);
+        }
+        /// <summary>
+        /// Notifies that a new AudioListener has been created.
+        /// </summary>
+        public void SubscribeToAudioListenerWillBeDestroyedEvent(Action<AudioListenerWillBeDestroyedEvent> eventCallback)
+        {
+            m_session.Subscribe(eventCallback);
+        }
+        /// <summary>
+        /// Notifies that a new AudioNode has been created.
+        /// </summary>
+        public void SubscribeToAudioNodeCreatedEvent(Action<AudioNodeCreatedEvent> eventCallback)
+        {
+            m_session.Subscribe(eventCallback);
+        }
+        /// <summary>
+        /// Notifies that an existing AudioNode has been destroyed.
+        /// </summary>
+        public void SubscribeToAudioNodeWillBeDestroyedEvent(Action<AudioNodeWillBeDestroyedEvent> eventCallback)
+        {
+            m_session.Subscribe(eventCallback);
+        }
+        /// <summary>
+        /// Notifies that a new AudioParam has been created.
+        /// </summary>
+        public void SubscribeToAudioParamCreatedEvent(Action<AudioParamCreatedEvent> eventCallback)
+        {
+            m_session.Subscribe(eventCallback);
+        }
+        /// <summary>
+        /// Notifies that an existing AudioParam has been destroyed.
+        /// </summary>
+        public void SubscribeToAudioParamWillBeDestroyedEvent(Action<AudioParamWillBeDestroyedEvent> eventCallback)
+        {
+            m_session.Subscribe(eventCallback);
+        }
+        /// <summary>
+        /// Notifies that two AudioNodes are connected.
+        /// </summary>
+        public void SubscribeToNodesConnectedEvent(Action<NodesConnectedEvent> eventCallback)
+        {
+            m_session.Subscribe(eventCallback);
+        }
+        /// <summary>
+        /// Notifies that AudioNodes are disconnected. The destination can be null, and it means all the outgoing connections from the source are disconnected.
+        /// </summary>
+        public void SubscribeToNodesDisconnectedEvent(Action<NodesDisconnectedEvent> eventCallback)
+        {
+            m_session.Subscribe(eventCallback);
+        }
+        /// <summary>
+        /// Notifies that an AudioNode is connected to an AudioParam.
+        /// </summary>
+        public void SubscribeToNodeParamConnectedEvent(Action<NodeParamConnectedEvent> eventCallback)
+        {
+            m_session.Subscribe(eventCallback);
+        }
+        /// <summary>
+        /// Notifies that an AudioNode is disconnected to an AudioParam.
+        /// </summary>
+        public void SubscribeToNodeParamDisconnectedEvent(Action<NodeParamDisconnectedEvent> eventCallback)
         {
             m_session.Subscribe(eventCallback);
         }

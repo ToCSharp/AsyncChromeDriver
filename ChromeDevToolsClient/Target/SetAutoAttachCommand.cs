@@ -38,9 +38,20 @@ namespace Zu.ChromeDevTools.Target
         }
         /// <summary>
         /// Enables "flat" access to the session via specifying sessionId attribute in the commands.
+        /// We plan to make this the default, deprecate non-flattened mode,
+        /// and eventually retire it. See crbug.com/991325.
         /// </summary>
         [JsonProperty("flatten", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public bool? Flatten
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// Auto-attach to the targets created via window.open from current target.
+        /// </summary>
+        [JsonProperty("windowOpen", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public bool? WindowOpen
         {
             get;
             set;

@@ -125,6 +125,13 @@ namespace Zu.ChromeDevTools.Overlay
             return await m_session.SendCommand<SetShowPaintRectsCommand, SetShowPaintRectsCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
         }
         /// <summary>
+        /// Requests that backend shows layout shift regions
+        /// </summary>
+        public async Task<SetShowLayoutShiftRegionsCommandResponse> SetShowLayoutShiftRegions(SetShowLayoutShiftRegionsCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
+        {
+            return await m_session.SendCommand<SetShowLayoutShiftRegionsCommand, SetShowLayoutShiftRegionsCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
+        }
+        /// <summary>
         /// Requests that backend shows scroll bottleneck rects
         /// </summary>
         public async Task<SetShowScrollBottleneckRectsCommandResponse> SetShowScrollBottleneckRects(SetShowScrollBottleneckRectsCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)

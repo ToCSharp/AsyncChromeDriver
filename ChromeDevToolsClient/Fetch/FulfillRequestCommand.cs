@@ -36,8 +36,20 @@ namespace Zu.ChromeDevTools.Fetch
         /// <summary>
         /// Response headers.
         /// </summary>
-        [JsonProperty("responseHeaders")]
+        [JsonProperty("responseHeaders", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public HeaderEntry[] ResponseHeaders
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// Alternative way of specifying response headers as a \0-separated
+        /// series of name: value pairs. Prefer the above method unless you
+        /// need to represent some non-UTF8 values that can't be transmitted
+        /// over the protocol as text.
+        /// </summary>
+        [JsonProperty("binaryResponseHeaders", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public string BinaryResponseHeaders
         {
             get;
             set;
@@ -53,7 +65,7 @@ namespace Zu.ChromeDevTools.Fetch
         }
         /// <summary>
         /// A textual representation of responseCode.
-        /// If absent, a standard phrase mathcing responseCode is used.
+        /// If absent, a standard phrase matching responseCode is used.
         /// </summary>
         [JsonProperty("responsePhrase", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public string ResponsePhrase

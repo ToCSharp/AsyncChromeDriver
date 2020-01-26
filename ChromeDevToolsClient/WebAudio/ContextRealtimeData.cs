@@ -3,16 +3,15 @@ namespace Zu.ChromeDevTools.WebAudio
     using Newtonsoft.Json;
 
     /// <summary>
-    /// Fields in AudioContext that change in real-time. These are not updated
-    /// on OfflineAudioContext.
+    /// Fields in AudioContext that change in real-time.
     /// </summary>
     public sealed class ContextRealtimeData
     {
         /// <summary>
         /// The current context time in second in BaseAudioContext.
         ///</summary>
-        [JsonProperty("currentTime", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public double? CurrentTime
+        [JsonProperty("currentTime")]
+        public double CurrentTime
         {
             get;
             set;
@@ -22,8 +21,26 @@ namespace Zu.ChromeDevTools.WebAudio
         /// and multiplied by 100. 100 means the audio renderer reached the full
         /// capacity and glitch may occur.
         ///</summary>
-        [JsonProperty("renderCapacity", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public double? RenderCapacity
+        [JsonProperty("renderCapacity")]
+        public double RenderCapacity
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// A running mean of callback interval.
+        ///</summary>
+        [JsonProperty("callbackIntervalMean")]
+        public double CallbackIntervalMean
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// A running variance of callback interval.
+        ///</summary>
+        [JsonProperty("callbackIntervalVariance")]
+        public double CallbackIntervalVariance
         {
             get;
             set;

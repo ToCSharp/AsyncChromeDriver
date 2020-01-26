@@ -29,10 +29,19 @@ namespace Zu.ChromeDevTools.Debugger
     public sealed class GetScriptSourceCommandResponse : ICommandResponse<GetScriptSourceCommand>
     {
         /// <summary>
-        /// Script source.
+        /// Script source (empty in case of Wasm bytecode).
         ///</summary>
         [JsonProperty("scriptSource")]
         public string ScriptSource
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// Wasm bytecode.
+        ///</summary>
+        [JsonProperty("bytecode", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public string Bytecode
         {
             get;
             set;

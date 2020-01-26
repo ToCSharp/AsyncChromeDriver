@@ -24,6 +24,15 @@ namespace Zu.ChromeDevTools.HeapProfiler
             get;
             set;
         }
+        /// <summary>
+        /// If true, a raw snapshot without artifical roots will be generated
+        /// </summary>
+        [JsonProperty("treatGlobalObjectsAsRoots", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public bool? TreatGlobalObjectsAsRoots
+        {
+            get;
+            set;
+        }
     }
 
     public sealed class TakeHeapSnapshotCommandResponse : ICommandResponse<TakeHeapSnapshotCommand>

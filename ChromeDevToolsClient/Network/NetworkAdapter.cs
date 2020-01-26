@@ -64,6 +64,7 @@ namespace Zu.ChromeDevTools.Network
     /// modifications, or blocks it, or completes it with the provided response bytes. If a network
     /// fetch occurs as a result which encounters a redirect an additional Network.requestIntercepted
     /// event will be sent with the same InterceptionId.
+    /// Deprecated, use Fetch.continueRequest, Fetch.fulfillRequest and Fetch.failRequest instead.
         /// </summary>
         public async Task<ContinueInterceptedRequestCommandResponse> ContinueInterceptedRequest(ContinueInterceptedRequestCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
@@ -218,6 +219,7 @@ namespace Zu.ChromeDevTools.Network
         }
         /// <summary>
         /// Sets the requests to intercept that match the provided patterns and optionally resource types.
+    /// Deprecated, please use Fetch.enable instead.
         /// </summary>
         public async Task<SetRequestInterceptionCommandResponse> SetRequestInterception(SetRequestInterceptionCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
@@ -262,6 +264,7 @@ namespace Zu.ChromeDevTools.Network
         /// <summary>
         /// Details of an intercepted HTTP request, which must be either allowed, blocked, modified or
         /// mocked.
+        /// Deprecated, use Fetch.requestPaused instead.
         /// </summary>
         public void SubscribeToRequestInterceptedEvent(Action<RequestInterceptedEvent> eventCallback)
         {
@@ -348,6 +351,25 @@ namespace Zu.ChromeDevTools.Network
         /// Fired when WebSocket is about to initiate handshake.
         /// </summary>
         public void SubscribeToWebSocketWillSendHandshakeRequestEvent(Action<WebSocketWillSendHandshakeRequestEvent> eventCallback)
+        {
+            m_session.Subscribe(eventCallback);
+        }
+        /// <summary>
+        /// Fired when additional information about a requestWillBeSent event is available from the
+        /// network stack. Not every requestWillBeSent event will have an additional
+        /// requestWillBeSentExtraInfo fired for it, and there is no guarantee whether requestWillBeSent
+        /// or requestWillBeSentExtraInfo will be fired first for the same request.
+        /// </summary>
+        public void SubscribeToRequestWillBeSentExtraInfoEvent(Action<RequestWillBeSentExtraInfoEvent> eventCallback)
+        {
+            m_session.Subscribe(eventCallback);
+        }
+        /// <summary>
+        /// Fired when additional information about a responseReceived event is available from the network
+        /// stack. Not every responseReceived event will have an additional responseReceivedExtraInfo for
+        /// it, and responseReceivedExtraInfo may be fired before or after responseReceived.
+        /// </summary>
+        public void SubscribeToResponseReceivedExtraInfoEvent(Action<ResponseReceivedExtraInfoEvent> eventCallback)
         {
             m_session.Subscribe(eventCallback);
         }

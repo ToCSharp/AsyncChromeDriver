@@ -7,6 +7,7 @@ namespace Zu.ChromeDevTools.Network
     /// modifications, or blocks it, or completes it with the provided response bytes. If a network
     /// fetch occurs as a result which encounters a redirect an additional Network.requestIntercepted
     /// event will be sent with the same InterceptionId.
+    /// Deprecated, use Fetch.continueRequest, Fetch.fulfillRequest and Fetch.failRequest instead.
     /// </summary>
     public sealed class ContinueInterceptedRequestCommand : ICommand
     {

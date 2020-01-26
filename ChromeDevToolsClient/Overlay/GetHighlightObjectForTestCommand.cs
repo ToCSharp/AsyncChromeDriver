@@ -24,6 +24,24 @@ namespace Zu.ChromeDevTools.Overlay
             get;
             set;
         }
+        /// <summary>
+        /// Whether to include distance info.
+        /// </summary>
+        [JsonProperty("includeDistance", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public bool? IncludeDistance
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// Whether to include style info.
+        /// </summary>
+        [JsonProperty("includeStyle", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public bool? IncludeStyle
+        {
+            get;
+            set;
+        }
     }
 
     public sealed class GetHighlightObjectForTestCommandResponse : ICommandResponse<GetHighlightObjectForTestCommand>

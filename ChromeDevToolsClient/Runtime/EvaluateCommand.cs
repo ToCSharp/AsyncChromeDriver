@@ -101,6 +101,7 @@ namespace Zu.ChromeDevTools.Runtime
         }
         /// <summary>
         /// Whether to throw an exception if side effect cannot be ruled out during evaluation.
+        /// This implies `disableBreaks` below.
         /// </summary>
         [JsonProperty("throwOnSideEffect", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public bool? ThrowOnSideEffect
@@ -113,6 +114,24 @@ namespace Zu.ChromeDevTools.Runtime
         /// </summary>
         [JsonProperty("timeout", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public double? Timeout
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// Disable breakpoints during execution.
+        /// </summary>
+        [JsonProperty("disableBreaks", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public bool? DisableBreaks
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// Reserved flag for future REPL mode support. Setting this flag has currently no effect.
+        /// </summary>
+        [JsonProperty("replMode", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public bool? ReplMode
         {
             get;
             set;

@@ -4,6 +4,7 @@ namespace Zu.ChromeDevTools.Network
 
     /// <summary>
     /// Sets the requests to intercept that match the provided patterns and optionally resource types.
+    /// Deprecated, please use Fetch.enable instead.
     /// </summary>
     public sealed class SetRequestInterceptionCommand : ICommand
     {

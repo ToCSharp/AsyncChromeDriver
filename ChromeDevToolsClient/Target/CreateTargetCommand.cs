@@ -61,6 +61,25 @@ namespace Zu.ChromeDevTools.Target
             get;
             set;
         }
+        /// <summary>
+        /// Whether to create a new Window or Tab (chrome-only, false by default).
+        /// </summary>
+        [JsonProperty("newWindow", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public bool? NewWindow
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// Whether to create the target in background or foreground (chrome-only,
+        /// false by default).
+        /// </summary>
+        [JsonProperty("background", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public bool? Background
+        {
+            get;
+            set;
+        }
     }
 
     public sealed class CreateTargetCommandResponse : ICommandResponse<CreateTargetCommand>

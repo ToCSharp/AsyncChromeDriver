@@ -3,14 +3,14 @@
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;net462</TargetFrameworks>
     <PackageId>Zu.ChromeDevToolsClient</PackageId>
-    <Version>0.5.5</Version>
+    <Version>0.5.6</Version>
     <Authors>Oleg Zudov</Authors>
     <Product>Zu.ChromeDevToolsClient</Product>
     <PackageProjectUrl>https://github.com/ToCSharp/AsyncChromeDriver/tree/master/ChromeDevToolsClient</PackageProjectUrl>
     <RepositoryUrl>https://github.com/ToCSharp/AsyncChromeDriver/tree/master/ChromeDevToolsClient</RepositoryUrl>
     <PackageLicenseUrl>https://github.com/ToCSharp/AsyncChromeDriver/blob/master/LICENSE</PackageLicenseUrl>
     <Description>Chrome DevTools Client for AsyncChromeDriver</Description>
-    <PackageReleaseNotes>Protocol r655971 on May 2, 2019 (Chrome 74). NuGet 0.5.5</PackageReleaseNotes>
+    <PackageReleaseNotes>Protocol r734741 on Jan 24, 2020 (Chrome 79). NuGet 0.5.6</PackageReleaseNotes>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 

@@ -27,6 +27,24 @@ namespace Zu.ChromeDevTools.DOMSnapshot
             get;
             set;
         }
+        /// <summary>
+        /// Whether to include layout object paint orders into the snapshot.
+        /// </summary>
+        [JsonProperty("includePaintOrder", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public bool? IncludePaintOrder
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// Whether to include DOM rectangles (offsetRects, clientRects, scrollRects) into the snapshot
+        /// </summary>
+        [JsonProperty("includeDOMRects", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public bool? IncludeDOMRects
+        {
+            get;
+            set;
+        }
     }
 
     public sealed class CaptureSnapshotCommandResponse : ICommandResponse<CaptureSnapshotCommand>

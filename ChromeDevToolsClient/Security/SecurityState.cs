@@ -20,5 +20,7 @@ namespace Zu.ChromeDevTools.Security
         Secure,
         [EnumMember(Value = "info")]
         Info,
+        [EnumMember(Value = "insecure-broken")]
+        InsecureBroken,
     }
 }

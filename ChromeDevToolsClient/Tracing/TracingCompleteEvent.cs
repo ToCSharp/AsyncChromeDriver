@@ -9,6 +9,16 @@ namespace Zu.ChromeDevTools.Tracing
     public sealed class TracingCompleteEvent : IEvent
     {
         /// <summary>
+        /// Indicates whether some trace data is known to have been lost, e.g. because the trace ring
+        /// buffer wrapped around.
+        /// </summary>
+        [JsonProperty("dataLossOccurred")]
+        public bool DataLossOccurred
+        {
+            get;
+            set;
+        }
+        /// <summary>
         /// A handle of the stream that holds resulting trace data.
         /// </summary>
         [JsonProperty("stream", DefaultValueHandling = DefaultValueHandling.Ignore)]

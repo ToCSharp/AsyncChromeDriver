@@ -18,6 +18,8 @@ namespace Zu.ChromeDevTools.DOM
         Before,
         [EnumMember(Value = "after")]
         After,
+        [EnumMember(Value = "marker")]
+        Marker,
         [EnumMember(Value = "backdrop")]
         Backdrop,
         [EnumMember(Value = "selection")]

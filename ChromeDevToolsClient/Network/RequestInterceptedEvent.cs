@@ -5,6 +5,7 @@ namespace Zu.ChromeDevTools.Network
     /// <summary>
     /// Details of an intercepted HTTP request, which must be either allowed, blocked, modified or
         /// mocked.
+        /// Deprecated, use Fetch.requestPaused instead.
     /// </summary>
     public sealed class RequestInterceptedEvent : IEvent
     {

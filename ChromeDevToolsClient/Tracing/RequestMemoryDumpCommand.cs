@@ -15,6 +15,15 @@ namespace Zu.ChromeDevTools.Tracing
             get { return ChromeRemoteInterface_CommandName; }
         }
 
+        /// <summary>
+        /// Enables more deterministic results by forcing garbage collection
+        /// </summary>
+        [JsonProperty("deterministic", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public bool? Deterministic
+        {
+            get;
+            set;
+        }
     }
 
     public sealed class RequestMemoryDumpCommandResponse : ICommandResponse<RequestMemoryDumpCommand>

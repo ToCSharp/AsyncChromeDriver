@@ -69,6 +69,13 @@ namespace Zu.ChromeDevTools.Debugger
             return await m_session.SendCommand<GetScriptSourceCommand, GetScriptSourceCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
         }
         /// <summary>
+        /// This command is deprecated. Use getScriptSource instead.
+        /// </summary>
+        public async Task<GetWasmBytecodeCommandResponse> GetWasmBytecode(GetWasmBytecodeCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
+        {
+            return await m_session.SendCommand<GetWasmBytecodeCommand, GetWasmBytecodeCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
+        }
+        /// <summary>
         /// Returns stack trace with given `stackTraceId`.
         /// </summary>
         public async Task<GetStackTraceCommandResponse> GetStackTrace(GetStackTraceCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
@@ -149,6 +156,13 @@ namespace Zu.ChromeDevTools.Debugger
         public async Task<SetBreakpointCommandResponse> SetBreakpoint(SetBreakpointCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
             return await m_session.SendCommand<SetBreakpointCommand, SetBreakpointCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
+        }
+        /// <summary>
+        /// Sets instrumentation breakpoint.
+        /// </summary>
+        public async Task<SetInstrumentationBreakpointCommandResponse> SetInstrumentationBreakpoint(SetInstrumentationBreakpointCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
+        {
+            return await m_session.SendCommand<SetInstrumentationBreakpointCommand, SetInstrumentationBreakpointCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
         }
         /// <summary>
         /// Sets JavaScript breakpoint at given location specified either by URL or URL regex. Once this

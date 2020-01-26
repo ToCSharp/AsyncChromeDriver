@@ -29,5 +29,14 @@ namespace Zu.ChromeDevTools.Profiler
             get;
             set;
         }
+        /// <summary>
+        /// Monotonically increasing time (in seconds) when the coverage update was taken in the backend.
+        ///</summary>
+        [JsonProperty("timestamp")]
+        public double Timestamp
+        {
+            get;
+            set;
+        }
     }
 }

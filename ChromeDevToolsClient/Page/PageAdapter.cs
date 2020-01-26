@@ -124,6 +124,13 @@ namespace Zu.ChromeDevTools.Page
             return await m_session.SendCommand<GetInstallabilityErrorsCommand, GetInstallabilityErrorsCommandResponse>(command ?? new GetInstallabilityErrorsCommand(), cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
         }
         /// <summary>
+        /// 
+        /// </summary>
+        public async Task<GetManifestIconsCommandResponse> GetManifestIcons(GetManifestIconsCommand command = null, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
+        {
+            return await m_session.SendCommand<GetManifestIconsCommand, GetManifestIconsCommandResponse>(command ?? new GetManifestIconsCommand(), cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
+        }
+        /// <summary>
         /// Returns all browser cookies. Depending on the backend support, will return detailed cookie
     /// information in the `cookies` field.
         /// </summary>
@@ -402,11 +409,27 @@ namespace Zu.ChromeDevTools.Page
         {
             return await m_session.SendCommand<WaitForDebuggerCommand, WaitForDebuggerCommandResponse>(command ?? new WaitForDebuggerCommand(), cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
         }
+        /// <summary>
+        /// Intercept file chooser requests and transfer control to protocol clients.
+    /// When file chooser interception is enabled, native file chooser dialog is not shown.
+    /// Instead, a protocol event `Page.fileChooserOpened` is emitted.
+        /// </summary>
+        public async Task<SetInterceptFileChooserDialogCommandResponse> SetInterceptFileChooserDialog(SetInterceptFileChooserDialogCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
+        {
+            return await m_session.SendCommand<SetInterceptFileChooserDialogCommand, SetInterceptFileChooserDialogCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
+        }
 
         /// <summary>
         /// 
         /// </summary>
         public void SubscribeToDomContentEventFiredEvent(Action<DomContentEventFiredEvent> eventCallback)
+        {
+            m_session.Subscribe(eventCallback);
+        }
+        /// <summary>
+        /// Emitted only when `page.interceptFileChooser` is enabled.
+        /// </summary>
+        public void SubscribeToFileChooserOpenedEvent(Action<FileChooserOpenedEvent> eventCallback)
         {
             m_session.Subscribe(eventCallback);
         }

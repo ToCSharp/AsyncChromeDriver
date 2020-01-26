@@ -70,7 +70,7 @@ namespace Zu.Chrome
 
         public async Task MouseMove(WebPoint location, CancellationToken cancellationToken = default (CancellationToken))
         {
-            var res = await _webView.DevTools.Input.DispatchMouseEvent(new ChromeDevTools.Input.DispatchMouseEventCommand{Type = MovedMouseEventType, Button = NoneMouseButton, X = location.X, Y = location.Y, Modifiers = _session.StickyModifiers, ClickCount = 0}, cancellationToken).ConfigureAwait(false);
+            var res = await _webView.DevTools.Input.DispatchMouseEvent(new ChromeDevTools.Input.DispatchMouseEventCommand{Type = MovedMouseEventType, Button = ChromeDevTools.Input.MouseButton.None, X = location.X, Y = location.Y, Modifiers = _session.StickyModifiers, ClickCount = 0}, cancellationToken).ConfigureAwait(false);
             _session.MousePosition = location;
         }
 
@@ -78,19 +78,19 @@ namespace Zu.Chrome
         {
             if (_session.MousePosition != location)
             {
-                await _webView.DevTools.Input.DispatchMouseEvent(new ChromeDevTools.Input.DispatchMouseEventCommand{Type = MovedMouseEventType, Button = NoneMouseButton, X = location.X, Y = location.Y, Modifiers = _session.StickyModifiers, ClickCount = 0}, cancellationToken).ConfigureAwait(false);
+                await _webView.DevTools.Input.DispatchMouseEvent(new ChromeDevTools.Input.DispatchMouseEventCommand{Type = MovedMouseEventType, Button = ChromeDevTools.Input.MouseButton.None, X = location.X, Y = location.Y, Modifiers = _session.StickyModifiers, ClickCount = 0}, cancellationToken).ConfigureAwait(false);
             }
 
-            await _webView.DevTools.Input.DispatchMouseEvent(new ChromeDevTools.Input.DispatchMouseEventCommand{Type = PressedMouseEventType, Button = LeftMouseButton, X = location.X, Y = location.Y, Modifiers = _session.StickyModifiers, ClickCount = 1}, cancellationToken).ConfigureAwait(false);
-            await _webView.DevTools.Input.DispatchMouseEvent(new ChromeDevTools.Input.DispatchMouseEventCommand{Type = ReleasedMouseEventType, Button = LeftMouseButton, X = location.X, Y = location.Y, Modifiers = _session.StickyModifiers, ClickCount = 1}, cancellationToken).ConfigureAwait(false);
+            await _webView.DevTools.Input.DispatchMouseEvent(new ChromeDevTools.Input.DispatchMouseEventCommand{Type = PressedMouseEventType, Button = ChromeDevTools.Input.MouseButton.Left, X = location.X, Y = location.Y, Modifiers = _session.StickyModifiers, ClickCount = 1}, cancellationToken).ConfigureAwait(false);
+            await _webView.DevTools.Input.DispatchMouseEvent(new ChromeDevTools.Input.DispatchMouseEventCommand{Type = ReleasedMouseEventType, Button = ChromeDevTools.Input.MouseButton.Left, X = location.X, Y = location.Y, Modifiers = _session.StickyModifiers, ClickCount = 1}, cancellationToken).ConfigureAwait(false);
             _session.MousePosition = location;
         }
 
         public async Task ContextClick(WebPoint location, CancellationToken cancellationToken = default (CancellationToken))
         {
-            await _webView.DevTools.Input.DispatchMouseEvent(new ChromeDevTools.Input.DispatchMouseEventCommand{Type = MovedMouseEventType, Button = NoneMouseButton, X = location.X, Y = location.Y, Modifiers = _session.StickyModifiers, ClickCount = 0}, cancellationToken).ConfigureAwait(false);
-            await _webView.DevTools.Input.DispatchMouseEvent(new ChromeDevTools.Input.DispatchMouseEventCommand{Type = PressedMouseEventType, Button = RightMouseButton, X = location.X, Y = location.Y, Modifiers = _session.StickyModifiers, ClickCount = 1}, cancellationToken).ConfigureAwait(false);
-            await _webView.DevTools.Input.DispatchMouseEvent(new ChromeDevTools.Input.DispatchMouseEventCommand{Type = ReleasedMouseEventType, Button = RightMouseButton, X = location.X, Y = location.Y, Modifiers = _session.StickyModifiers, ClickCount = 1}, cancellationToken).ConfigureAwait(false);
+            await _webView.DevTools.Input.DispatchMouseEvent(new ChromeDevTools.Input.DispatchMouseEventCommand{Type = MovedMouseEventType, Button = ChromeDevTools.Input.MouseButton.None, X = location.X, Y = location.Y, Modifiers = _session.StickyModifiers, ClickCount = 0}, cancellationToken).ConfigureAwait(false);
+            await _webView.DevTools.Input.DispatchMouseEvent(new ChromeDevTools.Input.DispatchMouseEventCommand{Type = PressedMouseEventType, Button = ChromeDevTools.Input.MouseButton.Right, X = location.X, Y = location.Y, Modifiers = _session.StickyModifiers, ClickCount = 1}, cancellationToken).ConfigureAwait(false);
+            await _webView.DevTools.Input.DispatchMouseEvent(new ChromeDevTools.Input.DispatchMouseEventCommand{Type = ReleasedMouseEventType, Button = ChromeDevTools.Input.MouseButton.Right, X = location.X, Y = location.Y, Modifiers = _session.StickyModifiers, ClickCount = 1}, cancellationToken).ConfigureAwait(false);
             _session.MousePosition = location;
         }
 
@@ -104,10 +104,10 @@ namespace Zu.Chrome
         {
             if (_session.MousePosition != location)
             {
-                await _webView.DevTools.Input.DispatchMouseEvent(new ChromeDevTools.Input.DispatchMouseEventCommand{Type = MovedMouseEventType, Button = NoneMouseButton, X = location.X, Y = location.Y, Modifiers = _session.StickyModifiers, ClickCount = 0}, cancellationToken).ConfigureAwait(false);
+                await _webView.DevTools.Input.DispatchMouseEvent(new ChromeDevTools.Input.DispatchMouseEventCommand{Type = MovedMouseEventType, Button = ChromeDevTools.Input.MouseButton.None, X = location.X, Y = location.Y, Modifiers = _session.StickyModifiers, ClickCount = 0}, cancellationToken).ConfigureAwait(false);
             }
 
-            await _webView.DevTools.Input.DispatchMouseEvent(new ChromeDevTools.Input.DispatchMouseEventCommand{Type = PressedMouseEventType, Button = LeftMouseButton, X = location.X, Y = location.Y, Modifiers = _session.StickyModifiers, ClickCount = 1}, cancellationToken).ConfigureAwait(false);
+            await _webView.DevTools.Input.DispatchMouseEvent(new ChromeDevTools.Input.DispatchMouseEventCommand{Type = PressedMouseEventType, Button = ChromeDevTools.Input.MouseButton.Left, X = location.X, Y = location.Y, Modifiers = _session.StickyModifiers, ClickCount = 1}, cancellationToken).ConfigureAwait(false);
             _session.MousePosition = location;
         }
 
@@ -115,10 +115,10 @@ namespace Zu.Chrome
         {
             if (_session.MousePosition != location)
             {
-                await _webView.DevTools.Input.DispatchMouseEvent(new ChromeDevTools.Input.DispatchMouseEventCommand{Type = MovedMouseEventType, Button = NoneMouseButton, X = location.X, Y = location.Y, Modifiers = _session.StickyModifiers, ClickCount = 0}, cancellationToken).ConfigureAwait(false);
+                await _webView.DevTools.Input.DispatchMouseEvent(new ChromeDevTools.Input.DispatchMouseEventCommand{Type = MovedMouseEventType, Button = ChromeDevTools.Input.MouseButton.None, X = location.X, Y = location.Y, Modifiers = _session.StickyModifiers, ClickCount = 0}, cancellationToken).ConfigureAwait(false);
             }
 
-            await _webView.DevTools.Input.DispatchMouseEvent(new ChromeDevTools.Input.DispatchMouseEventCommand{Type = ReleasedMouseEventType, Button = LeftMouseButton, X = location.X, Y = location.Y, Modifiers = _session.StickyModifiers, ClickCount = 1}, cancellationToken).ConfigureAwait(false);
+            await _webView.DevTools.Input.DispatchMouseEvent(new ChromeDevTools.Input.DispatchMouseEventCommand{Type = ReleasedMouseEventType, Button = ChromeDevTools.Input.MouseButton.Left, X = location.X, Y = location.Y, Modifiers = _session.StickyModifiers, ClickCount = 1}, cancellationToken).ConfigureAwait(false);
             _session.MousePosition = location;
         }
     }

@@ -113,6 +113,27 @@ namespace Zu.ChromeDevTools.Profiler
         {
             return await m_session.SendCommand<TakeTypeProfileCommand, TakeTypeProfileCommandResponse>(command ?? new TakeTypeProfileCommand(), cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
         }
+        /// <summary>
+        /// Enable run time call stats collection.
+        /// </summary>
+        public async Task<EnableRuntimeCallStatsCommandResponse> EnableRuntimeCallStats(EnableRuntimeCallStatsCommand command = null, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
+        {
+            return await m_session.SendCommand<EnableRuntimeCallStatsCommand, EnableRuntimeCallStatsCommandResponse>(command ?? new EnableRuntimeCallStatsCommand(), cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
+        }
+        /// <summary>
+        /// Disable run time call stats collection.
+        /// </summary>
+        public async Task<DisableRuntimeCallStatsCommandResponse> DisableRuntimeCallStats(DisableRuntimeCallStatsCommand command = null, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
+        {
+            return await m_session.SendCommand<DisableRuntimeCallStatsCommand, DisableRuntimeCallStatsCommandResponse>(command ?? new DisableRuntimeCallStatsCommand(), cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
+        }
+        /// <summary>
+        /// Retrieve run time call stats.
+        /// </summary>
+        public async Task<GetRuntimeCallStatsCommandResponse> GetRuntimeCallStats(GetRuntimeCallStatsCommand command = null, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
+        {
+            return await m_session.SendCommand<GetRuntimeCallStatsCommand, GetRuntimeCallStatsCommandResponse>(command ?? new GetRuntimeCallStatsCommand(), cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
+        }
 
         /// <summary>
         /// 
@@ -125,6 +146,16 @@ namespace Zu.ChromeDevTools.Profiler
         /// Sent when new profile recording is started using console.profile() call.
         /// </summary>
         public void SubscribeToConsoleProfileStartedEvent(Action<ConsoleProfileStartedEvent> eventCallback)
+        {
+            m_session.Subscribe(eventCallback);
+        }
+        /// <summary>
+        /// Reports coverage delta since the last poll (either from an event like this, or from
+        /// `takePreciseCoverage` for the current isolate. May only be sent if precise code
+        /// coverage has been started. This event can be trigged by the embedder to, for example,
+        /// trigger collection of coverage data immediatelly at a certain point in time.
+        /// </summary>
+        public void SubscribeToPreciseCoverageDeltaUpdateEvent(Action<PreciseCoverageDeltaUpdateEvent> eventCallback)
         {
             m_session.Subscribe(eventCallback);
         }

@@ -41,6 +41,8 @@ namespace Zu.ChromeDevTools
         private Lazy<Tracing.TracingAdapter> m_Tracing;
         private Lazy<Fetch.FetchAdapter> m_Fetch;
         private Lazy<WebAudio.WebAudioAdapter> m_WebAudio;
+        private Lazy<WebAuthn.WebAuthnAdapter> m_WebAuthn;
+        private Lazy<Media.MediaAdapter> m_Media;
         private Lazy<Console.ConsoleAdapter> m_Console;
         private Lazy<Debugger.DebuggerAdapter> m_Debugger;
         private Lazy<HeapProfiler.HeapProfilerAdapter> m_HeapProfiler;
@@ -87,6 +89,8 @@ namespace Zu.ChromeDevTools
             m_Tracing = new Lazy<Tracing.TracingAdapter>(() => new Tracing.TracingAdapter(this));
             m_Fetch = new Lazy<Fetch.FetchAdapter>(() => new Fetch.FetchAdapter(this));
             m_WebAudio = new Lazy<WebAudio.WebAudioAdapter>(() => new WebAudio.WebAudioAdapter(this));
+            m_WebAuthn = new Lazy<WebAuthn.WebAuthnAdapter>(() => new WebAuthn.WebAuthnAdapter(this));
+            m_Media = new Lazy<Media.MediaAdapter>(() => new Media.MediaAdapter(this));
             m_Console = new Lazy<Console.ConsoleAdapter>(() => new Console.ConsoleAdapter(this));
             m_Debugger = new Lazy<Debugger.DebuggerAdapter>(() => new Debugger.DebuggerAdapter(this));
             m_HeapProfiler = new Lazy<HeapProfiler.HeapProfilerAdapter>(() => new HeapProfiler.HeapProfilerAdapter(this));
@@ -389,6 +393,22 @@ namespace Zu.ChromeDevTools
         public WebAudio.WebAudioAdapter WebAudio
         {
             get { return m_WebAudio.Value; }
+        }
+        
+        /// <summary>
+        /// Gets the adapter for the WebAuthn domain.
+        /// </summary>
+        public WebAuthn.WebAuthnAdapter WebAuthn
+        {
+            get { return m_WebAuthn.Value; }
+        }
+        
+        /// <summary>
+        /// Gets the adapter for the Media domain.
+        /// </summary>
+        public Media.MediaAdapter Media
+        {
+            get { return m_Media.Value; }
         }
         
         /// <summary>

@@ -125,5 +125,23 @@ namespace Zu.ChromeDevTools.CSS
             get;
             set;
         }
+        /// <summary>
+        /// Line offset of the end of the stylesheet within the resource (zero based).
+        ///</summary>
+        [JsonProperty("endLine")]
+        public double EndLine
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// Column offset of the end of the stylesheet within the resource (zero based).
+        ///</summary>
+        [JsonProperty("endColumn")]
+        public double EndColumn
+        {
+            get;
+            set;
+        }
     }
 }

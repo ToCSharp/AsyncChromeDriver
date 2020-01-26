@@ -17,6 +17,15 @@ namespace Zu.ChromeDevTools.DOMSnapshot
             set;
         }
         /// <summary>
+        /// Document title.
+        ///</summary>
+        [JsonProperty("title")]
+        public long Title
+        {
+            get;
+            set;
+        }
+        /// <summary>
         /// Base URL that `Document` or `FrameOwner` node uses for URL completion.
         ///</summary>
         [JsonProperty("baseURL")]
@@ -98,7 +107,7 @@ namespace Zu.ChromeDevTools.DOMSnapshot
             set;
         }
         /// <summary>
-        /// Scroll offsets.
+        /// Horizontal scroll offset.
         ///</summary>
         [JsonProperty("scrollOffsetX", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public double? ScrollOffsetX
@@ -107,10 +116,28 @@ namespace Zu.ChromeDevTools.DOMSnapshot
             set;
         }
         /// <summary>
-        /// 
+        /// Vertical scroll offset.
         ///</summary>
         [JsonProperty("scrollOffsetY", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public double? ScrollOffsetY
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// Document content width.
+        ///</summary>
+        [JsonProperty("contentWidth", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public double? ContentWidth
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// Document content height.
+        ///</summary>
+        [JsonProperty("contentHeight", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public double? ContentHeight
         {
             get;
             set;

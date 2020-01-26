@@ -105,7 +105,7 @@ namespace Zu.ChromeDevTools.Emulation
             return await m_session.SendCommand<SetEmitTouchEventsForMouseCommand, SetEmitTouchEventsForMouseCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
         }
         /// <summary>
-        /// Emulates the given media for CSS media queries.
+        /// Emulates the given media type or media feature for CSS media queries.
         /// </summary>
         public async Task<SetEmulatedMediaCommandResponse> SetEmulatedMedia(SetEmulatedMediaCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
@@ -154,6 +154,13 @@ namespace Zu.ChromeDevTools.Emulation
         public async Task<SetVirtualTimePolicyCommandResponse> SetVirtualTimePolicy(SetVirtualTimePolicyCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
             return await m_session.SendCommand<SetVirtualTimePolicyCommand, SetVirtualTimePolicyCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
+        }
+        /// <summary>
+        /// Overrides default host system timezone with the specified one.
+        /// </summary>
+        public async Task<SetTimezoneOverrideCommandResponse> SetTimezoneOverride(SetTimezoneOverrideCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
+        {
+            return await m_session.SendCommand<SetTimezoneOverrideCommand, SetTimezoneOverrideCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
         }
         /// <summary>
         /// Resizes the frame/viewport of the page. Note that this does not affect the frame's container

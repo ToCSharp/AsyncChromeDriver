@@ -3,9 +3,9 @@ namespace Zu.ChromeDevTools.WebAudio
     using Newtonsoft.Json;
 
     /// <summary>
-    /// Notifies that existing BaseAudioContext has been destroyed.
+    /// Notifies that an existing BaseAudioContext will be destroyed.
     /// </summary>
-    public sealed class ContextDestroyedEvent : IEvent
+    public sealed class ContextWillBeDestroyedEvent : IEvent
     {
         /// <summary>
         /// Gets or sets the contextId

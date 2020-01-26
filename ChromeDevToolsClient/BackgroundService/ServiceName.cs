@@ -16,5 +16,13 @@ namespace Zu.ChromeDevTools.BackgroundService
         BackgroundFetch,
         [EnumMember(Value = "backgroundSync")]
         BackgroundSync,
+        [EnumMember(Value = "pushMessaging")]
+        PushMessaging,
+        [EnumMember(Value = "notifications")]
+        Notifications,
+        [EnumMember(Value = "paymentHandler")]
+        PaymentHandler,
+        [EnumMember(Value = "periodicBackgroundSync")]
+        PeriodicBackgroundSync,
     }
 }

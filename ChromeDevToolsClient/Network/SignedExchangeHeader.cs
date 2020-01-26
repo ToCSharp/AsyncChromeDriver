@@ -44,5 +44,14 @@ namespace Zu.ChromeDevTools.Network
             get;
             set;
         }
+        /// <summary>
+        /// Signed exchange header integrity hash in the form of "sha256-<base64-hash-value>".
+        ///</summary>
+        [JsonProperty("headerIntegrity")]
+        public string HeaderIntegrity
+        {
+            get;
+            set;
+        }
     }
 }

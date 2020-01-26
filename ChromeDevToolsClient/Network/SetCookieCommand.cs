@@ -97,6 +97,15 @@ namespace Zu.ChromeDevTools.Network
             get;
             set;
         }
+        /// <summary>
+        /// Cookie Priority type.
+        /// </summary>
+        [JsonProperty("priority", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public CookiePriority? Priority
+        {
+            get;
+            set;
+        }
     }
 
     public sealed class SetCookieCommandResponse : ICommandResponse<SetCookieCommand>

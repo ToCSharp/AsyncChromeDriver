@@ -66,7 +66,7 @@ namespace Zu.ChromeDevTools.Input
         /// Mouse button (default: "none").
         /// </summary>
         [JsonProperty("button", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public string Button
+        public MouseButton? Button
         {
             get;
             set;

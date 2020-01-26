@@ -97,5 +97,14 @@ namespace Zu.ChromeDevTools.Network
             get;
             set;
         }
+        /// <summary>
+        /// Cookie Priority
+        ///</summary>
+        [JsonProperty("priority")]
+        public CookiePriority Priority
+        {
+            get;
+            set;
+        }
     }
 }

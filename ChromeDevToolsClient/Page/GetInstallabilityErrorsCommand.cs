@@ -28,5 +28,14 @@ namespace Zu.ChromeDevTools.Page
             get;
             set;
         }
+        /// <summary>
+        /// Gets or sets the installabilityErrors
+        /// </summary>
+        [JsonProperty("installabilityErrors")]
+        public InstallabilityError[] InstallabilityErrors
+        {
+            get;
+            set;
+        }
     }
 }

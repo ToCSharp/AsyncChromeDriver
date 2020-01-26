@@ -44,10 +44,19 @@ namespace Zu.ChromeDevTools.Page
             set;
         }
         /// <summary>
-        /// Frame document's URL.
+        /// Frame document's URL without fragment.
         ///</summary>
         [JsonProperty("url")]
         public string Url
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// Frame document's URL fragment including the '#'.
+        ///</summary>
+        [JsonProperty("urlFragment", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public string UrlFragment
         {
             get;
             set;
@@ -71,7 +80,7 @@ namespace Zu.ChromeDevTools.Page
             set;
         }
         /// <summary>
-        /// If the frame failed to load, this contains the URL that could not be loaded.
+        /// If the frame failed to load, this contains the URL that could not be loaded. Note that unlike url above, this URL may contain a fragment.
         ///</summary>
         [JsonProperty("unreachableUrl", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public string UnreachableUrl

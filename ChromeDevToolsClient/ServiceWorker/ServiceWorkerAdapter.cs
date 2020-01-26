@@ -48,6 +48,13 @@ namespace Zu.ChromeDevTools.ServiceWorker
         /// <summary>
         /// 
         /// </summary>
+        public async Task<DispatchPeriodicSyncEventCommandResponse> DispatchPeriodicSyncEvent(DispatchPeriodicSyncEventCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
+        {
+            return await m_session.SendCommand<DispatchPeriodicSyncEventCommand, DispatchPeriodicSyncEventCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
+        }
+        /// <summary>
+        /// 
+        /// </summary>
         public async Task<EnableCommandResponse> Enable(EnableCommand command = null, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
             return await m_session.SendCommand<EnableCommand, EnableCommandResponse>(command ?? new EnableCommand(), cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);

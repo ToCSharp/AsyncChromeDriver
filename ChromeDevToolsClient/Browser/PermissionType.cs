@@ -18,10 +18,10 @@ namespace Zu.ChromeDevTools.Browser
         BackgroundSync,
         [EnumMember(Value = "backgroundFetch")]
         BackgroundFetch,
-        [EnumMember(Value = "clipboardRead")]
-        ClipboardRead,
-        [EnumMember(Value = "clipboardWrite")]
-        ClipboardWrite,
+        [EnumMember(Value = "clipboardReadWrite")]
+        ClipboardReadWrite,
+        [EnumMember(Value = "clipboardSanitizedWrite")]
+        ClipboardSanitizedWrite,
         [EnumMember(Value = "durableStorage")]
         DurableStorage,
         [EnumMember(Value = "flash")]
@@ -32,6 +32,8 @@ namespace Zu.ChromeDevTools.Browser
         Midi,
         [EnumMember(Value = "midiSysex")]
         MidiSysex,
+        [EnumMember(Value = "nfc")]
+        Nfc,
         [EnumMember(Value = "notifications")]
         Notifications,
         [EnumMember(Value = "paymentHandler")]
@@ -46,5 +48,9 @@ namespace Zu.ChromeDevTools.Browser
         VideoCapture,
         [EnumMember(Value = "idleDetection")]
         IdleDetection,
+        [EnumMember(Value = "wakeLockScreen")]
+        WakeLockScreen,
+        [EnumMember(Value = "wakeLockSystem")]
+        WakeLockSystem,
     }
 }

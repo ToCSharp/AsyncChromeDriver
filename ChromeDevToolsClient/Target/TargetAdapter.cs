@@ -119,6 +119,8 @@ namespace Zu.ChromeDevTools.Target
         }
         /// <summary>
         /// Sends protocol message over session with given id.
+    /// Consider using flat mode instead; see commands attachToTarget, setAutoAttach,
+    /// and crbug.com/991325.
         /// </summary>
         public async Task<SendMessageToTargetCommandResponse> SendMessageToTarget(SendMessageToTargetCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {

@@ -43,6 +43,15 @@ namespace Zu.ChromeDevTools.DOM
             get;
             set;
         }
+        /// <summary>
+        /// Whether to ignore pointer-events: none on elements and hit test them.
+        /// </summary>
+        [JsonProperty("ignorePointerEventsNone", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public bool? IgnorePointerEventsNone
+        {
+            get;
+            set;
+        }
     }
 
     public sealed class GetNodeForLocationCommandResponse : ICommandResponse<GetNodeForLocationCommand>
@@ -52,6 +61,15 @@ namespace Zu.ChromeDevTools.DOM
         ///</summary>
         [JsonProperty("backendNodeId")]
         public long BackendNodeId
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// Frame this node belongs to.
+        ///</summary>
+        [JsonProperty("frameId")]
+        public string FrameId
         {
             get;
             set;

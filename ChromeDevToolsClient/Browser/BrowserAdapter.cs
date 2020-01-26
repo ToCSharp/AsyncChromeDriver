@@ -25,6 +25,13 @@ namespace Zu.ChromeDevTools.Browser
         }
 
         /// <summary>
+        /// Set permission settings for given origin.
+        /// </summary>
+        public async Task<SetPermissionCommandResponse> SetPermission(SetPermissionCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
+        {
+            return await m_session.SendCommand<SetPermissionCommand, SetPermissionCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
+        }
+        /// <summary>
         /// Grant specific permissions to the given origin and reject all others.
         /// </summary>
         public async Task<GrantPermissionsCommandResponse> GrantPermissions(GrantPermissionsCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)

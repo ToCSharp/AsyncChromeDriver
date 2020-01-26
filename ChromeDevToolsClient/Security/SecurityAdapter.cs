@@ -74,6 +74,13 @@ namespace Zu.ChromeDevTools.Security
         /// <summary>
         /// The security state of the page changed.
         /// </summary>
+        public void SubscribeToVisibleSecurityStateChangedEvent(Action<VisibleSecurityStateChangedEvent> eventCallback)
+        {
+            m_session.Subscribe(eventCallback);
+        }
+        /// <summary>
+        /// The security state of the page changed.
+        /// </summary>
         public void SubscribeToSecurityStateChangedEvent(Action<SecurityStateChangedEvent> eventCallback)
         {
             m_session.Subscribe(eventCallback);

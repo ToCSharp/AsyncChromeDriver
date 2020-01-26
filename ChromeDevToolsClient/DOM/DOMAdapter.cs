@@ -282,6 +282,20 @@ namespace Zu.ChromeDevTools.DOM
             return await m_session.SendCommand<SetFileInputFilesCommand, SetFileInputFilesCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
         }
         /// <summary>
+        /// Sets if stack traces should be captured for Nodes. See `Node.getNodeStackTraces`. Default is disabled.
+        /// </summary>
+        public async Task<SetNodeStackTracesEnabledCommandResponse> SetNodeStackTracesEnabled(SetNodeStackTracesEnabledCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
+        {
+            return await m_session.SendCommand<SetNodeStackTracesEnabledCommand, SetNodeStackTracesEnabledCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
+        }
+        /// <summary>
+        /// Gets stack traces associated with a Node. As of now, only provides stack trace for Node creation.
+        /// </summary>
+        public async Task<GetNodeStackTracesCommandResponse> GetNodeStackTraces(GetNodeStackTracesCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
+        {
+            return await m_session.SendCommand<GetNodeStackTracesCommand, GetNodeStackTracesCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
+        }
+        /// <summary>
         /// Returns file information for the given
     /// File wrapper.
         /// </summary>

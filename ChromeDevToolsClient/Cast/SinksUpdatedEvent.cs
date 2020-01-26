@@ -9,10 +9,10 @@ namespace Zu.ChromeDevTools.Cast
     public sealed class SinksUpdatedEvent : IEvent
     {
         /// <summary>
-        /// Gets or sets the sinkNames
+        /// Gets or sets the sinks
         /// </summary>
-        [JsonProperty("sinkNames")]
-        public string[] SinkNames
+        [JsonProperty("sinks")]
+        public Sink[] Sinks
         {
             get;
             set;

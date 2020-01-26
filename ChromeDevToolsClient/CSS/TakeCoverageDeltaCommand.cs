@@ -29,5 +29,14 @@ namespace Zu.ChromeDevTools.CSS
             get;
             set;
         }
+        /// <summary>
+        /// Monotonically increasing time, in seconds.
+        ///</summary>
+        [JsonProperty("timestamp")]
+        public double Timestamp
+        {
+            get;
+            set;
+        }
     }
 }

@@ -24,5 +24,7 @@ namespace Zu.ChromeDevTools.Page
         PageBlockInterstitial,
         [EnumMember(Value = "reload")]
         Reload,
+        [EnumMember(Value = "anchorClick")]
+        AnchorClick,
     }
 }

@@ -134,6 +134,15 @@ namespace Zu.ChromeDevTools.Network
             set;
         }
         /// <summary>
+        /// Specifies that the request was served from the prefetch cache.
+        ///</summary>
+        [JsonProperty("fromPrefetchCache", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public bool? FromPrefetchCache
+        {
+            get;
+            set;
+        }
+        /// <summary>
         /// Total number of bytes received for this request so far.
         ///</summary>
         [JsonProperty("encodedDataLength")]

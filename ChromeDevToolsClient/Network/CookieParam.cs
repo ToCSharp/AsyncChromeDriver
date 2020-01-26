@@ -89,5 +89,14 @@ namespace Zu.ChromeDevTools.Network
             get;
             set;
         }
+        /// <summary>
+        /// Cookie Priority.
+        ///</summary>
+        [JsonProperty("priority", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public CookiePriority? Priority
+        {
+            get;
+            set;
+        }
     }
 }

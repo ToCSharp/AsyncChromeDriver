@@ -49,9 +49,9 @@ namespace Zu.Chrome.DriverCore
             else
             {
                 WebPoint location = await _elementUtils.GetElementClickableLocation(elementId).ConfigureAwait(false);
-                await _webView.DevTools.Input.DispatchMouseEvent(new ChromeDevTools.Input.DispatchMouseEventCommand{Type = ChromeDriverMouse.MovedMouseEventType, Button = ChromeDriverMouse.NoneMouseButton, X = location.X, Y = location.Y, Modifiers = Session.StickyModifiers, ClickCount = 0}).ConfigureAwait(false);
-                await _webView.DevTools.Input.DispatchMouseEvent(new ChromeDevTools.Input.DispatchMouseEventCommand{Type = ChromeDriverMouse.PressedMouseEventType, Button = ChromeDriverMouse.LeftMouseButton, X = location.X, Y = location.Y, Modifiers = Session.StickyModifiers, ClickCount = 1}).ConfigureAwait(false);
-                await _webView.DevTools.Input.DispatchMouseEvent(new ChromeDevTools.Input.DispatchMouseEventCommand{Type = ChromeDriverMouse.ReleasedMouseEventType, Button = ChromeDriverMouse.LeftMouseButton, X = location.X, Y = location.Y, Modifiers = Session.StickyModifiers, ClickCount = 1}).ConfigureAwait(false);
+                await _webView.DevTools.Input.DispatchMouseEvent(new ChromeDevTools.Input.DispatchMouseEventCommand{Type = ChromeDriverMouse.MovedMouseEventType, Button = ChromeDevTools.Input.MouseButton.None, X = location.X, Y = location.Y, Modifiers = Session.StickyModifiers, ClickCount = 0}).ConfigureAwait(false);
+                await _webView.DevTools.Input.DispatchMouseEvent(new ChromeDevTools.Input.DispatchMouseEventCommand{Type = ChromeDriverMouse.PressedMouseEventType, Button = ChromeDevTools.Input.MouseButton.Left, X = location.X, Y = location.Y, Modifiers = Session.StickyModifiers, ClickCount = 1}).ConfigureAwait(false);
+                await _webView.DevTools.Input.DispatchMouseEvent(new ChromeDevTools.Input.DispatchMouseEventCommand{Type = ChromeDriverMouse.ReleasedMouseEventType, Button = ChromeDevTools.Input.MouseButton.Left, X = location.X, Y = location.Y, Modifiers = Session.StickyModifiers, ClickCount = 1}).ConfigureAwait(false);
                 Session.MousePosition = location;
                 //await new ChromeDriverMouse(webView).Click(location);
                 return "Click";
