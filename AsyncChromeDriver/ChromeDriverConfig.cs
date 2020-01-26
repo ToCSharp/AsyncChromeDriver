@@ -21,7 +21,7 @@ namespace Zu.Chrome
             : this()
         {
             UserDir = config.UserDir;
-            CommandLineArgumets = config.CommandLineArgumets;
+            CommandLineArguments = config.CommandLineArguments;
             IsTempProfile = config.IsTempProfile;
             IsDefaultProfile = config.IsDefaultProfile;
             TempDirCreateDelay = config.TempDirCreateDelay;

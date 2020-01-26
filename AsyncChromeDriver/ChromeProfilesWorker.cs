@@ -49,7 +49,7 @@ namespace Zu.Chrome
                 + (firstRun ? " --bwsi --no-first-run" : "")
                 + (config.Headless ? " --headless --disable-gpu" : "")
                 + (config.WindowSize != null ? $" --window-size={config.WindowSize.Width},{config.WindowSize.Height}" : "")
-                + (string.IsNullOrWhiteSpace(config.CommandLineArgumets) ? "" : " " + config.CommandLineArgumets);
+                + (string.IsNullOrWhiteSpace(config.CommandLineArguments) ? "" : " " + config.CommandLineArguments);
 
 
             if (config.Headless) {
