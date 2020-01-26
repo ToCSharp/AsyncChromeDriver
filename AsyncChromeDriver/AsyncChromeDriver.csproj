@@ -6,11 +6,12 @@
     <Authors>Oleg Zudov</Authors>
     <Description>Async .Net Chrome WebDriver and Chrome DevTools through a single connection.</Description>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageLicenseUrl>https://github.com/ToCSharp/AsyncChromeDriver/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageLicenseUrl></PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/ToCSharp/AsyncChromeDriver</PackageProjectUrl>
     <RepositoryUrl>https://github.com/ToCSharp/AsyncChromeDriver</RepositoryUrl>
     <PackageTags>Chrome DevTools AsyncChromeDriver AsyncWebDriver WebDriver</PackageTags>
     <PackageReleaseNotes>Protocol r655971 on May 2, 2019 (Chrome 74)</PackageReleaseNotes>
+    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
   </PropertyGroup>
   
   <!-- Conditionally obtain references for the .NET Framework 4.0 target -->
@@ -25,6 +26,10 @@
 
   <ItemGroup>
     <None Remove="DriverCore\utils.csx" />
+    <None Include="..\LICENSE.txt">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
