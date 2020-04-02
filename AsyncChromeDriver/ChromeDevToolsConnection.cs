@@ -10,13 +10,23 @@ namespace Zu.Chrome
 {
     public class ChromeDevToolsConnection
     {
+        private bool _isDisconnected;
+        private ChromeSession _session;
+
         public int Port {
             get;
             private set;
         }
-        public virtual ChromeSession Session {
-            get;
-            set;
+
+        public virtual ChromeSession Session
+        {
+            get
+            {
+                if (_isDisconnected)
+                    throw new Exception(nameof(ChromeDevToolsConnection) + " already disconnected");
+                return _session;
+            }
+            set => _session = value;
         }
 
         #region Session properties
@@ -93,6 +103,7 @@ namespace Zu.Chrome
         {
             Session?.Dispose();
             Session = null;
+            _isDisconnected = true;
         }
         ////todo
     }
