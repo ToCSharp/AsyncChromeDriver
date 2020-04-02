@@ -46,8 +46,20 @@ namespace Zu.Chrome.DriverCore
             return $"{{\"left\": {rect.X}, \"top\": {rect.Y}, \"width\": {rect.Width}, \"height\": {rect.Height} }}";
         }
 
+        public async Task<string> ScrollElementIntoView(string elementId, CancellationToken cancellationToken = new CancellationToken())
+        {
+            var func = "function(elem) { return elem.scrollIntoView(); }";
+            var res = await WebView.CallFunction(func, $"{{\"{Session.GetElementKey()}\":\"{elementId}\"}}", Session?.GetCurrentFrameId(), true, false, cancellationToken).ConfigureAwait(false);
+            var value = res?.Result?.Value as JToken;
+            var exception = ResultValueConverter.ToWebBrowserException(value);
+            if (exception != null)
+                throw exception;
+            return ResultValueConverter.AsString(res?.Result?.Value);
+        }
+
         public async Task<WebPoint> ScrollElementRegionIntoViewHelper(string elementId, WebRect region, bool center = true, string clickableElementId = null, CancellationToken cancellationToken = new CancellationToken())
         {
+            await ScrollElementIntoView(elementId, cancellationToken).ConfigureAwait(false);
             var res = await WebView.CallFunction(atoms.GET_LOCATION_IN_VIEW, $"{{\"{Session.GetElementKey()}\":\"{elementId}\"}}, {center.ToString().ToLower()}, {WebRectToJsonString(region)}", Session?.GetCurrentFrameId(), true, false, cancellationToken).ConfigureAwait(false);
             var location = ResultValueConverter.ToWebPoint(res?.Result?.Value);
             if (clickableElementId != null)
@@ -100,8 +112,8 @@ namespace Zu.Chrome.DriverCore
             {
                 var rect = await GetElementRegion(targetElementId, cancellationToken).ConfigureAwait(false);
                 var location = await ScrollElementRegionIntoView(targetElementId, rect, true, elementId, cancellationToken).ConfigureAwait(false);
-                //if (location == null) return null;
-                //var res = location.Offset(rect.Width / 2, rect.Height / 2);
+                if (location == null) 
+                    return null; // Element is not visible or is not clickable
                 return location.Offset(rect.Width / 2, rect.Height / 2);
             }
 
