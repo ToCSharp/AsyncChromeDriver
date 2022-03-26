@@ -117,9 +117,7 @@ Write issue or to [![Join the chat at https://gitter.im/AsyncWebDriver/Lobby](ht
 
 Feel free to submit pull requests.
 
-Please :star: star the project or [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=GNRXFA5WSNFF6) if you like the project.
+Please :star: star the project if you like it.
 
-#### Thanks  
-[BaristaLabs/chrome-dev-tools-generator](https://github.com/BaristaLabs/chrome-dev-tools-generator)  
-
-[![JetBrains ReSharper](images/jetbrains-variant-4.svg "JetBrains ReSharper")](https://www.jetbrains.com/?from=AsyncChromeDriver)
+#### Thanks to
+TODO
