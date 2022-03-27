@@ -345,7 +345,7 @@ namespace Zu.AsyncChromeDriver.Tests
             await driver.GoToUrl(xhtmlTestPage);
             //Assert.That(async () => await driver.FindElement(By.ClassName("")), Throws.InstanceOf<NoSuchElementException>());
             await AssertEx.ThrowsAsync<WebBrowserException>(async () => await driver.FindElement(By.ClassName("")),
-                exception => Assert.AreEqual("no such element", exception.Error));
+                exception => Assert.AreEqual("invalid selector", exception.Error));
         }
 
         [Test]
@@ -354,7 +354,7 @@ namespace Zu.AsyncChromeDriver.Tests
             await driver.GoToUrl(xhtmlTestPage);
             //Assert.That(async () => await driver.FindElements(By.ClassName("")), Throws.InstanceOf<NoSuchElementException>());
             await AssertEx.ThrowsAsync<WebBrowserException>(async () => await driver.FindElements(By.ClassName("")),
-                exception => Assert.AreEqual("no such element", exception.Error));
+                exception => Assert.AreEqual("invalid selector", exception.Error));
         }
 
         [Test]
@@ -381,7 +381,7 @@ namespace Zu.AsyncChromeDriver.Tests
             await driver.GoToUrl(xhtmlTestPage);
             //Assert.That(async () => await driver.FindElement(By.ClassName("!@#$%^&*")), Throws.InstanceOf<NoSuchElementException>());
             await AssertEx.ThrowsAsync<WebBrowserException>(async () => await driver.FindElement(By.ClassName("!@#$%^&*")),
-                exception => Assert.AreEqual("no such element", exception.Error));
+                exception => Assert.AreEqual("invalid selector", exception.Error));
         }
 
         // By.XPath positive
@@ -635,7 +635,7 @@ namespace Zu.AsyncChromeDriver.Tests
             await driver.GoToUrl(xhtmlTestPage);
             //Assert.That(async () => await driver.FindElement(By.CssSelector("")), Throws.InstanceOf<NoSuchElementException>());
             await AssertEx.ThrowsAsync<WebBrowserException>(async () => await driver.FindElement(By.CssSelector("")),
-                exception => Assert.AreEqual("no such element", exception.Error));
+                exception => Assert.AreEqual("invalid selector", exception.Error));
         }
 
         [Test]
@@ -644,7 +644,7 @@ namespace Zu.AsyncChromeDriver.Tests
             await driver.GoToUrl(xhtmlTestPage);
             //Assert.That(async () => await driver.FindElements(By.CssSelector("")), Throws.InstanceOf<NoSuchElementException>());
             await AssertEx.ThrowsAsync<WebBrowserException>(async () => await driver.FindElements(By.CssSelector("")),
-                exception => Assert.AreEqual("no such element", exception.Error));
+                exception => Assert.AreEqual("invalid selector", exception.Error));
         }
 
         [Test]
@@ -653,7 +653,7 @@ namespace Zu.AsyncChromeDriver.Tests
             await driver.GoToUrl(xhtmlTestPage);
             //Assert.That(async () => await driver.FindElement(By.CssSelector("//a/b/c[@id='1']")), Throws.InstanceOf<NoSuchElementException>());
             await AssertEx.ThrowsAsync<WebBrowserException>(async () => await driver.FindElement(By.CssSelector("//a/b/c[@id='1']")),
-                exception => Assert.AreEqual("no such element", exception.Error));
+                exception => Assert.AreEqual("invalid selector", exception.Error));
         }
 
         [Test]
@@ -662,7 +662,7 @@ namespace Zu.AsyncChromeDriver.Tests
             await driver.GoToUrl(xhtmlTestPage);
             //Assert.That(async () => await driver.FindElements(By.CssSelector("//a/b/c[@id='1']")), Throws.InstanceOf<NoSuchElementException>());
             await AssertEx.ThrowsAsync<WebBrowserException>(async () => await driver.FindElements(By.CssSelector("//a/b/c[@id='1']")),
-                exception => Assert.AreEqual("no such element", exception.Error));
+                exception => Assert.AreEqual("invalid selector", exception.Error));
         }
 
         // By.linkText positive

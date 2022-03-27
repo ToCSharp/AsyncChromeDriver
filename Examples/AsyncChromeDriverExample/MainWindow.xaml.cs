@@ -9,6 +9,7 @@ using System.Windows.Controls;
 using System.Windows.Threading;
 using Zu.AsyncWebDriver.Remote;
 using Zu.Chrome;
+using Zu.ChromeDevTools;
 using Zu.WebBrowser.BasicTypes;
 
 namespace AsyncChromeDriverExample

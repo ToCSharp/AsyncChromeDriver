@@ -4,6 +4,7 @@
 using System.Threading.Tasks;
 using System.Collections.Concurrent;
 using Zu.ChromeDevTools.DOM;
+using Zu.ChromeDevTools;
 
 namespace Zu.Chrome.DriverCore
 {
