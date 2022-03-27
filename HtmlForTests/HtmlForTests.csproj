@@ -71,6 +71,7 @@
     <Content Include="actualXhtmlPage.xhtml" />
     <Content Include="button.png" />
     <Content Include="changes.txt" />
+    <Content Include="Default.htm" />
     <Content Include="elementObscuredByInvisibleElement.html" />
     <Content Include="html5\test.appcache" />
     <Content Include="inputs.html" />
