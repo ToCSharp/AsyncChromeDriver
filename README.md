@@ -46,7 +46,7 @@ PM> Install-Package AsyncChromeDriver
 
 ```
 #### Using DevTools
-Protocol r655971 on May 2, 2019 (Chrome 74).  
+Protocol r982423 on Mar 18, 2022 (Chrome 99).
 https://github.com/ChromeDevTools/devtools-protocol/tree/master/json  
 ```csharp
     asyncChromeDriver = new AsyncChromeDriver();

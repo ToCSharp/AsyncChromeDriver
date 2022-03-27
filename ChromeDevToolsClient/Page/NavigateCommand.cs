@@ -51,6 +51,15 @@ namespace Zu.ChromeDevTools.Page
             get;
             set;
         }
+        /// <summary>
+        /// Referrer-policy used for the navigation.
+        /// </summary>
+        [JsonProperty("referrerPolicy", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public ReferrerPolicy? ReferrerPolicy
+        {
+            get;
+            set;
+        }
     }
 
     public sealed class NavigateCommandResponse : ICommandResponse<NavigateCommand>

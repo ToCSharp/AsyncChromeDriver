@@ -4,7 +4,7 @@ namespace Zu.ChromeDevTools.CSS
 
     /// <summary>
     /// Fires whenever a web font is updated.  A non-empty font parameter indicates a successfully loaded
-        /// web font
+    /// web font
     /// </summary>
     public sealed class FontsUpdatedEvent : IEvent
     {

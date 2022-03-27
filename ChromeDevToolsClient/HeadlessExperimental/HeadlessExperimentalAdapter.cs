@@ -26,9 +26,9 @@ namespace Zu.ChromeDevTools.HeadlessExperimental
 
         /// <summary>
         /// Sends a BeginFrame to the target and returns when the frame was completed. Optionally captures a
-    /// screenshot from the resulting frame. Requires that the target was created with enabled
-    /// BeginFrameControl. Designed for use with --run-all-compositor-stages-before-draw, see also
-    /// https://goo.gl/3zHXhB for more background.
+        /// screenshot from the resulting frame. Requires that the target was created with enabled
+        /// BeginFrameControl. Designed for use with --run-all-compositor-stages-before-draw, see also
+        /// https://goo.gl/3zHXhB for more background.
         /// </summary>
         public async Task<BeginFrameCommandResponse> BeginFrame(BeginFrameCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {

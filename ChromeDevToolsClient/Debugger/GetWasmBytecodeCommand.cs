@@ -29,7 +29,7 @@ namespace Zu.ChromeDevTools.Debugger
     public sealed class GetWasmBytecodeCommandResponse : ICommandResponse<GetWasmBytecodeCommand>
     {
         /// <summary>
-        /// Script source.
+        /// Script source. (Encoded as a base64 string when passed over JSON)
         ///</summary>
         [JsonProperty("bytecode")]
         public string Bytecode

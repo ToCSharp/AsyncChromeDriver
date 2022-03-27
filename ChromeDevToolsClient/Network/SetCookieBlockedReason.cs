@@ -34,5 +34,17 @@ namespace Zu.ChromeDevTools.Network
         InvalidPrefix,
         [EnumMember(Value = "UnknownError")]
         UnknownError,
+        [EnumMember(Value = "SchemefulSameSiteStrict")]
+        SchemefulSameSiteStrict,
+        [EnumMember(Value = "SchemefulSameSiteLax")]
+        SchemefulSameSiteLax,
+        [EnumMember(Value = "SchemefulSameSiteUnspecifiedTreatedAsLax")]
+        SchemefulSameSiteUnspecifiedTreatedAsLax,
+        [EnumMember(Value = "SamePartyFromCrossPartyContext")]
+        SamePartyFromCrossPartyContext,
+        [EnumMember(Value = "SamePartyConflictsWithOtherAttributes")]
+        SamePartyConflictsWithOtherAttributes,
+        [EnumMember(Value = "NameValuePairExceedsMaxSize")]
+        NameValuePairExceedsMaxSize,
     }
 }

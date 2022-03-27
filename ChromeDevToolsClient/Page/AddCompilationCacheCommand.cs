@@ -26,7 +26,7 @@ namespace Zu.ChromeDevTools.Page
             set;
         }
         /// <summary>
-        /// Base64-encoded data
+        /// Base64-encoded data (Encoded as a base64 string when passed over JSON)
         /// </summary>
         [JsonProperty("data")]
         public string Data

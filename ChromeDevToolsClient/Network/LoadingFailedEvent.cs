@@ -61,5 +61,14 @@ namespace Zu.ChromeDevTools.Network
             get;
             set;
         }
+        /// <summary>
+        /// The reason why loading was blocked by CORS, if any.
+        /// </summary>
+        [JsonProperty("corsErrorStatus", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public CorsErrorStatus CorsErrorStatus
+        {
+            get;
+            set;
+        }
     }
 }

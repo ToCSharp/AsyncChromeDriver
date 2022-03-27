@@ -8,8 +8,8 @@ namespace Zu.ChromeDevTools.ServiceWorker
     public sealed class ServiceWorkerRegistration
     {
         /// <summary>
-        /// 
-        ///</summary>
+        /// Gets or sets the registrationId
+        /// </summary>
         [JsonProperty("registrationId")]
         public string RegistrationId
         {
@@ -17,8 +17,8 @@ namespace Zu.ChromeDevTools.ServiceWorker
             set;
         }
         /// <summary>
-        /// 
-        ///</summary>
+        /// Gets or sets the scopeURL
+        /// </summary>
         [JsonProperty("scopeURL")]
         public string ScopeURL
         {
@@ -26,8 +26,8 @@ namespace Zu.ChromeDevTools.ServiceWorker
             set;
         }
         /// <summary>
-        /// 
-        ///</summary>
+        /// Gets or sets the isDeleted
+        /// </summary>
         [JsonProperty("isDeleted")]
         public bool IsDeleted
         {

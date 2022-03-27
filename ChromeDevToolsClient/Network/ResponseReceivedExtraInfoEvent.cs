@@ -4,8 +4,8 @@ namespace Zu.ChromeDevTools.Network
 
     /// <summary>
     /// Fired when additional information about a responseReceived event is available from the network
-        /// stack. Not every responseReceived event will have an additional responseReceivedExtraInfo for
-        /// it, and responseReceivedExtraInfo may be fired before or after responseReceived.
+    /// stack. Not every responseReceived event will have an additional responseReceivedExtraInfo for
+    /// it, and responseReceivedExtraInfo may be fired before or after responseReceived.
     /// </summary>
     public sealed class ResponseReceivedExtraInfoEvent : IEvent
     {
@@ -34,6 +34,27 @@ namespace Zu.ChromeDevTools.Network
         /// </summary>
         [JsonProperty("headers")]
         public Headers Headers
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// The IP address space of the resource. The address space can only be determined once the transport
+        /// established the connection, so we can't send it in `requestWillBeSentExtraInfo`.
+        /// </summary>
+        [JsonProperty("resourceIPAddressSpace")]
+        public IPAddressSpace ResourceIPAddressSpace
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// The status code of the response. This is useful in cases the request failed and no responseReceived
+        /// event is triggered, which is the case for, e.g., CORS errors. This is also the correct status code
+        /// for cached requests, where the status in responseReceived is a 200 and this will be 304.
+        /// </summary>
+        [JsonProperty("statusCode")]
+        public long StatusCode
         {
             get;
             set;

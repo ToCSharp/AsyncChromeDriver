@@ -17,7 +17,7 @@ namespace Zu.ChromeDevTools.WebAudio
             set;
         }
         /// <summary>
-        /// The time spent on rendering graph divided by render qunatum duration,
+        /// The time spent on rendering graph divided by render quantum duration,
         /// and multiplied by 100. 100 means the audio renderer reached the full
         /// capacity and glitch may occur.
         ///</summary>

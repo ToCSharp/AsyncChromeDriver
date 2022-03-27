@@ -8,8 +8,8 @@ namespace Zu.ChromeDevTools.Debugger
     public sealed class ScriptPosition
     {
         /// <summary>
-        /// 
-        ///</summary>
+        /// Gets or sets the lineNumber
+        /// </summary>
         [JsonProperty("lineNumber")]
         public long LineNumber
         {
@@ -17,8 +17,8 @@ namespace Zu.ChromeDevTools.Debugger
             set;
         }
         /// <summary>
-        /// 
-        ///</summary>
+        /// Gets or sets the columnNumber
+        /// </summary>
         [JsonProperty("columnNumber")]
         public long ColumnNumber
         {

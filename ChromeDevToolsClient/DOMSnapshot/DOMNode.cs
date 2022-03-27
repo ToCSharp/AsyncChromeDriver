@@ -195,7 +195,7 @@ namespace Zu.ChromeDevTools.DOMSnapshot
         /// Type of a pseudo element node.
         ///</summary>
         [JsonProperty("pseudoType", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public DOM.PseudoType PseudoType
+        public DOM.PseudoType? PseudoType
         {
             get;
             set;
@@ -204,7 +204,7 @@ namespace Zu.ChromeDevTools.DOMSnapshot
         /// Shadow root type.
         ///</summary>
         [JsonProperty("shadowRootType", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public DOM.ShadowRootType ShadowRootType
+        public DOM.ShadowRootType? ShadowRootType
         {
             get;
             set;
@@ -257,8 +257,8 @@ namespace Zu.ChromeDevTools.DOMSnapshot
             set;
         }
         /// <summary>
-        /// 
-        ///</summary>
+        /// Gets or sets the scrollOffsetY
+        /// </summary>
         [JsonProperty("scrollOffsetY", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public double? ScrollOffsetY
         {

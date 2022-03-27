@@ -25,7 +25,7 @@ namespace Zu.ChromeDevTools.Browser
             set;
         }
         /// <summary>
-        /// Png encoded image.
+        /// Png encoded image. (Encoded as a base64 string when passed over JSON)
         /// </summary>
         [JsonProperty("image", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public string Image

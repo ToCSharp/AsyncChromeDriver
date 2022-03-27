@@ -81,6 +81,26 @@ namespace Zu.ChromeDevTools.Tracing
             get;
             set;
         }
+        /// <summary>
+        /// Base64-encoded serialized perfetto.protos.TraceConfig protobuf message
+        /// When specified, the parameters `categories`, `options`, `traceConfig`
+        /// are ignored. (Encoded as a base64 string when passed over JSON)
+        /// </summary>
+        [JsonProperty("perfettoConfig", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public string PerfettoConfig
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// Backend type (defaults to `auto`)
+        /// </summary>
+        [JsonProperty("tracingBackend", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public TracingBackend? TracingBackend
+        {
+            get;
+            set;
+        }
     }
 
     public sealed class StartCommandResponse : ICommandResponse<StartCommand>

@@ -8,8 +8,8 @@ namespace Zu.ChromeDevTools.Target
     public sealed class RemoteLocation
     {
         /// <summary>
-        /// 
-        ///</summary>
+        /// Gets or sets the host
+        /// </summary>
         [JsonProperty("host")]
         public string Host
         {
@@ -17,8 +17,8 @@ namespace Zu.ChromeDevTools.Target
             set;
         }
         /// <summary>
-        /// 
-        ///</summary>
+        /// Gets or sets the port
+        /// </summary>
         [JsonProperty("port")]
         public long Port
         {

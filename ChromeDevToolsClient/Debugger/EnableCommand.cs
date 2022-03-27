@@ -18,7 +18,7 @@ namespace Zu.ChromeDevTools.Debugger
 
         /// <summary>
         /// The maximum size in bytes of collected scripts (not referenced by other heap objects)
-        /// the debugger can hold. Puts no limit if paramter is omitted.
+        /// the debugger can hold. Puts no limit if parameter is omitted.
         /// </summary>
         [JsonProperty("maxScriptsCacheSize", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public double? MaxScriptsCacheSize

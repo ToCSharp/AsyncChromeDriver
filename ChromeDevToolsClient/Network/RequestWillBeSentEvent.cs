@@ -71,6 +71,17 @@ namespace Zu.ChromeDevTools.Network
             set;
         }
         /// <summary>
+        /// In the case that redirectResponse is populated, this flag indicates whether
+        /// requestWillBeSentExtraInfo and responseReceivedExtraInfo events will be or were emitted
+        /// for the request which was just redirected.
+        /// </summary>
+        [JsonProperty("redirectHasExtraInfo")]
+        public bool RedirectHasExtraInfo
+        {
+            get;
+            set;
+        }
+        /// <summary>
         /// Redirect response data.
         /// </summary>
         [JsonProperty("redirectResponse", DefaultValueHandling = DefaultValueHandling.Ignore)]

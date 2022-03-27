@@ -54,13 +54,13 @@ namespace Zu.ChromeDevTools.Target
         }
         /// <summary>
         /// Inject object to the target's main frame that provides a communication
-    /// channel with browser target.
-    /// 
-    /// Injected object will be available as `window[bindingName]`.
-    /// 
-    /// The object has the follwing API:
-    /// - `binding.send(json)` - a method to send messages over the remote debugging protocol
-    /// - `binding.onmessage = json => handleMessage(json)` - a callback that will be called for the protocol notifications and command responses.
+        /// channel with browser target.
+        /// 
+        /// Injected object will be available as `window[bindingName]`.
+        /// 
+        /// The object has the follwing API:
+        /// - `binding.send(json)` - a method to send messages over the remote debugging protocol
+        /// - `binding.onmessage = json => handleMessage(json)` - a callback that will be called for the protocol notifications and command responses.
         /// </summary>
         public async Task<ExposeDevToolsProtocolCommandResponse> ExposeDevToolsProtocol(ExposeDevToolsProtocolCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
@@ -68,11 +68,11 @@ namespace Zu.ChromeDevTools.Target
         }
         /// <summary>
         /// Creates a new empty BrowserContext. Similar to an incognito profile but you can have more than
-    /// one.
+        /// one.
         /// </summary>
-        public async Task<CreateBrowserContextCommandResponse> CreateBrowserContext(CreateBrowserContextCommand command = null, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
+        public async Task<CreateBrowserContextCommandResponse> CreateBrowserContext(CreateBrowserContextCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
-            return await m_session.SendCommand<CreateBrowserContextCommand, CreateBrowserContextCommandResponse>(command ?? new CreateBrowserContextCommand(), cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
+            return await m_session.SendCommand<CreateBrowserContextCommand, CreateBrowserContextCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
         }
         /// <summary>
         /// Returns all browser contexts created with `Target.createBrowserContext` method.
@@ -97,7 +97,7 @@ namespace Zu.ChromeDevTools.Target
         }
         /// <summary>
         /// Deletes a BrowserContext. All the belonging pages will be closed without calling their
-    /// beforeunload hooks.
+        /// beforeunload hooks.
         /// </summary>
         public async Task<DisposeBrowserContextCommandResponse> DisposeBrowserContext(DisposeBrowserContextCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
@@ -119,8 +119,8 @@ namespace Zu.ChromeDevTools.Target
         }
         /// <summary>
         /// Sends protocol message over session with given id.
-    /// Consider using flat mode instead; see commands attachToTarget, setAutoAttach,
-    /// and crbug.com/991325.
+        /// Consider using flat mode instead; see commands attachToTarget, setAutoAttach,
+        /// and crbug.com/991325.
         /// </summary>
         public async Task<SendMessageToTargetCommandResponse> SendMessageToTarget(SendMessageToTargetCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
@@ -128,16 +128,29 @@ namespace Zu.ChromeDevTools.Target
         }
         /// <summary>
         /// Controls whether to automatically attach to new targets which are considered to be related to
-    /// this one. When turned on, attaches to all existing related targets as well. When turned off,
-    /// automatically detaches from all currently attached targets.
+        /// this one. When turned on, attaches to all existing related targets as well. When turned off,
+        /// automatically detaches from all currently attached targets.
+        /// This also clears all targets added by `autoAttachRelated` from the list of targets to watch
+        /// for creation of related targets.
         /// </summary>
         public async Task<SetAutoAttachCommandResponse> SetAutoAttach(SetAutoAttachCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
             return await m_session.SendCommand<SetAutoAttachCommand, SetAutoAttachCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
         }
         /// <summary>
+        /// Adds the specified target to the list of targets that will be monitored for any related target
+        /// creation (such as child frames, child workers and new versions of service worker) and reported
+        /// through `attachedToTarget`. The specified target is also auto-attached.
+        /// This cancels the effect of any previous `setAutoAttach` and is also cancelled by subsequent
+        /// `setAutoAttach`. Only available at the Browser target.
+        /// </summary>
+        public async Task<AutoAttachRelatedCommandResponse> AutoAttachRelated(AutoAttachRelatedCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
+        {
+            return await m_session.SendCommand<AutoAttachRelatedCommand, AutoAttachRelatedCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
+        }
+        /// <summary>
         /// Controls whether to discover available targets and notify via
-    /// `targetCreated/targetInfoChanged/targetDestroyed` events.
+        /// `targetCreated/targetInfoChanged/targetDestroyed` events.
         /// </summary>
         public async Task<SetDiscoverTargetsCommandResponse> SetDiscoverTargets(SetDiscoverTargetsCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
@@ -145,7 +158,7 @@ namespace Zu.ChromeDevTools.Target
         }
         /// <summary>
         /// Enables target discovery for the specified locations, when `setDiscoverTargets` was set to
-    /// `true`.
+        /// `true`.
         /// </summary>
         public async Task<SetRemoteLocationsCommandResponse> SetRemoteLocations(SetRemoteLocationsCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {

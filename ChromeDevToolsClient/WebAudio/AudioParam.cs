@@ -8,8 +8,8 @@ namespace Zu.ChromeDevTools.WebAudio
     public sealed class AudioParam
     {
         /// <summary>
-        /// 
-        ///</summary>
+        /// Gets or sets the paramId
+        /// </summary>
         [JsonProperty("paramId")]
         public string ParamId
         {
@@ -17,8 +17,8 @@ namespace Zu.ChromeDevTools.WebAudio
             set;
         }
         /// <summary>
-        /// 
-        ///</summary>
+        /// Gets or sets the nodeId
+        /// </summary>
         [JsonProperty("nodeId")]
         public string NodeId
         {
@@ -26,8 +26,8 @@ namespace Zu.ChromeDevTools.WebAudio
             set;
         }
         /// <summary>
-        /// 
-        ///</summary>
+        /// Gets or sets the contextId
+        /// </summary>
         [JsonProperty("contextId")]
         public string ContextId
         {
@@ -35,8 +35,8 @@ namespace Zu.ChromeDevTools.WebAudio
             set;
         }
         /// <summary>
-        /// 
-        ///</summary>
+        /// Gets or sets the paramType
+        /// </summary>
         [JsonProperty("paramType")]
         public string ParamType
         {
@@ -44,8 +44,8 @@ namespace Zu.ChromeDevTools.WebAudio
             set;
         }
         /// <summary>
-        /// 
-        ///</summary>
+        /// Gets or sets the rate
+        /// </summary>
         [JsonProperty("rate")]
         public AutomationRate Rate
         {
@@ -53,8 +53,8 @@ namespace Zu.ChromeDevTools.WebAudio
             set;
         }
         /// <summary>
-        /// 
-        ///</summary>
+        /// Gets or sets the defaultValue
+        /// </summary>
         [JsonProperty("defaultValue")]
         public double DefaultValue
         {
@@ -62,8 +62,8 @@ namespace Zu.ChromeDevTools.WebAudio
             set;
         }
         /// <summary>
-        /// 
-        ///</summary>
+        /// Gets or sets the minValue
+        /// </summary>
         [JsonProperty("minValue")]
         public double MinValue
         {
@@ -71,8 +71,8 @@ namespace Zu.ChromeDevTools.WebAudio
             set;
         }
         /// <summary>
-        /// 
-        ///</summary>
+        /// Gets or sets the maxValue
+        /// </summary>
         [JsonProperty("maxValue")]
         public double MaxValue
         {

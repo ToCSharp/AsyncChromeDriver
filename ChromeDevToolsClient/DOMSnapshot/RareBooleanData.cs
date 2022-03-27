@@ -8,8 +8,8 @@ namespace Zu.ChromeDevTools.DOMSnapshot
     public sealed class RareBooleanData
     {
         /// <summary>
-        /// 
-        ///</summary>
+        /// Gets or sets the index
+        /// </summary>
         [JsonProperty("index")]
         public long[] Index
         {

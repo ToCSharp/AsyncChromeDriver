@@ -4,7 +4,7 @@ namespace Zu.ChromeDevTools.Page
 
     /// <summary>
     /// Fired when a new window is going to be opened, via window.open(), link click, form submission,
-        /// etc.
+    /// etc.
     /// </summary>
     public sealed class WindowOpenEvent : IEvent
     {

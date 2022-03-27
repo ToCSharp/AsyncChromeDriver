@@ -3,13 +3,13 @@ namespace Zu.ChromeDevTools.Media
     using Newtonsoft.Json;
 
     /// <summary>
-    /// Player Property type
+    /// Corresponds to kMediaPropertyChange
     /// </summary>
     public sealed class PlayerProperty
     {
         /// <summary>
-        /// 
-        ///</summary>
+        /// Gets or sets the name
+        /// </summary>
         [JsonProperty("name")]
         public string Name
         {
@@ -17,9 +17,9 @@ namespace Zu.ChromeDevTools.Media
             set;
         }
         /// <summary>
-        /// 
-        ///</summary>
-        [JsonProperty("value", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        /// Gets or sets the value
+        /// </summary>
+        [JsonProperty("value")]
         public string Value
         {
             get;

@@ -4,7 +4,7 @@ namespace Zu.ChromeDevTools.Page
 
     /// <summary>
     /// Fired when a renderer-initiated navigation is requested.
-        /// Navigation may still be cancelled after the event is issued.
+    /// Navigation may still be cancelled after the event is issued.
     /// </summary>
     public sealed class FrameRequestedNavigationEvent : IEvent
     {
@@ -31,6 +31,15 @@ namespace Zu.ChromeDevTools.Page
         /// </summary>
         [JsonProperty("url")]
         public string Url
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// The disposition for the navigation.
+        /// </summary>
+        [JsonProperty("disposition")]
+        public ClientNavigationDisposition Disposition
         {
             get;
             set;

@@ -4,7 +4,7 @@ namespace Zu.ChromeDevTools.BackgroundService
 
     /// <summary>
     /// Called with all existing backgroundServiceEvents when enabled, and all new
-        /// events afterwards if enabled and recording.
+    /// events afterwards if enabled and recording.
     /// </summary>
     public sealed class BackgroundServiceEventReceivedEvent : IEvent
     {

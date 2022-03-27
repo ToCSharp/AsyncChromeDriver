@@ -40,7 +40,7 @@ namespace Zu.ChromeDevTools.Debugger
         }
         /// <summary>
         /// Enables debugger for the given page. Clients should not assume that the debugging has been
-    /// enabled until the result for this command is received.
+        /// enabled until the result for this command is received.
         /// </summary>
         public async Task<EnableCommandResponse> Enable(EnableCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
@@ -55,7 +55,7 @@ namespace Zu.ChromeDevTools.Debugger
         }
         /// <summary>
         /// Returns possible locations for breakpoint. scriptId in start and end range locations should be
-    /// the same.
+        /// the same.
         /// </summary>
         public async Task<GetPossibleBreakpointsCommandResponse> GetPossibleBreakpoints(GetPossibleBreakpointsCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
@@ -113,9 +113,9 @@ namespace Zu.ChromeDevTools.Debugger
         /// <summary>
         /// Resumes JavaScript execution.
         /// </summary>
-        public async Task<ResumeCommandResponse> Resume(ResumeCommand command = null, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
+        public async Task<ResumeCommandResponse> Resume(ResumeCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
-            return await m_session.SendCommand<ResumeCommand, ResumeCommandResponse>(command ?? new ResumeCommand(), cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
+            return await m_session.SendCommand<ResumeCommand, ResumeCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
         }
         /// <summary>
         /// Searches for given string in script content.
@@ -133,8 +133,8 @@ namespace Zu.ChromeDevTools.Debugger
         }
         /// <summary>
         /// Replace previous blackbox patterns with passed ones. Forces backend to skip stepping/pausing in
-    /// scripts with url matching one of the patterns. VM will try to leave blackboxed script by
-    /// performing 'step in' several times, finally resorting to 'step out' if unsuccessful.
+        /// scripts with url matching one of the patterns. VM will try to leave blackboxed script by
+        /// performing 'step in' several times, finally resorting to 'step out' if unsuccessful.
         /// </summary>
         public async Task<SetBlackboxPatternsCommandResponse> SetBlackboxPatterns(SetBlackboxPatternsCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
@@ -142,9 +142,9 @@ namespace Zu.ChromeDevTools.Debugger
         }
         /// <summary>
         /// Makes backend skip steps in the script in blackboxed ranges. VM will try leave blacklisted
-    /// scripts by performing 'step in' several times, finally resorting to 'step out' if unsuccessful.
-    /// Positions array contains positions where blackbox state is changed. First interval isn't
-    /// blackboxed. Array should be sorted.
+        /// scripts by performing 'step in' several times, finally resorting to 'step out' if unsuccessful.
+        /// Positions array contains positions where blackbox state is changed. First interval isn't
+        /// blackboxed. Array should be sorted.
         /// </summary>
         public async Task<SetBlackboxedRangesCommandResponse> SetBlackboxedRanges(SetBlackboxedRangesCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
@@ -166,9 +166,9 @@ namespace Zu.ChromeDevTools.Debugger
         }
         /// <summary>
         /// Sets JavaScript breakpoint at given location specified either by URL or URL regex. Once this
-    /// command is issued, all existing parsed scripts will have breakpoints resolved and returned in
-    /// `locations` property. Further matching script parsing will result in subsequent
-    /// `breakpointResolved` events issued. This logical breakpoint will survive page reloads.
+        /// command is issued, all existing parsed scripts will have breakpoints resolved and returned in
+        /// `locations` property. Further matching script parsing will result in subsequent
+        /// `breakpointResolved` events issued. This logical breakpoint will survive page reloads.
         /// </summary>
         public async Task<SetBreakpointByUrlCommandResponse> SetBreakpointByUrl(SetBreakpointByUrlCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
@@ -176,8 +176,8 @@ namespace Zu.ChromeDevTools.Debugger
         }
         /// <summary>
         /// Sets JavaScript breakpoint before each call to the given function.
-    /// If another function was created from the same source as a given one,
-    /// calling it will also trigger the breakpoint.
+        /// If another function was created from the same source as a given one,
+        /// calling it will also trigger the breakpoint.
         /// </summary>
         public async Task<SetBreakpointOnFunctionCallCommandResponse> SetBreakpointOnFunctionCall(SetBreakpointOnFunctionCallCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
@@ -192,7 +192,7 @@ namespace Zu.ChromeDevTools.Debugger
         }
         /// <summary>
         /// Defines pause on exceptions state. Can be set to stop on all exceptions, uncaught exceptions or
-    /// no exceptions. Initial pause on exceptions state is `none`.
+        /// no exceptions. Initial pause on exceptions state is `none`.
         /// </summary>
         public async Task<SetPauseOnExceptionsCommandResponse> SetPauseOnExceptions(SetPauseOnExceptionsCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
@@ -221,7 +221,7 @@ namespace Zu.ChromeDevTools.Debugger
         }
         /// <summary>
         /// Changes value of variable in a callframe. Object-based scopes are not supported and must be
-    /// mutated manually.
+        /// mutated manually.
         /// </summary>
         public async Task<SetVariableValueCommandResponse> SetVariableValue(SetVariableValueCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
@@ -244,9 +244,9 @@ namespace Zu.ChromeDevTools.Debugger
         /// <summary>
         /// Steps over the statement.
         /// </summary>
-        public async Task<StepOverCommandResponse> StepOver(StepOverCommand command = null, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
+        public async Task<StepOverCommandResponse> StepOver(StepOverCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
-            return await m_session.SendCommand<StepOverCommand, StepOverCommandResponse>(command ?? new StepOverCommand(), cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
+            return await m_session.SendCommand<StepOverCommand, StepOverCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
         }
 
         /// <summary>

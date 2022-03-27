@@ -8,8 +8,8 @@ namespace Zu.ChromeDevTools.BackgroundService
     public sealed class EventMetadata
     {
         /// <summary>
-        /// 
-        ///</summary>
+        /// Gets or sets the key
+        /// </summary>
         [JsonProperty("key")]
         public string Key
         {
@@ -17,8 +17,8 @@ namespace Zu.ChromeDevTools.BackgroundService
             set;
         }
         /// <summary>
-        /// 
-        ///</summary>
+        /// Gets or sets the value
+        /// </summary>
         [JsonProperty("value")]
         public string Value
         {

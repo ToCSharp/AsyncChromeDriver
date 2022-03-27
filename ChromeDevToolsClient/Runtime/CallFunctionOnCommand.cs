@@ -112,6 +112,15 @@ namespace Zu.ChromeDevTools.Runtime
             get;
             set;
         }
+        /// <summary>
+        /// Whether to throw an exception if side effect cannot be ruled out during evaluation.
+        /// </summary>
+        [JsonProperty("throwOnSideEffect", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public bool? ThrowOnSideEffect
+        {
+            get;
+            set;
+        }
     }
 
     public sealed class CallFunctionOnCommandResponse : ICommandResponse<CallFunctionOnCommand>

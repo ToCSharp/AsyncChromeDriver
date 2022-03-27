@@ -54,7 +54,7 @@ namespace Zu.ChromeDevTools.Security
         }
         /// <summary>
         /// Enable/disable overriding certificate errors. If enabled, all certificate error events need to
-    /// be handled by the DevTools client and should be answered with `handleCertificateError` commands.
+        /// be handled by the DevTools client and should be answered with `handleCertificateError` commands.
         /// </summary>
         public async Task<SetOverrideCertificateErrorsCommandResponse> SetOverrideCertificateErrors(SetOverrideCertificateErrorsCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
@@ -79,7 +79,7 @@ namespace Zu.ChromeDevTools.Security
             m_session.Subscribe(eventCallback);
         }
         /// <summary>
-        /// The security state of the page changed.
+        /// The security state of the page changed. No longer being sent.
         /// </summary>
         public void SubscribeToSecurityStateChangedEvent(Action<SecurityStateChangedEvent> eventCallback)
         {

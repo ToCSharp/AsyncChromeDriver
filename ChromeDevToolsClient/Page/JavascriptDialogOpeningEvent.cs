@@ -4,7 +4,7 @@ namespace Zu.ChromeDevTools.Page
 
     /// <summary>
     /// Fired when a JavaScript initiated dialog (alert, confirm, prompt, or onbeforeunload) is about to
-        /// open.
+    /// open.
     /// </summary>
     public sealed class JavascriptDialogOpeningEvent : IEvent
     {

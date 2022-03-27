@@ -25,10 +25,19 @@ namespace Zu.ChromeDevTools.HeapProfiler
             set;
         }
         /// <summary>
-        /// If true, a raw snapshot without artifical roots will be generated
+        /// If true, a raw snapshot without artificial roots will be generated
         /// </summary>
         [JsonProperty("treatGlobalObjectsAsRoots", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public bool? TreatGlobalObjectsAsRoots
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// If true, numerical values are included in the snapshot
+        /// </summary>
+        [JsonProperty("captureNumericValue", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public bool? CaptureNumericValue
         {
             get;
             set;

@@ -29,8 +29,8 @@ namespace Zu.ChromeDevTools.Target
     public sealed class CloseTargetCommandResponse : ICommandResponse<CloseTargetCommand>
     {
         /// <summary>
-        /// Gets or sets the success
-        /// </summary>
+        /// Always set to true. If an error occurs, the response indicates protocol error.
+        ///</summary>
         [JsonProperty("success")]
         public bool Success
         {

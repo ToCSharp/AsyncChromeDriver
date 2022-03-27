@@ -3,13 +3,13 @@ namespace Zu.ChromeDevTools.WebAudio
     using Newtonsoft.Json;
 
     /// <summary>
-    /// Protocol object for AudioListner
+    /// Protocol object for AudioListener
     /// </summary>
     public sealed class AudioListener
     {
         /// <summary>
-        /// 
-        ///</summary>
+        /// Gets or sets the listenerId
+        /// </summary>
         [JsonProperty("listenerId")]
         public string ListenerId
         {
@@ -17,8 +17,8 @@ namespace Zu.ChromeDevTools.WebAudio
             set;
         }
         /// <summary>
-        /// 
-        ///</summary>
+        /// Gets or sets the contextId
+        /// </summary>
         [JsonProperty("contextId")]
         public string ContextId
         {

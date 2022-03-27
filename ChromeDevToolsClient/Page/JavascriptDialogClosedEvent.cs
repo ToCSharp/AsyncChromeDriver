@@ -4,7 +4,7 @@ namespace Zu.ChromeDevTools.Page
 
     /// <summary>
     /// Fired when a JavaScript initiated dialog (alert, confirm, prompt, or onbeforeunload) has been
-        /// closed.
+    /// closed.
     /// </summary>
     public sealed class JavascriptDialogClosedEvent : IEvent
     {

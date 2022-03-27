@@ -54,6 +54,15 @@ namespace Zu.ChromeDevTools.Runtime
             get;
             set;
         }
+        /// <summary>
+        /// If true, returns non-indexed properties only.
+        /// </summary>
+        [JsonProperty("nonIndexedPropertiesOnly", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public bool? NonIndexedPropertiesOnly
+        {
+            get;
+            set;
+        }
     }
 
     public sealed class GetPropertiesCommandResponse : ICommandResponse<GetPropertiesCommand>

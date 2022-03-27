@@ -35,8 +35,8 @@ namespace Zu.ChromeDevTools.Debugger
             set;
         }
         /// <summary>
-        /// 
-        ///</summary>
+        /// Gets or sets the type
+        /// </summary>
         [JsonProperty("type", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public string Type
         {

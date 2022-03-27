@@ -4,11 +4,11 @@ namespace Zu.ChromeDevTools.Fetch
 
     /// <summary>
     /// Issued when the domain is enabled and the request URL matches the
-        /// specified filter. The request is paused until the client responds
-        /// with one of continueRequest, failRequest or fulfillRequest.
-        /// The stage of the request can be determined by presence of responseErrorReason
-        /// and responseStatusCode -- the request is at the response stage if either
-        /// of these fields is present and in the request stage otherwise.
+    /// specified filter. The request is paused until the client responds
+    /// with one of continueRequest, failRequest or fulfillRequest.
+    /// The stage of the request can be determined by presence of responseErrorReason
+    /// and responseStatusCode -- the request is at the response stage if either
+    /// of these fields is present and in the request stage otherwise.
     /// </summary>
     public sealed class RequestPausedEvent : IEvent
     {
@@ -52,7 +52,7 @@ namespace Zu.ChromeDevTools.Fetch
         /// Response error if intercepted at response stage.
         /// </summary>
         [JsonProperty("responseErrorReason", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public Network.ErrorReason ResponseErrorReason
+        public Network.ErrorReason? ResponseErrorReason
         {
             get;
             set;
@@ -62,6 +62,15 @@ namespace Zu.ChromeDevTools.Fetch
         /// </summary>
         [JsonProperty("responseStatusCode", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public long? ResponseStatusCode
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// Response status text if intercepted at response stage.
+        /// </summary>
+        [JsonProperty("responseStatusText", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public string ResponseStatusText
         {
             get;
             set;

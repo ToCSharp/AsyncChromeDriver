@@ -3,7 +3,7 @@ namespace Zu.ChromeDevTools.Overlay
     using Newtonsoft.Json;
 
     /// <summary>
-    /// Requests that backend shows hit-test borders on layers
+    /// Deprecated, no longer has any effect.
     /// </summary>
     public sealed class SetShowHitTestBordersCommand : ICommand
     {

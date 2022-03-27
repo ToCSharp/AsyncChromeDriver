@@ -8,8 +8,8 @@ namespace Zu.ChromeDevTools.HeapProfiler
     public sealed class SamplingHeapProfile
     {
         /// <summary>
-        /// 
-        ///</summary>
+        /// Gets or sets the head
+        /// </summary>
         [JsonProperty("head")]
         public SamplingHeapProfileNode Head
         {
@@ -17,8 +17,8 @@ namespace Zu.ChromeDevTools.HeapProfiler
             set;
         }
         /// <summary>
-        /// 
-        ///</summary>
+        /// Gets or sets the samples
+        /// </summary>
         [JsonProperty("samples")]
         public SamplingHeapProfileSample[] Samples
         {

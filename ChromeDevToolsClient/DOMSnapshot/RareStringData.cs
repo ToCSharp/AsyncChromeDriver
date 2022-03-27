@@ -8,8 +8,8 @@ namespace Zu.ChromeDevTools.DOMSnapshot
     public sealed class RareStringData
     {
         /// <summary>
-        /// 
-        ///</summary>
+        /// Gets or sets the index
+        /// </summary>
         [JsonProperty("index")]
         public long[] Index
         {
@@ -17,8 +17,8 @@ namespace Zu.ChromeDevTools.DOMSnapshot
             set;
         }
         /// <summary>
-        /// 
-        ///</summary>
+        /// Gets or sets the value
+        /// </summary>
         [JsonProperty("value")]
         public long[] Value
         {

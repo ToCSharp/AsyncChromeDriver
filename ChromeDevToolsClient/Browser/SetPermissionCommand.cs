@@ -16,15 +16,6 @@ namespace Zu.ChromeDevTools.Browser
         }
 
         /// <summary>
-        /// Origin the permission applies to.
-        /// </summary>
-        [JsonProperty("origin")]
-        public string Origin
-        {
-            get;
-            set;
-        }
-        /// <summary>
         /// Descriptor of permission to override.
         /// </summary>
         [JsonProperty("permission")]
@@ -38,6 +29,15 @@ namespace Zu.ChromeDevTools.Browser
         /// </summary>
         [JsonProperty("setting")]
         public PermissionSetting Setting
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// Origin the permission applies to, all origins if not specified.
+        /// </summary>
+        [JsonProperty("origin", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public string Origin
         {
             get;
             set;

@@ -15,25 +15,25 @@ namespace Zu.ChromeDevTools.Page
         [EnumMember(Value = "typed")]
         Typed,
         [EnumMember(Value = "address_bar")]
-        AddressBar,
+        Address_bar,
         [EnumMember(Value = "auto_bookmark")]
-        AutoBookmark,
+        Auto_bookmark,
         [EnumMember(Value = "auto_subframe")]
-        AutoSubframe,
+        Auto_subframe,
         [EnumMember(Value = "manual_subframe")]
-        ManualSubframe,
+        Manual_subframe,
         [EnumMember(Value = "generated")]
         Generated,
         [EnumMember(Value = "auto_toplevel")]
-        AutoToplevel,
+        Auto_toplevel,
         [EnumMember(Value = "form_submit")]
-        FormSubmit,
+        Form_submit,
         [EnumMember(Value = "reload")]
         Reload,
         [EnumMember(Value = "keyword")]
         Keyword,
         [EnumMember(Value = "keyword_generated")]
-        KeywordGenerated,
+        Keyword_generated,
         [EnumMember(Value = "other")]
         Other,
     }

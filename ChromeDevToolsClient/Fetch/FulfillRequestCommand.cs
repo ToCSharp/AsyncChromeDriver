@@ -46,7 +46,7 @@ namespace Zu.ChromeDevTools.Fetch
         /// Alternative way of specifying response headers as a \0-separated
         /// series of name: value pairs. Prefer the above method unless you
         /// need to represent some non-UTF8 values that can't be transmitted
-        /// over the protocol as text.
+        /// over the protocol as text. (Encoded as a base64 string when passed over JSON)
         /// </summary>
         [JsonProperty("binaryResponseHeaders", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public string BinaryResponseHeaders
@@ -55,7 +55,9 @@ namespace Zu.ChromeDevTools.Fetch
             set;
         }
         /// <summary>
-        /// A response body.
+        /// A response body. If absent, original response body will be used if
+        /// the request is intercepted at the response stage and empty body
+        /// will be used if the request is intercepted at the request stage. (Encoded as a base64 string when passed over JSON)
         /// </summary>
         [JsonProperty("body", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public string Body

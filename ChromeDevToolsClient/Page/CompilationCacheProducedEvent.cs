@@ -4,7 +4,7 @@ namespace Zu.ChromeDevTools.Page
 
     /// <summary>
     /// Issued for every compilation cache generated. Is only available
-        /// if Page.setGenerateCompilationCache is enabled.
+    /// if Page.setGenerateCompilationCache is enabled.
     /// </summary>
     public sealed class CompilationCacheProducedEvent : IEvent
     {
@@ -18,7 +18,7 @@ namespace Zu.ChromeDevTools.Page
             set;
         }
         /// <summary>
-        /// Base64-encoded data
+        /// Base64-encoded data (Encoded as a base64 string when passed over JSON)
         /// </summary>
         [JsonProperty("data")]
         public string Data

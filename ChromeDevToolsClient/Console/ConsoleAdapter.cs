@@ -40,7 +40,7 @@ namespace Zu.ChromeDevTools.Console
         }
         /// <summary>
         /// Enables console domain, sends the messages collected so far to the client by means of the
-    /// `messageAdded` notification.
+        /// `messageAdded` notification.
         /// </summary>
         public async Task<EnableCommandResponse> Enable(EnableCommand command = null, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {

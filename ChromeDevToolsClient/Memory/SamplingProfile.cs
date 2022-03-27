@@ -8,8 +8,8 @@ namespace Zu.ChromeDevTools.Memory
     public sealed class SamplingProfile
     {
         /// <summary>
-        /// 
-        ///</summary>
+        /// Gets or sets the samples
+        /// </summary>
         [JsonProperty("samples")]
         public SamplingProfileNode[] Samples
         {
@@ -17,8 +17,8 @@ namespace Zu.ChromeDevTools.Memory
             set;
         }
         /// <summary>
-        /// 
-        ///</summary>
+        /// Gets or sets the modules
+        /// </summary>
         [JsonProperty("modules")]
         public Module[] Modules
         {

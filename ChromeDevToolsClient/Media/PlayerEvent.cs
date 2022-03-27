@@ -3,23 +3,13 @@ namespace Zu.ChromeDevTools.Media
     using Newtonsoft.Json;
 
     /// <summary>
-    /// 
+    /// Corresponds to kMediaEventTriggered
     /// </summary>
     public sealed class PlayerEvent
     {
         /// <summary>
-        /// 
-        ///</summary>
-        [JsonProperty("type")]
-        public PlayerEventType Type
-        {
-            get;
-            set;
-        }
-        /// <summary>
-        /// Events are timestamped relative to the start of the player creation
-        /// not relative to the start of playback.
-        ///</summary>
+        /// Gets or sets the timestamp
+        /// </summary>
         [JsonProperty("timestamp")]
         public double Timestamp
         {
@@ -27,17 +17,8 @@ namespace Zu.ChromeDevTools.Media
             set;
         }
         /// <summary>
-        /// 
-        ///</summary>
-        [JsonProperty("name")]
-        public string Name
-        {
-            get;
-            set;
-        }
-        /// <summary>
-        /// 
-        ///</summary>
+        /// Gets or sets the value
+        /// </summary>
         [JsonProperty("value")]
         public string Value
         {

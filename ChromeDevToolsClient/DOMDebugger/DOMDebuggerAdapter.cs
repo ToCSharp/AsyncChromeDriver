@@ -60,6 +60,13 @@ namespace Zu.ChromeDevTools.DOMDebugger
             return await m_session.SendCommand<RemoveXHRBreakpointCommand, RemoveXHRBreakpointCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
         }
         /// <summary>
+        /// Sets breakpoint on particular CSP violations.
+        /// </summary>
+        public async Task<SetBreakOnCSPViolationCommandResponse> SetBreakOnCSPViolation(SetBreakOnCSPViolationCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
+        {
+            return await m_session.SendCommand<SetBreakOnCSPViolationCommand, SetBreakOnCSPViolationCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
+        }
+        /// <summary>
         /// Sets breakpoint on particular operation with DOM.
         /// </summary>
         public async Task<SetDOMBreakpointCommandResponse> SetDOMBreakpoint(SetDOMBreakpointCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)

@@ -25,6 +25,15 @@ namespace Zu.ChromeDevTools.Debugger
             get;
             set;
         }
+        /// <summary>
+        /// The skipList specifies location ranges that should be skipped on step into.
+        /// </summary>
+        [JsonProperty("skipList", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public LocationRange[] SkipList
+        {
+            get;
+            set;
+        }
     }
 
     public sealed class StepIntoCommandResponse : ICommandResponse<StepIntoCommand>

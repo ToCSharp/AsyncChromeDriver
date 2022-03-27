@@ -8,8 +8,8 @@ namespace Zu.ChromeDevTools.Cast
     public sealed class Sink
     {
         /// <summary>
-        /// 
-        ///</summary>
+        /// Gets or sets the name
+        /// </summary>
         [JsonProperty("name")]
         public string Name
         {
@@ -17,8 +17,8 @@ namespace Zu.ChromeDevTools.Cast
             set;
         }
         /// <summary>
-        /// 
-        ///</summary>
+        /// Gets or sets the id
+        /// </summary>
         [JsonProperty("id")]
         public string Id
         {

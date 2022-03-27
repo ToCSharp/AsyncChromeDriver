@@ -4,7 +4,7 @@ namespace Zu.ChromeDevTools.Fetch
 
     /// <summary>
     /// Issued when the domain is enabled with handleAuthRequests set to true.
-        /// The request is paused until client responds with continueWithAuth.
+    /// The request is paused until client responds with continueWithAuth.
     /// </summary>
     public sealed class AuthRequiredEvent : IEvent
     {

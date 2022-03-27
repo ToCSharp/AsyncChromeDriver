@@ -33,7 +33,7 @@ namespace Zu.ChromeDevTools.DOM
         }
         /// <summary>
         /// Creates a deep copy of the specified node and places it into the target container before the
-    /// given anchor.
+        /// given anchor.
         /// </summary>
         public async Task<CopyToCommandResponse> CopyTo(CopyToCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
@@ -41,11 +41,20 @@ namespace Zu.ChromeDevTools.DOM
         }
         /// <summary>
         /// Describes node given its id, does not require domain to be enabled. Does not start tracking any
-    /// objects, can be used for automation.
+        /// objects, can be used for automation.
         /// </summary>
         public async Task<DescribeNodeCommandResponse> DescribeNode(DescribeNodeCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
             return await m_session.SendCommand<DescribeNodeCommand, DescribeNodeCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
+        }
+        /// <summary>
+        /// Scrolls the specified rect of the given node into view if not already visible.
+        /// Note: exactly one between nodeId, backendNodeId and objectId should be passed
+        /// to identify the node.
+        /// </summary>
+        public async Task<ScrollIntoViewIfNeededCommandResponse> ScrollIntoViewIfNeeded(ScrollIntoViewIfNeededCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
+        {
+            return await m_session.SendCommand<ScrollIntoViewIfNeededCommand, ScrollIntoViewIfNeededCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
         }
         /// <summary>
         /// Disables DOM agent for the given page.
@@ -56,7 +65,7 @@ namespace Zu.ChromeDevTools.DOM
         }
         /// <summary>
         /// Discards search results from the session with the given id. `getSearchResults` should no longer
-    /// be called for that search.
+        /// be called for that search.
         /// </summary>
         public async Task<DiscardSearchResultsCommandResponse> DiscardSearchResults(DiscardSearchResultsCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
@@ -65,9 +74,9 @@ namespace Zu.ChromeDevTools.DOM
         /// <summary>
         /// Enables DOM agent for the given page.
         /// </summary>
-        public async Task<EnableCommandResponse> Enable(EnableCommand command = null, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
+        public async Task<EnableCommandResponse> Enable(EnableCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
-            return await m_session.SendCommand<EnableCommand, EnableCommandResponse>(command ?? new EnableCommand(), cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
+            return await m_session.SendCommand<EnableCommand, EnableCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
         }
         /// <summary>
         /// Focuses the given element.
@@ -92,7 +101,7 @@ namespace Zu.ChromeDevTools.DOM
         }
         /// <summary>
         /// Returns quads that describe node position on the page. This method
-    /// might return multiple quads for inline nodes.
+        /// might return multiple quads for inline nodes.
         /// </summary>
         public async Task<GetContentQuadsCommandResponse> GetContentQuads(GetContentQuadsCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
@@ -107,14 +116,23 @@ namespace Zu.ChromeDevTools.DOM
         }
         /// <summary>
         /// Returns the root DOM node (and optionally the subtree) to the caller.
+        /// Deprecated, as it is not designed to work well with the rest of the DOM agent.
+        /// Use DOMSnapshot.captureSnapshot instead.
         /// </summary>
         public async Task<GetFlattenedDocumentCommandResponse> GetFlattenedDocument(GetFlattenedDocumentCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
             return await m_session.SendCommand<GetFlattenedDocumentCommand, GetFlattenedDocumentCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
         }
         /// <summary>
+        /// Finds nodes with a given computed style in a subtree.
+        /// </summary>
+        public async Task<GetNodesForSubtreeByStyleCommandResponse> GetNodesForSubtreeByStyle(GetNodesForSubtreeByStyleCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
+        {
+            return await m_session.SendCommand<GetNodesForSubtreeByStyleCommand, GetNodesForSubtreeByStyleCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
+        }
+        /// <summary>
         /// Returns node id at given location. Depending on whether DOM domain is enabled, nodeId is
-    /// either returned or not.
+        /// either returned or not.
         /// </summary>
         public async Task<GetNodeForLocationCommandResponse> GetNodeForLocation(GetNodeForLocationCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
@@ -136,7 +154,7 @@ namespace Zu.ChromeDevTools.DOM
         }
         /// <summary>
         /// Returns search results from given `fromIndex` to given `toIndex` from the search with the given
-    /// identifier.
+        /// identifier.
         /// </summary>
         public async Task<GetSearchResultsCommandResponse> GetSearchResults(GetSearchResultsCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
@@ -179,7 +197,7 @@ namespace Zu.ChromeDevTools.DOM
         }
         /// <summary>
         /// Searches for a given string in the DOM tree. Use `getSearchResults` to access search results or
-    /// `cancelSearch` to end this search session.
+        /// `cancelSearch` to end this search session.
         /// </summary>
         public async Task<PerformSearchCommandResponse> PerformSearch(PerformSearchCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
@@ -236,8 +254,8 @@ namespace Zu.ChromeDevTools.DOM
         }
         /// <summary>
         /// Requests that children of the node with given id are returned to the caller in form of
-    /// `setChildNodes` events where not only immediate children are retrieved, but all children down to
-    /// the specified depth.
+        /// `setChildNodes` events where not only immediate children are retrieved, but all children down to
+        /// the specified depth.
         /// </summary>
         public async Task<RequestChildNodesCommandResponse> RequestChildNodes(RequestChildNodesCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
@@ -245,8 +263,8 @@ namespace Zu.ChromeDevTools.DOM
         }
         /// <summary>
         /// Requests that the node is sent to the caller given the JavaScript node object reference. All
-    /// nodes that form the path from the node to the root are also sent to the client as a series of
-    /// `setChildNodes` notifications.
+        /// nodes that form the path from the node to the root are also sent to the client as a series of
+        /// `setChildNodes` notifications.
         /// </summary>
         public async Task<RequestNodeCommandResponse> RequestNode(RequestNodeCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
@@ -268,7 +286,7 @@ namespace Zu.ChromeDevTools.DOM
         }
         /// <summary>
         /// Sets attributes on element with given id. This method is useful when user edits some existing
-    /// attribute value and types in several attribute name/value pairs.
+        /// attribute value and types in several attribute name/value pairs.
         /// </summary>
         public async Task<SetAttributesAsTextCommandResponse> SetAttributesAsText(SetAttributesAsTextCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
@@ -297,7 +315,7 @@ namespace Zu.ChromeDevTools.DOM
         }
         /// <summary>
         /// Returns file information for the given
-    /// File wrapper.
+        /// File wrapper.
         /// </summary>
         public async Task<GetFileInfoCommandResponse> GetFileInfo(GetFileInfoCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
@@ -305,7 +323,7 @@ namespace Zu.ChromeDevTools.DOM
         }
         /// <summary>
         /// Enables console to refer to the node with given id via $x (see Command Line API for more details
-    /// $x functions).
+        /// $x functions).
         /// </summary>
         public async Task<SetInspectedNodeCommandResponse> SetInspectedNode(SetInspectedNodeCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
@@ -345,6 +363,23 @@ namespace Zu.ChromeDevTools.DOM
         public async Task<GetFrameOwnerCommandResponse> GetFrameOwner(GetFrameOwnerCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
             return await m_session.SendCommand<GetFrameOwnerCommand, GetFrameOwnerCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
+        }
+        /// <summary>
+        /// Returns the container of the given node based on container query conditions.
+        /// If containerName is given, it will find the nearest container with a matching name;
+        /// otherwise it will find the nearest container regardless of its container name.
+        /// </summary>
+        public async Task<GetContainerForNodeCommandResponse> GetContainerForNode(GetContainerForNodeCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
+        {
+            return await m_session.SendCommand<GetContainerForNodeCommand, GetContainerForNodeCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
+        }
+        /// <summary>
+        /// Returns the descendants of a container query container that have
+        /// container queries against this container.
+        /// </summary>
+        public async Task<GetQueryingDescendantsForContainerCommandResponse> GetQueryingDescendantsForContainer(GetQueryingDescendantsForContainerCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
+        {
+            return await m_session.SendCommand<GetQueryingDescendantsForContainerCommand, GetQueryingDescendantsForContainerCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
         }
 
         /// <summary>
@@ -390,7 +425,7 @@ namespace Zu.ChromeDevTools.DOM
             m_session.Subscribe(eventCallback);
         }
         /// <summary>
-        /// Called when distrubution is changed.
+        /// Called when distribution is changed.
         /// </summary>
         public void SubscribeToDistributedNodesUpdatedEvent(Action<DistributedNodesUpdatedEvent> eventCallback)
         {

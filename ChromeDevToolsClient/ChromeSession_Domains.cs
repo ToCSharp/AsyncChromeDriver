@@ -1,12 +1,11 @@
 namespace Zu.ChromeDevTools
 {
     using System;
-    
+
     public partial class ChromeSession
     {
         private Lazy<Accessibility.AccessibilityAdapter> m_Accessibility;
         private Lazy<Animation.AnimationAdapter> m_Animation;
-        private Lazy<ApplicationCache.ApplicationCacheAdapter> m_ApplicationCache;
         private Lazy<Audits.AuditsAdapter> m_Audits;
         private Lazy<BackgroundService.BackgroundServiceAdapter> m_BackgroundService;
         private Lazy<Browser.BrowserAdapter> m_Browser;
@@ -15,6 +14,7 @@ namespace Zu.ChromeDevTools
         private Lazy<Cast.CastAdapter> m_Cast;
         private Lazy<DOM.DOMAdapter> m_DOM;
         private Lazy<DOMDebugger.DOMDebuggerAdapter> m_DOMDebugger;
+        private Lazy<EventBreakpoints.EventBreakpointsAdapter> m_EventBreakpoints;
         private Lazy<DOMSnapshot.DOMSnapshotAdapter> m_DOMSnapshot;
         private Lazy<DOMStorage.DOMStorageAdapter> m_DOMStorage;
         private Lazy<Database.DatabaseAdapter> m_Database;
@@ -32,6 +32,7 @@ namespace Zu.ChromeDevTools
         private Lazy<Overlay.OverlayAdapter> m_Overlay;
         private Lazy<Page.PageAdapter> m_Page;
         private Lazy<Performance.PerformanceAdapter> m_Performance;
+        private Lazy<PerformanceTimeline.PerformanceTimelineAdapter> m_PerformanceTimeline;
         private Lazy<Security.SecurityAdapter> m_Security;
         private Lazy<ServiceWorker.ServiceWorkerAdapter> m_ServiceWorker;
         private Lazy<Storage.StorageAdapter> m_Storage;
@@ -54,7 +55,6 @@ namespace Zu.ChromeDevTools
         {
             m_Accessibility = new Lazy<Accessibility.AccessibilityAdapter>(() => new Accessibility.AccessibilityAdapter(this));
             m_Animation = new Lazy<Animation.AnimationAdapter>(() => new Animation.AnimationAdapter(this));
-            m_ApplicationCache = new Lazy<ApplicationCache.ApplicationCacheAdapter>(() => new ApplicationCache.ApplicationCacheAdapter(this));
             m_Audits = new Lazy<Audits.AuditsAdapter>(() => new Audits.AuditsAdapter(this));
             m_BackgroundService = new Lazy<BackgroundService.BackgroundServiceAdapter>(() => new BackgroundService.BackgroundServiceAdapter(this));
             m_Browser = new Lazy<Browser.BrowserAdapter>(() => new Browser.BrowserAdapter(this));
@@ -63,6 +63,7 @@ namespace Zu.ChromeDevTools
             m_Cast = new Lazy<Cast.CastAdapter>(() => new Cast.CastAdapter(this));
             m_DOM = new Lazy<DOM.DOMAdapter>(() => new DOM.DOMAdapter(this));
             m_DOMDebugger = new Lazy<DOMDebugger.DOMDebuggerAdapter>(() => new DOMDebugger.DOMDebuggerAdapter(this));
+            m_EventBreakpoints = new Lazy<EventBreakpoints.EventBreakpointsAdapter>(() => new EventBreakpoints.EventBreakpointsAdapter(this));
             m_DOMSnapshot = new Lazy<DOMSnapshot.DOMSnapshotAdapter>(() => new DOMSnapshot.DOMSnapshotAdapter(this));
             m_DOMStorage = new Lazy<DOMStorage.DOMStorageAdapter>(() => new DOMStorage.DOMStorageAdapter(this));
             m_Database = new Lazy<Database.DatabaseAdapter>(() => new Database.DatabaseAdapter(this));
@@ -80,6 +81,7 @@ namespace Zu.ChromeDevTools
             m_Overlay = new Lazy<Overlay.OverlayAdapter>(() => new Overlay.OverlayAdapter(this));
             m_Page = new Lazy<Page.PageAdapter>(() => new Page.PageAdapter(this));
             m_Performance = new Lazy<Performance.PerformanceAdapter>(() => new Performance.PerformanceAdapter(this));
+            m_PerformanceTimeline = new Lazy<PerformanceTimeline.PerformanceTimelineAdapter>(() => new PerformanceTimeline.PerformanceTimelineAdapter(this));
             m_Security = new Lazy<Security.SecurityAdapter>(() => new Security.SecurityAdapter(this));
             m_ServiceWorker = new Lazy<ServiceWorker.ServiceWorkerAdapter>(() => new ServiceWorker.ServiceWorkerAdapter(this));
             m_Storage = new Lazy<Storage.StorageAdapter>(() => new Storage.StorageAdapter(this));
@@ -106,7 +108,7 @@ namespace Zu.ChromeDevTools
         {
             get { return m_Accessibility.Value; }
         }
-        
+
         /// <summary>
         /// Gets the adapter for the Animation domain.
         /// </summary>
@@ -114,15 +116,7 @@ namespace Zu.ChromeDevTools
         {
             get { return m_Animation.Value; }
         }
-        
-        /// <summary>
-        /// Gets the adapter for the ApplicationCache domain.
-        /// </summary>
-        public ApplicationCache.ApplicationCacheAdapter ApplicationCache
-        {
-            get { return m_ApplicationCache.Value; }
-        }
-        
+
         /// <summary>
         /// Gets the adapter for the Audits domain.
         /// </summary>
@@ -130,7 +124,7 @@ namespace Zu.ChromeDevTools
         {
             get { return m_Audits.Value; }
         }
-        
+
         /// <summary>
         /// Gets the adapter for the BackgroundService domain.
         /// </summary>
@@ -138,7 +132,7 @@ namespace Zu.ChromeDevTools
         {
             get { return m_BackgroundService.Value; }
         }
-        
+
         /// <summary>
         /// Gets the adapter for the Browser domain.
         /// </summary>
@@ -146,7 +140,7 @@ namespace Zu.ChromeDevTools
         {
             get { return m_Browser.Value; }
         }
-        
+
         /// <summary>
         /// Gets the adapter for the CSS domain.
         /// </summary>
@@ -154,7 +148,7 @@ namespace Zu.ChromeDevTools
         {
             get { return m_CSS.Value; }
         }
-        
+
         /// <summary>
         /// Gets the adapter for the CacheStorage domain.
         /// </summary>
@@ -162,7 +156,7 @@ namespace Zu.ChromeDevTools
         {
             get { return m_CacheStorage.Value; }
         }
-        
+
         /// <summary>
         /// Gets the adapter for the Cast domain.
         /// </summary>
@@ -170,7 +164,7 @@ namespace Zu.ChromeDevTools
         {
             get { return m_Cast.Value; }
         }
-        
+
         /// <summary>
         /// Gets the adapter for the DOM domain.
         /// </summary>
@@ -178,7 +172,7 @@ namespace Zu.ChromeDevTools
         {
             get { return m_DOM.Value; }
         }
-        
+
         /// <summary>
         /// Gets the adapter for the DOMDebugger domain.
         /// </summary>
@@ -186,7 +180,15 @@ namespace Zu.ChromeDevTools
         {
             get { return m_DOMDebugger.Value; }
         }
-        
+
+        /// <summary>
+        /// Gets the adapter for the EventBreakpoints domain.
+        /// </summary>
+        public EventBreakpoints.EventBreakpointsAdapter EventBreakpoints
+        {
+            get { return m_EventBreakpoints.Value; }
+        }
+
         /// <summary>
         /// Gets the adapter for the DOMSnapshot domain.
         /// </summary>
@@ -194,7 +196,7 @@ namespace Zu.ChromeDevTools
         {
             get { return m_DOMSnapshot.Value; }
         }
-        
+
         /// <summary>
         /// Gets the adapter for the DOMStorage domain.
         /// </summary>
@@ -202,7 +204,7 @@ namespace Zu.ChromeDevTools
         {
             get { return m_DOMStorage.Value; }
         }
-        
+
         /// <summary>
         /// Gets the adapter for the Database domain.
         /// </summary>
@@ -210,7 +212,7 @@ namespace Zu.ChromeDevTools
         {
             get { return m_Database.Value; }
         }
-        
+
         /// <summary>
         /// Gets the adapter for the DeviceOrientation domain.
         /// </summary>
@@ -218,7 +220,7 @@ namespace Zu.ChromeDevTools
         {
             get { return m_DeviceOrientation.Value; }
         }
-        
+
         /// <summary>
         /// Gets the adapter for the Emulation domain.
         /// </summary>
@@ -226,7 +228,7 @@ namespace Zu.ChromeDevTools
         {
             get { return m_Emulation.Value; }
         }
-        
+
         /// <summary>
         /// Gets the adapter for the HeadlessExperimental domain.
         /// </summary>
@@ -234,7 +236,7 @@ namespace Zu.ChromeDevTools
         {
             get { return m_HeadlessExperimental.Value; }
         }
-        
+
         /// <summary>
         /// Gets the adapter for the IO domain.
         /// </summary>
@@ -242,7 +244,7 @@ namespace Zu.ChromeDevTools
         {
             get { return m_IO.Value; }
         }
-        
+
         /// <summary>
         /// Gets the adapter for the IndexedDB domain.
         /// </summary>
@@ -250,7 +252,7 @@ namespace Zu.ChromeDevTools
         {
             get { return m_IndexedDB.Value; }
         }
-        
+
         /// <summary>
         /// Gets the adapter for the Input domain.
         /// </summary>
@@ -258,7 +260,7 @@ namespace Zu.ChromeDevTools
         {
             get { return m_Input.Value; }
         }
-        
+
         /// <summary>
         /// Gets the adapter for the Inspector domain.
         /// </summary>
@@ -266,7 +268,7 @@ namespace Zu.ChromeDevTools
         {
             get { return m_Inspector.Value; }
         }
-        
+
         /// <summary>
         /// Gets the adapter for the LayerTree domain.
         /// </summary>
@@ -274,7 +276,7 @@ namespace Zu.ChromeDevTools
         {
             get { return m_LayerTree.Value; }
         }
-        
+
         /// <summary>
         /// Gets the adapter for the Log domain.
         /// </summary>
@@ -282,7 +284,7 @@ namespace Zu.ChromeDevTools
         {
             get { return m_Log.Value; }
         }
-        
+
         /// <summary>
         /// Gets the adapter for the Memory domain.
         /// </summary>
@@ -290,7 +292,7 @@ namespace Zu.ChromeDevTools
         {
             get { return m_Memory.Value; }
         }
-        
+
         /// <summary>
         /// Gets the adapter for the Network domain.
         /// </summary>
@@ -298,7 +300,7 @@ namespace Zu.ChromeDevTools
         {
             get { return m_Network.Value; }
         }
-        
+
         /// <summary>
         /// Gets the adapter for the Overlay domain.
         /// </summary>
@@ -306,7 +308,7 @@ namespace Zu.ChromeDevTools
         {
             get { return m_Overlay.Value; }
         }
-        
+
         /// <summary>
         /// Gets the adapter for the Page domain.
         /// </summary>
@@ -314,7 +316,7 @@ namespace Zu.ChromeDevTools
         {
             get { return m_Page.Value; }
         }
-        
+
         /// <summary>
         /// Gets the adapter for the Performance domain.
         /// </summary>
@@ -322,7 +324,15 @@ namespace Zu.ChromeDevTools
         {
             get { return m_Performance.Value; }
         }
-        
+
+        /// <summary>
+        /// Gets the adapter for the PerformanceTimeline domain.
+        /// </summary>
+        public PerformanceTimeline.PerformanceTimelineAdapter PerformanceTimeline
+        {
+            get { return m_PerformanceTimeline.Value; }
+        }
+
         /// <summary>
         /// Gets the adapter for the Security domain.
         /// </summary>
@@ -330,7 +340,7 @@ namespace Zu.ChromeDevTools
         {
             get { return m_Security.Value; }
         }
-        
+
         /// <summary>
         /// Gets the adapter for the ServiceWorker domain.
         /// </summary>
@@ -338,7 +348,7 @@ namespace Zu.ChromeDevTools
         {
             get { return m_ServiceWorker.Value; }
         }
-        
+
         /// <summary>
         /// Gets the adapter for the Storage domain.
         /// </summary>
@@ -346,7 +356,7 @@ namespace Zu.ChromeDevTools
         {
             get { return m_Storage.Value; }
         }
-        
+
         /// <summary>
         /// Gets the adapter for the SystemInfo domain.
         /// </summary>
@@ -354,7 +364,7 @@ namespace Zu.ChromeDevTools
         {
             get { return m_SystemInfo.Value; }
         }
-        
+
         /// <summary>
         /// Gets the adapter for the Target domain.
         /// </summary>
@@ -362,7 +372,7 @@ namespace Zu.ChromeDevTools
         {
             get { return m_Target.Value; }
         }
-        
+
         /// <summary>
         /// Gets the adapter for the Tethering domain.
         /// </summary>
@@ -370,7 +380,7 @@ namespace Zu.ChromeDevTools
         {
             get { return m_Tethering.Value; }
         }
-        
+
         /// <summary>
         /// Gets the adapter for the Tracing domain.
         /// </summary>
@@ -378,7 +388,7 @@ namespace Zu.ChromeDevTools
         {
             get { return m_Tracing.Value; }
         }
-        
+
         /// <summary>
         /// Gets the adapter for the Fetch domain.
         /// </summary>
@@ -386,7 +396,7 @@ namespace Zu.ChromeDevTools
         {
             get { return m_Fetch.Value; }
         }
-        
+
         /// <summary>
         /// Gets the adapter for the WebAudio domain.
         /// </summary>
@@ -394,7 +404,7 @@ namespace Zu.ChromeDevTools
         {
             get { return m_WebAudio.Value; }
         }
-        
+
         /// <summary>
         /// Gets the adapter for the WebAuthn domain.
         /// </summary>
@@ -402,7 +412,7 @@ namespace Zu.ChromeDevTools
         {
             get { return m_WebAuthn.Value; }
         }
-        
+
         /// <summary>
         /// Gets the adapter for the Media domain.
         /// </summary>
@@ -410,7 +420,7 @@ namespace Zu.ChromeDevTools
         {
             get { return m_Media.Value; }
         }
-        
+
         /// <summary>
         /// Gets the adapter for the Console domain.
         /// </summary>
@@ -418,7 +428,7 @@ namespace Zu.ChromeDevTools
         {
             get { return m_Console.Value; }
         }
-        
+
         /// <summary>
         /// Gets the adapter for the Debugger domain.
         /// </summary>
@@ -426,7 +436,7 @@ namespace Zu.ChromeDevTools
         {
             get { return m_Debugger.Value; }
         }
-        
+
         /// <summary>
         /// Gets the adapter for the HeapProfiler domain.
         /// </summary>
@@ -434,7 +444,7 @@ namespace Zu.ChromeDevTools
         {
             get { return m_HeapProfiler.Value; }
         }
-        
+
         /// <summary>
         /// Gets the adapter for the Profiler domain.
         /// </summary>
@@ -442,7 +452,7 @@ namespace Zu.ChromeDevTools
         {
             get { return m_Profiler.Value; }
         }
-        
+
         /// <summary>
         /// Gets the adapter for the Runtime domain.
         /// </summary>
@@ -450,7 +460,7 @@ namespace Zu.ChromeDevTools
         {
             get { return m_Runtime.Value; }
         }
-        
+
         /// <summary>
         /// Gets the adapter for the Schema domain.
         /// </summary>
@@ -458,6 +468,6 @@ namespace Zu.ChromeDevTools
         {
             get { return m_Schema.Value; }
         }
-        
+
     }
 }

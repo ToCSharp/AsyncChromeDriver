@@ -20,7 +20,7 @@ namespace Zu.ChromeDevTools.DOMSnapshot
         /// Array of indexes specifying computed style strings, filtered according to the `computedStyles` parameter passed to `captureSnapshot`.
         ///</summary>
         [JsonProperty("styles")]
-        public string[][] Styles
+        public long[][] Styles
         {
             get;
             set;
@@ -86,6 +86,24 @@ namespace Zu.ChromeDevTools.DOMSnapshot
         ///</summary>
         [JsonProperty("clientRects", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public double[][] ClientRects
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// The list of background colors that are blended with colors of overlapping elements.
+        ///</summary>
+        [JsonProperty("blendedBackgroundColors", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public long[] BlendedBackgroundColors
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// The list of computed text opacities.
+        ///</summary>
+        [JsonProperty("textColorOpacities", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public double[] TextColorOpacities
         {
             get;
             set;

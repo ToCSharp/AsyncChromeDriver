@@ -8,8 +8,8 @@ namespace Zu.ChromeDevTools.Target
     public sealed class TargetInfo
     {
         /// <summary>
-        /// 
-        ///</summary>
+        /// Gets or sets the targetId
+        /// </summary>
         [JsonProperty("targetId")]
         public string TargetId
         {
@@ -17,8 +17,8 @@ namespace Zu.ChromeDevTools.Target
             set;
         }
         /// <summary>
-        /// 
-        ///</summary>
+        /// Gets or sets the type
+        /// </summary>
         [JsonProperty("type")]
         public string Type
         {
@@ -26,8 +26,8 @@ namespace Zu.ChromeDevTools.Target
             set;
         }
         /// <summary>
-        /// 
-        ///</summary>
+        /// Gets or sets the title
+        /// </summary>
         [JsonProperty("title")]
         public string Title
         {
@@ -35,8 +35,8 @@ namespace Zu.ChromeDevTools.Target
             set;
         }
         /// <summary>
-        /// 
-        ///</summary>
+        /// Gets or sets the url
+        /// </summary>
         [JsonProperty("url")]
         public string Url
         {
@@ -62,8 +62,26 @@ namespace Zu.ChromeDevTools.Target
             set;
         }
         /// <summary>
-        /// 
+        /// Whether the target has access to the originating window.
         ///</summary>
+        [JsonProperty("canAccessOpener")]
+        public bool CanAccessOpener
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// Frame id of originating window (is only set if target has an opener).
+        ///</summary>
+        [JsonProperty("openerFrameId", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public string OpenerFrameId
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// Gets or sets the browserContextId
+        /// </summary>
         [JsonProperty("browserContextId", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public string BrowserContextId
         {

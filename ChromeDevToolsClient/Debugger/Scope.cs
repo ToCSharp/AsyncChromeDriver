@@ -28,8 +28,8 @@ namespace Zu.ChromeDevTools.Debugger
             set;
         }
         /// <summary>
-        /// 
-        ///</summary>
+        /// Gets or sets the name
+        /// </summary>
         [JsonProperty("name", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public string Name
         {

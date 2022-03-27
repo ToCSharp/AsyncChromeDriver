@@ -8,8 +8,8 @@ namespace Zu.ChromeDevTools.Network
     public sealed class RequestPattern
     {
         /// <summary>
-        /// Wildcards ('*' -> zero or more, '?' -> exactly one) are allowed. Escape character is
-        /// backslash. Omitting is equivalent to "*".
+        /// Wildcards (`'*'` -> zero or more, `'?'` -> exactly one) are allowed. Escape character is
+        /// backslash. Omitting is equivalent to `"*"`.
         ///</summary>
         [JsonProperty("urlPattern", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public string UrlPattern
@@ -27,7 +27,7 @@ namespace Zu.ChromeDevTools.Network
             set;
         }
         /// <summary>
-        /// Stage at wich to begin intercepting requests. Default is Request.
+        /// Stage at which to begin intercepting requests. Default is Request.
         ///</summary>
         [JsonProperty("interceptionStage", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public InterceptionStage? InterceptionStage

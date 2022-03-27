@@ -40,7 +40,7 @@ namespace Zu.ChromeDevTools.Profiler
         }
         /// <summary>
         /// Collect coverage data for the current isolate. The coverage data may be incomplete due to
-    /// garbage collection.
+        /// garbage collection.
         /// </summary>
         public async Task<GetBestEffortCoverageCommandResponse> GetBestEffortCoverage(GetBestEffortCoverageCommand command = null, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
@@ -62,8 +62,8 @@ namespace Zu.ChromeDevTools.Profiler
         }
         /// <summary>
         /// Enable precise code coverage. Coverage data for JavaScript executed before enabling precise code
-    /// coverage may be incomplete. Enabling prevents running optimized code and resets execution
-    /// counters.
+        /// coverage may be incomplete. Enabling prevents running optimized code and resets execution
+        /// counters.
         /// </summary>
         public async Task<StartPreciseCoverageCommandResponse> StartPreciseCoverage(StartPreciseCoverageCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
@@ -85,7 +85,7 @@ namespace Zu.ChromeDevTools.Profiler
         }
         /// <summary>
         /// Disable precise code coverage. Disabling releases unnecessary execution count records and allows
-    /// executing optimized code.
+        /// executing optimized code.
         /// </summary>
         public async Task<StopPreciseCoverageCommandResponse> StopPreciseCoverage(StopPreciseCoverageCommand command = null, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
@@ -100,7 +100,7 @@ namespace Zu.ChromeDevTools.Profiler
         }
         /// <summary>
         /// Collect coverage data for the current isolate, and resets execution counters. Precise code
-    /// coverage needs to have started.
+        /// coverage needs to have started.
         /// </summary>
         public async Task<TakePreciseCoverageCommandResponse> TakePreciseCoverage(TakePreciseCoverageCommand command = null, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
@@ -112,27 +112,6 @@ namespace Zu.ChromeDevTools.Profiler
         public async Task<TakeTypeProfileCommandResponse> TakeTypeProfile(TakeTypeProfileCommand command = null, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
             return await m_session.SendCommand<TakeTypeProfileCommand, TakeTypeProfileCommandResponse>(command ?? new TakeTypeProfileCommand(), cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
-        }
-        /// <summary>
-        /// Enable run time call stats collection.
-        /// </summary>
-        public async Task<EnableRuntimeCallStatsCommandResponse> EnableRuntimeCallStats(EnableRuntimeCallStatsCommand command = null, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
-        {
-            return await m_session.SendCommand<EnableRuntimeCallStatsCommand, EnableRuntimeCallStatsCommandResponse>(command ?? new EnableRuntimeCallStatsCommand(), cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
-        }
-        /// <summary>
-        /// Disable run time call stats collection.
-        /// </summary>
-        public async Task<DisableRuntimeCallStatsCommandResponse> DisableRuntimeCallStats(DisableRuntimeCallStatsCommand command = null, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
-        {
-            return await m_session.SendCommand<DisableRuntimeCallStatsCommand, DisableRuntimeCallStatsCommandResponse>(command ?? new DisableRuntimeCallStatsCommand(), cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
-        }
-        /// <summary>
-        /// Retrieve run time call stats.
-        /// </summary>
-        public async Task<GetRuntimeCallStatsCommandResponse> GetRuntimeCallStats(GetRuntimeCallStatsCommand command = null, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
-        {
-            return await m_session.SendCommand<GetRuntimeCallStatsCommand, GetRuntimeCallStatsCommandResponse>(command ?? new GetRuntimeCallStatsCommand(), cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
         }
 
         /// <summary>
@@ -153,7 +132,7 @@ namespace Zu.ChromeDevTools.Profiler
         /// Reports coverage delta since the last poll (either from an event like this, or from
         /// `takePreciseCoverage` for the current isolate. May only be sent if precise code
         /// coverage has been started. This event can be trigged by the embedder to, for example,
-        /// trigger collection of coverage data immediatelly at a certain point in time.
+        /// trigger collection of coverage data immediately at a certain point in time.
         /// </summary>
         public void SubscribeToPreciseCoverageDeltaUpdateEvent(Action<PreciseCoverageDeltaUpdateEvent> eventCallback)
         {

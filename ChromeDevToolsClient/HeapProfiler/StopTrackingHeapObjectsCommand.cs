@@ -34,6 +34,15 @@ namespace Zu.ChromeDevTools.HeapProfiler
             get;
             set;
         }
+        /// <summary>
+        /// If true, numerical values are included in the snapshot
+        /// </summary>
+        [JsonProperty("captureNumericValue", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public bool? CaptureNumericValue
+        {
+            get;
+            set;
+        }
     }
 
     public sealed class StopTrackingHeapObjectsCommandResponse : ICommandResponse<StopTrackingHeapObjectsCommand>

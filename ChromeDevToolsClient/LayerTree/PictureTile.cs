@@ -26,7 +26,7 @@ namespace Zu.ChromeDevTools.LayerTree
             set;
         }
         /// <summary>
-        /// Base64-encoded snapshot data.
+        /// Base64-encoded snapshot data. (Encoded as a base64 string when passed over JSON)
         ///</summary>
         [JsonProperty("picture")]
         public string Picture

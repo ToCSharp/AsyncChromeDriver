@@ -9,8 +9,8 @@ namespace Zu.ChromeDevTools.Runtime
     public sealed class StackTraceId
     {
         /// <summary>
-        /// 
-        ///</summary>
+        /// Gets or sets the id
+        /// </summary>
         [JsonProperty("id")]
         public string Id
         {
@@ -18,8 +18,8 @@ namespace Zu.ChromeDevTools.Runtime
             set;
         }
         /// <summary>
-        /// 
-        ///</summary>
+        /// Gets or sets the debuggerId
+        /// </summary>
         [JsonProperty("debuggerId", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public string DebuggerId
         {

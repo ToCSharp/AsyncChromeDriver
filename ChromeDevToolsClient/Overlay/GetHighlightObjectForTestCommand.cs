@@ -42,6 +42,24 @@ namespace Zu.ChromeDevTools.Overlay
             get;
             set;
         }
+        /// <summary>
+        /// The color format to get config with (default: hex).
+        /// </summary>
+        [JsonProperty("colorFormat", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public ColorFormat? ColorFormat
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// Whether to show accessibility info (default: true).
+        /// </summary>
+        [JsonProperty("showAccessibilityInfo", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public bool? ShowAccessibilityInfo
+        {
+            get;
+            set;
+        }
     }
 
     public sealed class GetHighlightObjectForTestCommandResponse : ICommandResponse<GetHighlightObjectForTestCommand>

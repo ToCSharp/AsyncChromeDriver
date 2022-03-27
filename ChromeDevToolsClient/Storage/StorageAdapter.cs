@@ -60,6 +60,13 @@ namespace Zu.ChromeDevTools.Storage
             return await m_session.SendCommand<GetUsageAndQuotaCommand, GetUsageAndQuotaCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
         }
         /// <summary>
+        /// Override quota for the specified origin
+        /// </summary>
+        public async Task<OverrideQuotaForOriginCommandResponse> OverrideQuotaForOrigin(OverrideQuotaForOriginCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
+        {
+            return await m_session.SendCommand<OverrideQuotaForOriginCommand, OverrideQuotaForOriginCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
+        }
+        /// <summary>
         /// Registers origin to be notified when an update occurs to its cache storage list.
         /// </summary>
         public async Task<TrackCacheStorageForOriginCommandResponse> TrackCacheStorageForOrigin(TrackCacheStorageForOriginCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
@@ -87,6 +94,36 @@ namespace Zu.ChromeDevTools.Storage
         {
             return await m_session.SendCommand<UntrackIndexedDBForOriginCommand, UntrackIndexedDBForOriginCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
         }
+        /// <summary>
+        /// Returns the number of stored Trust Tokens per issuer for the
+        /// current browsing context.
+        /// </summary>
+        public async Task<GetTrustTokensCommandResponse> GetTrustTokens(GetTrustTokensCommand command = null, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
+        {
+            return await m_session.SendCommand<GetTrustTokensCommand, GetTrustTokensCommandResponse>(command ?? new GetTrustTokensCommand(), cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
+        }
+        /// <summary>
+        /// Removes all Trust Tokens issued by the provided issuerOrigin.
+        /// Leaves other stored data, including the issuer's Redemption Records, intact.
+        /// </summary>
+        public async Task<ClearTrustTokensCommandResponse> ClearTrustTokens(ClearTrustTokensCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
+        {
+            return await m_session.SendCommand<ClearTrustTokensCommand, ClearTrustTokensCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
+        }
+        /// <summary>
+        /// Gets details for a named interest group.
+        /// </summary>
+        public async Task<GetInterestGroupDetailsCommandResponse> GetInterestGroupDetails(GetInterestGroupDetailsCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
+        {
+            return await m_session.SendCommand<GetInterestGroupDetailsCommand, GetInterestGroupDetailsCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
+        }
+        /// <summary>
+        /// Enables/Disables issuing of interestGroupAccessed events.
+        /// </summary>
+        public async Task<SetInterestGroupTrackingCommandResponse> SetInterestGroupTracking(SetInterestGroupTrackingCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
+        {
+            return await m_session.SendCommand<SetInterestGroupTrackingCommand, SetInterestGroupTrackingCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
+        }
 
         /// <summary>
         /// A cache's contents have been modified.
@@ -113,6 +150,13 @@ namespace Zu.ChromeDevTools.Storage
         /// The origin's IndexedDB database list has been modified.
         /// </summary>
         public void SubscribeToIndexedDBListUpdatedEvent(Action<IndexedDBListUpdatedEvent> eventCallback)
+        {
+            m_session.Subscribe(eventCallback);
+        }
+        /// <summary>
+        /// One of the interest groups was accessed by the associated page.
+        /// </summary>
+        public void SubscribeToInterestGroupAccessedEvent(Action<InterestGroupAccessedEvent> eventCallback)
         {
             m_session.Subscribe(eventCallback);
         }

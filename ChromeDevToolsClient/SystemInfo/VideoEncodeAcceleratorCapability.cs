@@ -38,8 +38,8 @@ namespace Zu.ChromeDevTools.SystemInfo
             set;
         }
         /// <summary>
-        /// 
-        ///</summary>
+        /// Gets or sets the maxFramerateDenominator
+        /// </summary>
         [JsonProperty("maxFramerateDenominator")]
         public long MaxFramerateDenominator
         {

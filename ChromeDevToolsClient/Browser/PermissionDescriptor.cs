@@ -38,19 +38,19 @@ namespace Zu.ChromeDevTools.Browser
             set;
         }
         /// <summary>
-        /// For "wake-lock" permission, must specify type as either "screen" or "system".
+        /// For "clipboard" permission, may specify allowWithoutSanitization.
         ///</summary>
-        [JsonProperty("type", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public string Type
+        [JsonProperty("allowWithoutSanitization", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public bool? AllowWithoutSanitization
         {
             get;
             set;
         }
         /// <summary>
-        /// For "clipboard" permission, may specify allowWithoutSanitization.
+        /// For "camera" permission, may specify panTiltZoom.
         ///</summary>
-        [JsonProperty("allowWithoutSanitization", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public bool? AllowWithoutSanitization
+        [JsonProperty("panTiltZoom", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public bool? PanTiltZoom
         {
             get;
             set;

@@ -24,6 +24,15 @@ namespace Zu.ChromeDevTools.Tracing
             get;
             set;
         }
+        /// <summary>
+        /// Specifies level of details in memory dump. Defaults to "detailed".
+        /// </summary>
+        [JsonProperty("levelOfDetail", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public MemoryDumpLevelOfDetail? LevelOfDetail
+        {
+            get;
+            set;
+        }
     }
 
     public sealed class RequestMemoryDumpCommandResponse : ICommandResponse<RequestMemoryDumpCommand>

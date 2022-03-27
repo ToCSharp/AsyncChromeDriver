@@ -16,5 +16,14 @@ namespace Zu.ChromeDevTools.Page
             get;
             set;
         }
+        /// <summary>
+        /// Gets or sets the type
+        /// </summary>
+        [JsonProperty("type")]
+        public NavigationType Type
+        {
+            get;
+            set;
+        }
     }
 }

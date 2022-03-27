@@ -40,6 +40,8 @@ namespace Zu.ChromeDevTools.Network
         Ping,
         [EnumMember(Value = "CSPViolationReport")]
         CSPViolationReport,
+        [EnumMember(Value = "Preflight")]
+        Preflight,
         [EnumMember(Value = "Other")]
         Other,
     }

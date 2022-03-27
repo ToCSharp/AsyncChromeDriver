@@ -51,12 +51,21 @@ namespace Zu.ChromeDevTools.Page
             get;
             set;
         }
+        /// <summary>
+        /// Capture the screenshot beyond the viewport. Defaults to false.
+        /// </summary>
+        [JsonProperty("captureBeyondViewport", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public bool? CaptureBeyondViewport
+        {
+            get;
+            set;
+        }
     }
 
     public sealed class CaptureScreenshotCommandResponse : ICommandResponse<CaptureScreenshotCommand>
     {
         /// <summary>
-        /// Base64-encoded image data.
+        /// Base64-encoded image data. (Encoded as a base64 string when passed over JSON)
         ///</summary>
         [JsonProperty("data")]
         public string Data

@@ -26,7 +26,9 @@ namespace Zu.ChromeDevTools.CSS
             set;
         }
         /// <summary>
-        /// Stylesheet resource URL.
+        /// Stylesheet resource URL. Empty if this is a constructed stylesheet created using
+        /// new CSSStyleSheet() (but non-empty if this is a constructed sylesheet imported
+        /// as a CSS module script).
         ///</summary>
         [JsonProperty("sourceURL")]
         public string SourceURL
@@ -94,6 +96,28 @@ namespace Zu.ChromeDevTools.CSS
         ///</summary>
         [JsonProperty("isInline")]
         public bool IsInline
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// Whether this stylesheet is mutable. Inline stylesheets become mutable
+        /// after they have been modified via CSSOM API.
+        /// <link> element's stylesheets become mutable only if DevTools modifies them.
+        /// Constructed stylesheets (new CSSStyleSheet()) are mutable immediately after creation.
+        ///</summary>
+        [JsonProperty("isMutable")]
+        public bool IsMutable
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// True if this stylesheet is created through new CSSStyleSheet() or imported as a
+        /// CSS module script.
+        ///</summary>
+        [JsonProperty("isConstructed")]
+        public bool IsConstructed
         {
             get;
             set;

@@ -28,5 +28,15 @@ namespace Zu.ChromeDevTools.Network
         UserPreferences,
         [EnumMember(Value = "UnknownError")]
         UnknownError,
+        [EnumMember(Value = "SchemefulSameSiteStrict")]
+        SchemefulSameSiteStrict,
+        [EnumMember(Value = "SchemefulSameSiteLax")]
+        SchemefulSameSiteLax,
+        [EnumMember(Value = "SchemefulSameSiteUnspecifiedTreatedAsLax")]
+        SchemefulSameSiteUnspecifiedTreatedAsLax,
+        [EnumMember(Value = "SamePartyFromCrossPartyContext")]
+        SamePartyFromCrossPartyContext,
+        [EnumMember(Value = "NameValuePairExceedsMaxSize")]
+        NameValuePairExceedsMaxSize,
     }
 }

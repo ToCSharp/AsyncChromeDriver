@@ -54,14 +54,14 @@ namespace Zu.ChromeDevTools.Page
         }
         /// <summary>
         /// Returns a snapshot of the page as a string. For MHTML format, the serialization includes
-    /// iframes, shadow DOM, external resources, and element-inline styles.
+        /// iframes, shadow DOM, external resources, and element-inline styles.
         /// </summary>
         public async Task<CaptureSnapshotCommandResponse> CaptureSnapshot(CaptureSnapshotCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
             return await m_session.SendCommand<CaptureSnapshotCommand, CaptureSnapshotCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
         }
         /// <summary>
-        /// Clears the overriden device metrics.
+        /// Clears the overridden device metrics.
         /// </summary>
         public async Task<ClearDeviceMetricsOverrideCommandResponse> ClearDeviceMetricsOverride(ClearDeviceMetricsOverrideCommand command = null, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
@@ -75,7 +75,7 @@ namespace Zu.ChromeDevTools.Page
             return await m_session.SendCommand<ClearDeviceOrientationOverrideCommand, ClearDeviceOrientationOverrideCommandResponse>(command ?? new ClearDeviceOrientationOverrideCommand(), cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
         }
         /// <summary>
-        /// Clears the overriden Geolocation Position and Error.
+        /// Clears the overridden Geolocation Position and Error.
         /// </summary>
         public async Task<ClearGeolocationOverrideCommandResponse> ClearGeolocationOverride(ClearGeolocationOverrideCommand command = null, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
@@ -131,8 +131,16 @@ namespace Zu.ChromeDevTools.Page
             return await m_session.SendCommand<GetManifestIconsCommand, GetManifestIconsCommandResponse>(command ?? new GetManifestIconsCommand(), cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
         }
         /// <summary>
+        /// Returns the unique (PWA) app id.
+        /// Only returns values if the feature flag 'WebAppEnableManifestId' is enabled
+        /// </summary>
+        public async Task<GetAppIdCommandResponse> GetAppId(GetAppIdCommand command = null, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
+        {
+            return await m_session.SendCommand<GetAppIdCommand, GetAppIdCommandResponse>(command ?? new GetAppIdCommand(), cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
+        }
+        /// <summary>
         /// Returns all browser cookies. Depending on the backend support, will return detailed cookie
-    /// information in the `cookies` field.
+        /// information in the `cookies` field.
         /// </summary>
         public async Task<GetCookiesCommandResponse> GetCookies(GetCookiesCommand command = null, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
@@ -145,12 +153,6 @@ namespace Zu.ChromeDevTools.Page
         {
             return await m_session.SendCommand<GetFrameTreeCommand, GetFrameTreeCommandResponse>(command ?? new GetFrameTreeCommand(), cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
         }
-
-        public Task<CaptureScreenshotCommandResponse> CaptureScreenshot()
-        {
-            return CaptureScreenshot(new CaptureScreenshotCommand());
-        }
-
         /// <summary>
         /// Returns metrics relating to the layouting of the page, such as viewport bounds/scale.
         /// </summary>
@@ -264,9 +266,23 @@ namespace Zu.ChromeDevTools.Page
             return await m_session.SendCommand<SetBypassCSPCommand, SetBypassCSPCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
         }
         /// <summary>
+        /// Get Permissions Policy state on given frame.
+        /// </summary>
+        public async Task<GetPermissionsPolicyStateCommandResponse> GetPermissionsPolicyState(GetPermissionsPolicyStateCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
+        {
+            return await m_session.SendCommand<GetPermissionsPolicyStateCommand, GetPermissionsPolicyStateCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
+        }
+        /// <summary>
+        /// Get Origin Trials on given frame.
+        /// </summary>
+        public async Task<GetOriginTrialsCommandResponse> GetOriginTrials(GetOriginTrialsCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
+        {
+            return await m_session.SendCommand<GetOriginTrialsCommand, GetOriginTrialsCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
+        }
+        /// <summary>
         /// Overrides the values of device screen dimensions (window.screen.width, window.screen.height,
-    /// window.innerWidth, window.innerHeight, and "device-width"/"device-height"-related CSS media
-    /// query results).
+        /// window.innerWidth, window.innerHeight, and "device-width"/"device-height"-related CSS media
+        /// query results).
         /// </summary>
         public async Task<SetDeviceMetricsOverrideCommandResponse> SetDeviceMetricsOverride(SetDeviceMetricsOverrideCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
@@ -309,7 +325,7 @@ namespace Zu.ChromeDevTools.Page
         }
         /// <summary>
         /// Overrides the Geolocation Position or Error. Omitting any of the parameters emulates position
-    /// unavailable.
+        /// unavailable.
         /// </summary>
         public async Task<SetGeolocationOverrideCommandResponse> SetGeolocationOverride(SetGeolocationOverrideCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
@@ -359,8 +375,8 @@ namespace Zu.ChromeDevTools.Page
         }
         /// <summary>
         /// Tries to update the web lifecycle state of the page.
-    /// It will transition the page to the given state according to:
-    /// https://github.com/WICG/web-lifecycle/
+        /// It will transition the page to the given state according to:
+        /// https://github.com/WICG/web-lifecycle/
         /// </summary>
         public async Task<SetWebLifecycleStateCommandResponse> SetWebLifecycleState(SetWebLifecycleStateCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
@@ -374,15 +390,20 @@ namespace Zu.ChromeDevTools.Page
             return await m_session.SendCommand<StopScreencastCommand, StopScreencastCommandResponse>(command ?? new StopScreencastCommand(), cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
         }
         /// <summary>
-        /// Forces compilation cache to be generated for every subresource script.
+        /// Requests backend to produce compilation cache for the specified scripts.
+        /// `scripts` are appeneded to the list of scripts for which the cache
+        /// would be produced. The list may be reset during page navigation.
+        /// When script with a matching URL is encountered, the cache is optionally
+        /// produced upon backend discretion, based on internal heuristics.
+        /// See also: `Page.compilationCacheProduced`.
         /// </summary>
-        public async Task<SetProduceCompilationCacheCommandResponse> SetProduceCompilationCache(SetProduceCompilationCacheCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
+        public async Task<ProduceCompilationCacheCommandResponse> ProduceCompilationCache(ProduceCompilationCacheCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
-            return await m_session.SendCommand<SetProduceCompilationCacheCommand, SetProduceCompilationCacheCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
+            return await m_session.SendCommand<ProduceCompilationCacheCommand, ProduceCompilationCacheCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
         }
         /// <summary>
         /// Seeds compilation cache for given url. Compilation cache does not survive
-    /// cross-process navigation.
+        /// cross-process navigation.
         /// </summary>
         public async Task<AddCompilationCacheCommandResponse> AddCompilationCache(AddCompilationCacheCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
@@ -394,6 +415,14 @@ namespace Zu.ChromeDevTools.Page
         public async Task<ClearCompilationCacheCommandResponse> ClearCompilationCache(ClearCompilationCacheCommand command = null, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
             return await m_session.SendCommand<ClearCompilationCacheCommand, ClearCompilationCacheCommandResponse>(command ?? new ClearCompilationCacheCommand(), cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
+        }
+        /// <summary>
+        /// Sets the Secure Payment Confirmation transaction mode.
+        /// https://w3c.github.io/secure-payment-confirmation/#sctn-automation-set-spc-transaction-mode
+        /// </summary>
+        public async Task<SetSPCTransactionModeCommandResponse> SetSPCTransactionMode(SetSPCTransactionModeCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
+        {
+            return await m_session.SendCommand<SetSPCTransactionModeCommand, SetSPCTransactionModeCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
         }
         /// <summary>
         /// Generates a report for testing.
@@ -411,8 +440,8 @@ namespace Zu.ChromeDevTools.Page
         }
         /// <summary>
         /// Intercept file chooser requests and transfer control to protocol clients.
-    /// When file chooser interception is enabled, native file chooser dialog is not shown.
-    /// Instead, a protocol event `Page.fileChooserOpened` is emitted.
+        /// When file chooser interception is enabled, native file chooser dialog is not shown.
+        /// Instead, a protocol event `Page.fileChooserOpened` is emitted.
         /// </summary>
         public async Task<SetInterceptFileChooserDialogCommandResponse> SetInterceptFileChooserDialog(SetInterceptFileChooserDialogCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
@@ -462,6 +491,13 @@ namespace Zu.ChromeDevTools.Page
             m_session.Subscribe(eventCallback);
         }
         /// <summary>
+        /// Fired when opening document to write to.
+        /// </summary>
+        public void SubscribeToDocumentOpenedEvent(Action<DocumentOpenedEvent> eventCallback)
+        {
+            m_session.Subscribe(eventCallback);
+        }
+        /// <summary>
         /// 
         /// </summary>
         public void SubscribeToFrameResizedEvent(Action<FrameResizedEvent> eventCallback)
@@ -499,8 +535,17 @@ namespace Zu.ChromeDevTools.Page
         }
         /// <summary>
         /// Fired when page is about to start a download.
+        /// Deprecated. Use Browser.downloadWillBegin instead.
         /// </summary>
         public void SubscribeToDownloadWillBeginEvent(Action<DownloadWillBeginEvent> eventCallback)
+        {
+            m_session.Subscribe(eventCallback);
+        }
+        /// <summary>
+        /// Fired when download makes progress. Last call has |done| == true.
+        /// Deprecated. Use Browser.downloadProgress instead.
+        /// </summary>
+        public void SubscribeToDownloadProgressEvent(Action<DownloadProgressEvent> eventCallback)
         {
             m_session.Subscribe(eventCallback);
         }
@@ -538,6 +583,16 @@ namespace Zu.ChromeDevTools.Page
         /// Fired for top level page lifecycle events such as navigation, load, paint, etc.
         /// </summary>
         public void SubscribeToLifecycleEventEvent(Action<LifecycleEventEvent> eventCallback)
+        {
+            m_session.Subscribe(eventCallback);
+        }
+        /// <summary>
+        /// Fired for failed bfcache history navigations if BackForwardCache feature is enabled. Do
+        /// not assume any ordering with the Page.frameNavigated event. This event is fired only for
+        /// main-frame history navigation where the document changes (non-same-document navigations),
+        /// when bfcache navigation fails.
+        /// </summary>
+        public void SubscribeToBackForwardCacheNotUsedEvent(Action<BackForwardCacheNotUsedEvent> eventCallback)
         {
             m_session.Subscribe(eventCallback);
         }

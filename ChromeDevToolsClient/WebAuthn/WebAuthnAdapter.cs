@@ -26,7 +26,7 @@ namespace Zu.ChromeDevTools.WebAuthn
 
         /// <summary>
         /// Enable the WebAuthn domain and start intercepting credential storage and
-    /// retrieval with a virtual authenticator.
+        /// retrieval with a virtual authenticator.
         /// </summary>
         public async Task<EnableCommandResponse> Enable(EnableCommand command = null, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
@@ -62,7 +62,7 @@ namespace Zu.ChromeDevTools.WebAuthn
         }
         /// <summary>
         /// Returns a single credential stored in the given virtual authenticator that
-    /// matches the credential ID.
+        /// matches the credential ID.
         /// </summary>
         public async Task<GetCredentialCommandResponse> GetCredential(GetCredentialCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
@@ -91,11 +91,19 @@ namespace Zu.ChromeDevTools.WebAuthn
         }
         /// <summary>
         /// Sets whether User Verification succeeds or fails for an authenticator.
-    /// The default is true.
+        /// The default is true.
         /// </summary>
         public async Task<SetUserVerifiedCommandResponse> SetUserVerified(SetUserVerifiedCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
             return await m_session.SendCommand<SetUserVerifiedCommand, SetUserVerifiedCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
+        }
+        /// <summary>
+        /// Sets whether tests of user presence will succeed immediately (if true) or fail to resolve (if false) for an authenticator.
+        /// The default is true.
+        /// </summary>
+        public async Task<SetAutomaticPresenceSimulationCommandResponse> SetAutomaticPresenceSimulation(SetAutomaticPresenceSimulationCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
+        {
+            return await m_session.SendCommand<SetAutomaticPresenceSimulationCommand, SetAutomaticPresenceSimulationCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
         }
 
     }

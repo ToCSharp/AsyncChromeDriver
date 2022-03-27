@@ -35,6 +35,16 @@ namespace Zu.ChromeDevTools.Page
             get;
             set;
         }
+        /// <summary>
+        /// Specifies whether command line API should be available to the script, defaults
+        /// to false.
+        /// </summary>
+        [JsonProperty("includeCommandLineAPI", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public bool? IncludeCommandLineAPI
+        {
+            get;
+            set;
+        }
     }
 
     public sealed class AddScriptToEvaluateOnNewDocumentCommandResponse : ICommandResponse<AddScriptToEvaluateOnNewDocumentCommand>

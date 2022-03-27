@@ -25,6 +25,20 @@ namespace Zu.ChromeDevTools.Network
         }
 
         /// <summary>
+        /// Sets a list of content encodings that will be accepted. Empty list means no encoding is accepted.
+        /// </summary>
+        public async Task<SetAcceptedEncodingsCommandResponse> SetAcceptedEncodings(SetAcceptedEncodingsCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
+        {
+            return await m_session.SendCommand<SetAcceptedEncodingsCommand, SetAcceptedEncodingsCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
+        }
+        /// <summary>
+        /// Clears accepted encodings set by setAcceptedEncodings
+        /// </summary>
+        public async Task<ClearAcceptedEncodingsOverrideCommandResponse> ClearAcceptedEncodingsOverride(ClearAcceptedEncodingsOverrideCommand command = null, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
+        {
+            return await m_session.SendCommand<ClearAcceptedEncodingsOverrideCommand, ClearAcceptedEncodingsOverrideCommandResponse>(command ?? new ClearAcceptedEncodingsOverrideCommand(), cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
+        }
+        /// <summary>
         /// Tells whether clearing browser cache is supported.
         /// </summary>
         public async Task<CanClearBrowserCacheCommandResponse> CanClearBrowserCache(CanClearBrowserCacheCommand command = null, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
@@ -61,10 +75,10 @@ namespace Zu.ChromeDevTools.Network
         }
         /// <summary>
         /// Response to Network.requestIntercepted which either modifies the request to continue with any
-    /// modifications, or blocks it, or completes it with the provided response bytes. If a network
-    /// fetch occurs as a result which encounters a redirect an additional Network.requestIntercepted
-    /// event will be sent with the same InterceptionId.
-    /// Deprecated, use Fetch.continueRequest, Fetch.fulfillRequest and Fetch.failRequest instead.
+        /// modifications, or blocks it, or completes it with the provided response bytes. If a network
+        /// fetch occurs as a result which encounters a redirect an additional Network.requestIntercepted
+        /// event will be sent with the same InterceptionId.
+        /// Deprecated, use Fetch.continueRequest, Fetch.fulfillRequest and Fetch.failRequest instead.
         /// </summary>
         public async Task<ContinueInterceptedRequestCommandResponse> ContinueInterceptedRequest(ContinueInterceptedRequestCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
@@ -100,7 +114,7 @@ namespace Zu.ChromeDevTools.Network
         }
         /// <summary>
         /// Returns all browser cookies. Depending on the backend support, will return detailed cookie
-    /// information in the `cookies` field.
+        /// information in the `cookies` field.
         /// </summary>
         public async Task<GetAllCookiesCommandResponse> GetAllCookies(GetAllCookiesCommand command = null, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
@@ -115,7 +129,7 @@ namespace Zu.ChromeDevTools.Network
         }
         /// <summary>
         /// Returns all browser cookies for the current URL. Depending on the backend support, will return
-    /// detailed cookie information in the `cookies` field.
+        /// detailed cookie information in the `cookies` field.
         /// </summary>
         public async Task<GetCookiesCommandResponse> GetCookies(GetCookiesCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
@@ -144,9 +158,9 @@ namespace Zu.ChromeDevTools.Network
         }
         /// <summary>
         /// Returns a handle to the stream representing the response body. Note that after this command,
-    /// the intercepted request can't be continued as is -- you either need to cancel it or to provide
-    /// the response body. The stream only supports sequential read, IO.read will fail if the position
-    /// is specified.
+        /// the intercepted request can't be continued as is -- you either need to cancel it or to provide
+        /// the response body. The stream only supports sequential read, IO.read will fail if the position
+        /// is specified.
         /// </summary>
         public async Task<TakeResponseBodyForInterceptionAsStreamCommandResponse> TakeResponseBodyForInterceptionAsStream(TakeResponseBodyForInterceptionAsStreamCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
@@ -154,8 +168,8 @@ namespace Zu.ChromeDevTools.Network
         }
         /// <summary>
         /// This method sends a new XMLHttpRequest which is identical to the original one. The following
-    /// parameters should be identical: method, url, async, request body, extra headers, withCredentials
-    /// attribute, user, password.
+        /// parameters should be identical: method, url, async, request body, extra headers, withCredentials
+        /// attribute, user, password.
         /// </summary>
         public async Task<ReplayXHRCommandResponse> ReplayXHR(ReplayXHRCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
@@ -204,13 +218,6 @@ namespace Zu.ChromeDevTools.Network
             return await m_session.SendCommand<SetCookiesCommand, SetCookiesCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
         }
         /// <summary>
-        /// For testing.
-        /// </summary>
-        public async Task<SetDataSizeLimitsForTestCommandResponse> SetDataSizeLimitsForTest(SetDataSizeLimitsForTestCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
-        {
-            return await m_session.SendCommand<SetDataSizeLimitsForTestCommand, SetDataSizeLimitsForTestCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
-        }
-        /// <summary>
         /// Specifies whether to always send extra HTTP headers with the requests from this page.
         /// </summary>
         public async Task<SetExtraHTTPHeadersCommandResponse> SetExtraHTTPHeaders(SetExtraHTTPHeadersCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
@@ -218,8 +225,15 @@ namespace Zu.ChromeDevTools.Network
             return await m_session.SendCommand<SetExtraHTTPHeadersCommand, SetExtraHTTPHeadersCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
         }
         /// <summary>
+        /// Specifies whether to attach a page script stack id in requests
+        /// </summary>
+        public async Task<SetAttachDebugStackCommandResponse> SetAttachDebugStack(SetAttachDebugStackCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
+        {
+            return await m_session.SendCommand<SetAttachDebugStackCommand, SetAttachDebugStackCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
+        }
+        /// <summary>
         /// Sets the requests to intercept that match the provided patterns and optionally resource types.
-    /// Deprecated, please use Fetch.enable instead.
+        /// Deprecated, please use Fetch.enable instead.
         /// </summary>
         public async Task<SetRequestInterceptionCommandResponse> SetRequestInterception(SetRequestInterceptionCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
@@ -231,6 +245,28 @@ namespace Zu.ChromeDevTools.Network
         public async Task<SetUserAgentOverrideCommandResponse> SetUserAgentOverride(SetUserAgentOverrideCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
             return await m_session.SendCommand<SetUserAgentOverrideCommand, SetUserAgentOverrideCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
+        }
+        /// <summary>
+        /// Returns information about the COEP/COOP isolation status.
+        /// </summary>
+        public async Task<GetSecurityIsolationStatusCommandResponse> GetSecurityIsolationStatus(GetSecurityIsolationStatusCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
+        {
+            return await m_session.SendCommand<GetSecurityIsolationStatusCommand, GetSecurityIsolationStatusCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
+        }
+        /// <summary>
+        /// Enables tracking for the Reporting API, events generated by the Reporting API will now be delivered to the client.
+        /// Enabling triggers 'reportingApiReportAdded' for all existing reports.
+        /// </summary>
+        public async Task<EnableReportingApiCommandResponse> EnableReportingApi(EnableReportingApiCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
+        {
+            return await m_session.SendCommand<EnableReportingApiCommand, EnableReportingApiCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
+        }
+        /// <summary>
+        /// Fetches the resource and returns the content.
+        /// </summary>
+        public async Task<LoadNetworkResourceCommandResponse> LoadNetworkResource(LoadNetworkResourceCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
+        {
+            return await m_session.SendCommand<LoadNetworkResourceCommand, LoadNetworkResourceCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
         }
 
         /// <summary>
@@ -355,6 +391,27 @@ namespace Zu.ChromeDevTools.Network
             m_session.Subscribe(eventCallback);
         }
         /// <summary>
+        /// Fired upon WebTransport creation.
+        /// </summary>
+        public void SubscribeToWebTransportCreatedEvent(Action<WebTransportCreatedEvent> eventCallback)
+        {
+            m_session.Subscribe(eventCallback);
+        }
+        /// <summary>
+        /// Fired when WebTransport handshake is finished.
+        /// </summary>
+        public void SubscribeToWebTransportConnectionEstablishedEvent(Action<WebTransportConnectionEstablishedEvent> eventCallback)
+        {
+            m_session.Subscribe(eventCallback);
+        }
+        /// <summary>
+        /// Fired when WebTransport is disposed.
+        /// </summary>
+        public void SubscribeToWebTransportClosedEvent(Action<WebTransportClosedEvent> eventCallback)
+        {
+            m_session.Subscribe(eventCallback);
+        }
+        /// <summary>
         /// Fired when additional information about a requestWillBeSent event is available from the
         /// network stack. Not every requestWillBeSent event will have an additional
         /// requestWillBeSentExtraInfo fired for it, and there is no guarantee whether requestWillBeSent
@@ -370,6 +427,68 @@ namespace Zu.ChromeDevTools.Network
         /// it, and responseReceivedExtraInfo may be fired before or after responseReceived.
         /// </summary>
         public void SubscribeToResponseReceivedExtraInfoEvent(Action<ResponseReceivedExtraInfoEvent> eventCallback)
+        {
+            m_session.Subscribe(eventCallback);
+        }
+        /// <summary>
+        /// Fired exactly once for each Trust Token operation. Depending on
+        /// the type of the operation and whether the operation succeeded or
+        /// failed, the event is fired before the corresponding request was sent
+        /// or after the response was received.
+        /// </summary>
+        public void SubscribeToTrustTokenOperationDoneEvent(Action<TrustTokenOperationDoneEvent> eventCallback)
+        {
+            m_session.Subscribe(eventCallback);
+        }
+        /// <summary>
+        /// Fired once when parsing the .wbn file has succeeded.
+        /// The event contains the information about the web bundle contents.
+        /// </summary>
+        public void SubscribeToSubresourceWebBundleMetadataReceivedEvent(Action<SubresourceWebBundleMetadataReceivedEvent> eventCallback)
+        {
+            m_session.Subscribe(eventCallback);
+        }
+        /// <summary>
+        /// Fired once when parsing the .wbn file has failed.
+        /// </summary>
+        public void SubscribeToSubresourceWebBundleMetadataErrorEvent(Action<SubresourceWebBundleMetadataErrorEvent> eventCallback)
+        {
+            m_session.Subscribe(eventCallback);
+        }
+        /// <summary>
+        /// Fired when handling requests for resources within a .wbn file.
+        /// Note: this will only be fired for resources that are requested by the webpage.
+        /// </summary>
+        public void SubscribeToSubresourceWebBundleInnerResponseParsedEvent(Action<SubresourceWebBundleInnerResponseParsedEvent> eventCallback)
+        {
+            m_session.Subscribe(eventCallback);
+        }
+        /// <summary>
+        /// Fired when request for resources within a .wbn file failed.
+        /// </summary>
+        public void SubscribeToSubresourceWebBundleInnerResponseErrorEvent(Action<SubresourceWebBundleInnerResponseErrorEvent> eventCallback)
+        {
+            m_session.Subscribe(eventCallback);
+        }
+        /// <summary>
+        /// Is sent whenever a new report is added.
+        /// And after 'enableReportingApi' for all existing reports.
+        /// </summary>
+        public void SubscribeToReportingApiReportAddedEvent(Action<ReportingApiReportAddedEvent> eventCallback)
+        {
+            m_session.Subscribe(eventCallback);
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        public void SubscribeToReportingApiReportUpdatedEvent(Action<ReportingApiReportUpdatedEvent> eventCallback)
+        {
+            m_session.Subscribe(eventCallback);
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        public void SubscribeToReportingApiEndpointsChangedForOriginEvent(Action<ReportingApiEndpointsChangedForOriginEvent> eventCallback)
         {
             m_session.Subscribe(eventCallback);
         }

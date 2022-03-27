@@ -4,7 +4,7 @@ namespace Zu.ChromeDevTools.Target
 
     /// <summary>
     /// Notifies about a new protocol message received from the session (as reported in
-        /// `attachedToTarget` event).
+    /// `attachedToTarget` event).
     /// </summary>
     public sealed class ReceivedMessageFromTargetEvent : IEvent
     {

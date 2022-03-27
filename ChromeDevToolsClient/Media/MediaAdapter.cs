@@ -56,8 +56,22 @@ namespace Zu.ChromeDevTools.Media
             m_session.Subscribe(eventCallback);
         }
         /// <summary>
-        /// Called whenever a player is created, or when a new agent joins and recieves
-        /// a list of active players. If an agent is restored, it will recieve the full
+        /// Send a list of any messages that need to be delivered.
+        /// </summary>
+        public void SubscribeToPlayerMessagesLoggedEvent(Action<PlayerMessagesLoggedEvent> eventCallback)
+        {
+            m_session.Subscribe(eventCallback);
+        }
+        /// <summary>
+        /// Send a list of any errors that need to be delivered.
+        /// </summary>
+        public void SubscribeToPlayerErrorsRaisedEvent(Action<PlayerErrorsRaisedEvent> eventCallback)
+        {
+            m_session.Subscribe(eventCallback);
+        }
+        /// <summary>
+        /// Called whenever a player is created, or when a new agent joins and receives
+        /// a list of active players. If an agent is restored, it will receive the full
         /// list of player ids and all events again.
         /// </summary>
         public void SubscribeToPlayersCreatedEvent(Action<PlayersCreatedEvent> eventCallback)

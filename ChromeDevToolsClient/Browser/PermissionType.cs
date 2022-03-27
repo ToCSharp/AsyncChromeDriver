@@ -22,6 +22,8 @@ namespace Zu.ChromeDevTools.Browser
         ClipboardReadWrite,
         [EnumMember(Value = "clipboardSanitizedWrite")]
         ClipboardSanitizedWrite,
+        [EnumMember(Value = "displayCapture")]
+        DisplayCapture,
         [EnumMember(Value = "durableStorage")]
         DurableStorage,
         [EnumMember(Value = "flash")]
@@ -46,6 +48,8 @@ namespace Zu.ChromeDevTools.Browser
         Sensors,
         [EnumMember(Value = "videoCapture")]
         VideoCapture,
+        [EnumMember(Value = "videoCapturePanTiltZoom")]
+        VideoCapturePanTiltZoom,
         [EnumMember(Value = "idleDetection")]
         IdleDetection,
         [EnumMember(Value = "wakeLockScreen")]

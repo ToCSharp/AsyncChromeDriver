@@ -3,7 +3,7 @@ namespace Zu.ChromeDevTools.Page
     using Newtonsoft.Json;
 
     /// <summary>
-    /// Clears the overriden device metrics.
+    /// Clears the overridden device metrics.
     /// </summary>
     public sealed class ClearDeviceMetricsOverrideCommand : ICommand
     {

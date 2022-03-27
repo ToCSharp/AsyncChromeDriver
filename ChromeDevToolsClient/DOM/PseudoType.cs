@@ -24,6 +24,14 @@ namespace Zu.ChromeDevTools.DOM
         Backdrop,
         [EnumMember(Value = "selection")]
         Selection,
+        [EnumMember(Value = "target-text")]
+        TargetText,
+        [EnumMember(Value = "spelling-error")]
+        SpellingError,
+        [EnumMember(Value = "grammar-error")]
+        GrammarError,
+        [EnumMember(Value = "highlight")]
+        Highlight,
         [EnumMember(Value = "first-line-inherited")]
         FirstLineInherited,
         [EnumMember(Value = "scrollbar")]
@@ -42,5 +50,15 @@ namespace Zu.ChromeDevTools.DOM
         Resizer,
         [EnumMember(Value = "input-list-button")]
         InputListButton,
+        [EnumMember(Value = "page-transition")]
+        PageTransition,
+        [EnumMember(Value = "page-transition-container")]
+        PageTransitionContainer,
+        [EnumMember(Value = "page-transition-image-wrapper")]
+        PageTransitionImageWrapper,
+        [EnumMember(Value = "page-transition-outgoing-image")]
+        PageTransitionOutgoingImage,
+        [EnumMember(Value = "page-transition-incoming-image")]
+        PageTransitionIncomingImage,
     }
 }

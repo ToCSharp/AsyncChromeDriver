@@ -75,7 +75,7 @@ namespace Zu.ChromeDevTools.Memory
         }
         /// <summary>
         /// Retrieve native memory allocations profile
-    /// collected since renderer process startup.
+        /// collected since renderer process startup.
         /// </summary>
         public async Task<GetAllTimeSamplingProfileCommandResponse> GetAllTimeSamplingProfile(GetAllTimeSamplingProfileCommand command = null, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
@@ -83,7 +83,7 @@ namespace Zu.ChromeDevTools.Memory
         }
         /// <summary>
         /// Retrieve native memory allocations profile
-    /// collected since browser process startup.
+        /// collected since browser process startup.
         /// </summary>
         public async Task<GetBrowserSamplingProfileCommandResponse> GetBrowserSamplingProfile(GetBrowserSamplingProfileCommand command = null, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
@@ -91,7 +91,7 @@ namespace Zu.ChromeDevTools.Memory
         }
         /// <summary>
         /// Retrieve native memory allocations profile collected since last
-    /// `startSampling` call.
+        /// `startSampling` call.
         /// </summary>
         public async Task<GetSamplingProfileCommandResponse> GetSamplingProfile(GetSamplingProfileCommand command = null, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {

@@ -8,7 +8,7 @@ namespace Zu.ChromeDevTools.Page
     public sealed class ScreencastFrameEvent : IEvent
     {
         /// <summary>
-        /// Base64-encoded compressed image.
+        /// Base64-encoded compressed image. (Encoded as a base64 string when passed over JSON)
         /// </summary>
         [JsonProperty("data")]
         public string Data

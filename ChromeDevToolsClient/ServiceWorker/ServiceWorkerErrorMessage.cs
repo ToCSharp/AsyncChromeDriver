@@ -8,8 +8,8 @@ namespace Zu.ChromeDevTools.ServiceWorker
     public sealed class ServiceWorkerErrorMessage
     {
         /// <summary>
-        /// 
-        ///</summary>
+        /// Gets or sets the errorMessage
+        /// </summary>
         [JsonProperty("errorMessage")]
         public string ErrorMessage
         {
@@ -17,8 +17,8 @@ namespace Zu.ChromeDevTools.ServiceWorker
             set;
         }
         /// <summary>
-        /// 
-        ///</summary>
+        /// Gets or sets the registrationId
+        /// </summary>
         [JsonProperty("registrationId")]
         public string RegistrationId
         {
@@ -26,8 +26,8 @@ namespace Zu.ChromeDevTools.ServiceWorker
             set;
         }
         /// <summary>
-        /// 
-        ///</summary>
+        /// Gets or sets the versionId
+        /// </summary>
         [JsonProperty("versionId")]
         public string VersionId
         {
@@ -35,8 +35,8 @@ namespace Zu.ChromeDevTools.ServiceWorker
             set;
         }
         /// <summary>
-        /// 
-        ///</summary>
+        /// Gets or sets the sourceURL
+        /// </summary>
         [JsonProperty("sourceURL")]
         public string SourceURL
         {
@@ -44,8 +44,8 @@ namespace Zu.ChromeDevTools.ServiceWorker
             set;
         }
         /// <summary>
-        /// 
-        ///</summary>
+        /// Gets or sets the lineNumber
+        /// </summary>
         [JsonProperty("lineNumber")]
         public long LineNumber
         {
@@ -53,8 +53,8 @@ namespace Zu.ChromeDevTools.ServiceWorker
             set;
         }
         /// <summary>
-        /// 
-        ///</summary>
+        /// Gets or sets the columnNumber
+        /// </summary>
         [JsonProperty("columnNumber")]
         public long ColumnNumber
         {

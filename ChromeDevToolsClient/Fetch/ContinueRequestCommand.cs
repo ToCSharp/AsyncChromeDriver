@@ -43,7 +43,7 @@ namespace Zu.ChromeDevTools.Fetch
             set;
         }
         /// <summary>
-        /// If set, overrides the post data in the request.
+        /// If set, overrides the post data in the request. (Encoded as a base64 string when passed over JSON)
         /// </summary>
         [JsonProperty("postData", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public string PostData
@@ -52,10 +52,19 @@ namespace Zu.ChromeDevTools.Fetch
             set;
         }
         /// <summary>
-        /// If set, overrides the request headrts.
+        /// If set, overrides the request headers.
         /// </summary>
         [JsonProperty("headers", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public HeaderEntry[] Headers
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// If set, overrides response interception behavior for this request.
+        /// </summary>
+        [JsonProperty("interceptResponse", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public bool? InterceptResponse
         {
             get;
             set;

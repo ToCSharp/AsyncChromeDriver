@@ -33,7 +33,7 @@ namespace Zu.ChromeDevTools.Runtime
         }
         /// <summary>
         /// Calls function with given declaration on the given object. Object group of the result is
-    /// inherited from the target object.
+        /// inherited from the target object.
         /// </summary>
         public async Task<CallFunctionOnCommandResponse> CallFunctionOn(CallFunctionOnCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
@@ -62,8 +62,8 @@ namespace Zu.ChromeDevTools.Runtime
         }
         /// <summary>
         /// Enables reporting of execution contexts creation by means of `executionContextCreated` event.
-    /// When the reporting gets enabled the event will be sent immediately for each existing execution
-    /// context.
+        /// When the reporting gets enabled the event will be sent immediately for each existing execution
+        /// context.
         /// </summary>
         public async Task<EnableCommandResponse> Enable(EnableCommand command = null, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
@@ -85,7 +85,7 @@ namespace Zu.ChromeDevTools.Runtime
         }
         /// <summary>
         /// Returns the JavaScript heap usage.
-    /// It is the total usage of the corresponding isolate not scoped to a particular Runtime.
+        /// It is the total usage of the corresponding isolate not scoped to a particular Runtime.
         /// </summary>
         public async Task<GetHeapUsageCommandResponse> GetHeapUsage(GetHeapUsageCommand command = null, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
@@ -93,7 +93,7 @@ namespace Zu.ChromeDevTools.Runtime
         }
         /// <summary>
         /// Returns properties of a given object. Object group of the result is inherited from the target
-    /// object.
+        /// object.
         /// </summary>
         public async Task<GetPropertiesCommandResponse> GetProperties(GetPropertiesCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
@@ -164,7 +164,7 @@ namespace Zu.ChromeDevTools.Runtime
         }
         /// <summary>
         /// Terminate current or next JavaScript execution.
-    /// Will cancel the termination when the outer-most script execution ends.
+        /// Will cancel the termination when the outer-most script execution ends.
         /// </summary>
         public async Task<TerminateExecutionCommandResponse> TerminateExecution(TerminateExecutionCommand command = null, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
@@ -172,13 +172,11 @@ namespace Zu.ChromeDevTools.Runtime
         }
         /// <summary>
         /// If executionContextId is empty, adds binding with the given name on the
-    /// global objects of all inspected contexts, including those created later,
-    /// bindings survive reloads.
-    /// If executionContextId is specified, adds binding only on global object of
-    /// given execution context.
-    /// Binding function takes exactly one argument, this argument should be string,
-    /// in case of any other input, function throws an exception.
-    /// Each binding function call produces Runtime.bindingCalled notification.
+        /// global objects of all inspected contexts, including those created later,
+        /// bindings survive reloads.
+        /// Binding function takes exactly one argument, this argument should be string,
+        /// in case of any other input, function throws an exception.
+        /// Each binding function call produces Runtime.bindingCalled notification.
         /// </summary>
         public async Task<AddBindingCommandResponse> AddBinding(AddBindingCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
@@ -186,7 +184,7 @@ namespace Zu.ChromeDevTools.Runtime
         }
         /// <summary>
         /// This method does not remove binding function from global object but
-    /// unsubscribes current runtime agent from Runtime.bindingCalled notifications.
+        /// unsubscribes current runtime agent from Runtime.bindingCalled notifications.
         /// </summary>
         public async Task<RemoveBindingCommandResponse> RemoveBinding(RemoveBindingCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {

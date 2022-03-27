@@ -26,6 +26,15 @@ namespace Zu.ChromeDevTools.DOMSnapshot
             set;
         }
         /// <summary>
+        /// Type of the shadow root the `Node` is in. String values are equal to the `ShadowRootType` enum.
+        ///</summary>
+        [JsonProperty("shadowRootType", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public RareStringData ShadowRootType
+        {
+            get;
+            set;
+        }
+        /// <summary>
         /// `Node`'s nodeName.
         ///</summary>
         [JsonProperty("nodeName", DefaultValueHandling = DefaultValueHandling.Ignore)]
@@ -56,7 +65,7 @@ namespace Zu.ChromeDevTools.DOMSnapshot
         /// Attributes of an `Element` node. Flatten name, value pairs.
         ///</summary>
         [JsonProperty("attributes", DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public string[][] Attributes
+        public long[][] Attributes
         {
             get;
             set;

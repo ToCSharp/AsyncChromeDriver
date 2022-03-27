@@ -26,8 +26,8 @@ namespace Zu.ChromeDevTools.DOM
             set;
         }
         /// <summary>
-        /// 
-        ///</summary>
+        /// Gets or sets the backendNodeId
+        /// </summary>
         [JsonProperty("backendNodeId")]
         public long BackendNodeId
         {

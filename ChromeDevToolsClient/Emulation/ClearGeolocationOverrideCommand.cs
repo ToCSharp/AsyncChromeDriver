@@ -3,7 +3,7 @@ namespace Zu.ChromeDevTools.Emulation
     using Newtonsoft.Json;
 
     /// <summary>
-    /// Clears the overriden Geolocation Position and Error.
+    /// Clears the overridden Geolocation Position and Error.
     /// </summary>
     public sealed class ClearGeolocationOverrideCommand : ICommand
     {

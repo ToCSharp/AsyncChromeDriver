@@ -35,6 +35,15 @@ namespace Zu.ChromeDevTools.Overlay
             set;
         }
         /// <summary>
+        /// Whether the a11y info should be shown (default: true).
+        ///</summary>
+        [JsonProperty("showAccessibilityInfo", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public bool? ShowAccessibilityInfo
+        {
+            get;
+            set;
+        }
+        /// <summary>
         /// Whether the extension lines from node to the rulers should be shown (default: false).
         ///</summary>
         [JsonProperty("showExtensionLines", DefaultValueHandling = DefaultValueHandling.Ignore)]
@@ -111,6 +120,60 @@ namespace Zu.ChromeDevTools.Overlay
         ///</summary>
         [JsonProperty("cssGridColor", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public DOM.RGBA CssGridColor
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// The color format used to format color styles (default: hex).
+        ///</summary>
+        [JsonProperty("colorFormat", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public ColorFormat? ColorFormat
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// The grid layout highlight configuration (default: all transparent).
+        ///</summary>
+        [JsonProperty("gridHighlightConfig", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public GridHighlightConfig GridHighlightConfig
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// The flex container highlight configuration (default: all transparent).
+        ///</summary>
+        [JsonProperty("flexContainerHighlightConfig", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public FlexContainerHighlightConfig FlexContainerHighlightConfig
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// The flex item highlight configuration (default: all transparent).
+        ///</summary>
+        [JsonProperty("flexItemHighlightConfig", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public FlexItemHighlightConfig FlexItemHighlightConfig
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// The contrast algorithm to use for the contrast ratio (default: aa).
+        ///</summary>
+        [JsonProperty("contrastAlgorithm", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public ContrastAlgorithm? ContrastAlgorithm
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// The container query container highlight configuration (default: all transparent).
+        ///</summary>
+        [JsonProperty("containerQueryContainerHighlightConfig", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public ContainerQueryContainerHighlightConfig ContainerQueryContainerHighlightConfig
         {
             get;
             set;

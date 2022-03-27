@@ -175,7 +175,7 @@ namespace Zu.ChromeDevTools.Page
     public sealed class PrintToPDFCommandResponse : ICommandResponse<PrintToPDFCommand>
     {
         /// <summary>
-        /// Base64-encoded pdf data. Empty if |returnAsStream| is specified.
+        /// Base64-encoded pdf data. Empty if |returnAsStream| is specified. (Encoded as a base64 string when passed over JSON)
         ///</summary>
         [JsonProperty("data")]
         public string Data

@@ -18,6 +18,8 @@ namespace Zu.ChromeDevTools.Runtime
         }
         /// <summary>
         /// Object subtype hint. Specified for `object` type values only.
+        /// NOTE: If you change anything here, make sure to also update
+        /// `subtype` in `ObjectPreview` and `PropertyPreview` below.
         ///</summary>
         [JsonProperty("subtype", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public string Subtype
@@ -81,8 +83,8 @@ namespace Zu.ChromeDevTools.Runtime
             set;
         }
         /// <summary>
-        /// 
-        ///</summary>
+        /// Gets or sets the customPreview
+        /// </summary>
         [JsonProperty("customPreview", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public CustomPreview CustomPreview
         {

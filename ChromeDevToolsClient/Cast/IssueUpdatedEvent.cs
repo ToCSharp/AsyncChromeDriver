@@ -4,7 +4,7 @@ namespace Zu.ChromeDevTools.Cast
 
     /// <summary>
     /// This is fired whenever the outstanding issue/error message changes.
-        /// |issueMessage| is empty if there is no issue.
+    /// |issueMessage| is empty if there is no issue.
     /// </summary>
     public sealed class IssueUpdatedEvent : IEvent
     {

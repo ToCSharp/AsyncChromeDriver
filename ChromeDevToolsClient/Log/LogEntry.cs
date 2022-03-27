@@ -35,6 +35,15 @@ namespace Zu.ChromeDevTools.Log
             set;
         }
         /// <summary>
+        /// Gets or sets the category
+        /// </summary>
+        [JsonProperty("category", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public string Category
+        {
+            get;
+            set;
+        }
+        /// <summary>
         /// Timestamp when this entry was added.
         ///</summary>
         [JsonProperty("timestamp")]

@@ -35,6 +35,15 @@ namespace Zu.ChromeDevTools.Profiler
             get;
             set;
         }
+        /// <summary>
+        /// Allow the backend to send updates on its own initiative
+        /// </summary>
+        [JsonProperty("allowTriggeredUpdates", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public bool? AllowTriggeredUpdates
+        {
+            get;
+            set;
+        }
     }
 
     public sealed class StartPreciseCoverageCommandResponse : ICommandResponse<StartPreciseCoverageCommand>

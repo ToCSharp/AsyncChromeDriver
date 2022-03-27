@@ -53,6 +53,16 @@ namespace Zu.ChromeDevTools.Network
             set;
         }
         /// <summary>
+        /// Indicates whether requestWillBeSentExtraInfo and responseReceivedExtraInfo events will be
+        /// or were emitted for this request.
+        /// </summary>
+        [JsonProperty("hasExtraInfo")]
+        public bool HasExtraInfo
+        {
+            get;
+            set;
+        }
+        /// <summary>
         /// Frame identifier.
         /// </summary>
         [JsonProperty("frameId", DefaultValueHandling = DefaultValueHandling.Ignore)]

@@ -8,8 +8,8 @@ namespace Zu.ChromeDevTools.WebAudio
     public sealed class AudioNode
     {
         /// <summary>
-        /// 
-        ///</summary>
+        /// Gets or sets the nodeId
+        /// </summary>
         [JsonProperty("nodeId")]
         public string NodeId
         {
@@ -17,8 +17,8 @@ namespace Zu.ChromeDevTools.WebAudio
             set;
         }
         /// <summary>
-        /// 
-        ///</summary>
+        /// Gets or sets the contextId
+        /// </summary>
         [JsonProperty("contextId")]
         public string ContextId
         {
@@ -26,8 +26,8 @@ namespace Zu.ChromeDevTools.WebAudio
             set;
         }
         /// <summary>
-        /// 
-        ///</summary>
+        /// Gets or sets the nodeType
+        /// </summary>
         [JsonProperty("nodeType")]
         public string NodeType
         {
@@ -35,8 +35,8 @@ namespace Zu.ChromeDevTools.WebAudio
             set;
         }
         /// <summary>
-        /// 
-        ///</summary>
+        /// Gets or sets the numberOfInputs
+        /// </summary>
         [JsonProperty("numberOfInputs")]
         public double NumberOfInputs
         {
@@ -44,8 +44,8 @@ namespace Zu.ChromeDevTools.WebAudio
             set;
         }
         /// <summary>
-        /// 
-        ///</summary>
+        /// Gets or sets the numberOfOutputs
+        /// </summary>
         [JsonProperty("numberOfOutputs")]
         public double NumberOfOutputs
         {
@@ -53,8 +53,8 @@ namespace Zu.ChromeDevTools.WebAudio
             set;
         }
         /// <summary>
-        /// 
-        ///</summary>
+        /// Gets or sets the channelCount
+        /// </summary>
         [JsonProperty("channelCount")]
         public double ChannelCount
         {
@@ -62,8 +62,8 @@ namespace Zu.ChromeDevTools.WebAudio
             set;
         }
         /// <summary>
-        /// 
-        ///</summary>
+        /// Gets or sets the channelCountMode
+        /// </summary>
         [JsonProperty("channelCountMode")]
         public ChannelCountMode ChannelCountMode
         {
@@ -71,8 +71,8 @@ namespace Zu.ChromeDevTools.WebAudio
             set;
         }
         /// <summary>
-        /// 
-        ///</summary>
+        /// Gets or sets the channelInterpretation
+        /// </summary>
         [JsonProperty("channelInterpretation")]
         public ChannelInterpretation ChannelInterpretation
         {

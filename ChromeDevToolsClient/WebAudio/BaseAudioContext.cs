@@ -8,8 +8,8 @@ namespace Zu.ChromeDevTools.WebAudio
     public sealed class BaseAudioContext
     {
         /// <summary>
-        /// 
-        ///</summary>
+        /// Gets or sets the contextId
+        /// </summary>
         [JsonProperty("contextId")]
         public string ContextId
         {
@@ -17,8 +17,8 @@ namespace Zu.ChromeDevTools.WebAudio
             set;
         }
         /// <summary>
-        /// 
-        ///</summary>
+        /// Gets or sets the contextType
+        /// </summary>
         [JsonProperty("contextType")]
         public ContextType ContextType
         {
@@ -26,8 +26,8 @@ namespace Zu.ChromeDevTools.WebAudio
             set;
         }
         /// <summary>
-        /// 
-        ///</summary>
+        /// Gets or sets the contextState
+        /// </summary>
         [JsonProperty("contextState")]
         public ContextState ContextState
         {
@@ -35,8 +35,8 @@ namespace Zu.ChromeDevTools.WebAudio
             set;
         }
         /// <summary>
-        /// 
-        ///</summary>
+        /// Gets or sets the realtimeData
+        /// </summary>
         [JsonProperty("realtimeData", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public ContextRealtimeData RealtimeData
         {

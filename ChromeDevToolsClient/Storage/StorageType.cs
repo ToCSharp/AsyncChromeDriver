@@ -15,19 +15,21 @@ namespace Zu.ChromeDevTools.Storage
         [EnumMember(Value = "cookies")]
         Cookies,
         [EnumMember(Value = "file_systems")]
-        FileSystems,
+        File_systems,
         [EnumMember(Value = "indexeddb")]
         Indexeddb,
         [EnumMember(Value = "local_storage")]
-        LocalStorage,
+        Local_storage,
         [EnumMember(Value = "shader_cache")]
-        ShaderCache,
+        Shader_cache,
         [EnumMember(Value = "websql")]
         Websql,
         [EnumMember(Value = "service_workers")]
-        ServiceWorkers,
+        Service_workers,
         [EnumMember(Value = "cache_storage")]
-        CacheStorage,
+        Cache_storage,
+        [EnumMember(Value = "interest_groups")]
+        Interest_groups,
         [EnumMember(Value = "all")]
         All,
         [EnumMember(Value = "other")]

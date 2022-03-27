@@ -4,7 +4,7 @@ namespace Zu.ChromeDevTools.Media
 
     /// <summary>
     /// This can be called multiple times, and can be used to set / override /
-        /// remove player properties. A null propValue indicates removal.
+    /// remove player properties. A null propValue indicates removal.
     /// </summary>
     public sealed class PlayerPropertiesChangedEvent : IEvent
     {

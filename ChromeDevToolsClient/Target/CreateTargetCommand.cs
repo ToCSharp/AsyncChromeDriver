@@ -16,7 +16,7 @@ namespace Zu.ChromeDevTools.Target
         }
 
         /// <summary>
-        /// The initial URL the page will be navigated to.
+        /// The initial URL the page will be navigated to. An empty string indicates about:blank.
         /// </summary>
         [JsonProperty("url")]
         public string Url

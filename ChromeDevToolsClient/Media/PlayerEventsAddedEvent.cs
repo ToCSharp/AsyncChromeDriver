@@ -4,7 +4,7 @@ namespace Zu.ChromeDevTools.Media
 
     /// <summary>
     /// Send events as a list, allowing them to be batched on the browser for less
-        /// congestion. If batched, events must ALWAYS be in chronological order.
+    /// congestion. If batched, events must ALWAYS be in chronological order.
     /// </summary>
     public sealed class PlayerEventsAddedEvent : IEvent
     {

@@ -4,7 +4,7 @@ namespace Zu.ChromeDevTools.Runtime
 
     /// <summary>
     /// Issued when object should be inspected (for example, as a result of inspect() command line API
-        /// call).
+    /// call).
     /// </summary>
     public sealed class InspectRequestedEvent : IEvent
     {
@@ -22,6 +22,15 @@ namespace Zu.ChromeDevTools.Runtime
         /// </summary>
         [JsonProperty("hints")]
         public object Hints
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// Identifier of the context where the call was made.
+        /// </summary>
+        [JsonProperty("executionContextId", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public long? ExecutionContextId
         {
             get;
             set;

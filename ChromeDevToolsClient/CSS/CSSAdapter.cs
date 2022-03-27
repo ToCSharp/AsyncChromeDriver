@@ -26,7 +26,7 @@ namespace Zu.ChromeDevTools.CSS
 
         /// <summary>
         /// Inserts a new rule with the given `ruleText` in a stylesheet with given `styleSheetId`, at the
-    /// position specified by `location`.
+        /// position specified by `location`.
         /// </summary>
         public async Task<AddRuleCommandResponse> AddRule(AddRuleCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
@@ -55,7 +55,7 @@ namespace Zu.ChromeDevTools.CSS
         }
         /// <summary>
         /// Enables the CSS agent for the given page. Clients should not assume that the CSS agent has been
-    /// enabled until the result of this command is received.
+        /// enabled until the result of this command is received.
         /// </summary>
         public async Task<EnableCommandResponse> Enable(EnableCommand command = null, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
@@ -63,7 +63,7 @@ namespace Zu.ChromeDevTools.CSS
         }
         /// <summary>
         /// Ensures that the given node will have specified pseudo-classes whenever its style is computed by
-    /// the browser.
+        /// the browser.
         /// </summary>
         public async Task<ForcePseudoStateCommandResponse> ForcePseudoState(ForcePseudoStateCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
@@ -85,7 +85,7 @@ namespace Zu.ChromeDevTools.CSS
         }
         /// <summary>
         /// Returns the styles defined inline (explicitly in the "style" attribute and implicitly, using DOM
-    /// attributes) for a DOM node identified by `nodeId`.
+        /// attributes) for a DOM node identified by `nodeId`.
         /// </summary>
         public async Task<GetInlineStylesForNodeCommandResponse> GetInlineStylesForNode(GetInlineStylesForNodeCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
@@ -107,7 +107,7 @@ namespace Zu.ChromeDevTools.CSS
         }
         /// <summary>
         /// Requests information about platform fonts which we used to render child TextNodes in the given
-    /// node.
+        /// node.
         /// </summary>
         public async Task<GetPlatformFontsForNodeCommandResponse> GetPlatformFontsForNode(GetPlatformFontsForNodeCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
@@ -121,8 +121,37 @@ namespace Zu.ChromeDevTools.CSS
             return await m_session.SendCommand<GetStyleSheetTextCommand, GetStyleSheetTextCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
         }
         /// <summary>
+        /// Returns all layers parsed by the rendering engine for the tree scope of a node.
+        /// Given a DOM element identified by nodeId, getLayersForNode returns the root
+        /// layer for the nearest ancestor document or shadow root. The layer root contains
+        /// the full layer tree for the tree scope and their ordering.
+        /// </summary>
+        public async Task<GetLayersForNodeCommandResponse> GetLayersForNode(GetLayersForNodeCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
+        {
+            return await m_session.SendCommand<GetLayersForNodeCommand, GetLayersForNodeCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
+        }
+        /// <summary>
+        /// Starts tracking the given computed styles for updates. The specified array of properties
+        /// replaces the one previously specified. Pass empty array to disable tracking.
+        /// Use takeComputedStyleUpdates to retrieve the list of nodes that had properties modified.
+        /// The changes to computed style properties are only tracked for nodes pushed to the front-end
+        /// by the DOM agent. If no changes to the tracked properties occur after the node has been pushed
+        /// to the front-end, no updates will be issued for the node.
+        /// </summary>
+        public async Task<TrackComputedStyleUpdatesCommandResponse> TrackComputedStyleUpdates(TrackComputedStyleUpdatesCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
+        {
+            return await m_session.SendCommand<TrackComputedStyleUpdatesCommand, TrackComputedStyleUpdatesCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
+        }
+        /// <summary>
+        /// Polls the next batch of computed style updates.
+        /// </summary>
+        public async Task<TakeComputedStyleUpdatesCommandResponse> TakeComputedStyleUpdates(TakeComputedStyleUpdatesCommand command = null, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
+        {
+            return await m_session.SendCommand<TakeComputedStyleUpdatesCommand, TakeComputedStyleUpdatesCommandResponse>(command ?? new TakeComputedStyleUpdatesCommand(), cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
+        }
+        /// <summary>
         /// Find a rule with the given active property for the given node and set the new value for this
-    /// property
+        /// property
         /// </summary>
         public async Task<SetEffectivePropertyValueForNodeCommandResponse> SetEffectivePropertyValueForNode(SetEffectivePropertyValueForNodeCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
@@ -141,6 +170,20 @@ namespace Zu.ChromeDevTools.CSS
         public async Task<SetMediaTextCommandResponse> SetMediaText(SetMediaTextCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
             return await m_session.SendCommand<SetMediaTextCommand, SetMediaTextCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
+        }
+        /// <summary>
+        /// Modifies the expression of a container query.
+        /// </summary>
+        public async Task<SetContainerQueryTextCommandResponse> SetContainerQueryText(SetContainerQueryTextCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
+        {
+            return await m_session.SendCommand<SetContainerQueryTextCommand, SetContainerQueryTextCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
+        }
+        /// <summary>
+        /// Modifies the expression of a supports at-rule.
+        /// </summary>
+        public async Task<SetSupportsTextCommandResponse> SetSupportsText(SetSupportsTextCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
+        {
+            return await m_session.SendCommand<SetSupportsTextCommand, SetSupportsTextCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
         }
         /// <summary>
         /// Modifies the rule selector.
@@ -172,7 +215,7 @@ namespace Zu.ChromeDevTools.CSS
         }
         /// <summary>
         /// Stop tracking rule usage and return the list of rules that were used since last call to
-    /// `takeCoverageDelta` (or since start of coverage instrumentation)
+        /// `takeCoverageDelta` (or since start of coverage instrumentation)
         /// </summary>
         public async Task<StopRuleUsageTrackingCommandResponse> StopRuleUsageTracking(StopRuleUsageTrackingCommand command = null, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
@@ -180,11 +223,18 @@ namespace Zu.ChromeDevTools.CSS
         }
         /// <summary>
         /// Obtain list of rules that became used since last call to this method (or since start of coverage
-    /// instrumentation)
+        /// instrumentation)
         /// </summary>
         public async Task<TakeCoverageDeltaCommandResponse> TakeCoverageDelta(TakeCoverageDeltaCommand command = null, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
             return await m_session.SendCommand<TakeCoverageDeltaCommand, TakeCoverageDeltaCommandResponse>(command ?? new TakeCoverageDeltaCommand(), cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
+        }
+        /// <summary>
+        /// Enables/disables rendering of local CSS fonts (enabled by default).
+        /// </summary>
+        public async Task<SetLocalFontsEnabledCommandResponse> SetLocalFontsEnabled(SetLocalFontsEnabledCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
+        {
+            return await m_session.SendCommand<SetLocalFontsEnabledCommand, SetLocalFontsEnabledCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
         }
 
         /// <summary>

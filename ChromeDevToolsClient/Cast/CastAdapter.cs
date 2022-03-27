@@ -26,10 +26,10 @@ namespace Zu.ChromeDevTools.Cast
 
         /// <summary>
         /// Starts observing for sinks that can be used for tab mirroring, and if set,
-    /// sinks compatible with |presentationUrl| as well. When sinks are found, a
-    /// |sinksUpdated| event is fired.
-    /// Also starts observing for issue messages. When an issue is added or removed,
-    /// an |issueUpdated| event is fired.
+        /// sinks compatible with |presentationUrl| as well. When sinks are found, a
+        /// |sinksUpdated| event is fired.
+        /// Also starts observing for issue messages. When an issue is added or removed,
+        /// an |issueUpdated| event is fired.
         /// </summary>
         public async Task<EnableCommandResponse> Enable(EnableCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
@@ -44,11 +44,18 @@ namespace Zu.ChromeDevTools.Cast
         }
         /// <summary>
         /// Sets a sink to be used when the web page requests the browser to choose a
-    /// sink via Presentation API, Remote Playback API, or Cast SDK.
+        /// sink via Presentation API, Remote Playback API, or Cast SDK.
         /// </summary>
         public async Task<SetSinkToUseCommandResponse> SetSinkToUse(SetSinkToUseCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
         {
             return await m_session.SendCommand<SetSinkToUseCommand, SetSinkToUseCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
+        }
+        /// <summary>
+        /// Starts mirroring the desktop to the sink.
+        /// </summary>
+        public async Task<StartDesktopMirroringCommandResponse> StartDesktopMirroring(StartDesktopMirroringCommand command, CancellationToken cancellationToken = default(CancellationToken), int? millisecondsTimeout = null, bool throwExceptionIfResponseNotReceived = true)
+        {
+            return await m_session.SendCommand<StartDesktopMirroringCommand, StartDesktopMirroringCommandResponse>(command, cancellationToken, millisecondsTimeout, throwExceptionIfResponseNotReceived);
         }
         /// <summary>
         /// Starts mirroring the tab to the sink.

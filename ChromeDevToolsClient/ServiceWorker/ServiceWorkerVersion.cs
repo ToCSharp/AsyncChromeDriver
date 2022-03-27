@@ -8,8 +8,8 @@ namespace Zu.ChromeDevTools.ServiceWorker
     public sealed class ServiceWorkerVersion
     {
         /// <summary>
-        /// 
-        ///</summary>
+        /// Gets or sets the versionId
+        /// </summary>
         [JsonProperty("versionId")]
         public string VersionId
         {
@@ -17,8 +17,8 @@ namespace Zu.ChromeDevTools.ServiceWorker
             set;
         }
         /// <summary>
-        /// 
-        ///</summary>
+        /// Gets or sets the registrationId
+        /// </summary>
         [JsonProperty("registrationId")]
         public string RegistrationId
         {
@@ -26,8 +26,8 @@ namespace Zu.ChromeDevTools.ServiceWorker
             set;
         }
         /// <summary>
-        /// 
-        ///</summary>
+        /// Gets or sets the scriptURL
+        /// </summary>
         [JsonProperty("scriptURL")]
         public string ScriptURL
         {
@@ -35,8 +35,8 @@ namespace Zu.ChromeDevTools.ServiceWorker
             set;
         }
         /// <summary>
-        /// 
-        ///</summary>
+        /// Gets or sets the runningStatus
+        /// </summary>
         [JsonProperty("runningStatus")]
         public ServiceWorkerVersionRunningStatus RunningStatus
         {
@@ -44,8 +44,8 @@ namespace Zu.ChromeDevTools.ServiceWorker
             set;
         }
         /// <summary>
-        /// 
-        ///</summary>
+        /// Gets or sets the status
+        /// </summary>
         [JsonProperty("status")]
         public ServiceWorkerVersionStatus Status
         {
@@ -72,8 +72,8 @@ namespace Zu.ChromeDevTools.ServiceWorker
             set;
         }
         /// <summary>
-        /// 
-        ///</summary>
+        /// Gets or sets the controlledClients
+        /// </summary>
         [JsonProperty("controlledClients", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public string[] ControlledClients
         {
@@ -81,8 +81,8 @@ namespace Zu.ChromeDevTools.ServiceWorker
             set;
         }
         /// <summary>
-        /// 
-        ///</summary>
+        /// Gets or sets the targetId
+        /// </summary>
         [JsonProperty("targetId", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public string TargetId
         {

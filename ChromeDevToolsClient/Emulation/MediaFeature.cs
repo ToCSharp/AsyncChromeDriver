@@ -8,8 +8,8 @@ namespace Zu.ChromeDevTools.Emulation
     public sealed class MediaFeature
     {
         /// <summary>
-        /// 
-        ///</summary>
+        /// Gets or sets the name
+        /// </summary>
         [JsonProperty("name")]
         public string Name
         {
@@ -17,8 +17,8 @@ namespace Zu.ChromeDevTools.Emulation
             set;
         }
         /// <summary>
-        /// 
-        ///</summary>
+        /// Gets or sets the value
+        /// </summary>
         [JsonProperty("value")]
         public string Value
         {

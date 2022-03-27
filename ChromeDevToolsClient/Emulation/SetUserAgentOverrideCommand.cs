@@ -42,6 +42,15 @@ namespace Zu.ChromeDevTools.Emulation
             get;
             set;
         }
+        /// <summary>
+        /// To be sent in Sec-CH-UA-* headers and returned in navigator.userAgentData
+        /// </summary>
+        [JsonProperty("userAgentMetadata", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public UserAgentMetadata UserAgentMetadata
+        {
+            get;
+            set;
+        }
     }
 
     public sealed class SetUserAgentOverrideCommandResponse : ICommandResponse<SetUserAgentOverrideCommand>

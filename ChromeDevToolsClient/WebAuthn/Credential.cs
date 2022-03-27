@@ -8,8 +8,8 @@ namespace Zu.ChromeDevTools.WebAuthn
     public sealed class Credential
     {
         /// <summary>
-        /// 
-        ///</summary>
+        /// Gets or sets the credentialId
+        /// </summary>
         [JsonProperty("credentialId")]
         public string CredentialId
         {
@@ -17,8 +17,8 @@ namespace Zu.ChromeDevTools.WebAuthn
             set;
         }
         /// <summary>
-        /// 
-        ///</summary>
+        /// Gets or sets the isResidentCredential
+        /// </summary>
         [JsonProperty("isResidentCredential")]
         public bool IsResidentCredential
         {
@@ -36,7 +36,7 @@ namespace Zu.ChromeDevTools.WebAuthn
             set;
         }
         /// <summary>
-        /// The ECDSA P-256 private key in PKCS#8 format.
+        /// The ECDSA P-256 private key in PKCS#8 format. (Encoded as a base64 string when passed over JSON)
         ///</summary>
         [JsonProperty("privateKey")]
         public string PrivateKey
@@ -46,7 +46,7 @@ namespace Zu.ChromeDevTools.WebAuthn
         }
         /// <summary>
         /// An opaque byte sequence with a maximum size of 64 bytes mapping the
-        /// credential to a specific user.
+        /// credential to a specific user. (Encoded as a base64 string when passed over JSON)
         ///</summary>
         [JsonProperty("userHandle", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public string UserHandle
@@ -61,6 +61,16 @@ namespace Zu.ChromeDevTools.WebAuthn
         ///</summary>
         [JsonProperty("signCount")]
         public long SignCount
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// The large blob associated with the credential.
+        /// See https://w3c.github.io/webauthn/#sctn-large-blob-extension (Encoded as a base64 string when passed over JSON)
+        ///</summary>
+        [JsonProperty("largeBlob", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public string LargeBlob
         {
             get;
             set;

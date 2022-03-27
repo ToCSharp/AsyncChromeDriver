@@ -38,7 +38,7 @@ namespace Zu.ChromeDevTools.Debugger
             set;
         }
         /// <summary>
-        /// Wasm bytecode.
+        /// Wasm bytecode. (Encoded as a base64 string when passed over JSON)
         ///</summary>
         [JsonProperty("bytecode", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public string Bytecode

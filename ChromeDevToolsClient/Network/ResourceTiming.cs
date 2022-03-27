@@ -108,6 +108,24 @@ namespace Zu.ChromeDevTools.Network
             set;
         }
         /// <summary>
+        /// Started fetch event.
+        ///</summary>
+        [JsonProperty("workerFetchStart")]
+        public double WorkerFetchStart
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// Settled fetch event respondWith promise.
+        ///</summary>
+        [JsonProperty("workerRespondWithSettled")]
+        public double WorkerRespondWithSettled
+        {
+            get;
+            set;
+        }
+        /// <summary>
         /// Started sending request.
         ///</summary>
         [JsonProperty("sendStart")]
