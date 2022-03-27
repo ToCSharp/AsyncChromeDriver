@@ -132,7 +132,7 @@ namespace AsyncChromeDriverExample
                 var rnd = new Random();
                 foreach (var v in "ToCSharp")
                 {
-                    await Task.Delay(500 + rnd.Next(1000));
+                    await Task.Delay(100 + rnd.Next(400));
                     await query.SendKeys(v.ToString());
                 }
                 await Task.Delay(500);

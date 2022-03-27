@@ -1,8 +1,8 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;net462</TargetFrameworks>
-    <Version>0.5.6</Version>
+    <Version>0.5.8</Version>
     <Authors>Oleg Zudov</Authors>
     <Description>Async .Net Chrome WebDriver and Chrome DevTools through a single connection.</Description>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -10,8 +10,9 @@
     <PackageProjectUrl>https://github.com/ToCSharp/AsyncChromeDriver</PackageProjectUrl>
     <RepositoryUrl>https://github.com/ToCSharp/AsyncChromeDriver</RepositoryUrl>
     <PackageTags>Chrome DevTools AsyncChromeDriver AsyncWebDriver WebDriver</PackageTags>
-    <PackageReleaseNotes>Protocol r655971 on May 2, 2019 (Chrome 74)</PackageReleaseNotes>
+    <PackageReleaseNotes>Protocol r982423 on Mar 18, 2022 (Chrome 99)</PackageReleaseNotes>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
   
   <!-- Conditionally obtain references for the .NET Framework 4.0 target -->
@@ -26,6 +27,10 @@
 
   <ItemGroup>
     <None Remove="DriverCore\utils.csx" />
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
     <None Include="..\LICENSE.txt">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
@@ -117,8 +122,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AsyncWebDriver" Version="1.4.3" />
-    <PackageReference Include="IAsyncWebBrowserClient" Version="0.2.3" />
+    <PackageReference Include="AsyncWebDriver" Version="1.4.6" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
 
