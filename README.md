@@ -1,6 +1,8 @@
 ## AsyncChromeDriver
-Async .Net Chrome WebDriver and Chrome DevTools in one library. 
 
+> **Development discontinued.** This project is no longer maintained. Further development continues at **[ZuChromeDriver](https://github.com/ZuChromeDriver/ZuChromeDriver)** — the successor with the same core idea (in-process CDP, chromedriver atom parity, async-first WebDriver API, and full Chrome DevTools access).
+
+Async .Net Chrome WebDriver and Chrome DevTools in one library. 
 It connects directly to [Chrome DevTools](https://chromedevtools.github.io/devtools-protocol/) and is async from this connection. No need in chromedriver.
 
 AsyncChromeDriver implements [IAsyncWebBrowserClient](https://github.com/ToCSharp/IAsyncWebBrowserClient) and can be used as [AsyncWebDriver](https://github.com/ToCSharp/AsyncWebDriver).
